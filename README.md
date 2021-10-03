@@ -12,7 +12,7 @@ Descripción del Sistema...
   - Igresar al contenedor e intalar composer:
 
   ```
-  docker-compose exec app bash -c "composer install" 
+  docker-compose exec -u www-data app bash -c "composer install" 
   ```
 
   - Asignar los permisos a las carpetas necesarias del repo:
