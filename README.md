@@ -12,10 +12,10 @@ Descripción del Sistema...
   - Ingresar al contenedor e instalar composer:
 
   ```
-  docker-compose exec app bash -c "composer install" 
+  docker-compose exec -u www-data app bash -c "composer install" 
   ```
 
-  - Asignar los permisos a las carpetas del repo:
+  - Asignar los permisos a las carpetas necesarias del repo:
   ```
-  sudo chmod -R 777 src/
+  chmod 777 src/app/runtime/ src/app/web/assets/
   ```
