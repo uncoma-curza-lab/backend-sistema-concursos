@@ -2,14 +2,14 @@
 Descripción del Sistema...
 
 
-## Puesta en marcha del ambiente
+## Puesta en marcha del Ambiente Yii + NextCloud
   
   - Ejecutar el docker compose:
 ```
   docker-compose up -d
 ```
 
-  - Igresar al contenedor e intalar composer:
+  - Ingresar al contenedor e instalar composer:
 
   ```
   docker-compose exec app bash -c "composer install" 
