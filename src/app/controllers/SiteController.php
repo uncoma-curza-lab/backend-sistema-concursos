@@ -125,4 +125,18 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    public function actionHealthcheck()
+{
+    isset($_GET['code']) ? $code=$_GET['code'] : $code=200;
+
+    $response = \Yii::$app->response;
+    $response->format = \yii\web\Response::FORMAT_JSON;
+    $response->statusCode = $code;
+
+    return [
+        'Message' => 'Estado de salud',
+        'Status Code' => $response->statusCode,
+    ];
+}
 }
