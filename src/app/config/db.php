@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '',
+    'dsn' => 'pgsql:host='.$_ENV['DDBB_HOST'].';dbname='.$_ENV['DDBB_NAME'].'',
+    'username' => $_ENV['DDBB_USER'],
+    'password' => $_ENV['DDBB_PASSWORD'],
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
