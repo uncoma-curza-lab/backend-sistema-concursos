@@ -14,6 +14,8 @@ class m211111_032043_create_areas_table extends Migration
     {
         $this->createTable('{{%areas}}', [
             'id' => $this->primaryKey(),
+            'name' => $this->string(),
+            'code' => $this->string()->notNull()->unique(),
         ]);
     }
 

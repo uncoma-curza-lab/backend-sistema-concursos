@@ -12,9 +12,10 @@ class m211111_032033_create_careers_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%careers}}', [
-            'id' => $this->primaryKey(),
-        ]);
+        //$this->createTable('{{%careers}}', [
+        //    'id' => $this->primaryKey(),
+        //]);
+        // nothing yet
     }
 
     /**
@@ -22,6 +23,7 @@ class m211111_032033_create_careers_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%careers}}');
+        //$this->dropTable('{{%careers}}');
+        // nothing yet
     }
 }

@@ -12,9 +12,10 @@ class m211111_032021_create_departaments_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%departaments}}', [
-            'id' => $this->primaryKey(),
-        ]);
+        //$this->createTable('{{%departaments}}', [
+        //    'id' => $this->primaryKey(),
+        //]);
+        // nothing yet
     }
 
     /**
@@ -22,6 +23,7 @@ class m211111_032021_create_departaments_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%departaments}}');
+        //$this->dropTable('{{%departaments}}');
+        // nothing yet
     }
 }
