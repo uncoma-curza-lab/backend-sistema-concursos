@@ -14,6 +14,9 @@ class m211111_032010_create_working_day_types_table extends Migration
     {
         $this->createTable('{{%working_day_types}}', [
             'id' => $this->primaryKey(),
+            'name' => $this->string(),
+            'code' => $this->string()->notNull()->unique(),
+            // TODO timestamps
         ]);
     }
 
