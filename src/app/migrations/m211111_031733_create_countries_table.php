@@ -15,7 +15,7 @@ class m211111_031733_create_countries_table extends Migration
         $this->createTable('{{%countries}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
-            'code' => $this->string(100)->notNull()->unique()
+            'code' => $this->string(100)->notNull()->unique(),
         ]);
     }
 
