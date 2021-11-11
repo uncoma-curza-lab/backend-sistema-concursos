@@ -14,6 +14,8 @@ class m211111_032127_create_orientation_table extends Migration
     {
         $this->createTable('{{%orientation}}', [
             'id' => $this->primaryKey(),
+            'name' => $this->string(),
+            'code' => $this->string(100)->notNull()->unique(),
         ]);
     }
 

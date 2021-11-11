@@ -14,6 +14,8 @@ class m211111_032142_create_remuneration_table extends Migration
     {
         $this->createTable('{{%remuneration}}', [
             'id' => $this->primaryKey(),
+            'name' => $this->string(),
+            'code' => $this->string(100)->notNull()->unique(),
         ]);
     }
 

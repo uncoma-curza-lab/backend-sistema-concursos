@@ -14,6 +14,8 @@ class m211111_032154_create_category_types_table extends Migration
     {
         $this->createTable('{{%category_types}}', [
             'id' => $this->primaryKey(),
+            'name' => $this->string(),
+            'code' => $this->string(100)->notNull()->unique(),
         ]);
     }
 
