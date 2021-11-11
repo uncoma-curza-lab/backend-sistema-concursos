@@ -14,7 +14,38 @@ class m211111_032054_create_persons_table extends Migration
     {
         $this->createTable('{{%persons}}', [
             'id' => $this->primaryKey(),
+            'first_name' => $this->string()->notNull(),
+            'last_name' => $this->string(), //nullable
+            'uid' => $this->string(),
+            'dni' => $this->string(),
+            'contact_email' => $this->string(),
+            'cellphone' => $this->string(),
+            'phone' => $this->string(),
+            'real_address' => $this->string(),
+            'legal_address' => $this->string(),
+            'citizenship' => $this->string(),
+            'date_of_birth' => $this->date(),
+            'place_of_birth' => $this->string(),
+            'user_id' => $this->string()->notNull(),
         ]);
+
+        $this->addForeignKey(
+            'fk-person-place_of_birth',
+            'persons',
+            'place_of_birth',
+            'cities',
+            'id',
+            'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'fk-person-user_id',
+            'persons',
+            'user_id',
+            'users',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
