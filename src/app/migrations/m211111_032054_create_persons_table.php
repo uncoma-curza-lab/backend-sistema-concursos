@@ -25,8 +25,8 @@ class m211111_032054_create_persons_table extends Migration
             'legal_address' => $this->string(),
             'citizenship' => $this->string(),
             'date_of_birth' => $this->date(),
-            'place_of_birth' => $this->string(),
-            'user_id' => $this->string()->notNull(),
+            'place_of_birth' => $this->integer(),
+            'user_id' => $this->integer()->notNull(),
         ]);
 
         $this->addForeignKey(
