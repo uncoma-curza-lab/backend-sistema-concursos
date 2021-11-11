@@ -14,7 +14,19 @@ class m211111_031959_create_cities_table extends Migration
     {
         $this->createTable('{{%cities}}', [
             'id' => $this->primaryKey(),
+            'name' => $this->string(),
+            'code' => $this->string(100)->notNull()->unique(),
+            'province_id' => $this->integer()->notNull(),
         ]);
+
+        $this->addForeignKey(
+            'fk-city-province_id',
+            'cities',
+            'province_id',
+            'provinces',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
