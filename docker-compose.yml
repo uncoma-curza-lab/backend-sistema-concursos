@@ -40,10 +40,10 @@ services:
     ports:
       - 8000:80
 
-        #  myadmin:
-        #    image: bitnami/phppgadmin
-        #    environment:
-        #      DATABASE_HOST: db
-        #      DATABASE_PORT_NUMBER: 5432
-        #    ports:
-        #      - 8002:8080
+  myadmin:
+    image: bitnami/phppgadmin
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT_NUMBER: 5432
+    ports:
+      - 8002:8080
