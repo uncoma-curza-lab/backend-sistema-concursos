@@ -14,8 +14,8 @@ class m211101_231436_create_users_table extends Migration
     {
         $this->createTable('{{%users}}', [
             'id' => $this->primaryKey(),
-            'uid' => $this->string()->unique(),
-            'password' => $this->string(),
+            'uid' => $this->string()->unique()->notNull(),
+            'password' => $this->string()->notNull(),
             'timestamp'=> $this->timestamp() ,
         ]);
     }

@@ -15,8 +15,8 @@ class m211111_032054_create_persons_table extends Migration
         $this->createTable('{{%persons}}', [
             'id' => $this->primaryKey(),
             'first_name' => $this->string()->notNull(),
-            'last_name' => $this->string(), //nullable
-            'uid' => $this->string(),
+            'last_name' => $this->string()->notNull(), //nullable
+            'uid' => $this->string(), // cuil? nullable?
             'dni' => $this->string(),
             'contact_email' => $this->string(),
             'cellphone' => $this->string(),
