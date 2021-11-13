@@ -17,6 +17,7 @@ class m211101_231436_create_users_table extends Migration
             'uid' => $this->string()->unique()->notNull(),
             'password' => $this->string()->notNull(),
             'timestamp'=> $this->timestamp() ,
+            // La marca de tirmpo no genera el dato automaticamente ??
         ]);
     }
 
