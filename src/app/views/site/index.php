@@ -1,5 +1,5 @@
 <?php
-$this->title = \Yii::$app->params['application_name'];
+$this->title = \Yii::$app->name;
 ?>
 <div class="site-index">
 
