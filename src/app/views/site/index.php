@@ -1,8 +1,5 @@
 <?php
-
-/* @var $this yii\web\View */
-
-$this->title = 'My Yii Application';
+$this->title = \Yii::$app->params['application_name'];
 ?>
 <div class="site-index">
 
