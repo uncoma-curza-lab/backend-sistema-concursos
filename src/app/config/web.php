@@ -52,6 +52,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                [
+                    'pattern' => 'contests',
+                    'route' => 'public-contest/index',
+                ]
             ],
         ],
         'i18n' => [
