@@ -16,9 +16,8 @@ class m211101_231436_create_users_table extends Migration
             'id' => $this->primaryKey(),
             'uid' => $this->string()->unique(),
             'password' => $this->string(),
-            // no requiere ni usuario ni contraseña para crear usuario??
-            'timestamp'=> $this->timestamp() ,
-            // La marca de tirmpo no genera el dato automaticamente ??
+            'timestamp' => $this->timestamp(),
+            // TODO: La marca de tirmpo no genera el dato automaticamente ??
         ]);
     }
 

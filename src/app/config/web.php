@@ -52,11 +52,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
             ],
-        ],
-        
-
-        
-        
+        ], 
     ],
     'modules' => [
         'api' => [
