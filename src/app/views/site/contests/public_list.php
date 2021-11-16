@@ -1,13 +1,23 @@
 <?php
 
-use yii\bootstrap4\ActiveForm;
-use yii\bootstrap4\Html;
-use yii\captcha\Captcha;
+use yii\widgets\ListView;
 
 $this->title = 'Concursos publicados';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
 
+<div class="public-contest">
+    <h2> <?= Yii::t('models/contest', 'plural'); ?></h2>
+
+    <?=
+      ListView::widget([
+        'dataProvider' => $dataProvider,
+        'itemView' => '_contest',
+        'viewParams' => [
+            'fullView' => true,
+            'context' => 'public-contest',
+        ],
+        'summary' => false,
+      ]);
+    ?>
 </div>
