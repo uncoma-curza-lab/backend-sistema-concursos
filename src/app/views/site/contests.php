@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Url;
+
 ?>
 <div class="contaner">
 <h2>Concurso - <?= $data->name ?></h2>
@@ -42,5 +44,9 @@
     ?>
     <li>Hasta el:  <?= date_format($date, "d-m-Y")?></li>
 </ul>
+
+
+<a href="<?= Url::toRoute('site/contact') ?>" 
+class="btn btn-success"><i class="bi bi-person-plus-fill"></i> Insribirse </a>
 
 </div>
