@@ -36,4 +36,5 @@ class ContestsQuery extends \yii\db\ActiveQuery
     {
         return $this->with('workingDayType');
     }
+
 }
