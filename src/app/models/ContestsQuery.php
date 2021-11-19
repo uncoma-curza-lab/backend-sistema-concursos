@@ -32,7 +32,7 @@ class ContestsQuery extends \yii\db\ActiveQuery
         return parent::one($db);
     }
 
-    public function complete($db = null) : self
+    public function complete() : self
     {
         return $this->with('workingDayType');
     }
