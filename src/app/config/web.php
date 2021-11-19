@@ -58,11 +58,6 @@ $config = [
                 ]
             ],
         ], 
-    ],
-    'modules' => [
-        'api' => [
-            'class' => 'app\modules\api\ApiModule',
-        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
