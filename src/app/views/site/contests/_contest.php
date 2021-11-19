@@ -1,3 +1,20 @@
+<?php
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+
+$postulationUrl = Url::to([
+    'postulate',
+    'slug' => $model->code
+]);
+
+$moreUrl = Url::to([
+    'view',
+    'slug' => $model->code
+]);
+
+?>
+
 <div class="card" style="width: 15rem;">
     <div class="card-body">
         <h5 class="card-title">
@@ -12,11 +29,13 @@
         <p class="card-text">
             <?= $model->description; ?>
         </p>
-        <a class="btn btn-primary btn-sm card-link">
-            Inscribirse
-        </a>
-        <a class="card-link">
-            Ver más
-        </a>
+        <?= Html::tag('a', 'Inscribirse', [
+            'class' => 'btn btn-primary btn-sm card-link',
+            'href' => $postulationUrl
+        ]); ?>
+        <?= Html::tag('a', 'Ver más', [
+            'class' => 'card-link',
+            'href' => $moreUrl
+        ]); ?>
     </div>
 </div>
