@@ -57,6 +57,11 @@ $config = [
                     'route' => 'public-contest/index',
                 ]
             ],
+        ], 
+    ],
+    'modules' => [
+        'api' => [
+            'class' => 'app\modules\api\ApiModule',
         ],
         'i18n' => [
             'translations' => [
