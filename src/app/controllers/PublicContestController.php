@@ -38,8 +38,13 @@ class PublicContestController extends Controller
     public function actionIndex()
     {
 
+        //TODO: with remuneration type.
+        $buildQuery = Contests::find()->with('workingDayType')
+                                       ->onlyPublic()
+                                       ->sortBy(['init_date' => SORT_DESC]);
+
         $dataProvider = new ActiveDataProvider([
-            'query' => Contests::find()->complete(),
+            'query' => $buildQuery,
             'pagination' => [
                 'pageSize' => 20,
             ],
