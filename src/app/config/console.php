@@ -1,5 +1,7 @@
 <?php
 
+use app\helpers\Sluggable;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -26,6 +28,9 @@ $config = [
             ],
         ],
         'db' => $db,
+        'slug' => [
+            'class' => Sluggable::class,
+        ],
     ],
     'params' => $params,
     /*
