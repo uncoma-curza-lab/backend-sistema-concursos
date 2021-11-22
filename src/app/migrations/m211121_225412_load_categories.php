@@ -55,7 +55,7 @@ class m211121_225412_load_categories extends Migration
      */
     public function safeDown()
     {
-        echo "Start truncate categories.\n";
+        echo "Start delete rows from categories.\n";
         $this->executeFunction(function($table, $category) {
             $this->delete($table, [
                 'code' => $category['code'],

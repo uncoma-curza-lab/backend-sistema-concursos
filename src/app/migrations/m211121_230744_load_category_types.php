@@ -33,7 +33,7 @@ class m211121_230744_load_category_types extends Migration
      */
     public function safeDown()
     {
-        echo "Start truncate table category types.\n";
+        echo "Start delete rows from category types.\n";
         $this->executeFunction(function($table, $categoryType) {
             $this->delete($table, [
                 'code' => \Yii::$app->slug->format($categoryType),
