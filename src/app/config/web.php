@@ -46,13 +46,15 @@ $config = [
             ],
         ],
         'db' => $db,
-        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
-        ], 
+        ],
+        'slug' => [
+            'class' => Sluggable::class,
+        ],
     ],
     'modules' => [
         'api' => [
