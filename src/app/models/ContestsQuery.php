@@ -31,4 +31,20 @@ class ContestsQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function complete() : self
+    {
+        return $this->with('workingDayType');
+    }
+
+    public function onlyPublic() : self
+    {
+        return $this->where(['<=', 'init_date', date('Y-m-d H:i:s')]);
+    }
+
+    public function sortBy(array $columns) : self
+    {
+        return $this->orderBy($columns);
+
+    }
 }
