@@ -9,6 +9,9 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Contests;
+use app\models\Query;
+
 
 class SiteController extends Controller
 {
@@ -136,5 +139,26 @@ class SiteController extends Controller
             'message' => 'Estado de salud OK',
             'status_code' => $response->statusCode,
         ];
+    }
+
+    public function actionContests()
+    {
+        $model = new Query();
+        $id = $_GET['id'];       
+        
+        if ($model->validate())
+        {        
+            $data = Contests::findOne($id);
+                     
+        }
+        else{
+            $model->getErrors();
+        }    
+
+        return $this->render('contests', [
+            'data'=>$data,        
+            ]);    
+
+              
     }
 }

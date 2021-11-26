@@ -74,6 +74,9 @@ $config = [
                 ],
             ],
         ],
+        'slug' => [
+            'class' => Sluggable::class,
+        ],
     ],
     'modules' => [
         'api' => [
