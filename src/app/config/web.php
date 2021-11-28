@@ -68,6 +68,10 @@ $config = [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
                 ],
+                'backoffice*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
                 'models*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
@@ -82,6 +86,9 @@ $config = [
         'api' => [
             'class' => 'app\modules\api\ApiModule',
         ],
+        'backoffice' => [
+            'class' => 'app\modules\backoffice\Backoffice'
+        ]
     ],
     'params' => $params,
 ];
