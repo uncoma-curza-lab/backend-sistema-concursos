@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\traits\FindBySlug;
 use Yii;
 
 /**
@@ -15,6 +16,8 @@ use Yii;
  */
 class Areas extends \yii\db\ActiveRecord
 {
+    use FindBySlug;
+
     /**
      * {@inheritdoc}
      */
