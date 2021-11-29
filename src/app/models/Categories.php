@@ -11,7 +11,6 @@ namespace app\models;
  */
 class Categories extends \yii\db\ActiveRecord
 {
-
     /**
      * {@inheritdoc}
      */
