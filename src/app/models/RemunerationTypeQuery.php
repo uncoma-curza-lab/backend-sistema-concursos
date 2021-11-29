@@ -4,18 +4,13 @@ namespace app\models;
 
 use app\models\traits\FindBySlug;
 
-/**
- * This is the ActiveQuery class for [[WorkingDayTypes]].
- *
- * @see WorkingDayTypes
- */
-class WorkingDayTypesQuery extends \yii\db\ActiveQuery
+class RemunerationTypeQuery extends \yii\db\ActiveQuery
 {
     use FindBySlug;
 
     /**
      * {@inheritdoc}
-     * @return WorkingDayTypes[]|array
+     * @return RemunerationType[]|array
      */
     public function all($db = null)
     {
@@ -24,7 +19,7 @@ class WorkingDayTypesQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return WorkingDayTypes|array|null
+     * @return RemunerationType|array|null
      */
     public function one($db = null)
     {

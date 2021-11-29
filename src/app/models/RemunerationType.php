@@ -55,6 +55,11 @@ class RemunerationType extends \yii\db\ActiveRecord
      */
     public function getContests()
     {
-        return $this->hasMany(Contest::className(), ['remuneration_type_id' => 'id']);
+        return $this->hasMany(Contests::className(), ['remuneration_type_id' => 'id']);
+    }
+
+    public static function find()
+    {
+        return new RemunerationTypeQuery(get_called_class());
     }
 }
