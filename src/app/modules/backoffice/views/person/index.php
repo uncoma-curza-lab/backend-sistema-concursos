@@ -5,18 +5,18 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\search\AreaSearch */
+/* @var $searchModel app\models\search\PersonsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backoffice', 'Areas');
+$this->title = Yii::t('backoffice', 'Persons');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="areas-index">
+<div class="persons-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('backoffice', 'Create Areas'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('backoffice', 'Create Persons'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -28,13 +28,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'name',
-            'code',
+            'first_name',
+            'last_name',
+            'uid',
+            'dni',
+            //'contact_email:email',
+            //'cellphone',
+            //'phone',
+            //'real_address',
+            //'legal_address',
+            //'citizenship',
+            //'date_of_birth',
+            //'place_of_birth',
+            //'user_id',
 
             [
                 'class' => 'yii\grid\ActionColumn',
                 'urlCreator' => function($action, $model, $key, $index) {
-                    $entity = 'area';
+                    $entity = 'person';
                     $routePrefix = '/backoffice/' . $entity;
                     if($action === 'view') {
                         return Url::toRoute([

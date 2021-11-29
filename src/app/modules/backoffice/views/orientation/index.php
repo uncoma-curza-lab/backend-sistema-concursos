@@ -5,18 +5,18 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\search\AreaSearch */
+/* @var $searchModel app\models\search\OrientationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backoffice', 'Areas');
+$this->title = Yii::t('backoffice', 'Orientations');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="areas-index">
+<div class="orientations-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('backoffice', 'Create Areas'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('backoffice', 'Create Orientations'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'urlCreator' => function($action, $model, $key, $index) {
-                    $entity = 'area';
+                    $entity = 'orientation';
                     $routePrefix = '/backoffice/' . $entity;
                     if($action === 'view') {
                         return Url::toRoute([

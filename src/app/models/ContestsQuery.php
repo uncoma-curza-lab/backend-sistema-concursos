@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\models\traits\FindBySlug;
+
 /**
  * This is the ActiveQuery class for [[Contests]].
  *
@@ -9,10 +11,7 @@ namespace app\models;
  */
 class ContestsQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+    use FindBySlug;
 
     /**
      * {@inheritdoc}

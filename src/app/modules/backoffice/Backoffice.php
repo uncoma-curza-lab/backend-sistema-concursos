@@ -2,10 +2,13 @@
 
 namespace app\modules\backoffice;
 
+use yii\base\BootstrapInterface;
+use yii\web\GroupUrlRule;
+
 /**
  * backoffice module definition class
  */
-class Backoffice extends \yii\base\Module
+class Backoffice extends \yii\base\Module implements BootstrapInterface
 {
     /**
      * {@inheritdoc}
@@ -18,7 +21,14 @@ class Backoffice extends \yii\base\Module
     public function init()
     {
         parent::init();
+    }
 
-        // custom initialization code goes here
+    public function bootstrap($app)
+    {
+        $routeConfig = require __DIR__ . '/config/routes.php';
+        $app->getUrlManager()->addRules([
+            new GroupUrlRule($routeConfig)
+        ], false);
+
     }
 }
