@@ -122,12 +122,12 @@ class CategoryTypeController extends Controller
      * @return CategoryTypes the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($slug)
     {
-        if (($model = CategoryTypes::findOne($id)) !== null) {
+        if (($model = CategoryTypes::find()->findBySlug($slug)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('backoffice', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(\Yii::t('backoffice', 'The requested page does not exist.'));
     }
 }
