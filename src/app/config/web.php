@@ -92,8 +92,8 @@ $config = [
             'class' => 'app\modules\api\ApiModule',
         ],
         'backoffice' => [
-            'class' => 'app\modules\backoffice\Backoffice'
-        ]
+            'class' => Backoffice::class,
+        ],
     ],
     'params' => $params,
 ];
