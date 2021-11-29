@@ -52,10 +52,10 @@ class CategoryController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($slug)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($slug),
         ]);
     }
 
@@ -88,9 +88,9 @@ class CategoryController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($slug)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($slug);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -108,9 +108,9 @@ class CategoryController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($slug)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($slug)->delete();
 
         return $this->redirect(['index']);
     }
@@ -122,12 +122,12 @@ class CategoryController extends Controller
      * @return Categories the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($slug)
     {
-        if (($model = Categories::findOne($id)) !== null) {
+        if (($model = Categories::find()->findBySlug($slug)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('backoffice', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(\Yii::t('backoffice', 'The requested page does not exist.'));
     }
 }
