@@ -70,7 +70,7 @@ class RemunerationTypeController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'slug' => $model->code]);
             }
         } else {
             $model->loadDefaultValues();
@@ -93,7 +93,7 @@ class RemunerationTypeController extends Controller
         $model = $this->findModel($slug);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'slug' => $model->code]);
         }
 
         return $this->render('update', [
