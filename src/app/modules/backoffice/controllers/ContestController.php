@@ -4,9 +4,11 @@ namespace app\modules\backoffice\controllers;
 
 use app\models\Contests;
 use app\models\search\ContestSearch;
+use app\models\WorkingDayTypes;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * ContestController implements the CRUD actions for Contests model.
@@ -95,9 +97,11 @@ class ContestController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'slug' => $model->code]);
         }
+        $props = $this->getRelationLists();
 
         return $this->render('update', [
             'model' => $model,
+            'relationships' => $props
         ]);
     }
 
@@ -129,5 +133,14 @@ class ContestController extends Controller
         }
 
         throw new NotFoundHttpException(\Yii::t('backoffice', 'The requested page does not exist.'));
+    }
+
+    private function getRelationLists()
+    {
+        // TODO
+        $workingDayTypeList = ArrayHelper::map(WorkingDayTypes::find()->all(), 'id', 'name');
+        return [
+            'workingDayTypeList' => $workingDayTypeList,
+        ];
     }
 }

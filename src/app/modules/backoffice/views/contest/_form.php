@@ -3,9 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Contests */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="contests-form">
@@ -28,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'remuneration_type_id')->textInput() ?>
 
-    <?= $form->field($model, 'working_day_type_id')->textInput() ?>
+    <?= $form->field($model, 'working_day_type_id')->dropDownList($workingDayTypeList, []) ?>
 
     <?= $form->field($model, 'course_id')->textInput(['maxlength' => true]) ?>
 
