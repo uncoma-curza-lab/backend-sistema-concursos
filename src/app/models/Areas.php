@@ -15,7 +15,6 @@ use Yii;
  */
 class Areas extends \yii\db\ActiveRecord
 {
-
     /**
      * {@inheritdoc}
      */
