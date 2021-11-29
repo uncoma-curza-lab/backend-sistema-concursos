@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\WorkingDayTypeSearch */
@@ -30,7 +31,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'code',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'urlCreator' => function($action, $model, $key, $index) {
+                    $entity = 'working-day-type';
+                    $routePrefix = '/backoffice/' . $entity;
+                    if($action === 'view') {
+                        return Url::toRoute([
+                            $routePrefix . '/view',
+                            'slug' => '' . $model->code
+                        ]);
+                    }
+
+                    if($action === 'update') {
+                            return Url::toRoute([
+                            $routePrefix . '/update',
+                            'slug' => '' . $model->code
+                        ]);
+                    }
+
+                    if($action === 'delete') {
+                        return Url::toRoute([
+                            $routePrefix . '/delete',
+                            'slug' => '' . $model->code
+                        ]);
+                    }
+                },
+            ],
         ],
     ]); ?>
 
