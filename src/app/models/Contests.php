@@ -26,7 +26,7 @@ use Yii;
  * @property CategoryTypes $categoryType
  * @property Orientations $orientation
  * @property Postulations[] $postulations
- * @property RemunerationTypes $remunerationType
+ * @property RemunerationType $remunerationType
  * @property WorkingDayTypes $workingDayType
  */
 class Contests extends \yii\db\ActiveRecord
@@ -56,7 +56,7 @@ class Contests extends \yii\db\ActiveRecord
             [['area_id'], 'exist', 'skipOnError' => true, 'targetClass' => Areas::className(), 'targetAttribute' => ['area_id' => 'id']],
             [['category_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryTypes::className(), 'targetAttribute' => ['category_type_id' => 'id']],
             [['orientation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orientations::className(), 'targetAttribute' => ['orientation_id' => 'id']],
-            [['remuneration_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => RemunerationTypes::className(), 'targetAttribute' => ['remuneration_type_id' => 'id']],
+            [['remuneration_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => RemunerationType::className(), 'targetAttribute' => ['remuneration_type_id' => 'id']],
             [['working_day_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkingDayTypes::className(), 'targetAttribute' => ['working_day_type_id' => 'id']],
         ];
     }
@@ -131,7 +131,7 @@ class Contests extends \yii\db\ActiveRecord
      */
     public function getRemunerationType()
     {
-        return $this->hasOne(RemunerationTypes::className(), ['id' => 'remuneration_type_id']);
+        return $this->hasOne(RemunerationType::className(), ['id' => 'remuneration_type_id']);
     }
 
     /**

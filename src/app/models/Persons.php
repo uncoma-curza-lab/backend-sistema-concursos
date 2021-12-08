@@ -22,7 +22,7 @@ use Yii;
  * @property int|null $place_of_birth
  * @property int $user_id
  *
- * @property Cities $placeOfBirth
+ * @property City $placeOfBirth
  * @property Postulations[] $postulations
  * @property Qualifications[] $qualifications
  * @property Users $user
@@ -48,7 +48,7 @@ class Persons extends \yii\db\ActiveRecord
             [['place_of_birth', 'user_id'], 'default', 'value' => null],
             [['place_of_birth', 'user_id'], 'integer'],
             [['first_name', 'last_name', 'uid', 'dni', 'contact_email', 'cellphone', 'phone', 'real_address', 'legal_address', 'citizenship'], 'string', 'max' => 255],
-            [['place_of_birth'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['place_of_birth' => 'id']],
+            [['place_of_birth'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['place_of_birth' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -79,11 +79,11 @@ class Persons extends \yii\db\ActiveRecord
     /**
      * Gets query for [[PlaceOfBirth]].
      *
-     * @return \yii\db\ActiveQuery|CitiesQuery
+     * @return \yii\db\ActiveQuery|CityQuery
      */
     public function getPlaceOfBirth()
     {
-        return $this->hasOne(Cities::className(), ['id' => 'place_of_birth']);
+        return $this->hasOne(City::className(), ['id' => 'place_of_birth']);
     }
 
     /**
