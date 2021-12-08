@@ -1,5 +1,7 @@
 <?php
 
+use app\modules\backoffice\Backoffice;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -7,7 +9,10 @@ $config = [
     'id' => 'basic',
     'name' => 'Sistemas de concursos',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        'backoffice',
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -55,7 +60,7 @@ $config = [
                 [
                     'pattern' => 'contests',
                     'route' => 'public-contest/index',
-                ]
+                ],
             ],
         ], 
         'i18n' => [
@@ -65,6 +70,10 @@ $config = [
                     'basePath' => '@app/messages',
                 ],
                 'menu*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
+                'backoffice*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
                 ],
@@ -81,6 +90,9 @@ $config = [
     'modules' => [
         'api' => [
             'class' => 'app\modules\api\ApiModule',
+        ],
+        'backoffice' => [
+            'class' => Backoffice::class,
         ],
     ],
     'params' => $params,
