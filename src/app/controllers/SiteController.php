@@ -141,14 +141,14 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionContests()
+    public function actionContest()
     {
         $model = new Query();
-        $id = $_GET['id'];       
+        $slug = $_GET['slug'];       
         
         if ($model->validate())
         {        
-            $data = Contests::findOne($id);
+            $data = Contests::findModel($slug);
                      
         }
         else{
