@@ -56,9 +56,10 @@ class Group extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|GroupPermissionQuery
      */
-    public function getGroupPermissions()
+    public function getPermissions()
     {
-        return $this->hasMany(GroupPermission::className(), ['group_id' => 'id']);
+        return $this->hasMany(Permission::className(), ['id' => 'permission_id'])
+                    ->viaTable('group_permissions', ['group_id', 'id']);
     }
 
     /**
@@ -66,9 +67,10 @@ class Group extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|UserGroupQuery
      */
-    public function getUserGroups()
+    public function getUsers()
     {
-        return $this->hasMany(UserGroup::className(), ['group_id' => 'id']);
+        return $this->hasMany(User::className(), ['id' => 'user_id'])
+                    ->viaTable('user_groups', ['group_id' => 'id']);
     }
 
     /**

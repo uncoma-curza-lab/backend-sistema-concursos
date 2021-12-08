@@ -55,9 +55,10 @@ class Permission extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|GroupPermissionQuery
      */
-    public function getGroupPermissions()
+    public function getGroups()
     {
-        return $this->hasMany(GroupPermission::className(), ['permission_id' => 'id']);
+        return $this->hasMany(Group::className(), ['id' => 'group_id'])
+                    ->viaTable('group_permissions', ['permission_id' => 'id']);
     }
 
     /**
