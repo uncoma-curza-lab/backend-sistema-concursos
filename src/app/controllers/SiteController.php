@@ -11,7 +11,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Contests;
 use app\models\Query;
-
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -139,26 +139,5 @@ class SiteController extends Controller
             'message' => 'Estado de salud OK',
             'status_code' => $response->statusCode,
         ];
-    }
-
-    public function actionContest()
-    {
-        $model = new Query();
-        $slug = $_GET['slug'];       
-        
-        if ($model->validate())
-        {        
-            $data = Contests::findModel($slug);
-                     
-        }
-        else{
-            $model->getErrors();
-        }    
-
-        return $this->render('contests', [
-            'data'=>$data,        
-            ]);    
-
-              
     }
 }
