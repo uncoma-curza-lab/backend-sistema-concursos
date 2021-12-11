@@ -34,10 +34,11 @@ class Departament //extends Model
 
         $collect = json_decode($departaments['data']);
         $collect = array_map(function($departament){
-            $map = [];
-            $map['code'] = $departament->id;
-            $map['name'] = $departament->nombre;
-            return $map;
+            $entity = new self(
+                $departament->nombre,
+                $departament->id
+            );
+            return $entity;
         }, $collect);
 
         return $collect;
@@ -53,8 +54,21 @@ class Departament //extends Model
         }
 
         $departamentRawData = json_decode($departaments['data']);
-        $departament = new Departament($departamentRawData['name'], $departamentRawData['code']);
+        $departament = new Departament(
+            $departamentRawData->nombre,
+            $departamentRawData->id
+        );
         return $departament;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }
 
