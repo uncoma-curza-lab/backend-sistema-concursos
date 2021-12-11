@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Contests;
+use app\models\Departament;
 use app\models\Query;
 
 
