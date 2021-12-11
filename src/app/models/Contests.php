@@ -84,6 +84,11 @@ class Contests extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getCourse()
+    {
+        return Course::find($this->course_id);
+    }
+
     /**
      * Gets query for [[Area]].
      *
