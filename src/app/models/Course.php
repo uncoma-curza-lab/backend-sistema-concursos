@@ -88,5 +88,17 @@ class Course
     {
         return $this->name;
     }
+
+    public function __get($property)
+    {
+        switch($property){
+        case 'code': 
+            return $this->getCode();
+        case 'name':
+            return $this->getName();
+
+        }
+
+    }
 }
 
