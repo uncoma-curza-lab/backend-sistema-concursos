@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
 
 ?>
 
@@ -10,20 +9,33 @@ use yii\helpers\ArrayHelper;
 
 <?php
 
+$form = ActiveForm::begin([]); ?>
 
-$form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput([
+        'maxlength' => true,
+    ]) ?>
 
     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'qty')->textInput() ?>
+    <?= $form->field($model, 'qty')->textInput([
+        'class' => 'form-control col-md-3',
+        'type' => 'number',
+    ]) ?>
 
-    <?= $form->field($model, 'init_date')->textInput() ?>
+    <?= $form->field($model, 'init_date')->textInput([
+        'class' => 'form-control col-md-6',
+        'type' => 'date'
+    ]) ?>
 
-    <?= $form->field($model, 'end_date')->textInput() ?>
+    <?= $form->field($model, 'end_date')->textInput([
+        'class' => 'form-control col-md-6',
+        'type' => 'date',
+    ]) ?>
 
-    <?= $form->field($model, 'enrollment_date_end')->textInput() ?>
+    <?= $form->field($model, 'enrollment_date_end')->textInput([
+        'class' => 'form-control col-md-12',
+        'type' => 'date'
+    ]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
