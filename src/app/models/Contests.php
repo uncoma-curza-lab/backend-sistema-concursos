@@ -68,19 +68,19 @@ class Contests extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'code' => 'Code',
-            'qty' => 'Qty',
-            'init_date' => 'Init Date',
-            'end_date' => 'End Date',
-            'enrollment_date_end' => 'Enrollment Date End',
-            'description' => 'Description',
-            'remuneration_type_id' => 'Remuneration Type ID',
-            'working_day_type_id' => 'Working Day Type ID',
-            'course_id' => 'Course ID',
-            'category_type_id' => 'Category Type ID',
-            'area_id' => 'Area ID',
-            'orientation_id' => 'Orientation ID',
+            'name' => Yii::t('models/contest', 'name'),
+            'code' => Yii::t('models/contest', 'code'),
+            'qty' => Yii::t('models/contest', 'quantity'),
+            'init_date' => Yii::t('models/contest', 'init_date'),
+            'end_date' => Yii::t('models/contest', 'end_date'),
+            'enrollment_date_end' => Yii::t('models/contest', 'enrollment_date_end'),
+            'description' => Yii::t('models/contest', 'description'),
+            'remuneration_type_id' => Yii::t('models/contest', 'remuneration_type'),
+            'working_day_type_id' => Yii::t('models/contest', 'working_day_type'),
+            'course_id' => Yii::t('models/contest', 'course'),
+            'category_type_id' => Yii::t('models/contest', 'category_type'),
+            'area_id' => Yii::t('models/contest', 'area'),
+            'orientation_id' => Yii::t('models/contest', 'orientation'),
         ];
     }
 
