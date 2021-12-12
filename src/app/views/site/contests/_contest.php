@@ -15,7 +15,7 @@ $moreUrl = Url::to([
 
 ?>
 
-<div class="card" style="width: 15rem;">
+<div class="card mr-2 mb-2" style="width: 15rem;">
     <div class="card-body">
         <h5 class="card-title">
             <?= $model->name; ?>
