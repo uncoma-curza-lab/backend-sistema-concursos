@@ -27,20 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
             'code',
             'qty',
-            'init_date',
-            //'end_date',
-            //'enrollment_date_end',
-            //'description:ntext',
-            //'remuneration_type_id',
-            //'working_day_type_id',
-            //'course_id',
-            //'category_type_id',
-            //'area_id',
-            //'orientation_id',
+            [
+                'attribute' => 'course_id',
+                'value' => fn($data) => $data->getCourse()->name ?? 'unavailable'
+            ],
+            'init_date:date',
+            'enrollment_date_end:date',
+            'end_date:date',
 
             [
                 'class' => 'yii\grid\ActionColumn',
