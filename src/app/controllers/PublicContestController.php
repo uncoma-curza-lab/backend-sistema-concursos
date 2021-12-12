@@ -39,7 +39,6 @@ class PublicContestController extends Controller
     public function actionIndex()
     {
 
-        //TODO: with remuneration type.
         $buildQuery = Contests::find()->with('workingDayType')
                                        ->onlyPublic()
                                        ->sortBy(['init_date' => SORT_DESC]);
@@ -50,7 +49,7 @@ class PublicContestController extends Controller
                 'pageSize' => 2,
             ],
         ]);
-        return $this->render('/site/contests/public_list', [
+        return $this->render('/contests/public_list', [
             'dataProvider' =>$dataProvider
         ]);
     }
@@ -65,7 +64,7 @@ class PublicContestController extends Controller
         $dataSerializada['categoryType'] = $data->getCategoryType()->one()->name;
         $dataSerializada['workingDayType'] = $data->getWorkingDayType()->one()->name;     
 
-        return $this->render('/site/contests/details', [
+        return $this->render('/contests/details', [
             'data' => $data,
             'dataSerializada' => $dataSerializada,
         ]);    
