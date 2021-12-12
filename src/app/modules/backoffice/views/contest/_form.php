@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 ?>
 
@@ -43,7 +44,9 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'working_day_type_id')->dropDownList($workingDayTypeList, []) ?>
 
-    <?= $form->field($model, 'course_id')->dropDownList($courseList, []) ?>
+    <?= $form->field($model, 'course_id')->widget(Select2::class, [
+        'data' => $courseList,
+    ]) ?>
 
     <?= $form->field($model, 'category_type_id')->dropDownList($categoryTypeList, []) ?>
 
