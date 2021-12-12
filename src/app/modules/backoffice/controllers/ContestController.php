@@ -82,9 +82,11 @@ class ContestController extends Controller
         } else {
             $model->loadDefaultValues();
         }
+        $props = $this->getRelationLists();
 
         return $this->render('create', [
             'model' => $model,
+            'relationships' => $props
         ]);
     }
 

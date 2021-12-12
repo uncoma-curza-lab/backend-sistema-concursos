@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = Yii::t('backoffice', 'update');
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-<?= $this->render('_form', array_merge([
+    <?= $this->render('_form', array_merge([
         'model' => $model,
     ], $relationships)) ?>
 
