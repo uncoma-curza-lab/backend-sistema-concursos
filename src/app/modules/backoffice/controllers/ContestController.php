@@ -62,7 +62,8 @@ class ContestController extends Controller
     public function actionView($slug)
     {
         return $this->render('view', [
-            'model' => $this->findModel($slug),
+            'model' => Contests::find()->filterQueryBySlug($slug)
+                                       ->complete()->one(),
         ]);
     }
 
