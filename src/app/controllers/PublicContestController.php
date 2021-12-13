@@ -46,7 +46,7 @@ class PublicContestController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $buildQuery,
             'pagination' => [
-                'pageSize' => 2,
+                'pageSize' => 10,
             ],
         ]);
         return $this->render('/contests/public_list', [
