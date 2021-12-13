@@ -9,7 +9,7 @@ $postulationUrl = Url::to([
 ]);
 
 $moreUrl = Url::to([
-    'details',
+    'public-contest/details',
     'slug' => $model->code
 ]);
 
