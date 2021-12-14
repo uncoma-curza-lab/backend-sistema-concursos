@@ -2,7 +2,12 @@
 
 namespace app\modules\backoffice\controllers;
 
+use app\models\Areas;
+use app\models\CategoryTypes;
 use app\models\Contests;
+use app\models\Course;
+use app\models\Orientations;
+use app\models\RemunerationType;
 use app\models\search\ContestSearch;
 use app\models\WorkingDayTypes;
 use yii\web\Controller;
@@ -57,7 +62,8 @@ class ContestController extends Controller
     public function actionView($slug)
     {
         return $this->render('view', [
-            'model' => $this->findModel($slug),
+            'model' => Contests::find()->filterQueryBySlug($slug)
+                                       ->complete()->one(),
         ]);
     }
 
@@ -77,9 +83,11 @@ class ContestController extends Controller
         } else {
             $model->loadDefaultValues();
         }
+        $props = $this->getRelationLists();
 
         return $this->render('create', [
             'model' => $model,
+            'relationships' => $props
         ]);
     }
 
@@ -137,10 +145,19 @@ class ContestController extends Controller
 
     private function getRelationLists()
     {
-        // TODO
         $workingDayTypeList = ArrayHelper::map(WorkingDayTypes::find()->all(), 'id', 'name');
+        $remunerationTypeList = ArrayHelper::map(RemunerationType::find()->all(), 'id', 'name');
+        $categoryTypeList = ArrayHelper::map(CategoryTypes::find()->all(), 'id', 'name');
+        $orientationList = ArrayHelper::map(Orientations::find()->all(), 'id', 'name');
+        $areaList = ArrayHelper::map(Areas::find()->all(), 'id', 'name');
+
         return [
             'workingDayTypeList' => $workingDayTypeList,
+            'remunerationTypeList' => $remunerationTypeList,
+            'categoryTypeList' => $categoryTypeList,
+            'orientationList' => $orientationList,
+            'areaList' => $areaList,
+            'courseList' => ArrayHelper::map(Course::all(), 'code', 'name'),
         ];
     }
 }

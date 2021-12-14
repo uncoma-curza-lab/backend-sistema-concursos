@@ -33,7 +33,13 @@ class ContestsQuery extends \yii\db\ActiveQuery
 
     public function complete() : self
     {
-        return $this->with('workingDayType');
+        return $this->with([
+            'workingDayType',
+            'remunerationType',
+            'categoryType',
+            'orientation',
+            'area'
+        ]);
     }
 
     public function onlyPublic() : self
