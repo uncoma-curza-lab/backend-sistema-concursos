@@ -40,6 +40,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template' => ' {view} {update} {delete} {postulations}',
+                'buttons' => [
+                    'postulations' =>  function($url, $model, $key) {
+                        return Html::a(
+                            '<span class="bi bi-people-fill" aria-hidden="true"></span>',
+                            Url::to(['postulation/contest', 'slug' => $model->code])
+                        );
+                    }
+                ],
                 'urlCreator' => function($action, $model, $key, $index) {
                     $entity = 'contest';
                     $routePrefix = '/backoffice/' . $entity;

@@ -29,12 +29,12 @@ if ($data!=null):
       <tbody>
         <tr>      
           <td name="departamento">Departamento</td>
-          <td name="area"><?= $data->getArea()->one()->name  ?></td>
-          <td name="orientacion"><?= $data->getOrientation()->one()->name ?></td>
+          <td name="area"><?= $dataSerializada['area']  ?></td>
+          <td name="orientacion"><?= $dataSerializada['orientation'] ?></td>
           <td name="asignatura"><?= $data->course_id ?></td>
           <td name="cargos"><?= $data->qty ?></td>
-          <td name="categoria"><?= $data->getCategoryType()->one()->name ?></td>
-          <td name="dedicacion"><?= $data->getWorkingDayType()->one()->name ?></td>      
+          <td name="categoria"><?= $dataSerializada['categoryType'] ?></td>
+          <td name="dedicacion"><?= $dataSerializada['workingDayType'] ?></td>      
         </tr>  
       </tbody>
     </table>
@@ -55,25 +55,20 @@ if ($data!=null):
       
       <dt class="col-sm-3">Requisitos</dt>
       <dd class="col-sm-9">
-      <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+      <ul>
+          <li>            
             Titulo Universitario
           </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+          <li >            
             Curriculum Vitae con las certificaciones correspondientes
           </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+          <li>            
             Copia de DNI
           </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+          <li>            
             Residir o estar dispuesto a residir en la localidad de Viedma o aledaños
           </li>
-          <li class="list-group-item">
-            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+          <li>            
             "Propuesta de programa de la asignatura"
           </li>
         </ul>

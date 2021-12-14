@@ -8,4 +8,5 @@ return [
     'create_contest' => 'Creando concurso',
     'update' => 'edición',
     'create_contest_button' => 'Crear concurso',
+    'postulations_by_contest_title' => 'Postulaciones'
 ];
