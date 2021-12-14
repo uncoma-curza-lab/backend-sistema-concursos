@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\search\ContestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backoffice', 'Contests');
+$this->title = Yii::t('backoffice', 'contests');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contests-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('backoffice', 'Create Contests'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('backoffice', 'create_contest_button'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,20 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
             'code',
             'qty',
-            'init_date',
-            //'end_date',
-            //'enrollment_date_end',
-            //'description:ntext',
-            //'remuneration_type_id',
-            //'working_day_type_id',
-            //'course_id',
-            //'category_type_id',
-            //'area_id',
-            //'orientation_id',
+            [
+                'attribute' => 'course_id',
+                'value' => fn($data) => $data->getCourse()->name ?? 'unavailable'
+            ],
+            'init_date:date',
+            'enrollment_date_end:date',
+            'end_date:date',
 
             [
                 'class' => 'yii\grid\ActionColumn',
