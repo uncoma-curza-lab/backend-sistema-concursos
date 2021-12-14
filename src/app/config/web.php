@@ -18,6 +18,11 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'language' => 'es',
+    'container' => [
+        'definitions' => [
+          \yii\widgets\LinkPager::class => \yii\bootstrap4\LinkPager::class,
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
