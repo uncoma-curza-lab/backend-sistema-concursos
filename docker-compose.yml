@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   db:
-    image: postgres:latest
+    image: postgres
     environment:
       POSTGRES_PASSWORD: test123
       POSTGRES_USER: test
