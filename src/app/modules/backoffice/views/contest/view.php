@@ -29,20 +29,56 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'code',
+            [
+                'attribute' => 'course_id',
+                'value' => $model->getCourse()->name
+            ],
             'qty',
-            'init_date',
-            'end_date',
-            'enrollment_date_end',
+            [
+                'attribute' => 'init_date',
+                'type' => 'date',
+                'format' => [
+                    'datetime' , 'dd/MM/yyyy',
+                ]
+            ],
+            [
+                'attribute' => 'end_date',
+                'type' => 'date',
+                'format' => [
+                    'datetime' , 'dd/MM/yyyy',
+                ]
+            ],
+            
+            [
+                'attribute' => 'enrollment_date_end',
+                'type' => 'date',
+                'format' => [
+                    'datetime' , 'dd/MM/yyyy',
+                ]
+            ],
             'description:ntext',
-            'remuneration_type_id',
-            'working_day_type_id',
-            'course_id',
-            'category_type_id',
-            'area_id',
-            'orientation_id',
+            [
+                'attribute' => 'remuneration_type_id',
+                'value' => $model->remunerationType->name
+            ],
+            [
+                'attribute' => 'working_day_type_id',
+                'value' => $model->workingDayType->name
+            ],
+            [
+                'attribute' => 'category_type_id',
+                'value' => $model->categoryType->name
+            ],
+            [
+                'attribute' => 'area_id',
+                'value' => $model->area->name
+            ],
+            [
+                'attribute' => 'orientation_id',
+                'value' => $model->orientation->name
+            ],
         ],
     ]) ?>
 

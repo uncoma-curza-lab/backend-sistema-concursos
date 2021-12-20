@@ -17,6 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'view_contests' => 'Ver concursos',
+    'view_contests' => 'Ver más concursos',
     'welcome' => 'Sistema de Concursos',
 ];

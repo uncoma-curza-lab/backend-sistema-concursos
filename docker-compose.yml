@@ -37,6 +37,7 @@ services:
       DDBB_HOST: db
       DDBB_USER: test
       DDBB_PASSWORD: test123
+    env_file: .env
     ports:
       - 8000:80
 
