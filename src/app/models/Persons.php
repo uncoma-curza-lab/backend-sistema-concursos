@@ -49,7 +49,7 @@ class Persons extends \yii\db\ActiveRecord
             [['place_of_birth', 'user_id'], 'integer'],
             [['first_name', 'last_name', 'uid', 'dni', 'contact_email', 'cellphone', 'phone', 'real_address', 'legal_address', 'citizenship'], 'string', 'max' => 255],
             [['place_of_birth'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['place_of_birth' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -113,7 +113,7 @@ class Persons extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
