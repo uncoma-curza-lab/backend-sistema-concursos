@@ -14,7 +14,7 @@ use Yii;
  *
  * @property Persons[] $persons
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -47,6 +47,31 @@ class Users extends \yii\db\ActiveRecord
             'password' => 'Password',
             'timestamp' => 'Timestamp',
         ];
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return null;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+        return null;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return null;
     }
 
     /**
