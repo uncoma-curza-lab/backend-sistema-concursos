@@ -40,6 +40,10 @@ class PostulationController extends Controller
         ]);
     }
 
+    public function actionTest()
+    {
+        \Yii::$app->user->can('postulateContest');
+    }
     private function findContest(string $slug)
     {
         return Contests::find()->findBySlug($slug);
