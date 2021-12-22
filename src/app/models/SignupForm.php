@@ -34,13 +34,14 @@ class SignupForm extends Model
             ['username', 'required'],
             ['username', 'validateCUIL'],
             ['username', 'unique', 'targetClass' => User::class, 'targetAttribute' => 'uid', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => Persons::class, 'targetAttribute' => 'uid', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
+            ['email', 'unique', 'targetClass' => Persons::class, 'targetAttribute' => 'contact_email', 'message' => 'Ya existe registrado este correo'],
             ['email', 'string', 'max' => 255],
-            //['email', 'unique', 'targetClass' => User::class, 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
