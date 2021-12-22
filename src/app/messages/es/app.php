@@ -24,5 +24,6 @@ return [
     'signup_last_name' => 'Apellidos',
     'signup_email' => 'Email',
     'signup_document' => 'CUIL',
-    'signup_user_unique_error' => 'Verifique los datos, el CUIL o el Email ya se encuentran registrados.'
+    'signup_user_unique_error' => 'Verifique los datos, el CUIL o el Email ya se encuentran registrados.',
+    'signup_title' => 'Registrarse',
 ];

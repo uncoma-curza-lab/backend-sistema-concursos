@@ -23,5 +23,6 @@ return [
     'signup_last_name' => 'Last name',
     'signup_email' => 'Email',
     'signup_document' => 'Document',
-    'signup_user_unique_error' => 'Check document and email.'
+    'signup_user_unique_error' => 'Check document and email.',
+    'signup_title' => 'Signup',
 ];
