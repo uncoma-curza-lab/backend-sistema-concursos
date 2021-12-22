@@ -69,6 +69,11 @@ $config = [
             'rules' => [
                 [
                     'class' => 'yii\web\UrlRule',
+                    'pattern' => 'login',
+                    'route' => 'site/login',
+                ],
+                [
+                    'class' => 'yii\web\UrlRule',
                     'pattern' => 'signup',
                     'route' => 'register/signup',
                 ],
