@@ -98,4 +98,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return new UsersQuery(get_called_class());
     }
+
+    public function setPassword($password)
+    {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
 }
