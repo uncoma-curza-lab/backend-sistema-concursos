@@ -11,7 +11,8 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Contests;
 use app\models\Query;
-
+use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -64,7 +65,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $buildQuery = Contests::find()->with('workingDayType')
+                                       ->onlyPublic()
+                                       ->sortBy(['init_date' => SORT_DESC])
+                                       ->limit(5);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $buildQuery,
+            'pagination' => false,
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' =>$dataProvider
+        ]);
     }
 
     /**
@@ -139,26 +152,5 @@ class SiteController extends Controller
             'message' => 'Estado de salud OK',
             'status_code' => $response->statusCode,
         ];
-    }
-
-    public function actionContests()
-    {
-        $model = new Query();
-        $id = $_GET['id'];       
-        
-        if ($model->validate())
-        {        
-            $data = Contests::findOne($id);
-                     
-        }
-        else{
-            $model->getErrors();
-        }    
-
-        return $this->render('contests', [
-            'data'=>$data,        
-            ]);    
-
-              
     }
 }

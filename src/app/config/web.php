@@ -18,7 +18,17 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'language' => 'es',
+    'container' => [
+        'definitions' => [
+          \yii\widgets\LinkPager::class => \yii\bootstrap4\LinkPager::class,
+        ],
+    ],
     'components' => [
+        'formatter' => [
+            'class' => '\yii\i18n\Formatter',
+            'dateFormat' => 'dd/MM/yyyy',
+            'datetimeFormat' => 'dd/MM/yyyy HH:ii:ss'
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'qaH458KtJ7iQ-UlP6jB1VA6PqlA5bHYt',
@@ -63,6 +73,16 @@ $config = [
                 [
                     'pattern' => 'contests',
                     'route' => 'public-contest/index',
+                ],
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => '<controller:[\w\-]+>/<action:\w+>/<slug:[\w\-]+>',
+                    'route' => '<controller>/<action>',
+                ],
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => '<controller:[\w\-]+>/<action:\w+>',
+                    'route' => '<controller>/<action>',
                 ],
             ],
         ], 

@@ -59,6 +59,12 @@ class Users extends \yii\db\ActiveRecord
         return $this->hasMany(Persons::className(), ['user_id' => 'id']);
     }
 
+    public function getContests()
+    {
+        return $this->hasMany(Contests::class, ['id' => 'contest_id'])
+                    ->viaTable(ContestJury::class, ['user_id', 'id']);
+    }
+
     /**
      * {@inheritdoc}
      * @return UsersQuery the active query used by this AR class.

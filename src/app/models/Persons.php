@@ -124,4 +124,9 @@ class Persons extends \yii\db\ActiveRecord
     {
         return new PersonsQuery(get_called_class());
     }
+
+    public function getFullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }
