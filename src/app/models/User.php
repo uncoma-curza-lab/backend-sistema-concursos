@@ -79,9 +79,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      *
      * @return \yii\db\ActiveQuery|PersonsQuery
      */
-    public function getPersons()
+    public function getPerson()
     {
-        return $this->hasMany(Persons::className(), ['user_id' => 'id']);
+        return $this->hasOne(Persons::className(), ['user_id' => 'id']);
     }
 
     public function getContests()
@@ -102,5 +102,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function setPassword($password)
     {
         $this->password = \Yii::$app->security->generatePasswordHash($password);
+    }
+
+    public function getusername()
+    {
+        return $this->person->first_name . ' ' . $this->person->last_name;
     }
 }
