@@ -33,7 +33,7 @@ class SignupForm extends Model
             ['username', 'trim'],
             ['username', 'required'],
             ['username', 'validateCUIL'],
-            //['username', 'unique', 'targetClass' => User::class, 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => User::class, 'targetAttribute' => 'uid', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
@@ -69,13 +69,33 @@ class SignupForm extends Model
             return null;
         }
         
-        $user = new User();
-        //$user->username = $this->username;
-        //$user->email = $this->email;
-        //$user->setPassword($this->password);
-        //$user->generateAuthKey();
-        //$user->generateEmailVerificationToken();
-        //
-        //return $user->save() && $this->sendEmail($user) ? $user : null;
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
+            $user = new User();
+            $user->uid = $this->username;
+            $user->setPassword($this->password);
+        
+            if (!$user->save()) {
+                $transaction->rollBack();
+                return null;
+            }
+            $person = new Persons();
+            $person->contact_email = $this->email;
+            $person->first_name = $this->first_name;
+            $person->last_name = $this->last_name;
+            $person->uid = $this->username;
+            $person->user_id = $user->id;
+            if(!$person->save()) {
+                $transaction->rollBack();
+                return null;
+            }
+
+            $transaction->commit();
+            return $user;
+        } catch(\Throwable $e) {
+            \Yii::error($e);
+            $transaction->rollBack();
+            return null;
+        }
     }
 }
