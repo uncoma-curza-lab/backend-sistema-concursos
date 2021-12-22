@@ -19,4 +19,9 @@
 return [
     'view_contests' => 'Ver más concursos',
     'welcome' => 'Sistema de Concursos',
+    'signup_password' => 'Clave',
+    'signup_first_name' => 'Nombres',
+    'signup_last_name' => 'Apellidos',
+    'signup_email' => 'Email',
+    'signup_document' => 'CUIL',
 ];

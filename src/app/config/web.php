@@ -68,6 +68,11 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'signup',
+                    'route' => 'register/signup',
+                ],
+                [
                     'pattern' => 'contests',
                     'route' => 'public-contest/index',
                 ],
