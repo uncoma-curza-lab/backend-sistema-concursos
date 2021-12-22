@@ -35,6 +35,15 @@ class LoginForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'password' => \Yii::t('app', 'sign_password'),
+            'username' => \Yii::t('app', 'sign_document'),
+            'rememberMe' => \Yii::t('app', 'login_remember_me'),
+        ];
+    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.

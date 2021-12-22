@@ -51,10 +51,10 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'password' => \Yii::t('app', 'signup_password'),
+            'password' => \Yii::t('app', 'sign_password'),
             'first_name' => \Yii::t('app', 'signup_first_name'),
             'last_name' => \Yii::t('app', 'signup_last_name'),
-            'username' => \Yii::t('app', 'signup_document'),
+            'username' => \Yii::t('app', 'sign_document'),
             'email' => \Yii::t('app', 'signup_email'),
         ];
     }
