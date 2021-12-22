@@ -33,14 +33,14 @@ class SignupForm extends Model
             ['username', 'trim'],
             ['username', 'required'],
             ['username', 'validateCUIL'],
-            ['username', 'unique', 'targetClass' => User::class, 'targetAttribute' => 'uid', 'message' => 'This username has already been taken.'],
-            ['username', 'unique', 'targetClass' => Persons::class, 'targetAttribute' => 'uid', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => User::class, 'targetAttribute' => 'uid', 'message' => \Yii::t('app', 'signup_user_unique_error')],
+            ['username', 'unique', 'targetClass' => Persons::class, 'targetAttribute' => 'uid', 'message' => \Yii::t('app', 'signup_user_unique_error')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => Persons::class, 'targetAttribute' => 'contact_email', 'message' => 'Ya existe registrado este correo'],
+            ['email', 'unique', 'targetClass' => Persons::class, 'targetAttribute' => 'contact_email', 'message' => \Yii::t('app', 'signup_user_unique_error')],
             ['email', 'string', 'max' => 255],
 
             ['password', 'required'],

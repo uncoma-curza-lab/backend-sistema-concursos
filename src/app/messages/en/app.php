@@ -18,4 +18,10 @@
  */
 return [
     'home' => '',
+    'signup_password' => 'Password',
+    'signup_first_name' => 'First name',
+    'signup_last_name' => 'Last name',
+    'signup_email' => 'Email',
+    'signup_document' => 'Document',
+    'signup_user_unique_error' => 'Check document and email.'
 ];
