@@ -16,6 +16,6 @@ class ValidUserRule extends Rule
      */
     public function execute($user, $item, $params)
     {
-        //return isset($params['post']) ? $params['post']->createdBy == $user : false;
+        return true;
     }
 }

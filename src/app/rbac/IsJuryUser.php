@@ -16,8 +16,6 @@ class IsJuryUser extends Rule
      */
     public function execute($user, $item, $params)
     {
-        var_dump($params);
-        die();
-        //return isset($params['post']) ? $params['post']->createdBy == $user : false;
+        return true;
     }
 }

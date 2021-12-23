@@ -1,6 +1,7 @@
 <?php
 
 use app\rbac\IsJuryUser;
+use app\rbac\NotIsJuryUser;
 use app\rbac\ValidUserRule;
 use yii\db\Migration;
 
@@ -9,6 +10,12 @@ use yii\db\Migration;
  */
 class m211222_195227_load_rules extends Migration
 {
+
+    const RULES = [
+        ValidUserRule::class,
+        IsJuryUser::class,
+        NotIsJuryUser::class,
+    ];
 
     protected $auth;
 
@@ -23,11 +30,10 @@ class m211222_195227_load_rules extends Migration
      */
     public function safeUp()
     {
-        $rule = new ValidUserRule;
-        $this->auth->add($rule);
-        $rule = new IsJuryUser;
-        $this->auth->add($rule);
-
+        foreach(self::RULES as $rule) {
+            $rule = new $rule;
+            $this->auth->add($rule);
+        }
     }
 
     /**
@@ -35,7 +41,10 @@ class m211222_195227_load_rules extends Migration
      */
     public function safeDown()
     {
-        $rule = new ValidUserRule;
-        return $this->auth->remove($rule->name); //bool
+        foreach(self::RULES as $rule) {
+            $rule = new $rule;
+            $isSuccessfullRemove = $this->auth->remove($rule->name);
+            return !$isSuccessfullRemove;
+        }
     }
 }

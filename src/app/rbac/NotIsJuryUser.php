@@ -4,7 +4,7 @@ namespace app\rbac;
 
 class NotIsJuryUser extends IsJuryUser 
 {
-    public $name = 'NotIsJuryUser';
+    public $name = 'notIsJuryUser';
 
     /**
      * @param string|int $user el ID de usuario.
@@ -14,6 +14,6 @@ class NotIsJuryUser extends IsJuryUser
      */
     public function execute($user, $item, $params)
     {
-        return !parent::execute($user, $item, $params);
+        return !parent::execute($user,$item,$params);
     }
 }
