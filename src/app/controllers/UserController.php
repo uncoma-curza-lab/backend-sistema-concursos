@@ -59,7 +59,7 @@ class UserController extends Controller
     public function actionProfile()
     {
 
-        $person = \Yii::$app->user->person;
+        $person = \Yii::$app->user->identity->person;
 
         if ($person->load(\Yii::$app->request->post())) {
 
