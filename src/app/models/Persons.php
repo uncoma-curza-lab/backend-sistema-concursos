@@ -60,18 +60,18 @@ class Persons extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'uid' => 'Uid',
-            'dni' => 'Dni',
-            'contact_email' => 'Contact Email',
-            'cellphone' => 'Cellphone',
-            'phone' => 'Phone',
-            'real_address' => 'Real Address',
-            'legal_address' => 'Legal Address',
+            'first_name' => \Yii::t('app', 'fist_name'),
+            'last_name' => \Yii::t('app', 'last_name'),
+            'uid' => \Yii::t('app', 'uid'),
+            'dni' => \Yii::t('app', 'dni'),
+            'contact_email' => \Yii::t('app', 'contact_email'),
+            'cellphone' => \Yii::t('app', 'cellphone'),
+            'phone' => \Yii::t('app', 'phone'),
+            'real_address' => \Yii::t('app', 'real_address'),
+            'legal_address' => \Yii::t('app', 'legal_address'),
             'citizenship' => 'Citizenship',
             'date_of_birth' => 'Date Of Birth',
-            'place_of_birth' => 'Place Of Birth',
+            'place_of_birth' => \Yii::t('app', 'place_of_birth'),
             'user_id' => 'User ID',
         ];
     }
