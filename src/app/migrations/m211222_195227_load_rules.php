@@ -1,6 +1,8 @@
 <?php
 
+use app\rbac\IsContestCreator;
 use app\rbac\IsJuryUser;
+use app\rbac\IsMyProfile;
 use app\rbac\NotIsJuryUser;
 use app\rbac\ValidUserRule;
 use yii\db\Migration;
@@ -15,6 +17,8 @@ class m211222_195227_load_rules extends Migration
         ValidUserRule::class,
         IsJuryUser::class,
         NotIsJuryUser::class,
+        IsContestCreator::class,
+        IsMyProfile::class,
     ];
 
     protected $auth;

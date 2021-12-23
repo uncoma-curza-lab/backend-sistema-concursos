@@ -13,6 +13,8 @@ class m211222_195329_load_roles extends Migration
         'jury' => [
             'permissions' => [
                 'specialPostulation',
+                'viewMyProfile',
+                'editMyProfile',
             ],
         ],
         'director' => [
@@ -23,6 +25,8 @@ class m211222_195329_load_roles extends Migration
         'postulant' => [
             'permissions' => [
                 'simplePostulation',
+                'viewMyProfile',
+                'editMyProfile',
             ],
         ],
     ];

@@ -1,6 +1,7 @@
 <?php
 
 use app\rbac\IsJuryUser;
+use app\rbac\IsMyProfile;
 use app\rbac\NotIsJuryUser;
 use app\rbac\ValidUserRule;
 use yii\db\Migration;
@@ -25,7 +26,23 @@ class m211222_195233_load_permissions extends Migration
             'childs' => [
                 'simplePostulation',
             ],
-        ]
+        ],
+        'viewProfile' => [
+        ],
+        'viewMyProfile' => [
+            'rule' => IsMyProfile::class,
+            'childs' => [
+                'viewProfile'
+            ]
+        ],
+        'editProfile' => [
+        ],
+        'editMyProfile' => [
+            'rule' => IsMyProfile::class,
+            'childs' => [
+                'editProfile'
+            ],
+        ],
     ];
 
     protected $auth;
