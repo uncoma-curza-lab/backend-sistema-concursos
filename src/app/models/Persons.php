@@ -60,7 +60,7 @@ class Persons extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'first_name' => \Yii::t('app', 'fist_name'),
+            'first_name' => \Yii::t('app', 'first_name'),
             'last_name' => \Yii::t('app', 'last_name'),
             'uid' => \Yii::t('app', 'uid'),
             'dni' => \Yii::t('app', 'dni'),

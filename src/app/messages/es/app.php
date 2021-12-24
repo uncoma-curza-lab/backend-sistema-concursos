@@ -29,6 +29,7 @@ return [
     'signup_user_unique_error' => 'Verifique los datos, el CUIL o el Email ya se encuentran registrados.',
     'signup_title' => 'Registrarse',
     'first_name' => 'Nombres',
+    'contact_email' => 'Email de contacto',
     'last_name' => 'Apellidos',
     'real_address' => 'Dirección real',
     'legal_address' => 'Dirección legal',
