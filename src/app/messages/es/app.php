@@ -37,4 +37,5 @@ return [
     'phone' => 'Teléfono fijo',
     'dni' => 'D.N.I',
     'date_of_birth' => 'Fecha de nacimiento',
+    'save_button' => 'Confirmar',
 ];

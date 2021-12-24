@@ -60,13 +60,24 @@ class UserController extends Controller
     {
 
         $person = \Yii::$app->user->identity->person;
+        $request = \Yii::$app->request;
 
-        if ($person->load(\Yii::$app->request->post())) {
+        if ($person->load($request->post())) {
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                $person->save();
 
-            \Yii::$app->session->setFlash('contactFormSubmitted');
+                \Yii::$app->session->setFlash('contactFormSubmitted');
+                $transaction->commit();
 
-            return $this->refresh();
+                return $this->refresh();
+            } catch (\Throwable $e) {
+                // TODO Log error
+            }
+
+            $transaction->rollBack();
         }
+
         return $this->render('/users/profile', [
             'person' => $person,
         ]);
