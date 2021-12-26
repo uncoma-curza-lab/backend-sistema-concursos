@@ -1,6 +1,7 @@
 <?php
 
 use app\helpers\Sluggable;
+use app\models\Users;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -18,6 +19,14 @@ $config = [
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'user' => [
+            'class'=> Users::class,
+            'identityClass' => Users::class,
+            'enableAutoLogin' => true,
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
         ],
         'log' => [
             'targets' => [
