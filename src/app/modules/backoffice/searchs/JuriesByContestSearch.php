@@ -4,6 +4,7 @@ namespace app\modules\backoffice\searchs;
 
 use app\models\Contests;
 use app\models\Postulations;
+use app\models\User;
 use app\models\Users;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -64,7 +65,7 @@ class JuriesByContestSearch extends Postulations
     {
         $contest = $this->findContest();
 
-        $query = Users::find();
+        $query = User::find();
        // $query = ContestJury::find()->where([
        //     '=',
        //     'contest_id',
