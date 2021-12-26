@@ -4,7 +4,7 @@ return [
     'rules' => [
         [
             'class' => 'yii\web\UrlRule',
-            'pattern' => '<controller:[\w\-]+>/<action:\w+>/<slug:[\w\-]+>',
+            'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<slug:[\w\-]+>',
             'route' => '<controller>/<action>',
         ],
         [
