@@ -35,6 +35,15 @@ class LoginForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'password' => \Yii::t('app', 'sign_password'),
+            'username' => \Yii::t('app', 'sign_document'),
+            'rememberMe' => \Yii::t('app', 'login_remember_me'),
+        ];
+    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
@@ -73,7 +82,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::find()->getByUsername($this->username);
         }
 
         return $this->_user;

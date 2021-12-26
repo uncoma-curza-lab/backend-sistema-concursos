@@ -31,4 +31,14 @@ class UsersQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function getByUsername($username)
+    {
+        return $this->findByUsername($username)->one();
+    }
+
+    public function findByUsername($username)
+    {
+        return $this->where(['=', 'uid', $username]);
+    }
 }

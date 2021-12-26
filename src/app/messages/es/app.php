@@ -19,4 +19,13 @@
 return [
     'view_contests' => 'Ver más concursos',
     'welcome' => 'Sistema de Concursos',
+    'sign_password' => 'Clave',
+    'signup_first_name' => 'Nombres',
+    'signup_last_name' => 'Apellidos',
+    'signup_email' => 'Email',
+    'sign_document' => 'CUIL',
+    'login_title'=> 'Iniciar sesión',
+    'login_remember_me' => 'Recordarme',
+    'signup_user_unique_error' => 'Verifique los datos, el CUIL o el Email ya se encuentran registrados.',
+    'signup_title' => 'Registrarse',
 ];

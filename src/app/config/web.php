@@ -41,7 +41,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            //'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -67,6 +67,16 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'login',
+                    'route' => 'site/login',
+                ],
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'signup',
+                    'route' => 'register/signup',
+                ],
                 [
                     'pattern' => 'contests',
                     'route' => 'public-contest/index',
