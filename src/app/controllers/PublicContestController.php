@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Contests;
 use app\models\ContestsQuery;
+use app\models\ValidateInscription;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -65,6 +66,25 @@ class PublicContestController extends Controller
         $dataSerializada['workingDayType'] = $data->getWorkingDayType()->one()->name;     
 
         return $this->render('/contests/details', [
+            'data' => $data,
+            'dataSerializada' => $dataSerializada,
+        ]);    
+
+              
+    }
+
+    public function actionInscription($slug)
+    {
+        $data = $this->findModel($slug);
+        $dataSerializada = [];
+        $model = new ValidateInscription;
+
+        $dataSerializada['area'] = $data->getArea()->one()->name;
+        $dataSerializada['orientation'] = $data->getOrientation()->one()->name;          
+        $dataSerializada['categoryType'] = $data->getCategoryType()->one()->name;
+        $dataSerializada['workingDayType'] = $data->getWorkingDayType()->one()->name;     
+
+        return $this->render('/contests/inscription', [
             'data' => $data,
             'dataSerializada' => $dataSerializada,
         ]);    
