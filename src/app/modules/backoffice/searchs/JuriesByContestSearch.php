@@ -5,7 +5,6 @@ namespace app\modules\backoffice\searchs;
 use app\models\Contests;
 use app\models\Postulations;
 use app\models\User;
-use app\models\Users;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -28,6 +27,7 @@ class JuriesByContestSearch extends Postulations
         $customAttributes = [
             'personFullName',
             'personEmail',
+            'isPresident',
         ];
 
         return array_merge(parent::attributes(), $customAttributes);
@@ -40,7 +40,7 @@ class JuriesByContestSearch extends Postulations
     {
         return [
             [['contest_id', 'id'], 'integer'],
-            //[['is_president'], 'boolean'],
+            [['isPresident'], 'boolean'],
             [['personFullName', 'personEmail'], 'safe'],
         ];
     }
@@ -65,7 +65,7 @@ class JuriesByContestSearch extends Postulations
     {
         $contest = $this->findContest();
 
-        $query = User::find();
+        $query = User::find()->with(['contestsForJury']);
        // $query = ContestJury::find()->where([
        //     '=',
        //     'contest_id',
