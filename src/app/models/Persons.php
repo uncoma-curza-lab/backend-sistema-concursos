@@ -49,7 +49,7 @@ class Persons extends \yii\db\ActiveRecord
             [['place_of_birth', 'user_id'], 'integer'],
             [['first_name', 'last_name', 'uid', 'dni', 'contact_email', 'cellphone', 'phone', 'real_address', 'legal_address', 'citizenship'], 'string', 'max' => 255],
             [['place_of_birth'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['place_of_birth' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -60,18 +60,18 @@ class Persons extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'uid' => 'Uid',
-            'dni' => 'Dni',
-            'contact_email' => 'Contact Email',
-            'cellphone' => 'Cellphone',
-            'phone' => 'Phone',
-            'real_address' => 'Real Address',
-            'legal_address' => 'Legal Address',
+            'first_name' => \Yii::t('app', 'first_name'),
+            'last_name' => \Yii::t('app', 'last_name'),
+            'uid' => \Yii::t('app', 'uid'),
+            'dni' => \Yii::t('app', 'dni'),
+            'contact_email' => \Yii::t('app', 'contact_email'),
+            'cellphone' => \Yii::t('app', 'cellphone'),
+            'phone' => \Yii::t('app', 'phone'),
+            'real_address' => \Yii::t('app', 'real_address'),
+            'legal_address' => \Yii::t('app', 'legal_address'),
             'citizenship' => 'Citizenship',
             'date_of_birth' => 'Date Of Birth',
-            'place_of_birth' => 'Place Of Birth',
+            'place_of_birth' => \Yii::t('app', 'place_of_birth'),
             'user_id' => 'User ID',
         ];
     }
@@ -113,7 +113,7 @@ class Persons extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**

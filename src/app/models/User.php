@@ -2,103 +2,115 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use Yii;
+
+/**
+ * This is the model class for table "users".
+ *
+ * @property int $id
+ * @property string|null $uid
+ * @property string|null $password
+ * @property string|null $timestamp
+ *
+ * @property Persons[] $persons
+ */
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'users';
+    }
 
     /**
      * {@inheritdoc}
      */
+    public function rules()
+    {
+        return [
+            [['timestamp'], 'safe'],
+            [['uid', 'password'], 'string', 'max' => 255],
+            [['uid'], 'unique'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'uid' => 'Uid',
+            'password' => 'Password',
+            'timestamp' => 'Timestamp',
+        ];
+    }
+
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return static::findOne($id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
         return null;
     }
 
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return null;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return null;
+    }
+
+    /**
+     * Gets query for [[Persons]].
+     *
+     * @return \yii\db\ActiveQuery|PersonsQuery
+     */
+    public function getPerson()
+    {
+        return $this->hasOne(Persons::className(), ['user_id' => 'id']);
+    }
+
+    public function getContests()
+    {
+        return $this->hasMany(Contests::class, ['id' => 'contest_id'])
+                    ->viaTable(ContestJury::class, ['user_id', 'id']);
     }
 
     /**
      * {@inheritdoc}
+     * @return UsersQuery the active query used by this AR class.
      */
-    public function validateAuthKey($authKey)
+    public static function find()
     {
-        return $this->authKey === $authKey;
+        return new UsersQuery(get_called_class());
     }
 
-    /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
-     */
+    public function setPassword($password)
+    {
+        $this->password = \Yii::$app->security->generatePasswordHash($password);
+    }
+
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return \Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    public function getusername()
+    {
+        return $this->person->first_name . ' ' . $this->person->last_name;
     }
 }
