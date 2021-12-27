@@ -84,10 +84,22 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->hasOne(Persons::className(), ['user_id' => 'id']);
     }
 
+    public function getContestJuriesRelation()
+    {
+        return $this->hasMany(ContestJury::class, ['user_id' => 'id']);
+    }
+
     public function getContestsForJury()
     {
         return $this->hasMany(Contests::class, ['id' => 'contest_id'])
-                    ->viaTable(ContestJury::class, ['id', 'user_id']);
+                    ->via('contestJuriesRelation');
+    }
+
+    public function isPresident($contestSlug)
+    {
+        $contest = array_search($contestSlug, array_column($this->contestsForJury, 'code'));
+        var_dump($this->contestsForJury);
+        die();
     }
 
     /**

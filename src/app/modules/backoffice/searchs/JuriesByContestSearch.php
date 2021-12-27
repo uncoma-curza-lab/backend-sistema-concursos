@@ -65,7 +65,9 @@ class JuriesByContestSearch extends Postulations
     {
         $contest = $this->findContest();
 
-        $query = User::find()->with(['contestsForJury']);
+        $query = User::find()->with([
+            'contestsForJury'
+        ]);
        // $query = ContestJury::find()->where([
        //     '=',
        //     'contest_id',
