@@ -25,16 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'personFullName',
                 'label' => 'Nombre y Apellido',
-                'value'  =>'person.fullName'
+                'value'  =>'user.person.fullname'
             ],
             [
                 'attribute' => 'personEmail',
                 'label' => 'Email',
-                'value'  =>'person.contact_email'
+                'value'  =>'user.person.contact_email'
             ],
             [
                 'attribute' => 'is_president',
                 'label' => 'Presidente',
+                'value' => fn($value) => $value->is_president ? 'Si' :'No',
             ],
         ],
     ]); ?>

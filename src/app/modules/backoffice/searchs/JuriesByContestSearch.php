@@ -2,6 +2,7 @@
 
 namespace app\modules\backoffice\searchs;
 
+use app\models\ContestJury;
 use app\models\Contests;
 use app\models\Postulations;
 use app\models\User;
@@ -64,10 +65,8 @@ class JuriesByContestSearch extends Postulations
     public function search($params)
     {
         $contest = $this->findContest();
+        $query = $contest->with(['user.person']);
 
-        $query = User::find()->with([
-            'contestsForJury'
-        ]);
        // $query = ContestJury::find()->where([
        //     '=',
        //     'contest_id',
@@ -103,6 +102,7 @@ class JuriesByContestSearch extends Postulations
 
     private function findContest()
     {
-        return Contests::find()->findBySlug($this->contestSlug);
+        $contest = Contests::find()->findBySlug($this->contestSlug);
+        return ContestJury::find()->where(['=', 'contest_id', $contest->id]);
     }
 }

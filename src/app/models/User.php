@@ -95,13 +95,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                     ->via('contestJuriesRelation');
     }
 
-    public function isPresident($contestSlug)
-    {
-        $contest = array_search($contestSlug, array_column($this->contestsForJury, 'code'));
-        var_dump($this->contestsForJury);
-        die();
-    }
-
     /**
      * {@inheritdoc}
      * @return UsersQuery the active query used by this AR class.
