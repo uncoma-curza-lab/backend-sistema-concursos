@@ -149,10 +149,15 @@ class Contests extends \yii\db\ActiveRecord
         return $this->hasOne(WorkingDayTypes::className(), ['id' => 'working_day_type_id']);
     }
 
+    public function getContestJuriesRelationship()
+    {
+        return $this->hasOne(ContestJury::class, ['contest_id' => 'id']);
+
+    }
+
     public function getJuries()
     {
-        return $this->hasMany(User::class, ['id' => 'user_id'])
-                    ->viaTable(ContestJury::class, ['contest_id', 'id']);
+        return $this->hasMany(User::class, ['id' => 'user_id'])->via('contestJuriesRelationship');
     }
 
     /**

@@ -40,12 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => ' {view} {update} {delete} {postulations}',
+                'template' => ' {view} {update} {delete} {postulations} {juries}',
                 'buttons' => [
                     'postulations' =>  function($url, $model, $key) {
                         return Html::a(
-                            '<span class="bi bi-people-fill" aria-hidden="true"></span>',
+                            '<span class="bi bi-person-lines-fill" aria-hidden="true"></span>',
                             Url::to(['postulation/contest', 'slug' => $model->code])
+                        );
+                    },
+                    'juries' => function($url, $model, $key) {
+                        return Html::a(
+                            '<span class="bi bi-people-fill" aria-hidden="true"></span>',
+                            Url::to(['juries/contest', 'slug' => $model->code])
                         );
                     }
                 ],
