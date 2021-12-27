@@ -53,7 +53,7 @@ class JuriesController extends Controller
         $contest = $this->findContest($slug);
         $juryForm = new AddJuryForm();
 
-        if ($this->request->isPost && $juryForm->load($this->request->post())){//&& $contest->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $juryForm->load($this->request->post())) {
             $juryForm->saveJury($contest->id);
             return $this->redirect(['contest', 'slug' => $contest->code]);
         }
