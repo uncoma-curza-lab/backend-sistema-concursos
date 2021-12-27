@@ -23,19 +23,31 @@ $form = ActiveForm::begin([]); ?>
         'type' => 'number',
     ]) ?>
 
-    <?= $form->field($model, 'init_date')->textInput([
+    <?= $form->field($model, 'init_date')->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control col-md-6',
-        'type' => 'date'
+        'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'dd-M-yyyy hh:ii'
+        ]
     ]) ?>
 
-    <?= $form->field($model, 'end_date')->textInput([
+    <?= $form->field($model, 'end_date')->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control col-md-6',
-        'type' => 'date',
+        'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'dd-M-yyyy hh:ii'
+        ]
     ]) ?>
 
-    <?= $form->field($model, 'enrollment_date_end')->textInput([
-        'class' => 'form-control col-md-12',
-        'type' => 'date'
+    <?= $form->field($model, 'enrollment_date_end')->widget(\kartik\datetime\DateTimePicker::class, [
+        'class' => 'form-control col-md-6',
+        'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'dd-M-yyyy hh:ii'
+        ]
     ]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
