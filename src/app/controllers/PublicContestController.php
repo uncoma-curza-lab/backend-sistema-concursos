@@ -87,6 +87,7 @@ class PublicContestController extends Controller
         return $this->render('/contests/inscription', [
             'data' => $data,
             'dataSerializada' => $dataSerializada,
+            'model' => $model,
         ]);    
 
               

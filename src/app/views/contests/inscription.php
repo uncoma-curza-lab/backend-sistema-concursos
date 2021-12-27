@@ -42,7 +42,7 @@ if ($data!=null):
   <?php 
   $form = ActiveForm::begin([
     'method'=>'post',
-    'id' => 'nuevaReserva',
+    'id' => 'incription',
     'enableClientValidation'=> true,
     'enableAjaxValidation' => false
   ]);
@@ -52,19 +52,39 @@ if ($data!=null):
   <div class="row">
     <div class="col">
       <div class="form-group">
-        <?= $form->field($model, 'terminos')->checkbox(['label' => 'Acepto los términos']) ?>  
+        <?= $form->field($model, 'terminos')->checkbox([
+          'label' => 'Acepto los términos',
+          'id' => 'terminos',
+        ]) ?>  
       </div>
    </div> 
   </div>
-  </div>
+
   
-  <?= Html::submitInput('Incribirse', ['class'=>'btn btn-primary']) ?>
+  <?= Html::submitInput('Incribirse', [
+    'class'=>'btn btn-primary',
+    'id'=>'btnInscription',
+    'disabled'=>'true',
+  ]) ?>
 </div>
 <?php 
 
   $form->end();
 
 ?>
+
+<script>
+let checkTerminos = document.getElementById('terminos');
+let btnInscription = document.getElementById('btnInscription');
+
+checkTerminos.addEventListener('click', () => {
+checkTerminos.checked ? btnInscription.disabled = false : btnInscription.disabled = true;
+});
+
+btnInscription.addEventListener('click', () => {
+alert('Felicitaciones. Se ha incripto al concurso');
+})
+</script>
 
 </div>
 <?php else: ?>

@@ -4,14 +4,14 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-class ValidarReserva extends Model
+class ValidateInscription extends Model
 {
   public $terminos;
 
   public function rules()
   {
     return [
-      ['terminos', 'required', 'message'=>'Debe aceptar los términos.']
+      ['terminos', 'required', 'message'=>'Debe aceptar los términos.'],
     ];
   }
 
