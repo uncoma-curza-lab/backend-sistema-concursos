@@ -157,7 +157,7 @@ class Contests extends \yii\db\ActiveRecord
 
     public function getJuries()
     {
-        return $this->hasMany(User::class, ['id' => 'user_id'])->via('contestJuriesRelationship', function(){}, ['is_president']);
+        return $this->hasMany(User::class, ['id' => 'user_id'])->via('contestJuriesRelationship');
     }
 
     /**
