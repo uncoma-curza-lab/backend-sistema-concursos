@@ -53,7 +53,8 @@ if ($data!=null):
     <div class="col">
       <div class="form-group">
         <?= $form->field($model, 'terminos')->checkbox([
-          'label' => 'Acepto los términos',
+          'label' => 'Artículo 22º (Res. CD CURZA Nº 112/1991): La presentación de la solicitud de inscripción importa, por
+parte del postulante, el conocimiento y la aceptación de las condiciones fijadas en este reglamento',
           'id' => 'terminos',
         ]) ?>  
       </div>
@@ -83,7 +84,7 @@ checkTerminos.checked ? btnInscription.disabled = false : btnInscription.disable
 
 btnInscription.addEventListener('click', () => {
 alert('Felicitaciones. Se ha incripto al concurso');
-})
+});
 </script>
 
 </div>

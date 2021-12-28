@@ -11,7 +11,7 @@ class ValidateInscription extends Model
   public function rules()
   {
     return [
-      ['terminos', 'required', 'message'=>'Debe aceptar los términos.'],
+      ['terminos', 'boolean', 'trueValue' => 1, 'falseValue' => 1, 'message' => 'Debe aceptar los términos'],
     ];
   }
 
