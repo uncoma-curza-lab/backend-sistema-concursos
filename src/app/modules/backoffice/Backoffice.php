@@ -14,6 +14,7 @@ class Backoffice extends \yii\base\Module implements BootstrapInterface
      * {@inheritdoc}
      */
     public $controllerNamespace = 'app\modules\backoffice\controllers';
+    public $layout = 'backofficeLayout.php';
 
     /**
      * {@inheritdoc}
