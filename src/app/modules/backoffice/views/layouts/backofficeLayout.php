@@ -33,11 +33,11 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name.' - Backoffice',
         'brandUrl' => '/backoffice/contest',
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top',
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
+        'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => [
             ['label' => Yii::t('menu', 'home'), 'url' => ['/site/index']],
             ['label' => 'Concursos', 'url' => ['/backoffice/contest']],
