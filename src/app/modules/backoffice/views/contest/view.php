@@ -39,24 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'init_date',
                 'type' => 'date',
-                'format' => [
-                    'datetime' , 'dd/MM/yyyy',
-                ]
             ],
             [
                 'attribute' => 'end_date',
                 'type' => 'date',
-                'format' => [
-                    'datetime' , 'dd/MM/yyyy',
-                ]
             ],
-            
             [
                 'attribute' => 'enrollment_date_end',
                 'type' => 'date',
-                'format' => [
-                    'datetime' , 'dd/MM/yyyy',
-                ]
             ],
             'description:ntext',
             [

@@ -28,7 +28,7 @@ $form = ActiveForm::begin([]); ?>
         'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
         'pluginOptions' => [
             'autoclose'=>true,
-            'format' => 'dd-M-yyyy hh:ii'
+            'format' => 'dd-mm-yyyy HH:ii P',
         ]
     ]) ?>
 
@@ -37,7 +37,7 @@ $form = ActiveForm::begin([]); ?>
         'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
         'pluginOptions' => [
             'autoclose'=>true,
-            'format' => 'dd-M-yyyy hh:ii'
+            'format' => 'dd-mm-yyyy HH:ii P',
         ]
     ]) ?>
 
@@ -46,7 +46,7 @@ $form = ActiveForm::begin([]); ?>
         'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
         'pluginOptions' => [
             'autoclose'=>true,
-            'format' => 'dd-M-yyyy hh:ii'
+            'format' => 'dd-mm-yyyy HH:ii P',
         ]
     ]) ?>
 

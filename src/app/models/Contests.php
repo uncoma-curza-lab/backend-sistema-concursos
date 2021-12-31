@@ -38,6 +38,15 @@ class Contests extends \yii\db\ActiveRecord
     {
         return 'contests';
     }
+    
+    public function behaviors() {
+    	return [
+        	'FormatDate' => [
+            	'class' => 'app\behaviors\FormatDate',
+            	'attributes' => ['init_date', 'end_date', 'enrollment_date_end'],
+        	],
+    	];
+	}
 
     /**
      * {@inheritdoc}
