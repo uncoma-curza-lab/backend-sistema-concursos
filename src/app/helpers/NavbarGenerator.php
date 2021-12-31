@@ -22,7 +22,7 @@ class NavbarGenerator
         return  [
             [
                 'label' => 'Backoffice',
-                'url' =>['/backoffice']
+                'url' =>['/backoffice/index']
             ],
             '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])

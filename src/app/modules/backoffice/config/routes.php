@@ -4,7 +4,7 @@ return [
     'rules' => [
         [
             'class' => '\yii\web\UrlRule',
-            'pattern' => '/',
+            'pattern' => '<action:(index$|/$)*>',
             'route' => 'backoffice/index',
         ],
         [
