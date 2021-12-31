@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\helpers\NavbarGenerator;
 use app\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
@@ -33,26 +34,12 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top  justify-content-between',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
-        'items' => [
-            ['label' => Yii::t('menu', 'home'), 'url' => ['/site/index']],
-            Yii::$app->user->isGuest ? (
-                ['label' => Yii::t('menu', 'login'), 'url' => ['/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    Yii::t('menu', 'logout') . ' (' . Yii::$app->user->identity->getUsername() . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items' => NavbarGenerator::getItems(),
     ]);
     NavBar::end();
     ?>
