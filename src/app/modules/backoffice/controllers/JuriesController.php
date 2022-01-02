@@ -73,7 +73,9 @@ class JuriesController extends Controller
     public function actionDelete($contest, $user)
     {
         $jury = ContestJury::find()->getByContestAndUser($contest, $user);
+        $contest = $jury->contest;
         $jury->delete();
+        return $this->redirect(['contest', 'slug' => $contest->code]);
     }
 
     protected function findContest($slug)

@@ -14,7 +14,7 @@ return [
         ],
         [
             'class' => 'yii\web\UrlRule',
-            'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<slug:[\w\-]+>/<contest:[\w\-]+>',
+            'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<slug:[\w\-]+>',
             'route' => '<controller>/<action>',
         ],
         [
