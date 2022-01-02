@@ -37,6 +37,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Presidente',
                 'value' => fn($value) => $value->is_president ? 'Si' :'No',
             ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+                'urlCreator' => function($action, $model, $key, $index) {
+                    $routePrefix = '/backoffice/juries';
+                    if($action === 'delete') {
+                        return Url::toRoute([
+                            $routePrefix . '/delete',
+                            'contest' => $model->contest_id,
+                            'user' => '' . $model->user_id
+                        ]);
+                    }
+                },
+            ],
         ],
     ]); ?>
 

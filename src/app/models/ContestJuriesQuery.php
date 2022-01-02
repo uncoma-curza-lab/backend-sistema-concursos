@@ -31,4 +31,10 @@ class ContestJuriesQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function getByContestAndUser(int $userId, int $contestId)
+    {
+        return parent::where(['=', 'contest_id', $contestId])
+            ->where(['=', 'user_id', $userId])->one();
+    }
 }

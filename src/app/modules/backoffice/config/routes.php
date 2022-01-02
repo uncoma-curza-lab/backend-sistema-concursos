@@ -8,8 +8,13 @@ return [
             'route' => 'backoffice/index',
         ],
         [
+            'class' => '\yii\web\UrlRule',
+            'pattern' => 'juries/delete/<user:[\w\-]+>/<contest:[\w\-]+>',
+            'route' => 'juries/delete',
+        ],
+        [
             'class' => 'yii\web\UrlRule',
-            'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<slug:[\w\-]+>',
+            'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<slug:[\w\-]+>/<contest:[\w\-]+>',
             'route' => '<controller>/<action>',
         ],
         [

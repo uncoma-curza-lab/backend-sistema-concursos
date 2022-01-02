@@ -2,6 +2,7 @@
 
 namespace app\modules\backoffice\controllers;
 
+use app\models\ContestJury;
 use app\models\Contests;
 use app\models\User;
 use app\modules\backoffice\models\AddJuryForm;
@@ -67,6 +68,12 @@ class JuriesController extends Controller
             'contest' => $contest,
             'juryUsers' => $juryUsers
         ]);
+    }
+
+    public function actionDelete($contest, $user)
+    {
+        $jury = ContestJury::find()->getByContestAndUser($contest, $user);
+        $jury->delete();
     }
 
     protected function findContest($slug)

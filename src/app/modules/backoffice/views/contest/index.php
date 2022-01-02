@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'init_date:date',
             'enrollment_date_end:date',
             'end_date:date',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => ' {view} {update} {delete} {postulations} {juries}',
