@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('backoffice', 'save_button'), ['class' => 'btn btn-success']) ?>
-        <?= Html::tag('a', \Yii::t('app', 'cancel_button'), [
+        <?= Html::tag('a', \Yii::t('backoffice', 'cancel_button'), [
             'class' => 'btn btn-xs btn-info',
             'href' => Url::to([
                 'juries/contest/',
