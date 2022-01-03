@@ -52,4 +52,14 @@ class ContestsQuery extends \yii\db\ActiveQuery
         return $this->orderBy($columns);
 
     }
+
+    public function filterBySlug($slug)
+    {
+        return $this->where(['=', 'code', $slug]);
+    }
+
+    public function getPublicContest($slug)
+    {
+        return $this->onlyPublic()->filterBySlug($slug)->one();
+    }
 }
