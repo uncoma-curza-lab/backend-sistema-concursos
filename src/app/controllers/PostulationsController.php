@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\Contests;
+use app\models\InscriptionForm;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -37,12 +39,19 @@ class PostulationsController extends Controller
     public function actionContestInscription($slug)
     {
 
-        var_dump('qwe');
-        die();
-        $contest = Contests::find()->getBySlug($slug);
+        $contest = Contests::find()->onlyPublic()
+                                   ->getBySlug($slug);
+
+        $inscriptionForm = new InscriptionForm();
+        $inscriptionForm->contest = $contest;
+
+        if ($inscriptionForm->load(Yii::$app->request->post())) {
+            $inscriptionForm->save();
+        }
 
         return $this->render('/postulations/inscription', [
-            'contest' => $contest
+            'contest' => $contest,
+            'inscriptionForm' => $inscriptionForm,
         ]);
     }
 }

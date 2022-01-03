@@ -58,7 +58,7 @@ class ContestsQuery extends \yii\db\ActiveQuery
         return $this->where(['=', 'code', $slug]);
     }
 
-    public function getPublicContest($slug)
+    public function getBySlug($slug)
     {
         return $this->onlyPublic()->filterBySlug($slug)->one();
     }
