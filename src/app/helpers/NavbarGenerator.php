@@ -10,16 +10,20 @@ class NavbarGenerator
     public static function getCommonItems() : array
     {
         return [
-            'label' => Yii::t('menu', 'home'),
-            'url' => ['/site/index']
+            [
+                'label' => Yii::t('menu', 'home'),
+                'url' => ['/site/index']
+            ]
         ];
     }
 
     public static function getGuestItems()
     {
         return [
-            'label' => Yii::t('menu', 'login'),
-            'url' => ['/login']
+            [
+                'label' => Yii::t('menu', 'login'),
+                'url' => ['/login']
+            ],
         ];
     }
 
@@ -44,9 +48,7 @@ class NavbarGenerator
 
     public static function getItems()
     {
-        $items = [
-            NavbarGenerator::getCommonItems()
-        ];
+        $items = NavbarGenerator::getCommonItems();
 
         if (Yii::$app->user->isGuest) {
             return array_merge($items, NavbarGenerator::getGuestItems());
