@@ -3,6 +3,7 @@
 namespace app\modules\backoffice\models;
 
 use app\models\ContestJury;
+use app\models\Contests;
 use Exception;
 use Yii;
 use yii\base\Model;

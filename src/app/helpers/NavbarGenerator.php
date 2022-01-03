@@ -9,12 +9,18 @@ class NavbarGenerator
 {
     public static function getCommonItems() : array
     {
-        return ['label' => Yii::t('menu', 'home'), 'url' => ['/site/index']];
+        return [
+            'label' => Yii::t('menu', 'home'),
+            'url' => ['/site/index']
+        ];
     }
 
     public static function getGuestItems()
     {
-        return ['label' => Yii::t('menu', 'login'), 'url' => ['/login']];
+        return [
+            'label' => Yii::t('menu', 'login'),
+            'url' => ['/login']
+        ];
     }
 
     public static function getUserItems()
