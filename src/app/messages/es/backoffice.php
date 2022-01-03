@@ -12,4 +12,5 @@ return [
     'juries_by_contest_title' => 'Jurados',
     'add_jury_to_contest_button' => 'Agregar nuevo',
     'save_button' => 'Guardar',
+    'cancel_button' => 'Cancelar',
 ];
