@@ -35,6 +35,10 @@ class NavbarGenerator
     {
         return  [
             [
+                'label' => Yii::t('menu', 'my_postulations'),
+                'url' => ['/postulations/my-postulations'],
+            ],
+            [
                 'label' => 'Backoffice',
                 'url' =>['/backoffice/index']
             ],
