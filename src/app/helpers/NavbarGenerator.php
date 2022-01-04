@@ -24,6 +24,10 @@ class NavbarGenerator
                 'label' => Yii::t('menu', 'login'),
                 'url' => ['/login']
             ],
+            [
+                'label' => Yii::t('menu', 'singup'),
+                'url' => ['/singup']
+            ],
         ];
     }
 
