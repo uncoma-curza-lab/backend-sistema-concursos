@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\Contests;
 use app\models\InscriptionForm;
+use app\models\PostulationsQuery;
+use app\models\search\PostulationsSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,6 +54,17 @@ class PostulationsController extends Controller
         return $this->render('/postulations/inscription', [
             'contest' => $contest,
             'inscriptionForm' => $inscriptionForm,
+        ]);
+    }
+
+    public function actionMyPostulations()
+    {
+        $searchModel = new PostulationsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('my_postulations', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 }
