@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 
-$this->title = Yii::t('backoffice', 'postulations');
+$this->title = Yii::t('app', 'postulations');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="my-postulations-index">
@@ -17,7 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'contest.name',
             [
                 'attribute' => 'contest.init_date'
@@ -28,9 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status_description',
             ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-            ],
+            //[
+            //    'class' => 'yii\grid\ActionColumn',
+            //],
         ],
     ]); ?>
 
