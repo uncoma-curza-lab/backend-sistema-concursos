@@ -4,18 +4,12 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 
-$this->title = Yii::t('backoffice', 'Areas');
+$this->title = Yii::t('backoffice', 'postulations');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="areas-index">
+<div class="my-postulations-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('backoffice', 'Create Areas'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
