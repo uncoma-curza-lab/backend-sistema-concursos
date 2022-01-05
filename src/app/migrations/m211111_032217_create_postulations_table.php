@@ -12,6 +12,7 @@ class m211111_032217_create_postulations_table extends Migration
      */
     public function safeUp()
     {
+        $this->execute("DROP TYPE IF EXISTS postulationStatuses;");
         $this->execute("CREATE TYPE postulationStatuses AS ENUM ('draft', 'pending', 'accepted', 'rejected')");
         $this->createTable('{{%postulations}}', [
             'id' => $this->primaryKey(),

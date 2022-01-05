@@ -56,6 +56,13 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'working_day_type_id')->dropDownList($workingDayTypeList, []) ?>
 
+    <?= $form->field($model, 'departament_id')->widget(Select2::class, [
+        'data' => $courseList,
+    ]) ?>
+    <?= $form->field($model, 'course_id')->widget(Select2::class, [
+        'data' => $courseList,
+    ]) ?>
+
     <?= $form->field($model, 'course_id')->widget(Select2::class, [
         'data' => $courseList,
     ]) ?>
