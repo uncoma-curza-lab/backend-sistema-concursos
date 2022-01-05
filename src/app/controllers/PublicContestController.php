@@ -65,7 +65,7 @@ class PublicContestController extends Controller
 
     protected function findModel($slug)
     {
-        if (($model = Contests::find()->filterBySlug($slug)->complete()) !== null) {
+        if (($model = Contests::find()->filterBySlug($slug)->complete()->one()) !== null) {
             return $model;
         }
 

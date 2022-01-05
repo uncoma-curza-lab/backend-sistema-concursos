@@ -23,6 +23,7 @@ class m211111_032205_create_contests_table extends Migration
             'description' => $this->text(),
             'remuneration_type_id' => $this->integer()->notNull(),
             'working_day_type_id' => $this->integer()->notNull(),
+            'departament_id' => $this->string()->notNull(),
             'course_id' => $this->string()->notNull(),
             'category_type_id' => $this->integer()->notNull(),
             'area_id' => $this->integer()->notNull(),

@@ -2,10 +2,10 @@
 
 use yii\helpers\Url;
 
-if ($data!=null):
+if ($contest!=null):
 ?>
 <div class="contaner">
-  <h2>Concurso - <?= $data->name ?></h2>
+  <h2>Concurso - <?= $contest->name ?></h2>
   <div class="container">
     <p>
         El Centro Universitario Regional Zona Atlántica de la Universidad Nacional 
@@ -28,13 +28,13 @@ if ($data!=null):
       </thead>
       <tbody>
         <tr>      
-          <td name="departamento">Departamento</td>
-          <td name="area"><?= $dataSerializada['area']  ?></td>
-          <td name="orientacion"><?= $dataSerializada['orientation'] ?></td>
-          <td name="asignatura"><?= $data->course_id ?></td>
-          <td name="cargos"><?= $data->qty ?></td>
-          <td name="categoria"><?= $dataSerializada['categoryType'] ?></td>
-          <td name="dedicacion"><?= $dataSerializada['workingDayType'] ?></td>      
+        <td name="departamento"><?= $contest->getCourse()->name ?></td>
+          <td name="area"><?= $contest->area->name ?></td>
+          <td name="orientacion"><?= $contest->orientation->name ?></td>
+          <td name="asignatura"><?= $contest->course_id ?></td>
+          <td name="cargos"><?= $contest->qty ?></td>
+          <td name="categoria"><?= $contest->categoryType->name ?></td>
+          <td name="dedicacion"><?= $contest->workingDayType->name ?></td>      
         </tr>  
       </tbody>
     </table>
@@ -45,8 +45,8 @@ if ($data!=null):
       <dd class="col-sm-9">
         <ul>
             <?php
-                $initDate = date_create($data->init_date);
-                $enrollmentDate = date_create($data->enrollment_date_end);        
+                $initDate = date_create($contest->init_date);
+                $enrollmentDate = date_create($contest->enrollment_date_end);        
             ?>
             <li>Se recibirán incripciones desde el <?= date_format($initDate, "d-m-Y")?> 
             hasta el  <?= date_format($enrollmentDate, "d-m-Y")?></li>
