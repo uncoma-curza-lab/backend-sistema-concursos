@@ -56,25 +56,16 @@ class PublicContestController extends Controller
 
     public function actionDetails($slug)
     {
-        $data = $this->findModel($slug);
-        $dataSerializada = [];
-
-        $dataSerializada['area'] = $data->getArea()->one()->name;
-        $dataSerializada['orientation'] = $data->getOrientation()->one()->name;          
-        $dataSerializada['categoryType'] = $data->getCategoryType()->one()->name;
-        $dataSerializada['workingDayType'] = $data->getWorkingDayType()->one()->name;     
+        $contest = $this->findModel($slug);
 
         return $this->render('/contests/details', [
-            'data' => $data,
-            'dataSerializada' => $dataSerializada,
+            'contest' => $contest,
         ]);    
-
-              
     }
 
     protected function findModel($slug)
     {
-        if (($model = Contests::find()->findBySlug($slug)) !== null) {
+        if (($model = Contests::find()->filterBySlug($slug)->complete()) !== null) {
             return $model;
         }
 
