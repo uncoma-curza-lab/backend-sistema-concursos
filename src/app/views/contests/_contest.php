@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $postulationUrl = Url::to([
-    'postulate',
+    'postulations/contest-inscription',
     'slug' => $model->code
 ]);
 

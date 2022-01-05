@@ -81,6 +81,10 @@ $config = [
                     'route' => 'register/signup',
                 ],
                 [
+                    'pattern' => 'postulate/<slug:[\w\-]+>',
+                    'route' => 'postulations/contest-inscription',
+                ],
+                [
                     'pattern' => 'contests',
                     'route' => 'public-contest/index',
                 ],
