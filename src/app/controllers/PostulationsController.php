@@ -7,6 +7,8 @@ use app\models\InscriptionForm;
 use app\models\PostulationsQuery;
 use app\models\search\PostulationsSearch;
 use Yii;
+use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -18,18 +20,17 @@ class PostulationsController extends Controller
     public function behaviors()
     {
         return [
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['contest-inscription'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['contest-inscription'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 
@@ -49,6 +50,7 @@ class PostulationsController extends Controller
 
         if ($inscriptionForm->load(Yii::$app->request->post())) {
             $inscriptionForm->save();
+            $this->redirect(Url::toRoute('postulations/my-postulations'));
         }
 
         return $this->render('/postulations/inscription', [
