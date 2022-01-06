@@ -16,7 +16,6 @@ JS;
 
 $formatJs = <<< 'JS'
 var formatRepo = function (repo) {
-     deptoId = repo.id;
     if (repo.loading) {
         return repo.nombre 
     }
