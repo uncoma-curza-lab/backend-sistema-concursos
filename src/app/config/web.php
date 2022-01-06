@@ -23,6 +23,7 @@ $config = [
           \yii\widgets\LinkPager::class => \yii\bootstrap4\LinkPager::class,
         ],
     ],
+    'timeZone' => 'America/Argentina/Buenos_Aires',
     'components' => [
         'formatter' => [
             'class' => '\yii\i18n\Formatter',
