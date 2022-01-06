@@ -79,6 +79,20 @@ class Career
         return $departament;
     }
 
+    public static function getFullData($id)
+    {
+        $service = new SPCService();
+        $departaments = $service->getOne('carrera', $id);
+
+        if ($departaments['code'] >= 400) {
+            throw new \Exception('Model error');
+        }
+
+        $departamentRawData = json_decode($departaments['data']);
+        return $departamentRawData;
+
+    }
+
     public function getCode()
     {
         return $this->code;
@@ -87,6 +101,18 @@ class Career
     public function getName()
     {
         return $this->name;
+    }
+
+    public function __get($property)
+    {
+        switch($property){
+        case 'code': 
+            return $this->getCode();
+        case 'name':
+            return $this->getName();
+
+        }
+
     }
 }
 

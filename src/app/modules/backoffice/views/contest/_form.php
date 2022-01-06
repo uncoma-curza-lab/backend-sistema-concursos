@@ -16,6 +16,7 @@ JS;
 
 $formatJs = <<< 'JS'
 var formatRepo = function (repo) {
+     deptoId = repo.id;
     if (repo.loading) {
         return repo.nombre 
     }
@@ -95,10 +96,11 @@ $form = ActiveForm::begin([]); ?>
     <?= $form->field($model, 'working_day_type_id')->dropDownList($workingDayTypeList, []) ?>
 
     <?= $form->field($model, 'departament_id')->widget(Select2::class, [
+        //'data' => $departamentList,
+        'initValueText' => $departamentList[$model->departament_id],
         'options' => ['placeholder' => 'Search for a city ...'],
         'pluginOptions' => [
             'allowClear' => true,
-            //'minimumInputLength' => 2,
             'ajax' => [
                 'url' => 'https://apps.curza.uncoma.edu.ar/api/v1/departamento',
                 'dataType' => 'json',
@@ -107,7 +109,7 @@ $form = ActiveForm::begin([]); ?>
             ],
             'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
             'templateResult' => new JsExpression('formatRepo'),
-            'templateSelection' => new JsExpression('function(depto) {return depto.nombre;}')//new JsExpression('formatRepoSelection'),
+            'templateSelection' => new JsExpression('function(depto) {deptoId = depto.id; return depto.nombre || depto.text;}')//new JsExpression('formatRepoSelection'),
         ],
         'pluginEvents' => [
             'change' => new JsExpression('function(event){ console.log($("#contests-career_id"));$("#contests-career_id").val("").trigger("change"); deptoId = $(this).val();}'),
@@ -118,19 +120,20 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'career_id')->widget(Select2::class, [
         'options' => ['placeholder' => 'Search for a city ...'],
+        'initValueText' => $careerList[$model->career_id],
         'pluginOptions' => [
             'allowClear' => true,
             //'minimumInputLength' => 2,
            'ajax' => [
                'url' => new JsExpression('function($ex) {return ($careerBaseUrl + deptoId);}'),
                'dataType' => 'json',
-               'delay' => 250,
+               'delay' => 400,
                'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
                'processResults' => new JsExpression($resultsJs),
            ],
            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
            'templateResult' => new JsExpression('formatRepo'),
-           'templateSelection' => new JsExpression('function(depto) { if (depto.plan_vigente) {coursesUrl = depto.plan_vigente._links.asignaturas.href;} return depto.nombre;}')//new JsExpression('formatRepoSelection'),
+           'templateSelection' => new JsExpression('function(depto) { if (depto.plan_vigente) {coursesUrl = depto.plan_vigente._links.asignaturas.href;} return depto.nombre || depto.text;}')//new JsExpression('formatRepoSelection'),
         ],
         'pluginEvents' => [
             'change' => new JsExpression('function(event){ $("#contests-course_id").val("").trigger("change");}'),
@@ -141,18 +144,19 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'course_id')->widget(Select2::class, [
         'options' => ['placeholder' => 'Search for a city ...'],
+        'initValueText' => $courseList[$model->course_id],
         'pluginOptions' => [
             'allowClear' => true,
            'ajax' => [
                'url' => new JsExpression('function($ex) {return coursesUrl.replace(/^http:\/\//i, "https://");}'),
                'dataType' => 'json',
-               'delay' => 250,
+               'delay' => 750,
                'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
                'processResults' => new JsExpression($resultsJs),
            ],
            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
            'templateResult' => new JsExpression('formatRepo'),
-           'templateSelection' => new JsExpression('function(depto) {return depto.nombre;}')//new JsExpression('formatRepoSelection'),
+           'templateSelection' => new JsExpression('function(depto) {return depto.nombre || depto.text;}')//new JsExpression('formatRepoSelection'),
         ],
     ]) ?>
 

@@ -3,9 +3,11 @@
 namespace app\modules\backoffice\controllers;
 
 use app\models\Areas;
+use app\models\Career;
 use app\models\CategoryTypes;
 use app\models\Contests;
 use app\models\Course;
+use app\models\Departament;
 use app\models\Orientations;
 use app\models\RemunerationType;
 use app\models\search\ContestSearch;
@@ -83,7 +85,7 @@ class ContestController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-        $props = $this->getRelationLists();
+        $props = $this->getRelationLists($model);
 
         return $this->render('create', [
             'model' => $model,
@@ -105,7 +107,7 @@ class ContestController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'slug' => $model->code]);
         }
-        $props = $this->getRelationLists();
+        $props = $this->getRelationLists($model);
 
         return $this->render('update', [
             'model' => $model,
@@ -143,7 +145,7 @@ class ContestController extends Controller
         throw new NotFoundHttpException(\Yii::t('backoffice', 'The requested page does not exist.'));
     }
 
-    private function getRelationLists()
+    private function getRelationLists($contest)
     {
         $workingDayTypeList = ArrayHelper::map(WorkingDayTypes::find()->all(), 'id', 'name');
         $remunerationTypeList = ArrayHelper::map(RemunerationType::find()->all(), 'id', 'name');
@@ -157,7 +159,9 @@ class ContestController extends Controller
             'categoryTypeList' => $categoryTypeList,
             'orientationList' => $orientationList,
             'areaList' => $areaList,
-            'courseList' => ArrayHelper::map(Course::all(), 'code', 'name'),
+            'departamentList' => ArrayHelper::map(Departament::all(), 'code', 'name'),
+            'careerList' => $contest->departament_id ? ArrayHelper::map(Career::findByDepartament($contest->departament_id), 'code', 'name') : [],
+            'courseList' => $contest->career_id ? ArrayHelper::map(Course::findByCareer($contest->career_id), 'code', 'name') : [],
         ];
     }
 }

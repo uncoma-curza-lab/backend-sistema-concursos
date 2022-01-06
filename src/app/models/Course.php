@@ -47,7 +47,14 @@ class Course
     public static function findByCareer($careerID)
     {
         $service = new SPCService();
-        $courses = $service->getAll('carrera/' . $careerID);
+        $career = Career::getFullData($careerID);
+        $parse = parse_url($career->plan_vigente->_links->asignaturas->href);
+        $path = $parse['path'];
+        $query = $parse['query'];
+        $cleanPath = str_replace('/api/v1/', '', $path);
+        //var_dump($cleanPath, $query);
+        //die();
+        $courses = $service->getAll($cleanPath . '?' . $query);
 
         if ($courses['code'] >= 400) {
             throw new \Exception('Model error, status:'. $courses['code'] . $courses['data']);
