@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($action === 'delete') {
                         return Url::toRoute([
                             $routePrefix . '/delete',
-                            'contest' => $model->contest_id,
+                            'contest' => $model->contest->code,
                             'user' => '' . $model->user_id
                         ]);
                     }

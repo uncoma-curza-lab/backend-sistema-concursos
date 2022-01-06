@@ -9,7 +9,7 @@ return [
         ],
         [
             'class' => '\yii\web\UrlRule',
-            'pattern' => 'juries/delete/<user:[\w\-]+>/<contest:[\w\-]+>',
+            'pattern' => 'juries/delete/<user:[\d]+>/<contest:[\w\-]+>',
             'route' => 'juries/delete',
         ],
         [
