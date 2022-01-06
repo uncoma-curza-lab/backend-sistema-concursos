@@ -14,6 +14,11 @@ return [
         ],
         [
             'class' => 'yii\web\UrlRule',
+            'pattern' => 'roles/add-to-user/<userId:[\d]+>',
+            'route' => 'roles/add-to-user',
+        ],
+        [
+            'class' => 'yii\web\UrlRule',
             'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<slug:[\w\-]+>',
             'route' => '<controller>/<action>',
         ],

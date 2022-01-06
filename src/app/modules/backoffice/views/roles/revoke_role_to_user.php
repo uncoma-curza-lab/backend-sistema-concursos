@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = Yii::t('backoffice', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="users-index">
+<div class="revoke-role-to-user">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -27,17 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'uid',
-            [
-                'attribute' => 'roles',
-                'format' => 'html',
-                'value' => function($user) {
-                    $roles = '';
-                    foreach(Yii::$app->authManager->getRolesByUser($user->id) as $role) {
-                        $roles .= $role->name . '<br>';
-                    }
-                    return $roles;
-                }],
+            'full_name',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
