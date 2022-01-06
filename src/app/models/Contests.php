@@ -93,6 +93,11 @@ class Contests extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getDepartament()
+    {
+        return Departament::find($this->departament_id);
+    }
+
     public function getCourse()
     {
         return Course::find($this->course_id);
