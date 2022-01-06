@@ -28,7 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'uid',
-            'password',
+            [
+                'attribute' => 'roles',
+                'format' => 'html',
+                'value' => function($user) {
+                    $roles = '';
+                    foreach(Yii::$app->authManager->getRolesByUser($user->id) as $role) {
+                        $roles .= $role->name . '<br>';
+                    }
+                    return $roles;
+                }],
             'timestamp',
 
             ['class' => 'yii\grid\ActionColumn'],

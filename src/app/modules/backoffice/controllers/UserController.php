@@ -2,7 +2,7 @@
 
 namespace app\modules\backoffice\controllers;
 
-use app\models\Users;
+use app\models\User as Users;
 use app\models\search\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

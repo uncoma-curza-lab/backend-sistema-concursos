@@ -46,6 +46,7 @@ AppAsset::register($this);
                 'items' => [
                      ['label' => 'Areas', 'url' => '/backoffice/area'],
                      ['label' => 'Orientaciones', 'url' => '/backoffice/orientation'],
+                     ['label' => 'Usuarios', 'url' => '/backoffice/user'],
                 ],
             ],
             Yii::$app->user->isGuest ? (
