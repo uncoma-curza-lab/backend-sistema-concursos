@@ -41,7 +41,7 @@ class RolesController extends Controller
         $addUserRoleForm = new AddRoleToUserForm();
 
         if ($addUserRoleForm->load($this->request->post()) && $addUserRoleForm->save($user->id)) {
-            return $this->redirect(['user']);
+            return $this->redirect(['/backoffice/user']);
         }
 
         return $this->render('add_role_to_user', [
