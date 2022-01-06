@@ -13,7 +13,8 @@ use yii\base\Model;
  */
 class InscriptionForm extends Model
 {
-    public $terms_accepted;
+    public $accepted_term_article22;
+    public $confirm_data;
     public $contest;
 
 
@@ -23,15 +24,16 @@ class InscriptionForm extends Model
     public function rules()
     {
         return [
-            [['terms_accepted' ], 'required'],
-            ['terms_accepted', 'boolean'],
+            [['accepted_term_article22', 'confirm_data'], 'required'],
+            [['accepted_term_article22', 'confirm_data'], 'boolean'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'terms_accepted' => \Yii::t('app', 'terms_accepted'),
+            'accepted_term_article22' => \Yii::t('app', 'terms_accepted_article_22'),
+            'confirm_data' => \Yii::t('app', 'confirm_data'),
         ];
     }
 
@@ -40,6 +42,8 @@ class InscriptionForm extends Model
         $postulations = new Postulations();
         $postulations->contest_id = $this->contest->id;
         $postulations->person_id = Yii::$app->user->identity->id;
+        $postulations->accepted_term_article22 = $this->accepted_term_article22;
+        $postulations->confirm_data = $this->confirm_data;
         $postulations->save();
     }
 }
