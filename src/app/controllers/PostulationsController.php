@@ -27,7 +27,12 @@ class PostulationsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['contest-inscription'],
-                        'roles' => ['postulant'],
+                        'roles' => ['postulateToContest'],
+                        'roleParams' => function() {
+                            return [
+                                'contestSlug' => Yii::$app->request->get('slug'),
+                            ];
+                        },
                     ],
                 ],
             ]

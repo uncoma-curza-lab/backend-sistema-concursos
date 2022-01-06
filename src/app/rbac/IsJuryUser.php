@@ -2,6 +2,8 @@
 
 namespace app\rbac;
 
+use app\models\Contests;
+use Yii;
 use yii\rbac\Rule;
 
 class IsJuryUser extends Rule
@@ -16,6 +18,18 @@ class IsJuryUser extends Rule
      */
     public function execute($user, $item, $params)
     {
-        return true;
+        if (!$contestSlug = $params['contestSlug']) {
+            return false;
+        }
+
+        $contest = Contests::find()->getBySlug($contestSlug);
+
+        foreach($contest->juries as $jury) {
+            if ($jury->id === $user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
