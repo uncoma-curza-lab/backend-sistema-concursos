@@ -90,7 +90,14 @@ class Contests extends \yii\db\ActiveRecord
             'category_type_id' => Yii::t('models/contest', 'category_type'),
             'area_id' => Yii::t('models/contest', 'area'),
             'orientation_id' => Yii::t('models/contest', 'orientation'),
+            'career_id' => Yii::t('models/contest', 'career'),
+            'departament_id' => Yii::t('models/contest', 'departament'),
         ];
+    }
+
+    public function getCareer()
+    {
+        return Career::find($this->career_id);
     }
 
     public function getDepartament()
