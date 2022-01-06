@@ -53,6 +53,7 @@ class Postulations extends \yii\db\ActiveRecord
             [['contest_id', 'person_id'], 'default', 'value' => null],
             [['contest_id', 'person_id'], 'integer'],
             [['files'], 'string'],
+            [['created_at', 'updated_at'], 'datetime'],
             [['meet_date'], 'safe'],
             [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contests::className(), 'targetAttribute' => ['contest_id' => 'id']],
             [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Persons::className(), 'targetAttribute' => ['person_id' => 'id']],
@@ -70,6 +71,8 @@ class Postulations extends \yii\db\ActiveRecord
             'person_id' => 'Person ID',
             'files' => 'Files',
             'meet_date' => 'Meet Date',
+            'created_at' => 'Fecha de registro',
+            'updated_at' => 'Fecha de actualización',
         ];
     }
 
