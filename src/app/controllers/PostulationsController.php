@@ -27,7 +27,7 @@ class PostulationsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['contest-inscription'],
-                        'roles' => ['@'],
+                        'roles' => ['@', 'jury'],
                     ],
                 ],
             ]

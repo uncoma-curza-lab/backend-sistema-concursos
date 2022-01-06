@@ -103,7 +103,7 @@ if ($contest!=null):
 
   </div>
   <br>
-  <a href="<?= Url::toRoute('site/contact') ?>" 
+  <a href="<?= Url::toRoute(['postulations/contest-inscription', 'slug' => $contest->code ]) ?>" 
   class="btn btn-success"><i class="bi bi-person-plus-fill"></i> Insribirse </a>
 
 </div>
