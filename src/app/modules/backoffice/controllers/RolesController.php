@@ -44,7 +44,7 @@ class RolesController extends Controller
             return $this->redirect(['user']);
         }
 
-        return $this->render('add_role', [
+        return $this->render('add_role_to_user', [
             'model' => $addUserRoleForm,
             'user' => $user,
             'roles' => $roles,
