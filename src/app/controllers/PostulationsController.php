@@ -4,13 +4,12 @@ namespace app\controllers;
 
 use app\models\Contests;
 use app\models\InscriptionForm;
-use app\models\PostulationsQuery;
 use app\models\search\PostulationsSearch;
 use Yii;
+use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 
 class PostulationsController extends Controller
 {
@@ -35,7 +34,13 @@ class PostulationsController extends Controller
                         },
                     ],
                 ],
-            ]
+            ],
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
         ];
     }
 
