@@ -6,6 +6,7 @@ use app\models\Contests;
 use app\models\InscriptionForm;
 use app\models\search\PostulationsSearch;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
@@ -34,12 +35,6 @@ class PostulationsController extends Controller
                         },
                     ],
                 ],
-            ],
-            [
-                'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('NOW()'),
             ],
         ];
     }

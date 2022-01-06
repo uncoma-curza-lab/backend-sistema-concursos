@@ -96,7 +96,7 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'departament_id')->widget(Select2::class, [
         //'data' => $departamentList,
-        'initValueText' => $departamentList[$model->departament_id],
+        'initValueText' => $departamentList[$model->departament_id] ?? null,
         'options' => ['placeholder' => 'Search for a city ...'],
         'pluginOptions' => [
             'allowClear' => true,
@@ -119,7 +119,7 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'career_id')->widget(Select2::class, [
         'options' => ['placeholder' => 'Search for a city ...'],
-        'initValueText' => $careerList[$model->career_id],
+        'initValueText' => $careerList[$model->career_id] ?? null,
         'pluginOptions' => [
             'allowClear' => true,
             //'minimumInputLength' => 2,
@@ -143,7 +143,7 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'course_id')->widget(Select2::class, [
         'options' => ['placeholder' => 'Search for a city ...'],
-        'initValueText' => $courseList[$model->course_id],
+        'initValueText' => $courseList[$model->course_id] ?? null,
         'pluginOptions' => [
             'allowClear' => true,
            'ajax' => [

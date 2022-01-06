@@ -23,6 +23,8 @@ class m211111_032217_create_postulations_table extends Migration
             'confirm_data' => $this->boolean()->defaultValue(false),
             'files' => $this->text(), // jsonb? .. multiples path
             'meet_date' => $this->dateTime(),
+            'created_at' => $this->dateTime()->notNull(),
+            'updated_at' => $this->dateTime(),
         ]);
 
         $this->addForeignKey(
