@@ -16,4 +16,6 @@ return [
     'orientation' => 'Orientación',
     'area' => 'Area',
     'description' => 'Descripción',
+    'career' => 'Carrera',
+    'departament' => 'Departamento',
 ];

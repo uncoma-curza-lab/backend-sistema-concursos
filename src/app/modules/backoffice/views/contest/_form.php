@@ -97,7 +97,7 @@ $form = ActiveForm::begin([]); ?>
     <?= $form->field($model, 'departament_id')->widget(Select2::class, [
         //'data' => $departamentList,
         'initValueText' => $departamentList[$model->departament_id] ?? null,
-        'options' => ['placeholder' => 'Search for a city ...'],
+        'options' => ['placeholder' => 'Seleccione un departamento...'],
         'pluginOptions' => [
             'allowClear' => true,
             'ajax' => [
@@ -118,7 +118,7 @@ $form = ActiveForm::begin([]); ?>
 
 
     <?= $form->field($model, 'career_id')->widget(Select2::class, [
-        'options' => ['placeholder' => 'Search for a city ...'],
+        'options' => ['placeholder' => 'Seleccione una carrera...'],
         'initValueText' => $careerList[$model->career_id] ?? null,
         'pluginOptions' => [
             'allowClear' => true,
@@ -142,7 +142,7 @@ $form = ActiveForm::begin([]); ?>
     <?= Html::hiddenInput('current_plan_id', 'Plan', ['id' => 'current_plan_id']);?>
 
     <?= $form->field($model, 'course_id')->widget(Select2::class, [
-        'options' => ['placeholder' => 'Search for a city ...'],
+        'options' => ['placeholder' => 'Seleccione una asignatura...'],
         'initValueText' => $courseList[$model->course_id] ?? null,
         'pluginOptions' => [
             'allowClear' => true,
