@@ -27,7 +27,7 @@ class Departament //extends Model
         $departaments = $service->getAll('departamento');
 
         if ($departaments['code'] >= 400) {
-            throw new \Exception('Model error');
+            return null;
         }
         // TODO: implement mapper
 
@@ -50,7 +50,7 @@ class Departament //extends Model
         $departaments = $service->getOne('departamento', $id);
 
         if ($departaments['code'] >= 400) {
-            throw new \Exception('Model error');
+            return null;
         }
 
         $departamentRawData = json_decode($departaments['data']);

@@ -27,7 +27,7 @@ class Career
         $careers = $service->getAll('carrera');
 
         if ($careers['code'] >= 400) {
-            throw new \Exception('Model error');
+            return null;
         }
         // TODO: implement mapper
 
@@ -85,7 +85,7 @@ class Career
         $departaments = $service->getOne('carrera', $id);
 
         if ($departaments['code'] >= 400) {
-            throw new \Exception('Model error');
+            return null;
         }
 
         $departamentRawData = json_decode($departaments['data']);

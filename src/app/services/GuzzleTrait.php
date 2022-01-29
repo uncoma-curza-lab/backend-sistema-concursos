@@ -5,7 +5,7 @@ use GuzzleHttp\Psr7\Response as GuzzleResponse;
 
 trait GuzzleTrait
 {
-    public static function exec($url, $data = [], array $headers =[], $method = null) : GuzzleResponse
+    public static function exec($url, $data = [], array $headers =[], $method = null) : ?GuzzleResponse
     {
         try {
             $client = new \GuzzleHttp\Client([
@@ -31,9 +31,11 @@ trait GuzzleTrait
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             \Yii::error('Client Exception: ' . $e->getResponse()->getBody()->getContents(), ['user' => \Yii::$app->user]);
             return $e->getResponse();
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            throw $e;
         } catch (\Exception $e) {
             \Yii::error($e->getMessage(), ['user' => \Yii::$app->user]);
-            return (new GuzzleResponse());
+            throw $e;
         }
     }
 

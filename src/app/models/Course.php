@@ -27,7 +27,7 @@ class Course
         $careers = $service->getAll('asignatura');
 
         if ($careers['code'] >= 400) {
-            throw new \Exception('Model error');
+            return null;
         }
         // TODO: implement mapper
 
@@ -52,8 +52,6 @@ class Course
         $path = $parse['path'];
         $query = $parse['query'];
         $cleanPath = str_replace('/api/v1/', '', $path);
-        //var_dump($cleanPath, $query);
-        //die();
         $courses = $service->getAll($cleanPath . '?' . $query);
 
         if ($courses['code'] >= 400) {
@@ -75,13 +73,10 @@ class Course
         $departaments = $service->getOne('asignatura', $id);
 
         if ($departaments['code'] >= 400) {
-            throw new \Exception('Model error');
+            return null;
         }
 
         $departamentRawData = json_decode($departaments['data']);
-        if (!$departamentRawData) {
-            return null;
-        }
         $departament = new self(
             $departamentRawData->nombre,
             $departamentRawData->id
