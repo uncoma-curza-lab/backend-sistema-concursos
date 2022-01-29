@@ -9,7 +9,7 @@ use app\models\Postulations;
 /**
  * AreaSearch represents the model behind the search form of `app\models\Areas`.
  */
-class PostulationsSearch extends Postulations
+class MyPostulationsSearch extends Postulations
 {
     /**
      * {@inheritdoc}
@@ -59,7 +59,7 @@ class PostulationsSearch extends Postulations
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'person_id' => $this->person_id
+            'person_id' => \Yii::$app->user->identity->person->id,
         ]);
 
         //$query->andFilterWhere(['ilike', 'name', $this->name])

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Contests;
 use app\models\InscriptionForm;
+use app\models\search\MyPostulationsSearch;
 use app\models\search\PostulationsSearch;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -66,8 +67,13 @@ class PostulationsController extends Controller
 
     public function actionMyPostulations()
     {
-        $searchModel = new PostulationsSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $searchModel = new MyPostulationsSearch();
+        $dataProvider = $searchModel->search(array_merge(
+            [
+                'person_id' => Yii::$app->user->identity->person->id
+            ],
+            $this->request->queryParams
+        ));
 
         return $this->render('my_postulations', [
             'searchModel' => $searchModel,
