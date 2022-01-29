@@ -12,6 +12,20 @@ use yii\db\Migration;
 class m211222_195233_load_permissions extends Migration
 {
     const PERMISSIONS = [
+        'viewPostulations' => [
+            'description' => 'view all postulations for contest',
+        ],
+        'viewImplicatedPostulations' => [
+            'childs' => [
+                'viewPostulations',
+            ],
+            'rule' => IsJuryUser::class,
+        ],
+        'viewMyPostulations' => [
+            'childs' => [
+                'viewPostulations',
+            ],
+        ],
         'postulateToContest' => [
             'description' => 'Generate a new postulation for the contest',
         ],

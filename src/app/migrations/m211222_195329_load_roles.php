@@ -10,6 +10,16 @@ class m211222_195329_load_roles extends Migration
 {
 
     const ROLES = [
+        'admin' => [
+            'permissions' => [
+                'viewPostulations'
+            ]
+        ],
+        'teach_departament' => [
+            'permissions' => [
+                'viewPostulations'
+            ]
+        ],
         'jury' => [
             'permissions' => [
                 'specialPostulation',
