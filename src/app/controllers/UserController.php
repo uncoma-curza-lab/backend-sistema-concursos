@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Persons;
 use app\models\User;
 use yii\web\Controller;
 use yii\filters\AccessControl;
@@ -59,12 +60,13 @@ class UserController extends Controller
     public function actionProfile()
     {
 
-        $person = \Yii::$app->user->identity->person;
+        $person = \Yii::$app->user->identity->person ?? new Persons();
         $request = \Yii::$app->request;
 
-        if ($person->load($request->post())) {
+        if ($request->isPost && $person->load($request->post())) {
             $transaction = \Yii::$app->db->beginTransaction();
             try {
+                $person->user_id = \Yii::$app->user->identity->id;
                 $person->save();
 
                 \Yii::$app->session->setFlash('contactFormSubmitted');

@@ -115,8 +115,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return \Yii::$app->security->validatePassword($password, $this->password);
     }
 
-    public function getusername()
+    public function getUsername()
     {
+        if (!$this->person) {
+            return null;
+        }
         return $this->person->first_name . ' ' . $this->person->last_name;
     }
 
