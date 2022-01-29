@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Throwable;
 use Yii;
 
 /**
@@ -117,5 +118,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getusername()
     {
         return $this->person->first_name . ' ' . $this->person->last_name;
+    }
+
+    public static function create(array $attributes) : ?self
+    {
+        try {
+            $user = new self();
+            $user->load($attributes);
+            $password = $user->setPassword($user->password);
+            $user->save();
+            return $user;
+        } catch(Throwable $e) {
+            // TODO log
+            return null;
+        }
     }
 }
