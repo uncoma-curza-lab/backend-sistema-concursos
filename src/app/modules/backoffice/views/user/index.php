@@ -37,7 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         $roles .= $role->name . '<br>';
                     }
                     return $roles;
-                }],
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
