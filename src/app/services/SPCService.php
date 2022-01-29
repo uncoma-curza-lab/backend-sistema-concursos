@@ -6,13 +6,11 @@ class SPCService
 {
     use GuzzleTrait;
 
-    protected $client;
     protected $url;
     protected $headers;
 
     public function __construct()
     {
-        $this->client = new \GuzzleHttp\Client();
         $this->url = \Yii::$app->params['spc']['url'];
         $this->headers = [
             //'Authorization' => 'Basic ' . $this->token,

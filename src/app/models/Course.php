@@ -79,6 +79,9 @@ class Course
         }
 
         $departamentRawData = json_decode($departaments['data']);
+        if (!$departamentRawData) {
+            return null;
+        }
         $departament = new self(
             $departamentRawData->nombre,
             $departamentRawData->id

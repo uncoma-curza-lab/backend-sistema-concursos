@@ -8,7 +8,10 @@ trait GuzzleTrait
     public static function exec($url, $data = [], array $headers =[], $method = null) : GuzzleResponse
     {
         try {
-            $client = new \GuzzleHttp\Client();
+            $client = new \GuzzleHttp\Client([
+                'timeout' => 5,
+                'connect_timeout' => 5,
+            ]);
 
             $request = [
                 'headers' => $headers
