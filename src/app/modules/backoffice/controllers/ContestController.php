@@ -147,6 +147,7 @@ class ContestController extends Controller
 
     private function getRelationLists($contest)
     {
+        $departaments = Departament::all();
         $workingDayTypeList = ArrayHelper::map(WorkingDayTypes::find()->all(), 'id', 'name');
         $remunerationTypeList = ArrayHelper::map(RemunerationType::find()->all(), 'id', 'name');
         $categoryTypeList = ArrayHelper::map(CategoryTypes::find()->all(), 'id', 'name');
@@ -159,7 +160,7 @@ class ContestController extends Controller
             'categoryTypeList' => $categoryTypeList,
             'orientationList' => $orientationList,
             'areaList' => $areaList,
-            'departamentList' => ArrayHelper::map(Departament::all(), 'code', 'name'),
+            'departamentList' => $departaments ? ArrayHelper::map($departaments, 'code', 'name') : null,
             'careerList' => $contest->departament_id ? ArrayHelper::map(Career::findByDepartament($contest->departament_id), 'code', 'name') : [],
             'courseList' => $contest->career_id ? ArrayHelper::map(Course::findByCareer($contest->career_id), 'code', 'name') : [],
         ];
