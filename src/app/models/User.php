@@ -120,28 +120,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->person->first_name . ' ' . $this->person->last_name;
     }
 
-<<<<<<< HEAD
     public static function create(array $attributes) : ?self
-=======
-    public static function create(array $attributes) : bool
->>>>>>> b1c59cc2cdbe614cb00057017f370df3045ff3c3
     {
         try {
             $user = new self();
             $user->load($attributes);
             $password = $user->setPassword($user->password);
             $user->save();
-<<<<<<< HEAD
             return $user;
         } catch(Throwable $e) {
             // TODO log
             return null;
-=======
-            return true;
-        } catch(Throwable $e) {
-            // TODO log
-            return false;
->>>>>>> b1c59cc2cdbe614cb00057017f370df3045ff3c3
         }
     }
 }
