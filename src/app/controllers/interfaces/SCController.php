@@ -9,7 +9,7 @@ abstract class SCController extends Controller
 {
     public function beforeAction($action)
     {
-        if (!Yii::$app->user->identity->person) {
+        if (!Yii::$app->user->isGuest && !Yii::$app->user->identity->person) {
             $this->redirect(array('user/profile'));
         }
         return true;
