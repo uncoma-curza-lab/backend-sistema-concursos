@@ -69,7 +69,7 @@ class UserController extends Controller
         $model = new Users();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if (Users::create($this->request->post())) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
