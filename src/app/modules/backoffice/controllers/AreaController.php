@@ -4,6 +4,7 @@ namespace app\modules\backoffice\controllers;
 
 use app\models\Areas;
 use app\models\search\AreaSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,7 +28,18 @@ class AreaController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-            ]
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['index'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['index'],
+                            'roles' => ['jury'],
+                        ],
+                    ],
+                ]
+            ],
         );
     }
 
