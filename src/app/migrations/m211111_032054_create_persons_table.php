@@ -27,6 +27,8 @@ class m211111_032054_create_persons_table extends Migration
             'date_of_birth' => $this->date(),
             'place_of_birth' => $this->integer(),
             'user_id' => $this->integer()->notNull(),
+            'validate_date' => $this->dateTime(),
+            'is_valid' => $this->boolean()->defaultValue(false),
         ]);
 
         $this->addForeignKey(
