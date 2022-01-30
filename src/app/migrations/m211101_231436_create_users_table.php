@@ -16,6 +16,7 @@ class m211101_231436_create_users_table extends Migration
             'id' => $this->primaryKey(),
             'uid' => $this->string()->unique()->notNull(),
             'password' => $this->string()->notNull(),
+            'active' => $this->boolean()->defaultValue(false),
             'timestamp' => $this->timestamp(),
         ]);
     }
