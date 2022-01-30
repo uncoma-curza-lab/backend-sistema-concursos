@@ -51,6 +51,12 @@ class PostulationsController extends Controller
         $contest = Contests::find()->onlyPublic()
                                    ->getBySlug($slug);
 
+        $person = \Yii::$app->user->identity->person;
+
+        if ($person->isPostulatedInContest($contest->id)) {
+            $this->redirect(Url::toRoute('postulations/my-postulations'));
+        }
+
         $inscriptionForm = new InscriptionForm();
         $inscriptionForm->contest = $contest;
 

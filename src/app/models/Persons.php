@@ -76,6 +76,13 @@ class Persons extends \yii\db\ActiveRecord
         ];
     }
 
+    public function isPostulatedInContest(int $id) : bool
+    {
+        return $this->getPostulations()
+                    ->where(['=', 'contest_id', $id])
+                    ->exists();
+    }
+
     /**
      * Gets query for [[PlaceOfBirth]].
      *
