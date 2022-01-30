@@ -12,6 +12,7 @@ use app\models\Orientations;
 use app\models\RemunerationType;
 use app\models\search\ContestSearch;
 use app\models\WorkingDayTypes;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +37,18 @@ class ContestController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-            ]
+                'access' => [
+                    'class' => AccessControl::class,
+                    //'only' => ['contest-inscription'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['*'],
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+            ],
         );
     }
 
