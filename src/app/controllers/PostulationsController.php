@@ -23,7 +23,6 @@ class PostulationsController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['contest-inscription'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -35,6 +34,11 @@ class PostulationsController extends Controller
                             ];
                         },
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['my-postulations'],
+                        'roles' => ['@'],
+                    ]
                 ],
             ],
         ];
