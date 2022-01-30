@@ -30,7 +30,6 @@ class BackofficeController extends Controller
                 ],
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['*'],
                     'rules' => [
                         [
                             'allow' => true,

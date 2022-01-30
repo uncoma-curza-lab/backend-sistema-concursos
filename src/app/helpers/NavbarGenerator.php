@@ -2,6 +2,7 @@
 
 namespace app\helpers;
 
+use app\rbac\helpers\BackofficeRolesAccess;
 use Yii;
 use yii\bootstrap4\Html;
 
@@ -33,15 +34,19 @@ class NavbarGenerator
 
     public static function getUserItems()
     {
-        return  [
+        $navbarUser = [
             [
                 'label' => Yii::t('menu', 'my_postulations'),
                 'url' => ['/postulations/my-postulations'],
             ],
-            [
+        ];
+        if (BackofficeRolesAccess::canAccess()) {
+            $navbarUser[] = [
                 'label' => 'Backoffice',
                 'url' =>['/backoffice/index']
-            ],
+            ];
+        }
+        $navbarUser[] = 
             '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
@@ -49,8 +54,9 @@ class NavbarGenerator
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
-            . '</li>'
-        ];
+            . '</li>';
+
+        return $navbarUser;
 
     }
 
