@@ -4,6 +4,7 @@ namespace app\modules\backoffice\controllers;
 
 use app\models\User as Users;
 use app\models\search\UserSearch;
+use app\modules\backoffice\models\EditProfileForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -113,6 +114,22 @@ class UserController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionEditProfile($userId)
+    {
+
+        $user = $this->findModel($userId);
+        $profile = $user->person;
+
+        if ($this->request->isPost && $profile->load($this->request->post()) && $profile->save()) {
+            return $this->redirect(['view', 'id' => $user->id]);
+        }
+
+        return $this->render('edit_profile', [
+            'profile' => $profile,
+        ]);
+
     }
 
     /**
