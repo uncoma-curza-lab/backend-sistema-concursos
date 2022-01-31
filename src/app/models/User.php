@@ -34,6 +34,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['timestamp'], 'safe'],
             [['uid', 'password'], 'string', 'max' => 255],
             [['uid'], 'unique'],
+            [['active'], 'boolean']
         ];
     }
 
@@ -47,6 +48,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'uid' => 'Uid',
             'password' => 'Password',
             'timestamp' => 'Timestamp',
+            'active' => 'Active',
         ];
     }
 
