@@ -24,7 +24,12 @@ class InscriptionForm extends Model
     public function rules()
     {
         return [
-            [['accepted_term_article22', 'confirm_data'], 'required'],
+            [
+                ['accepted_term_article22', 'confirm_data'],
+                'required',
+                'requiredValue' => true,
+                'message' => 'Debe aceptar los términos para continuar'
+            ],
             [['accepted_term_article22', 'confirm_data'], 'boolean'],
         ];
     }
