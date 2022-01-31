@@ -44,9 +44,10 @@ class Persons extends \yii\db\ActiveRecord
     {
         return [
             [['first_name', 'user_id'], 'required'],
-            [['date_of_birth'], 'safe'],
+            [['date_of_birth', 'validate_date'], 'safe'],
             [['place_of_birth', 'user_id'], 'default', 'value' => null],
             [['place_of_birth', 'user_id'], 'integer'],
+            [['is_valid'], 'boolean'],
             [['first_name', 'last_name', 'uid', 'dni', 'contact_email', 'cellphone', 'phone', 'real_address', 'legal_address', 'citizenship'], 'string', 'max' => 255],
             [['place_of_birth'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['place_of_birth' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -73,6 +74,8 @@ class Persons extends \yii\db\ActiveRecord
             'date_of_birth' => 'Date Of Birth',
             'place_of_birth' => \Yii::t('app', 'place_of_birth'),
             'user_id' => 'User ID',
+            'valid_date' => 'Valid Date',
+            'is_valid' => 'Is valid',
         ];
     }
 
