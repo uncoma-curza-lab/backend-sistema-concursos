@@ -52,6 +52,7 @@ class Postulations extends \yii\db\ActiveRecord
             [['contest_id', 'person_id'], 'required'],
             [['contest_id', 'person_id'], 'default', 'value' => null],
             [['contest_id', 'person_id'], 'integer'],
+            [['status'], 'string'],
             [['files'], 'string'],
             [['created_at', 'updated_at'], 'datetime'],
             [['meet_date'], 'safe'],
@@ -73,6 +74,7 @@ class Postulations extends \yii\db\ActiveRecord
             'meet_date' => 'Meet Date',
             'created_at' => 'Fecha de registro',
             'updated_at' => 'Fecha de actualización',
+            'status' => 'Estado',
         ];
     }
 

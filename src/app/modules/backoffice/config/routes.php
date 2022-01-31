@@ -24,6 +24,11 @@ return [
         ],
         [
             'class' => 'yii\web\UrlRule',
+            'pattern' => 'postulation/approve/<postulationId:[\d]+>',
+            'route' => 'postulation/approve',
+        ],
+        [
+            'class' => 'yii\web\UrlRule',
             'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<slug:[\w\-]+>',
             'route' => '<controller>/<action>',
         ],

@@ -29,6 +29,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Email',
                 'value'  =>'person.email'
             ],
+            [
+                'attribute' => 'status',
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{approve}',
+                'buttons' => [
+                    'approve' =>  function($url, $model, $key) {
+                        return Html::a(
+                            '<span class="bi bi-check" aria-hidden="true"></span>',
+                            ['postulation/approve', 'postulationId' => $model->id],
+                            [
+                                'data' => 
+                                [
+                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                    'method' => 'post',
+                                ]
+                            ]
+                        );
+                    },
+                ],
+            ],
         ],
     ]); ?>
 

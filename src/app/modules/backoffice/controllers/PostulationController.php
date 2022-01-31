@@ -3,6 +3,8 @@
 namespace app\modules\backoffice\controllers;
 
 use app\models\Contests;
+use app\models\Postulations;
+use app\models\PostulationStatus;
 use app\modules\backoffice\searchs\PostulationsByContestSearch;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -21,6 +23,7 @@ class PostulationController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        'approve' => ['POST'],
                     ],
                 ],
             ]
@@ -38,6 +41,14 @@ class PostulationController extends Controller
             'dataProvider' => $dataProvider,
             'contest' => $contest
         ]);
+    }
+
+    public function actionApprove($postulationId)
+    {
+        $postulation = Postulations::findOne($postulationId);
+        $postulation->status = PostulationStatus::ACCEPTED;
+        $postulation->save();
+        return $this->redirect(['contest', 'slug' => $postulation->contest->code]);
     }
 
     public function actionTest()
