@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\UserSearch */
@@ -39,8 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $roles;
                 },
             ],
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => ' {view} {update} {delete} {edit-profile}',
+                'buttons' => [
+                    'edit-profile' =>  function($url, $model, $key) {
+                        return Html::a(
+                            '<span class="bi bi-person-lines-fill" aria-hidden="true"></span>',
+                            Url::to(['user/edit-profile', 'id' => $model->id])
+                        );
+                    },
+                ],
+            ],
         ],
     ]); ?>
 

@@ -116,10 +116,10 @@ class UserController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionEditProfile($userId)
+    public function actionEditProfile($id)
     {
 
-        $user = $this->findModel($userId);
+        $user = $this->findModel($id);
         $profile = $user->person;
 
         if ($this->request->isPost && $profile->load($this->request->post()) && $profile->save()) {

@@ -14,8 +14,8 @@ return [
         ],
         [
             'class' => 'yii\web\UrlRule',
-            'pattern' => 'user/edit-profile/<userId:[\d]+>',
-            'route' => 'user/edit-profile',
+            'pattern' => 'user/<action:[\w\-]+>/<id:\d+>',
+            'route' => 'user/<action>',
         ],
         [
             'class' => 'yii\web\UrlRule',
