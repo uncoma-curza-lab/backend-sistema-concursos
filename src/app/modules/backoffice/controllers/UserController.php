@@ -4,7 +4,8 @@ namespace app\modules\backoffice\controllers;
 
 use app\models\User as Users;
 use app\models\search\UserSearch;
-use app\modules\backoffice\models\EditProfileForm;
+use app\modules\backoffice\models\UserForm;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,7 +29,16 @@ class UserController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-            ]
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['teach_departament', 'admin'],
+                        ],
+                    ],
+                ],
+            ],
         );
     }
 
@@ -91,11 +101,15 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = new UserForm;
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $id]);
         }
+
+        $user = $this->findModel($id);
+        $model->uid = $user->uid;
+        $model->active = $user->active;
 
         return $this->render('update', [
             'model' => $model,
