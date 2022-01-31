@@ -35,7 +35,10 @@ class PostulationsController extends Controller
                         'allow' => true,
                         'actions' => ['my-postulations'],
                         'roles' => ['@'],
-                    ]
+                        'matchCallback' => function($rule, $action) {
+                            return \Yii::$app->user->identity->isValid();
+                        }
+                    ],
                 ],
             ],
         ];

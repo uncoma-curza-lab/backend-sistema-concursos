@@ -2,6 +2,7 @@
 
 namespace app\rbac;
 
+use app\models\User;
 use yii\rbac\Rule;
 
 class ValidUserRule extends Rule
@@ -16,6 +17,11 @@ class ValidUserRule extends Rule
      */
     public function execute($user, $item, $params)
     {
-        return true;
+        $user = User::find($user)->one();
+        if (!$user) {
+            return false;
+        }
+
+        return $user->isValid();
     }
 }

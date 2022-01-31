@@ -136,4 +136,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             return null;
         }
     }
+
+    public function isValid(): bool
+    {
+        $person = $this->person;
+        return $person && $this->active && $person->is_valid;
+
+    }
 }

@@ -39,12 +39,10 @@ class ContestController extends Controller
                 ],
                 'access' => [
                     'class' => AccessControl::class,
-                    //'only' => ['contest-inscription'],
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['*'],
-                            'roles' => ['@'],
+                            'roles' => ['teach_departament', 'admin'],
                         ],
                     ],
                 ],
