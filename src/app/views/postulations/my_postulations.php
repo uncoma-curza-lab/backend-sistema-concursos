@@ -25,7 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'contest.enrollment_date_end',
             ],
             [
-                'attribute' => 'status_description',
+                'attribute' => 'status',
+                'value' => fn($model) => $model->getStatusDescription()
             ],
             'created_at:datetime',
             //[

@@ -120,4 +120,10 @@ class Postulations extends \yii\db\ActiveRecord
             || $this->status === PostulationStatus::PENDING);
         //TODO check user permission
     }
+
+    public function getStatusDescription()
+    {
+        //TODO translations
+        return $this->status;
+    }
 }
