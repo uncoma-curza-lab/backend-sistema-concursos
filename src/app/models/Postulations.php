@@ -113,4 +113,11 @@ class Postulations extends \yii\db\ActiveRecord
             || $this->status === PostulationStatus::PENDING);
         //TODO check user permission
     }
+
+    public function canReject()
+    {
+        return ($this->status === PostulationStatus::DRAFT
+            || $this->status === PostulationStatus::PENDING);
+        //TODO check user permission
+    }
 }
