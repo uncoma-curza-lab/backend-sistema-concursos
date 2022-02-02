@@ -106,4 +106,11 @@ class Postulations extends \yii\db\ActiveRecord
     {
         return new PostulationsQuery(get_called_class());
     }
+
+    public function canApprove()
+    {
+        return ($this->status === PostulationStatus::DRAFT
+            || $this->status === PostulationStatus::PENDING);
+        //TODO check user permission
+    }
 }

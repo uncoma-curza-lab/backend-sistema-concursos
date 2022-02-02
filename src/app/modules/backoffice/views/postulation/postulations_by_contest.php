@@ -37,13 +37,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{approve}',
                 'buttons' => [
                     'approve' =>  function($url, $model, $key) {
+                        if ($model->canApprove())
                         return Html::a(
                             '<span class="bi bi-check" aria-hidden="true"></span>',
                             ['postulation/approve', 'postulationId' => $model->id],
                             [
                                 'data' => 
                                 [
-                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                    'confirm' => Yii::t('app', 'Desea aprobar la postulación?'),
+                                    'method' => 'post',
+                                ]
+                            ]
+                        );
+                    },
+                    'approve' =>  function($url, $model, $key) {
+                        if ($model->canApprove())
+                        return Html::a(
+                            '<span class="bi bi-x" aria-hidden="true"></span>',
+                            ['postulation/reject', 'postulationId' => $model->id],
+                            [
+                                'data' => 
+                                [
+                                    'confirm' => Yii::t('app', 'Desea cancelar la postulación?'),
                                     'method' => 'post',
                                 ]
                             ]
