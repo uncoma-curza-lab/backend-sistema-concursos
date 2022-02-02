@@ -54,7 +54,7 @@ class Postulations extends \yii\db\ActiveRecord
             [['contest_id', 'person_id'], 'integer'],
             [['status'], 'string'],
             [['files'], 'string'],
-            [['created_at', 'updated_at'], 'datetime'],
+            [['created_at', 'updated_at'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['meet_date'], 'safe'],
             [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contests::className(), 'targetAttribute' => ['contest_id' => 'id']],
             [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Persons::className(), 'targetAttribute' => ['person_id' => 'id']],
