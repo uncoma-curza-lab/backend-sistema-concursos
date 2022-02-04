@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'course_id',
                 'value' => fn($data) => $data->getCourse()->name ?? 'unavailable'
             ],
+            'contestStatus.name',
             'init_date:date',
             'enrollment_date_end:date',
             'end_date:date',
