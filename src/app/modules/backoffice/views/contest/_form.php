@@ -64,6 +64,7 @@ $form = ActiveForm::begin([]); ?>
     <?= $form->field($model, 'init_date')->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control col-md-6',
         'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
+        'options' => ['autocomplete' => 'off'],
         'pluginOptions' => [
             'autoclose'=>true,
             'format' => 'dd-mm-yyyy HH:ii P',
@@ -72,6 +73,7 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'end_date')->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control col-md-6',
+        'options' => ['autocomplete' => 'off'],
         'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
         'pluginOptions' => [
             'autoclose'=>true,
@@ -82,6 +84,7 @@ $form = ActiveForm::begin([]); ?>
     <?= $form->field($model, 'enrollment_date_end')->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control col-md-6',
         'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
+        'options' => ['autocomplete' => 'off'],
         'pluginOptions' => [
             'autoclose'=>true,
             'format' => 'dd-mm-yyyy HH:ii P',
