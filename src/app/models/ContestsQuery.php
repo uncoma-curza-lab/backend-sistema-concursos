@@ -45,7 +45,7 @@ class ContestsQuery extends \yii\db\ActiveQuery
     public function onlyPublic() : self
     {
         return $this->where(['in', 'contest_status_id', ContestStatus::publicContestStatus()])
-                    ->where(['<=', 'init_date', date('Y-m-d H:i:s')]);
+                    ->andWhere(['<=', 'init_date', date('Y-m-d H:i:s')]);
     }
 
     public function sortBy(array $columns) : self
