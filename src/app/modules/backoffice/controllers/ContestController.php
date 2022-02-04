@@ -136,7 +136,7 @@ class ContestController extends Controller
         $statuses = ContestStatus::find()->all();
         return $this->render('set_status', [
             'model' => $model,
-            'statuses' => ArrayHelper::map($statuses, 'code', 'name'),
+            'statuses' => ArrayHelper::map($statuses, 'id', 'name'),
         ]);
     }
 

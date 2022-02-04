@@ -71,4 +71,13 @@ class ContestStatus extends \yii\db\ActiveRecord
     {
         return new ContestStatusQuery(get_called_class());
     }
+
+    public static function publicContestStatus() : array
+    {
+        return [
+            self::PUBLISHED,
+            self::IN_PROCESS,
+            self::FINISHED,
+        ];
+    }
 }
