@@ -46,6 +46,10 @@ class NavbarGenerator
                 'url' =>['/backoffice/index']
             ];
         }
+        $navbarUser[] = [
+            'label' => 'Profile',
+            'url' =>['user/profile']
+        ];
         $navbarUser[] = 
             '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
