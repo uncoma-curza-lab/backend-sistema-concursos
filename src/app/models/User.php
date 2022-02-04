@@ -131,6 +131,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             $user = new self();
             $user->load($attributes);
             $password = $user->setPassword($user->password);
+            $user->active = true;
             $user->save();
             return $user;
         } catch(Throwable $e) {

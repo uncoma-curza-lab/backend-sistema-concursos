@@ -75,11 +75,14 @@ class SignupForm extends Model
             $user = new User();
             $user->uid = $this->username;
             $user->setPassword($this->password);
+            $user->active = true;
         
             if (!$user->save()) {
                 $transaction->rollBack();
                 return null;
             }
+            $auth = \Yii::$app->authManager;
+            $auth->assign($auth->getRole('postulant'), $user->id);
             $person = new Persons();
             $person->contact_email = $this->email;
             $person->first_name = $this->first_name;

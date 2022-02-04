@@ -60,13 +60,24 @@ class UserController extends Controller
     {
 
         $error = \Yii::$app->cache->get('error');
+        if ($error) {
+            \Yii::$app->cache->delete('error');
+        }
         $person = \Yii::$app->user->identity->person ?? new Persons();
         $request = \Yii::$app->request;
 
         if ($request->isPost && $person->load($request->post())) {
             $transaction = \Yii::$app->db->beginTransaction();
             try {
-                $person->user_id = \Yii::$app->user->identity->id;
+                $user = \Yii::$app->user->identity;
+                if (!$user->active) {
+                    $user->active = true;
+                    $user->save();
+                }
+                $person->user_id = $user->id;
+                if (!$person->is_valid) {
+                    $person->is_valid = true;
+                }
                 $person->save();
 
                 \Yii::$app->session->setFlash('contactFormSubmitted');
