@@ -29,6 +29,7 @@ class m211111_032205_create_contests_table extends Migration
             'category_type_id' => $this->integer()->notNull(),
             'area_id' => $this->integer()->notNull(),
             'orientation_id' => $this->integer()->notNull(),
+            'contest_status_id' => $this->integer()->default(1),
         ]);
 
         $this->addForeignKey(
@@ -56,6 +57,15 @@ class m211111_032205_create_contests_table extends Migration
             'id',
             'CASCADE'
         );
+
+        $this->addForeignKey(
+            'fk-contest-contest_status_id',
+            'contests',
+            'contest_status_id',
+            'contest_statuses',
+            'id'
+        );
+
         $this->addForeignKey(
             'fk-contest-area_id',
             'contests',
@@ -64,6 +74,7 @@ class m211111_032205_create_contests_table extends Migration
             'id',
             'CASCADE'
         );
+
         $this->addForeignKey(
             'fk-contest-orientation_id',
             'contests',
