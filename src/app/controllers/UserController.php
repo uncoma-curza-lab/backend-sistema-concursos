@@ -59,6 +59,7 @@ class UserController extends Controller
     public function actionProfile()
     {
 
+        $error = \Yii::$app->cache->get('error');
         $person = \Yii::$app->user->identity->person ?? new Persons();
         $request = \Yii::$app->request;
 
@@ -81,6 +82,7 @@ class UserController extends Controller
 
         return $this->render('/users/profile', [
             'person' => $person,
+            'error' => $error,
         ]);
     }
 

@@ -9,6 +9,11 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="profile-form">
+<?php if($error): ?>
+<div class="alert alert-warning" role="alert">
+<?= $error['message'] ?? 'Ocurrió un error' ?>
+</div>
+<?php endif; ?>
 
     <?php $form = ActiveForm::begin(); ?>
 

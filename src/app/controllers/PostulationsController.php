@@ -40,6 +40,15 @@ class PostulationsController extends Controller
                         }
                     ],
                 ],
+                'denyCallback' => function($rule, $action) {
+                    \Yii::$app->cache->set('error', [
+                        'message' => 'Debe completar los datos del perfil antes de inscribirse',
+                    ]);
+
+                    return $this->redirect([
+                        'user/profile',
+                    ]);
+                },
             ],
         ];
     }
