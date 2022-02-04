@@ -46,9 +46,10 @@ class InscriptionForm extends Model
     {
         $postulations = new Postulations();
         $postulations->contest_id = $this->contest->id;
-        $postulations->person_id = Yii::$app->user->identity->id;
+        $postulations->person_id = Yii::$app->user->identity->person->id;
         $postulations->accepted_term_article22 = $this->accepted_term_article22;
         $postulations->confirm_data = $this->confirm_data;
-        $postulations->save();
+        $postulations->status = PostulationStatus::PENDING;
+        return $postulations->save();
     }
 }

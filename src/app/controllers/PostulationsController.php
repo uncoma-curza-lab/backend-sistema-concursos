@@ -41,13 +41,17 @@ class PostulationsController extends Controller
                     ],
                 ],
                 'denyCallback' => function($rule, $action) {
-                    \Yii::$app->cache->set('error', [
-                        'message' => 'Debe completar los datos del perfil antes de inscribirse',
-                    ]);
+                    if (!\Yii::$app->user->identity->isValid()) {
+                        \Yii::$app->cache->set('error', [
+                            'message' => 'Debe completar los datos del perfil antes de inscribirse',
+                        ]);
 
-                    return $this->redirect([
-                        'user/profile',
-                    ]);
+                        return $this->redirect([
+                            'user/profile',
+                        ]);
+                    }
+                    throw new \yii\web\ForbiddenHttpException('No tiene permisos');
+
                 },
             ],
         ];
@@ -74,8 +78,9 @@ class PostulationsController extends Controller
         $inscriptionForm->contest = $contest;
 
         if ($inscriptionForm->load(Yii::$app->request->post())) {
-            $inscriptionForm->save();
-            $this->redirect(Url::toRoute('postulations/my-postulations'));
+            if ($inscriptionForm->save()) {
+                $this->redirect(Url::toRoute('postulations/my-postulations'));
+            }
         }
 
         return $this->render('/postulations/inscription', [
