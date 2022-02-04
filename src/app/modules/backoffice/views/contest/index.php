@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'end_date:date',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => ' {view} {update} {delete} {postulations} {juries}',
+                'template' => ' {view} {update} {delete} {postulations} {juries} {set-status}',
                 'buttons' => [
                     'postulations' =>  function($url, $model, $key) {
                         return Html::a(
@@ -51,6 +51,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a(
                             '<span class="bi bi-people-fill" aria-hidden="true"></span>',
                             Url::to(['juries/contest', 'slug' => $model->code])
+                        );
+                    },
+                    'set-status' => function($url, $model, $key) {
+                        return Html::a(
+                            '<span class="bi bi-ui-radios" aria-hidden="true"></span>',
+                            Url::to(['contest/set-status', 'slug' => $model->code])
                         );
                     }
                 ],

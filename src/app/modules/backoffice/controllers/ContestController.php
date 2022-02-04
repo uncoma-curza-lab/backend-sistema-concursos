@@ -6,6 +6,7 @@ use app\models\Areas;
 use app\models\Career;
 use app\models\CategoryTypes;
 use app\models\Contests;
+use app\models\ContestStatus;
 use app\models\Course;
 use app\models\Departament;
 use app\models\Orientations;
@@ -122,6 +123,20 @@ class ContestController extends Controller
         return $this->render('update', [
             'model' => $model,
             'relationships' => $props
+        ]);
+    }
+
+    public function actionSetStatus($slug)
+    {
+        $model = $this->findModel($slug);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+        $statuses = ContestStatus::find()->all();
+        return $this->render('set_status', [
+            'model' => $model,
+            'statuses' => ArrayHelper::map($statuses, 'code', 'name'),
         ]);
     }
 
