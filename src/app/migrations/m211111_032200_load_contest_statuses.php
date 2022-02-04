@@ -5,11 +5,10 @@ use yii\db\Migration;
 class m211111_032200_load_contest_statuses extends Migration
 {
     const CONTEST_STATUSES = [
-        'draft',
-        'published',
-        'in_process',
-        'dictum',
-        'finished',
+        1 => 'draft',
+        2 => 'published',
+        3 => 'in_process',
+        4 => 'finished',
     ];
 
     /**
@@ -19,8 +18,9 @@ class m211111_032200_load_contest_statuses extends Migration
     {
         echo "Loading statuses contest ...\n";
 
-        $this->executeFunction(function($table, $status) {
+        $this->executeFunction(function($table, $key, $status) {
             $this->insert($table, [
+                'id' => $key,
                 'name' => $status,
                 'code' => \Yii::$app->slug->format($status, '-'),
             ]);
@@ -33,9 +33,9 @@ class m211111_032200_load_contest_statuses extends Migration
     public function safeDown()
     {
         echo "Start delete rows from statuses for contest.\n";
-        $this->executeFunction(function($table, $status) {
+        $this->executeFunction(function($table, $key, $status) {
             $this->delete($table, [
-                'code' => \Yii::$app->slug->format($status),
+                'id' => $key,
             ]);
         });
         return true;
@@ -43,8 +43,8 @@ class m211111_032200_load_contest_statuses extends Migration
 
     private function executeFunction(callable $callback)
     {
-        foreach (self::CONTEST_STATUSES as $status) {
-            $callback('contest_statuses', $status);
+        foreach (self::CONTEST_STATUSES as $key => $status) {
+            $callback('contest_statuses', $key, $status);
         }
 
     }

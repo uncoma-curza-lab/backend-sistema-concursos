@@ -29,7 +29,7 @@ class m211111_032205_create_contests_table extends Migration
             'category_type_id' => $this->integer()->notNull(),
             'area_id' => $this->integer()->notNull(),
             'orientation_id' => $this->integer()->notNull(),
-            'contest_status_id' => $this->integer()->default(1),
+            'contest_status_id' => $this->integer()->defaultValue(1),
         ]);
 
         $this->addForeignKey(
