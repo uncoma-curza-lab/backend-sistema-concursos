@@ -66,6 +66,7 @@ class Contests extends \yii\db\ActiveRecord
             [['category_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryTypes::className(), 'targetAttribute' => ['category_type_id' => 'id']],
             [['orientation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orientations::className(), 'targetAttribute' => ['orientation_id' => 'id']],
             [['remuneration_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => RemunerationType::className(), 'targetAttribute' => ['remuneration_type_id' => 'id']],
+            [['contest_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => ContestStatus::className(), 'targetAttribute' => ['contest_status_id' => 'id']],
             [['working_day_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkingDayTypes::className(), 'targetAttribute' => ['working_day_type_id' => 'id']],
         ];
     }
@@ -92,6 +93,7 @@ class Contests extends \yii\db\ActiveRecord
             'orientation_id' => Yii::t('models/contest', 'orientation'),
             'career_id' => Yii::t('models/contest', 'career'),
             'departament_id' => Yii::t('models/contest', 'departament'),
+            'contest_status_id' => Yii::t('models/contest', 'contest_status'),
         ];
     }
 
@@ -120,6 +122,10 @@ class Contests extends \yii\db\ActiveRecord
         return $this->hasOne(Areas::className(), ['id' => 'area_id']);
     }
 
+    public function getContestStatus()
+    {
+        return $this->hasOne(ContestStatus::className(), ['id' => 'contest_status_id']);
+    }
     /**
      * Gets query for [[CategoryType]].
      *
