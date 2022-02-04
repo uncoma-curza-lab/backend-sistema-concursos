@@ -32,7 +32,7 @@ class m211111_032200_load_contest_statuses extends Migration
      */
     public function safeDown()
     {
-        echo "Start delete rows from category types.\n";
+        echo "Start delete rows from statuses for contest.\n";
         $this->executeFunction(function($table, $status) {
             $this->delete($table, [
                 'code' => \Yii::$app->slug->format($status),
