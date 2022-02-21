@@ -162,6 +162,23 @@ $form = ActiveForm::begin([]); ?>
         ],
     ]) ?>
 
+    <?= $form->field($model, 'evaluation_departament_id')->widget(Select2::class, [
+        'initValueText' => $departamentList[$model->evaluation_departament_id] ?? null,
+        'options' => ['placeholder' => 'Seleccione el departamento evaluador...'],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'ajax' => [
+                'url' => 'https://apps.curza.uncoma.edu.ar/api/v1/departamento',
+                'dataType' => 'json',
+                'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
+                'processResults' => new JsExpression($resultsJs),
+            ],
+            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+            'templateResult' => new JsExpression('formatRepo'),
+            'templateSelection' => new JsExpression('function(depto) {deptoId = depto.id; return depto.nombre || depto.text;}')//new JsExpression('formatRepoSelection'),
+        ],
+    ]) ?>
+
     <?= $form->field($model, 'category_type_id')->dropDownList($categoryTypeList, []) ?>
 
     <?= $form->field($model, 'area_id')->dropDownList($areaList, [])  ?>
