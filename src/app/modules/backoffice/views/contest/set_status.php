@@ -22,6 +22,7 @@ $form = ActiveForm::begin([]); ?>
     ])->label('Nuevo estado') ?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('backoffice', 'save_button'), ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Cancel', ['index'], ['class'=>'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
