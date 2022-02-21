@@ -18,4 +18,5 @@ return [
     'description' => 'Descripción',
     'career' => 'Carrera',
     'departament' => 'Departamento',
+    'contest_status' => 'Estado de concurso',
 ];
