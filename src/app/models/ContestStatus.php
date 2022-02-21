@@ -80,4 +80,10 @@ class ContestStatus extends \yii\db\ActiveRecord
             self::FINISHED,
         ];
     }
+
+    public static function getTranslation(string $status) : string
+    {
+        return Yii::t('models/contest-status', $status);
+
+    }
 }

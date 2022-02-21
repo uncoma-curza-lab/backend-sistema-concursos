@@ -12,6 +12,7 @@ use kartik\depdrop\DepDrop;
 
 <div class="contests-form">
 
+<h3>Cambiar estado del concurso: <i> <?= $model->name ?></i></h3>
 <?php
 
 $form = ActiveForm::begin([]); ?>
@@ -22,7 +23,7 @@ $form = ActiveForm::begin([]); ?>
         'pluginOptions' => [
             'allowClear' => true,
         ],
-    ]) ?>
+    ])->label('Nuevo estado') ?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('backoffice', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
