@@ -124,6 +124,6 @@ class Postulations extends \yii\db\ActiveRecord
     public function getStatusDescription()
     {
         //TODO translations
-        return $this->status;
+        return PostulationStatus::getTranslation($this->status);
     }
 }

@@ -13,7 +13,6 @@ class PostulationStatus
 
     public static function getTranslation(string $status) : string
     {
-        return Yii::t('models/postulation-status', 'plural');
-
+        return Yii::t('models/postulation-status', $status);
     }
 }
