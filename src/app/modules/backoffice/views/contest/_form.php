@@ -44,6 +44,11 @@ function (data, params) {
     };
 }
 JS;
+
+ob_start();
+include ("defaultDescription.html");
+$defaultDescription=ob_get_contents();
+ob_end_clean(); 
 ?>
 
 <div class="contests-form">
@@ -92,13 +97,19 @@ $form = ActiveForm::begin([]); ?>
             'format' => 'dd-mm-yyyy HH:ii P',
         ]
     ]) ?>
-<!--
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
--->
-    
+<!-- 
+    <?= $form->field($model, 'description')->textarea(['rows' => 6, 'value' =>'<h1>Hola</h1>']) ?>
 
+    <script>
+        tinymce.init({
+            selector: 'textarea#contests-description'
+        });        
+    </script>
+
+   
+-->
     <?= $form->field($model, 'description')->widget(TinyMce::className(), [
-        'options' => ['rows' => 6],
+        'options' => ['rows' => 15, 'value' => $defaultDescription],
         'language' => 'es',
         'clientOptions' => [
             'plugins' => [
@@ -106,7 +117,7 @@ $form = ActiveForm::begin([]); ?>
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste"
             ],
-            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         ]
     ]);?>
 
