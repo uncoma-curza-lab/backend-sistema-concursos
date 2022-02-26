@@ -18,4 +18,9 @@
  */
 return [
     'home' => 'Home',
+    'login' => 'Login',
+    'logout' => 'Logout',
+    'signup' => 'Signup',
+    'my_postulations' => 'My postulations',
+    'Profile' => 'Profile'
 ];
