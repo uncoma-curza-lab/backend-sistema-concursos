@@ -31,7 +31,7 @@ if ($contest!=null):
         <td name="departamento"><?= $contest->getDepartament()->name ?? 'unavailable' ?></td>
           <td name="area"><?= $contest->area->name ?></td>
           <td name="orientacion"><?= $contest->orientation->name ?></td>
-          <td name="asignatura"><?= $contest->course_id ?></td>
+          <td name="asignatura"><?= $contest->course->name ?></td>
           <td name="cargos"><?= $contest->qty ?></td>
           <td name="categoria"><?= $contest->categoryType->name ?></td>
           <td name="dedicacion"><?= $contest->workingDayType->name ?></td>      
