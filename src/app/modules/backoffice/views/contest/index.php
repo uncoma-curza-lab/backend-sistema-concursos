@@ -1,5 +1,6 @@
 <?php
 
+use app\models\ContestStatus;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -34,7 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'course_id',
                 'value' => fn($data) => $data->getCourse()->name ?? 'unavailable'
             ],
-            'contestStatus.name',
+            [
+                'attribute' => 'contest_status_id',
+                'value' => fn($data) =>  $data->contestStatus->getStatusName() ?? 'unavailable',
+            ],
             'init_date:date',
             'enrollment_date_end:date',
             'end_date:date',

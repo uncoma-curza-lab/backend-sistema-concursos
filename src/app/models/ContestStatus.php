@@ -86,4 +86,9 @@ class ContestStatus extends \yii\db\ActiveRecord
         return Yii::t('models/contest-status', $status);
 
     }
+
+    public function getStatusName() 
+    {
+        return self::getTranslation($this->name);
+    }
 }

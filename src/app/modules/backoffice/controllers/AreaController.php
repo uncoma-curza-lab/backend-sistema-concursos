@@ -35,7 +35,7 @@ class AreaController extends Controller
                         [
                             'allow' => true,
                             'actions' => ['index'],
-                            'roles' => ['jury'],
+                            'roles' => ['teach_departament', 'admin'],
                         ],
                     ],
                 ]

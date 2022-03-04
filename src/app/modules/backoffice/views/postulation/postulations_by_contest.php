@@ -27,10 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'personEmail',
                 'label' => 'Email',
-                'value'  =>'person.email'
+                'value'  =>'person.contact_email'
             ],
             [
-                'attribute' => 'status',
+                'attribute' => 'statusDescription',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

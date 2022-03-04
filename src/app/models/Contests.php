@@ -59,7 +59,7 @@ class Contests extends \yii\db\ActiveRecord
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'integer'],
             [['init_date', 'end_date', 'enrollment_date_end'], 'safe'],
             [['description'], 'string'],
-            [['name', 'course_id', 'departament_id', 'career_id'], 'string', 'max' => 255],
+            [['name', 'course_id', 'departament_id', 'evaluation_departament_id', 'career_id'], 'string', 'max' => 255],
             [['code'], 'string', 'max' => 100],
             [['code'], 'unique'],
             [['area_id'], 'exist', 'skipOnError' => true, 'targetClass' => Areas::className(), 'targetAttribute' => ['area_id' => 'id']],
@@ -93,6 +93,7 @@ class Contests extends \yii\db\ActiveRecord
             'orientation_id' => Yii::t('models/contest', 'orientation'),
             'career_id' => Yii::t('models/contest', 'career'),
             'departament_id' => Yii::t('models/contest', 'departament'),
+            'evaluation_departament_id' => Yii::t('models/contest', 'evaluation_departament'),
             'contest_status_id' => Yii::t('models/contest', 'contest_status'),
         ];
     }
@@ -105,6 +106,11 @@ class Contests extends \yii\db\ActiveRecord
     public function getDepartament()
     {
         return Departament::find($this->departament_id);
+    }
+
+    public function getEvaluationDepartament()
+    {
+        return Departament::find($this->evaluation_departament_id);
     }
 
     public function getCourse()
