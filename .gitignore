@@ -1,4 +1,4 @@
-src/composer/cache
+src/composer/cache/*
 assets/*
 !assets/.gitignore
 protected/runtime/*
