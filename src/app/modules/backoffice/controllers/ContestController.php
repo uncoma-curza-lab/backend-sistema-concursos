@@ -93,9 +93,19 @@ class ContestController extends Controller
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'slug' => $model->code]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
+        //
+        //Carga de la descripcion por defecto a travez de archivo HTML
+        // 
+        ob_start();
+        include ("defaultDescription.html");
+        $defaultDescription=ob_get_contents();
+        ob_end_clean();
+
+        $model->description = $defaultDescription;
+
+        $model->loadDefaultValues();
+        
         $props = $this->getRelationLists($model);
 
         return $this->render('create', [

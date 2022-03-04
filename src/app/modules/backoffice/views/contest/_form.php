@@ -8,6 +8,8 @@ use yii\web\View;
 
 use kartik\depdrop\DepDrop;
 
+use dosamigos\tinymce\TinyMce;
+
 $apiUrls = <<< 'JS'
     const $careerBaseUrl = "https://apps.curza.uncoma.edu.ar/api/v1/carrera/departamento?id=";
     let deptoId = '';
@@ -42,6 +44,7 @@ function (data, params) {
     };
 }
 JS;
+
 ?>
 
 <div class="contests-form">
@@ -91,7 +94,18 @@ $form = ActiveForm::begin([]); ?>
         ]
     ]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->widget(TinyMce::className(), [
+        'options' => ['rows' => 15],
+        'language' => 'es',
+        'clientOptions' => [
+            'plugins' => [
+                "advlist autolink lists link charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste"
+            ],
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        ]
+    ]);?>
 
     <?= $form->field($model, 'remuneration_type_id')->dropDownList($remunerationTypeList, []) ?>
 
