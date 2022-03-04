@@ -47,7 +47,7 @@ class NavbarGenerator
             ];
         }
         $navbarUser[] = [
-            'label' => 'Profile',
+            'label' => Yii::t('menu', 'Profile') ,
             'url' =>['user/profile']
         ];
         $navbarUser[] = 
