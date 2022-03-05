@@ -226,8 +226,7 @@ class Contests extends ActiveRecord
     {
         if ($insert) {
             $this->generateCode();
-            return parent::beforeSave($insert);
         }
-        return true;
+        return parent::beforeSave($insert);
     }
 }
