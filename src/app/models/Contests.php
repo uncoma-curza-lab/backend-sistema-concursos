@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\helpers\Sluggable;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "contests".
@@ -30,7 +31,7 @@ use Yii;
  * @property RemunerationType $remunerationType
  * @property WorkingDayTypes $workingDayType
  */
-class Contests extends \yii\db\ActiveRecord
+class Contests extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -45,7 +46,7 @@ class Contests extends \yii\db\ActiveRecord
         	'FormatDate' => [
             	'class' => 'app\behaviors\FormatDate',
             	'attributes' => ['init_date', 'end_date', 'enrollment_date_end'],
-        	],
+            ],
     	];
 	}
 
@@ -55,7 +56,7 @@ class Contests extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['code', 'remuneration_type_id', 'working_day_type_id', 'course_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
+            [['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'integer'],
             [['init_date', 'end_date', 'enrollment_date_end'], 'safe'],
@@ -203,25 +204,30 @@ class Contests extends \yii\db\ActiveRecord
         return new ContestsQuery(get_called_class());
     }
 
-    public function getCode() : ?string
+    public function generateCode() : void 
     {
-        if ($this->code) {
-            return $this->code;
-        }
-
-        if (!$this->name) {
-            return null;
+        if ($this->code || !$this->name) {
+            throw \Exception('exists or invalid');
         }
 
         $code = \Yii::$app->slug->format($this->name);
         $contest = Contests::find()->getBySlug($code);
         $count = 1;
-        while($contest) {
+        while ($contest) {
             $code = \Yii::$app->slug->format($this->name . ' ' . $count);
             $contest = Contests::find()->getBySlug($code);
             $count++;
         }
 
-        return $code;
+        $this->code = $code;
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($insert) {
+            $this->generateCode();
+            return parent::beforeSave($insert);
+        }
+        return true;
     }
 }
