@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\helpers\Sluggable;
 use Yii;
 
 /**
@@ -200,5 +201,27 @@ class Contests extends \yii\db\ActiveRecord
     public static function find()
     {
         return new ContestsQuery(get_called_class());
+    }
+
+    public function getCode() : ?string
+    {
+        if ($this->code) {
+            return $this->code;
+        }
+
+        if (!$this->name) {
+            return null;
+        }
+
+        $code = \Yii::$app->slug->format($this->name);
+        $contest = Contests::find()->getBySlug($code);
+        $count = 1;
+        while($contest) {
+            $code = \Yii::$app->slug->format($this->name . ' ' . $count);
+            $contest = Contests::find()->getBySlug($code);
+            $count++;
+        }
+
+        return $code;
     }
 }
