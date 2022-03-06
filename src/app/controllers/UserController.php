@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\City;
 use app\models\Countries;
 use app\models\Persons;
 use app\models\ProfileForm;
+use app\models\Provinces;
 use app\models\User;
 use yii\web\Controller;
 use yii\filters\AccessControl;
@@ -79,10 +81,14 @@ class UserController extends Controller
             return $this->refresh();
         }
         $countries = Countries::find()->where(['=', 'code', 'AR'])->all();
+        $provinces = Provinces::find()->all();
+        $cities = City::find()->all();
         return $this->render('/users/profile', [
             'person' => $profileForm,
             'error' => $error,
             'countryList' => ArrayHelper::map($countries, 'id', 'name'),
+            'provincesList' => ArrayHelper::map($provinces, 'id', 'name'),
+            'citiesList' => ArrayHelper::map($cities, 'id', 'name'),
         ]);
     }
 

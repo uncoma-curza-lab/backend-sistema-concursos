@@ -51,6 +51,8 @@ use yii\widgets\ActiveForm;
                             'provinceName' => 'place_birth_province',
                             'cityName' => 'place_of_birth',
                             'countryList' => $countryList,
+                            'provincesList' => $provincesList,
+                            'citiesList' => $citiesList,
                         ]);
                     ?>
                 </div>
@@ -73,6 +75,8 @@ use yii\widgets\ActiveForm;
                             'countryName' => 'legal_address_country',
                             'provinceName' => 'legal_address_province',
                             'cityName' => 'legal_address_city_id',
+                            'provincesList' => $provincesList,
+                            'citiesList' => $citiesList,
                             'countryList' => $countryList,
                         ]);
                     ?>
@@ -99,6 +103,8 @@ use yii\widgets\ActiveForm;
                             'provinceName' => 'real_address_province',
                             'cityName' => 'real_address_city_id',
                             'countryList' => $countryList,
+                            'provincesList' => $provincesList,
+                            'citiesList' => $citiesList,
                         ]);
 
                     ?>

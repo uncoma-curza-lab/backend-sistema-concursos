@@ -262,5 +262,20 @@ class ProfileForm extends Model
     public function populate(Persons $person) : void
     {
         $this->setAttributes($person->getAttributes());
+        if ($person->place_of_birth) {
+            $cityPlaceOfBirth = City::find()->getOneComplete($person->place_of_birth);
+            $this->place_birth_province = $cityPlaceOfBirth->province->id;
+            $this->place_birth_country = $cityPlaceOfBirth->province->country->id;
+        }
+        if ($person->real_address_city_id) {
+            $cityRealAddress = City::find()->getOneComplete($person->real_address_city_id);
+            $this->real_address_province = $cityRealAddress->province->id;
+            $this->real_address_country = $cityRealAddress->province->country->id;
+        }
+        if ($person->legal_address_city_id) {
+            $cityLegalAddress = City::find()->getOneComplete($person->legal_address_city_id);
+            $this->legal_address_province = $cityLegalAddress->province->id;
+            $this->legal_address_country = $cityLegalAddress->province->country->id;
+        }
     }
 }
