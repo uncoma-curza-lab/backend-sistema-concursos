@@ -23,11 +23,16 @@ class ProfileForm extends Model
     public $contact_email;
     public $phone;
     public $cellphone;
-    public $real_address;
+    public $real_address_street;
+    public $real_address_number;
+    public $real_address_country;
+    public $real_address_province;
+    public $real_address_city_id;
     public $legal_address_country;
     public $legal_address_province;
-    public $legal_address_city;
-    public $legal_address;
+    public $legal_address_city_id;
+    public $legal_address_street;
+    public $legal_address_number;
 
 
     /**
@@ -39,10 +44,68 @@ class ProfileForm extends Model
             [['first_name', 'user_id'], 'required'],
             [['date_of_birth', 'validate_date'], 'safe'],
             [['place_of_birth', 'user_id'], 'default', 'value' => null],
-            [['place_of_birth', 'user_id'], 'integer'],
+            [
+                [
+                    'place_birth_country',
+                    'place_birth_province',
+                    'place_of_birth',
+                    'user_id',
+                    'real_address_country',
+                    'real_address_province',
+                    'real_address_city_id',
+                    'legal_address_country',
+                    'legal_address_province',
+                    'legal_address_city_id',
+                ],
+                'integer'
+            ],
             [['is_valid'], 'boolean'],
-            [['first_name', 'last_name', 'uid', 'dni', 'contact_email', 'cellphone', 'phone', 'real_address', 'legal_address', 'citizenship'], 'string', 'max' => 255],
-            [['place_of_birth'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['place_of_birth' => 'id']],
+            [[
+                'first_name', 'last_name', 'uid', 'dni',
+                'contact_email', 'cellphone', 'phone',
+                'real_address_street', 'legal_address_street',
+                'real_address_number', 'legal_address_number',
+                'citizenship'
+            ], 'string', 'max' => 255],
+            [
+                [
+                    'place_of_birth',
+                    'real_address_city_id',
+                    'legal_address_city_id',
+                ], 
+                'exist', 'skipOnError' => true, 'targetClass' => City::className(),
+                'targetAttribute' => [
+                    'place_of_birth' => 'id',
+                    'real_address_city_id' => 'id',
+                    'legal_address_city_id' => 'id'
+                ]
+            ],
+            [
+                [
+                    'place_birth_country',
+                    'real_address_country',
+                    'legal_address_country',
+                ], 
+                'exist', 'skipOnError' => true, 'targetClass' => Countries::className(),
+                'targetAttribute' => [
+                    'place_birth_country' => 'id',
+                    'real_address_country' => 'id',
+                    'legal_address_country' => 'id',
+                ]
+            ],
+            [
+                [
+                    'place_birth_province',
+                    'real_address_province',
+                    'legal_address_province',
+                ], 
+                'exist', 'skipOnError' => true, 'targetClass' => Provinces::className(),
+                'targetAttribute' => [
+                    'place_birth_province' => 'id',
+                    'real_address_province' => 'id',
+                    'legal_address_province' => 'id',
+                ]
+            ],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -61,14 +124,24 @@ class ProfileForm extends Model
             'contact_email' => \Yii::t('app', 'contact_email'),
             'cellphone' => \Yii::t('app', 'cellphone'),
             'phone' => \Yii::t('app', 'phone'),
-            'real_address' => \Yii::t('app', 'real_address'),
-            'legal_address' => \Yii::t('app', 'legal_address'),
             'citizenship' => 'Citizenship',
             'date_of_birth' => 'Date Of Birth',
-            'place_of_birth' => \Yii::t('app', 'place_of_birth'),
             'user_id' => 'User ID',
             'valid_date' => 'Valid Date',
             'is_valid' => 'Is valid',
+            'place_birth_country' => \Yii::t('app', 'place_of_birth_country'),
+            'place_birth_province' => \Yii::t('app', 'place_of_birth_province'),
+            'place_of_birth' => \Yii::t('app', 'place_of_birth'),
+            'real_address_country' => \Yii::t('app', 'real_address_country'),
+            'real_address_province' => \Yii::t('app', 'real_address_province'),
+            'real_address_city_id' => \Yii::t('app', 'real_address_city_id'),
+            'real_address_street' => \Yii::t('app', 'real_address_street'),
+            'real_address_number' => \Yii::t('app', 'real_address_number'),
+            'legal_address_country' => \Yii::t('app', 'legal_address_country'),
+            'legal_address_province' => \Yii::t('app', 'legal_address_province'),
+            'legal_address_city_id' => \Yii::t('app', 'legal_address_city_id'),
+            'legal_address_street' => \Yii::t('app', 'legal_address_street'),
+            'legal_address_number' => \Yii::t('app', 'legal_address_number'),
         ];
     }
 

@@ -24,10 +24,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($person, 'contact_email')->textInput(['maxlength' => true, 'type' => 'email']) ?>
 
-    <?= $form->field($person, 'legal_address')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($person, 'real_address')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($person, 'cellphone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($person, 'phone')->textInput(['maxlength' => true]) ?>
@@ -76,10 +72,12 @@ use yii\widgets\ActiveForm;
                             'person' => $person,
                             'countryName' => 'legal_address_country',
                             'provinceName' => 'legal_address_province',
-                            'cityName' => 'legal_address_city',
+                            'cityName' => 'legal_address_city_id',
                             'countryList' => $countryList,
                         ]);
                     ?>
+                    <?= $form->field($person, 'legal_address_street')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($person, 'legal_address_number')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>
@@ -99,10 +97,13 @@ use yii\widgets\ActiveForm;
                             'person' => $person,
                             'countryName' => 'real_address_country',
                             'provinceName' => 'real_address_province',
-                            'cityName' => 'real_address_city',
+                            'cityName' => 'real_address_city_id',
                             'countryList' => $countryList,
                         ]);
+
                     ?>
+                    <?= $form->field($person, 'real_address_street')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($person, 'real_address_number')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>
