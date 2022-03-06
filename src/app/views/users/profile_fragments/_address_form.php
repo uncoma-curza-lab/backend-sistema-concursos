@@ -16,6 +16,7 @@ use kartik\select2\Select2;
 ]) ?>
 
 <?= $form->field($person, $provinceName)->widget(DepDrop::class, [
+    'type' => DepDrop::TYPE_SELECT2,
     'options' => [
         'id' => $provinceName . '-id',
     ],
@@ -30,6 +31,7 @@ use kartik\select2\Select2;
 ]) ?>
 
 <?= $form->field($person, $cityName)->widget(DepDrop::class, [
+    'type' => DepDrop::TYPE_SELECT2,
     'options' => [
         'id' => $cityName . '-id',
     ],

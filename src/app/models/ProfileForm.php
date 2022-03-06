@@ -44,7 +44,22 @@ class ProfileForm extends Model
     public function rules()
     {
         return [
-            [['first_name', 'user_id'], 'required'],
+            [[
+                'first_name',
+                'last_name',
+                'place_of_birth',
+                'real_address_city_id',
+                'real_address_street',
+                'real_address_number',
+                'legal_address_city_id',
+                'legal_address_street',
+                'legal_address_number',
+                'dni',
+                'date_of_birth',
+                'cellphone',
+                'user_id',
+                'contact_email',
+            ], 'required'],
             [['date_of_birth', 'validate_date'], 'safe'],
             [['place_of_birth', 'user_id'], 'default', 'value' => null],
             [
@@ -223,6 +238,8 @@ class ProfileForm extends Model
             if (!$person->isCompleteData()) {
                 $person->is_valid = true;
             }
+            var_dump($person);
+            die();
 
             // TODO: active no se deberia cambiar el active
             //if (!$user->active) {
