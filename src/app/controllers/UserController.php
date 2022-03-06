@@ -2,11 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\Countries;
 use app\models\Persons;
+use app\models\ProfileForm;
 use app\models\User;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 class UserController extends Controller
 {
@@ -64,6 +67,7 @@ class UserController extends Controller
             \Yii::$app->cache->delete('error');
         }
         $person = \Yii::$app->user->identity->person ?? new Persons();
+        $profileForm = new ProfileForm();
         $request = \Yii::$app->request;
 
         if ($request->isPost && $person->load($request->post())) {
@@ -92,8 +96,9 @@ class UserController extends Controller
         }
 
         return $this->render('/users/profile', [
-            'person' => $person,
+            'person' => $profileForm,
             'error' => $error,
+            'countryList' => ArrayHelper::map(Countries::find()->all(), 'id', 'name'),
         ]);
     }
 
