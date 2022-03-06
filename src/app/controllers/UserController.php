@@ -2,11 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\City;
+use app\models\Countries;
 use app\models\Persons;
+use app\models\ProfileForm;
+use app\models\Provinces;
 use app\models\User;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 class UserController extends Controller
 {
@@ -63,37 +68,27 @@ class UserController extends Controller
         if ($error) {
             \Yii::$app->cache->delete('error');
         }
-        $person = \Yii::$app->user->identity->person ?? new Persons();
-        $request = \Yii::$app->request;
 
-        if ($request->isPost && $person->load($request->post())) {
-            $transaction = \Yii::$app->db->beginTransaction();
-            try {
-                $user = \Yii::$app->user->identity;
-                if (!$user->active) {
-                    $user->active = true;
-                    $user->save();
-                }
-                $person->user_id = $user->id;
-                if (!$person->is_valid) {
-                    $person->is_valid = true;
-                }
-                $person->save();
-
-                \Yii::$app->session->setFlash('contactFormSubmitted');
-                $transaction->commit();
-
-                return $this->refresh();
-            } catch (\Throwable $e) {
-                // TODO Log error
-            }
-
-            $transaction->rollBack();
+        $person = \Yii::$app->user->identity->person ?? null;
+        $profileForm = new ProfileForm();
+        if ($person) {
+            $profileForm->populate($person);
         }
 
+        $request = \Yii::$app->request;
+        if ($request->isPost && $profileForm->load($request->post()) && $profileForm->save()) {
+            \Yii::$app->session->setFlash('contactFormSubmitted');
+            return $this->refresh();
+        }
+        $countries = Countries::find()->where(['=', 'code', 'AR'])->all();
+        $provinces = Provinces::find()->all();
+        $cities = City::find()->all();
         return $this->render('/users/profile', [
-            'person' => $person,
+            'person' => $profileForm,
             'error' => $error,
+            'countryList' => ArrayHelper::map($countries, 'id', 'name'),
+            'provincesList' => ArrayHelper::map($provinces, 'id', 'name'),
+            'citiesList' => ArrayHelper::map($cities, 'id', 'name'),
         ]);
     }
 
