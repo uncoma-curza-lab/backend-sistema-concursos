@@ -37,7 +37,7 @@ use yii\widgets\ActiveForm;
             <div class="card-header" id="placeBirthHeading">
                 <h2 class="mb-0">
                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#placeBirthAccordion" aria-expanded="true" aria-controls="placeBirthAccordion">
-                        Place of Birth 
+                        <?= \Yii::t('models/profile', 'place_of_birth_title'); ?>
                     </button>
                 </h2>
             </div>
@@ -60,7 +60,7 @@ use yii\widgets\ActiveForm;
             <div class="card-header" id="legalAddressHeading">
                 <h2 class="mb-0">
                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#legalAddressAccordion" aria-expanded="true" aria-controls="legalAddressAccordion">
-                       Legal address 
+                        <?= \Yii::t('models/profile', 'legal_address_title'); ?>
                     </button>
                 </h2>
             </div>
@@ -85,7 +85,7 @@ use yii\widgets\ActiveForm;
             <div class="card-header" id="realAddressHeading">
                 <h2 class="mb-0">
                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#realAddressAccordion" aria-expanded="true" aria-controls="realAddressAccordion">
-                       Legal address 
+                        <?= \Yii::t('models/profile', 'real_address_title'); ?>
                     </button>
                 </h2>
             </div>
