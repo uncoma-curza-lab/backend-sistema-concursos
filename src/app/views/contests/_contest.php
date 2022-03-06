@@ -27,14 +27,10 @@ $moreUrl = Url::to([
             Jornada <?= $model->workingDayType->name; ?>
         </h6>
         <p class="card-text">
-            <?= $model->description; ?>
+            Asignatura: <?= $model->course->name; ?>
         </p>
-        <?= Html::tag('a', 'Inscribirse', [
-            'class' => 'btn btn-primary btn-sm card-link',
-            'href' => $postulationUrl
-        ]); ?>
         <?= Html::tag('a', 'Ver más', [
-            'class' => 'card-link',
+            'class' => 'btn btn-info btn-sm card-link',
             'href' => $moreUrl
         ]); ?>
     </div>
