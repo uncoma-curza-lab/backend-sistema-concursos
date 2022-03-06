@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 class ProfileForm extends Model 
 {
@@ -33,6 +34,8 @@ class ProfileForm extends Model
     public $legal_address_city_id;
     public $legal_address_street;
     public $legal_address_number;
+    public $citizenship;
+    public $validate_date;
 
 
     /**
@@ -204,5 +207,41 @@ class ProfileForm extends Model
     public function getFullName()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function save()
+    {
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
+            $user = \Yii::$app->user->identity;
+            $person = $user->person ?? new Persons();
+            if (!$person->user_id)
+                $person->user_id = $user->id;
+            
+            $person->load($this->asArray());
+
+            if (!$person->isCompleteData()) {
+                $person->is_valid = true;
+            }
+
+            // TODO: active no se deberia cambiar el active
+            //if (!$user->active) {
+            //    $user->active = true;
+            //    $user->save();
+            //}
+            
+            $person->save();
+
+            //$transaction->commit();
+        } catch (\Throwable $e) {
+            // TODO Log error
+        }
+        $transaction->rollBack();
+
+    }
+
+    public function populate(Persons $person) : void
+    {
+        $this->setAttributes($person->getAttributes());
     }
 }

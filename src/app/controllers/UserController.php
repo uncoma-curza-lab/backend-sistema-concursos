@@ -66,32 +66,17 @@ class UserController extends Controller
         if ($error) {
             \Yii::$app->cache->delete('error');
         }
+
         $person = \Yii::$app->user->identity->person ?? null;
         $profileForm = new ProfileForm();
         if ($person) {
-            $profileForm->load($person);
+            $profileForm->populate($person);
         }
+
         $request = \Yii::$app->request;
-
-        if ($request->isPost && $profileForm->load($request->post())) {
-            $transaction = \Yii::$app->db->beginTransaction();
-            try {
-                $user = \Yii::$app->user->identity;
-                $person->user_id = $user->id;
-                if (!$person->is_valid) {
-                    $person->is_valid = true;
-                }
-                $person->save();
-
-                \Yii::$app->session->setFlash('contactFormSubmitted');
-                $transaction->commit();
-
-                return $this->refresh();
-            } catch (\Throwable $e) {
-                // TODO Log error
-            }
-
-            $transaction->rollBack();
+        if ($request->isPost && $profileForm->load($request->post()) && $profileForm->save()) {
+            \Yii::$app->session->setFlash('contactFormSubmitted');
+            return $this->refresh();
         }
 
         return $this->render('/users/profile', [
