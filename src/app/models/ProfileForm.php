@@ -236,7 +236,7 @@ class ProfileForm extends Model
 
             $person->setAttributes($this->getAttributes());
 
-            if (!$person->isMinCompleteDataForValidUser()) {
+            if ($person->isMinCompleteDataForValidUser()) {
                 $person->is_valid = true;
             }
 
