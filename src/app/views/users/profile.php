@@ -1,7 +1,5 @@
 <?php
 
-use kartik\depdrop\DepDrop;
-use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -38,45 +36,77 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($person, 'date_of_birth')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($person, 'country')->widget(Select2::class, [
-        'data' => $countryList,
-        'options' => [
-            'placeholder' => 'Seleccione un departamento...',
-            'id' => 'country-select2'
-        ],
-        'pluginOptions' => [
-            'allowClear' => true,
-        ],
-    ]) ?>
-
-    <?= $form->field($person, 'province')->widget(DepDrop::class, [
-        'options' => [
-            'id' => 'provinces-id',
-        ],
-        'pluginOptions' => [
-            'placeholder' => 'Seleccione un departamento...',
-            'depends' => [
-                'country-select2',
-            ],
-            'allowClear' => true,
-            'url' => Url::to(['location/provinces']),
-        ],
-    ]) ?>
-
-    <?= $form->field($person, 'city')->widget(DepDrop::class, [
-        'options' => [
-            'id' => 'city-id',
-        ],
-        'pluginOptions' => [
-            'placeholder' => 'Seleccione un departamento...',
-            'depends' => [
-                'provinces-id',
-            ],
-            'allowClear' => true,
-            'url' => Url::to(['location/cities']),
-        ],
-    ]) ?>
-
+    <div class="form-group accordion" id="addresses-ac">
+        <div class="card">
+            <div class="card-header" id="placeBirthHeading">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#placeBirthAccordion" aria-expanded="true" aria-controls="placeBirthAccordion">
+                        Place of Birth 
+                    </button>
+                </h2>
+            </div>
+            <div id="placeBirthAccordion" class="collapse show" aria-labelledby="placeBirthHeading" data-parent="#addresses-ac">
+                <div class="card-body">
+                    <?=
+                        $this->render('profile_fragments/_address_form', [
+                            'form' => $form,
+                            'person' => $person,
+                            'countryName' => 'place_birth_country',
+                            'provinceName' => 'place_birth_province',
+                            'cityName' => 'place_of_birth',
+                            'countryList' => $countryList,
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="legalAddressHeading">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#legalAddressAccordion" aria-expanded="true" aria-controls="legalAddressAccordion">
+                       Legal address 
+                    </button>
+                </h2>
+            </div>
+            <div id="legalAddressAccordion" class="collapse" aria-labelledby="legalAddressHeading" data-parent="#addresses-ac">
+                <div class="card-body">
+                    <?=
+                        $this->render('profile_fragments/_address_form', [
+                            'form' => $form,
+                            'person' => $person,
+                            'countryName' => 'legal_address_country',
+                            'provinceName' => 'legal_address_province',
+                            'cityName' => 'legal_address_city',
+                            'countryList' => $countryList,
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="realAddressHeading">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#realAddressAccordion" aria-expanded="true" aria-controls="realAddressAccordion">
+                       Legal address 
+                    </button>
+                </h2>
+            </div>
+            <div id="realAddressAccordion" class="collapse" aria-labelledby="realAddressHeading" data-parent="#addresses-ac">
+                <div class="card-body">
+                    <?=
+                        $this->render('profile_fragments/_address_form', [
+                            'form' => $form,
+                            'person' => $person,
+                            'countryName' => 'real_address_country',
+                            'provinceName' => 'real_address_province',
+                            'cityName' => 'real_address_city',
+                            'countryList' => $countryList,
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'save_button'), ['class' => 'btn btn-success']) ?>
     </div>

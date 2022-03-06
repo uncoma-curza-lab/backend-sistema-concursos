@@ -15,6 +15,8 @@ class ProfileForm extends Model
     public $city;
     public $province;
     public $is_valid;
+    public $place_birth_country;
+    public $place_birth_province;
     public $place_of_birth;
     public $uid;
     public $dni;
@@ -22,6 +24,9 @@ class ProfileForm extends Model
     public $phone;
     public $cellphone;
     public $real_address;
+    public $legal_address_country;
+    public $legal_address_province;
+    public $legal_address_city;
     public $legal_address;
 
 
