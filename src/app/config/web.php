@@ -1,5 +1,6 @@
 <?php
 
+use app\helpers\Sluggable;
 use app\modules\backoffice\Backoffice;
 
 $params = require __DIR__ . '/params.php';

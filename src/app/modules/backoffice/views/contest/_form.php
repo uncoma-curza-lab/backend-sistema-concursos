@@ -57,8 +57,6 @@ $form = ActiveForm::begin([]); ?>
         'maxlength' => true,
     ]) ?>
 
-    <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'qty')->textInput([
         'class' => 'form-control col-md-3',
         'type' => 'number',
