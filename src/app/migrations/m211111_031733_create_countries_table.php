@@ -17,6 +17,11 @@ class m211111_031733_create_countries_table extends Migration
             'name' => $this->string(),
             'code' => $this->string(100)->notNull()->unique(),
         ]);
+        $this->createIndex(
+            'index-country-code',
+            '{{%countries}}',
+            'code',
+        );
     }
 
     /**
