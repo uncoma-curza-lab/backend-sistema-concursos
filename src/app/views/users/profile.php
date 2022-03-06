@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($person, 'dni')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($person, 'date_of_birth')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($person, 'date_of_birth')->textInput(['maxlength' => true,  'type' => 'date']) ?>
 
     <div class="form-group accordion" id="addresses-ac">
         <div class="card">

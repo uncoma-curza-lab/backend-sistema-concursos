@@ -78,11 +78,11 @@ class UserController extends Controller
             \Yii::$app->session->setFlash('contactFormSubmitted');
             return $this->refresh();
         }
-
+        $countries = Countries::find()->where(['=', 'code', 'AR'])->all();
         return $this->render('/users/profile', [
             'person' => $profileForm,
             'error' => $error,
-            'countryList' => ArrayHelper::map(Countries::find()->all(), 'id', 'name'),
+            'countryList' => ArrayHelper::map($countries, 'id', 'name'),
         ]);
     }
 

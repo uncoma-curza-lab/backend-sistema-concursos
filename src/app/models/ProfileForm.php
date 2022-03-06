@@ -233,13 +233,12 @@ class ProfileForm extends Model
             if (!$person->user_id)
                 $person->user_id = $user->id;
             
-            $person->load($this->asArray());
 
-            if (!$person->isCompleteData()) {
+            $person->setAttributes($this->getAttributes());
+
+            if (!$person->isMinCompleteDataForValidUser()) {
                 $person->is_valid = true;
             }
-            var_dump($person);
-            die();
 
             // TODO: active no se deberia cambiar el active
             //if (!$user->active) {
@@ -249,11 +248,14 @@ class ProfileForm extends Model
             
             $person->save();
 
-            //$transaction->commit();
+            $transaction->commit();
+            return true;
         } catch (\Throwable $e) {
-            // TODO Log error
+            $transaction->rollBack();
+            var_dump($e);
+            die();
         }
-        $transaction->rollBack();
+        return false;
 
     }
 

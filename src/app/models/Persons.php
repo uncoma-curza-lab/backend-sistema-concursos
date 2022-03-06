@@ -164,4 +164,23 @@ class Persons extends \yii\db\ActiveRecord
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    public function isMinCompleteDataForValidUser()
+    {
+        $data = array_keys(array_filter($this->getAttributes()));
+        $required = [
+            'first_name',
+            'last_name',
+            'real_address_city_id',
+            'legal_address_city_id',
+            'cellphone',
+            'phone',
+        ];
+
+        foreach($required as $attribute) {
+            if (!in_array($attribute, $data))
+                return false;
+        }
+        return true;
+    }
 }
