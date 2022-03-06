@@ -16,9 +16,8 @@ use kartik\select2\Select2;
 ]) ?>
 
 <?= $form->field($person, $provinceName)->widget(DepDrop::class, [
-    'data' => $provincesList,
+    'data' => $person->$provinceName ? $provincesList : null,
     'type' => DepDrop::TYPE_SELECT2,
-    'value' => $person->$provinceName ??  null,
     'options' => [
         'id' => $provinceName . '-id',
     ],
@@ -28,16 +27,14 @@ use kartik\select2\Select2;
         'depends' => [
             $countryName . '-id',
         ],
-        'allowClear' => true,
         'url' => Url::to(['location/provinces']),
         'loadingText' => 'Aguarde un momento...',
     ],
 ]) ?>
 
 <?= $form->field($person, $cityName)->widget(DepDrop::class, [
-    'data' => $citiesList,
+    'data' => $person->$cityName ? $citiesList : null,
     'type' => DepDrop::TYPE_SELECT2,
-    'value' => $person->$cityName ?? null,
     'options' => [
         'id' => $cityName . '-id',
     ],
@@ -45,6 +42,7 @@ use kartik\select2\Select2;
     'pluginOptions' => [
         'placeholder' => 'Seleccione una ciudad/localidad/municipio...',
         'depends' => [
+            $countryName . '-id',
             $provinceName . '-id',
         ],
         'allowClear' => true,
