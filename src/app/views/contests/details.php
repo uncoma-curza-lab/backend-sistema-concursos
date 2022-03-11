@@ -83,6 +83,9 @@ if ($contest!=null):
         <div>
           <input type='checkbox' id='confirm_data'>DECLARO BAJO JURAMENTO NO ESTAR COMPROMETIDO EN LAS CAUSALES DE INHABILITACIÓN PARA EL DESEMPEÑO DE CARGOS PÚBLICOS
         </div>
+<div class="alert alert-warning" id="alertaSinCompletar" role="alert" hidden>
+  Debe completar la declaración Jurada 
+</div>
                     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Canelar</button>
@@ -98,8 +101,8 @@ if ($contest!=null):
     let confirm_data = document.getElementById('confirm_data').checked
     console.log(art22)
     if(!art22 || !confirm_data){
-alert('Debe Completar la declaración Jurada')
-}
+      document.getElementById('alertaSinCompletar').hidden=false
+    }
   })
 
   </script> 
