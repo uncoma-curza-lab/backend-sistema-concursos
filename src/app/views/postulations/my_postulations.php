@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'download' => function($url, $model, $key){
                         return Html::a(
                             '<span class="bi bi-file-earmark-arrow-down-fill" aria-hidden="true"></span>',
-                            ['postulation/downloadPDF', 'postulationID' => $model->id]
+                            ['postulations/downloadPdf', 'postulationId' => $model->id]
                         );
                     }
                ]

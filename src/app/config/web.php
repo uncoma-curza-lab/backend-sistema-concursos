@@ -87,6 +87,11 @@ $config = [
                     'route' => 'postulations/contest-inscription',
                 ],
                 [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'postulations/downloadPdf/<postulationId:[\d]+>',
+                    'route' => 'postulations/downloadPdf',
+                ],
+                [
                     'pattern' => 'contests',
                     'route' => 'public-contest/index',
                 ],
