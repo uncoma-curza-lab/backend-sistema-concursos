@@ -47,12 +47,6 @@ class PostulationsController extends Controller
                         'allow' => true,
                         'actions' => ['download-pdf'],
                         'roles' => ['@'],
-                        /*
-                        'roleParams' => function() {
-                            return [
-                                'contestSlug' => Yii::$app->request->get('slug'),
-                            ];
-                        },*/
                     ],
                 ],
                 'denyCallback' => function($rule, $action) {
@@ -125,13 +119,6 @@ class PostulationsController extends Controller
         $postulation = Postulations::findOne($postulationId);
         $contest = $postulation->contest;
         // get your HTML raw content without any layouts or scripts
-        /*
-        ob_start();
-        include ("postulationPdf.php");
-        $content=ob_get_contents();
-        ob_end_clean();
-        */
-
         $content = $this->renderPartial('postulationPdf',[
             'postulation' => $postulation,
             'contest' => $contest

@@ -30,7 +30,7 @@
     </table>
 
     <ul>
-        <li>Regrisrado el: <?= $postulation->changeDateFormat($postulation->created_at) ?></li>
+        <li>Regrisrado el: <?= $postulation->created_at?></li>
         <li>Finalización de la incripciones: <?= $contest->enrollment_date_end ?></li>
 </ul>
 </body>
