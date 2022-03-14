@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use DateTime;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -125,6 +126,12 @@ class Postulations extends \yii\db\ActiveRecord
     {
         //TODO translations
         return PostulationStatus::getTranslation($this->status);
+    }
+
+    public function changeDateFormat(String $dateString)
+    {
+        $date = new DateTime($dateString);
+        return $date->format('d-m-Y H:i:s');
     }
 
 

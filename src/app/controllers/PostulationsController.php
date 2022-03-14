@@ -4,13 +4,15 @@ namespace app\controllers;
 
 use app\models\Contests;
 use app\models\InscriptionForm;
+use app\models\Postulations;
 use app\models\search\MyPostulationsSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
-use kartick\mpdf\Pdf;
-use Safe\Exceptions\ExecException;
+use kartik\mpdf\Pdf;
+
+use function Safe\file_get_contents;
 
 class PostulationsController extends Controller
 {
@@ -40,6 +42,17 @@ class PostulationsController extends Controller
                         'matchCallback' => function($rule, $action) {
                             return \Yii::$app->user->identity->isValid();
                         }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['download-pdf'],
+                        'roles' => ['@'],
+                        /*
+                        'roleParams' => function() {
+                            return [
+                                'contestSlug' => Yii::$app->request->get('slug'),
+                            ];
+                        },*/
                     ],
                 ],
                 'denyCallback' => function($rule, $action) {
@@ -108,10 +121,14 @@ class PostulationsController extends Controller
     }
 
     public function actionDownloadPdf($postulationId){
-        throw new ExecException("Exeption");
-        /*
+        
+        $postulation = Postulations::findOne($postulationId);
+        $contest = $postulation->contest;
         // get your HTML raw content without any layouts or scripts
-        $content = '<h1>Prueba</h1>';
+        ob_start();
+        include ("postulationPdf.php");
+        $content=ob_get_contents();
+        ob_end_clean();
         
         // setup kartik\mpdf\Pdf component
         $pdf = new Pdf([
@@ -131,16 +148,15 @@ class PostulationsController extends Controller
             // any css to be embedded if required
             'cssInline' => '.kv-heading-1{font-size:18px}', 
             // set mPDF properties on the fly
-            'options' => ['title' => 'Krajee Report Title'],
+            'options' => ['title' => 'Comprobante de Postulación'],
             // call mPDF methods on the fly
             'methods' => [ 
-                'SetHeader'=>['Krajee Report Header'], 
-                'SetFooter'=>['{PAGENO}'],
+                'SetHeader'=>['Universidad Nacional Del Comahue'],
             ]
         ]);
         
         // return the pdf output as per the destination setting
         return $pdf->render(); 
-        */
+        
     }
 }

@@ -89,7 +89,7 @@ $config = [
                 [
                     'class' => 'yii\web\UrlRule',
                     'pattern' => 'postulations/downloadPdf/<postulationId:[\d]+>',
-                    'route' => 'postulations/downloadPdf',
+                    'route' => 'postulations/download-pdf',
                 ],
                 [
                     'pattern' => 'contests',
