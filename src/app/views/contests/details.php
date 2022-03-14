@@ -83,10 +83,10 @@ if ($contest!=null):
         <div>
           <input type='checkbox' id='confirm_data'>DECLARO BAJO JURAMENTO NO ESTAR COMPROMETIDO EN LAS CAUSALES DE INHABILITACIÓN PARA EL DESEMPEÑO DE CARGOS PÚBLICOS
         </div>
-<div class="alert alert-warning" id="alertaSinCompletar" role="alert" hidden>
-  Debe completar la declaración Jurada 
-</div>
-                    </div>
+        <div class="alert alert-warning" id="alertaSinCompletar" role="alert" hidden>
+          Debe completar la declaración Jurada 
+        </div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Canelar</button>
         <button type="button" id='btnPostularse' class="btn btn-primary">Postularse</button>
