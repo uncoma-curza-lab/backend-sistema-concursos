@@ -1,6 +1,6 @@
 
 <body>
-<img src="./LOGOUNCO.png" alt="LOGO UNCO">
+
     <h1>Comprobante de Postulación a <?= $contest->name ?></h1>
     <p>Ud esta incripto al cargo de <?= $contest->course->name ?> con estado <?= $postulation->getStatusDescription() ?></p>
     
