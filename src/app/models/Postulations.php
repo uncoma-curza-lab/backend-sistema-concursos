@@ -126,4 +126,8 @@ class Postulations extends \yii\db\ActiveRecord
         //TODO translations
         return PostulationStatus::getTranslation($this->status);
     }
+
+    public function downloadPDF($postulationID){
+        
+    }
 }

@@ -29,9 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => fn($model) => $model->getStatusDescription()
             ],
             'created_at:datetime',
-            //[
-            //    'class' => 'yii\grid\ActionColumn',
-            //],
+            [
+               'class' => 'yii\grid\ActionColumn',
+               'template' => ' {download}',
+               'buttons'=> [
+                    'download' => function($url, $model, $key){
+                        return Html::a(
+                            '<span class="bi bi-file-earmark-arrow-down-fill" aria-hidden="true"></span>',
+                            ['postulation/downloadPDF', 'postulationID' => $model->id]
+                        );
+                    }
+               ]
+           ],
         ],
     ]); ?>
 
