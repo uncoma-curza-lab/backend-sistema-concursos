@@ -70,8 +70,6 @@ class m211222_195329_load_roles extends Migration
             }
         }
 
-        //TODO temporal
-        $this->auth->assign($this->auth->getRole('postulant'),1);
     }
 
     /**
