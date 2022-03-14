@@ -54,7 +54,7 @@ class m220306_145003_load_cities extends Migration
     private function getCities()
     {
         $cities = file_get_contents(\Yii::$app->getBasePath() .  '/migrations/jsondata/AR/cities.json', 0, null);
-        $cities = json_decode($cities, true)['municipios'];
+        $cities = json_decode($cities, true)['localidades-censales'];
         $cities = ArrayHelper::map(
             $cities,
             'id',
