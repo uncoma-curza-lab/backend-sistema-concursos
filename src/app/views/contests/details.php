@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\Modal;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -63,49 +64,22 @@ if ($contest!=null):
   <br>
   <a href="<?= Url::toRoute(['postulations/contest-inscription', 'slug' => $contest->code ]) ?>" 
   class="btn btn-success"><i class="bi bi-person-plus-fill"></i> Insribirse </a>
-  <button type="button" id="btnIncripcion" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVerificacion">
-  Launch demo modal
-</button>
+  <?= Html::button('Postularse con Modal', [
+    'value' => Url::to(['postulations/contest-inscription', 'slug' => $contest->code]),
+    'class' => 'btn btn-danger',
+    'id' => 'modalButton'
+  ]);  ?>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="modalVerificacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Declaración Jurada</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div>
-          <input type='checkbox' id='art22'>Artículo 22 (Res. CD CURZA N 112/1991): La presentación de la solicitud de inscripción importa, por parte del postulante, el conocimiento y la aceptación de las condiciones fijadas en este reglamento
-
-        </div>
-        <div>
-          <input type='checkbox' id='confirm_data'>DECLARO BAJO JURAMENTO NO ESTAR COMPROMETIDO EN LAS CAUSALES DE INHABILITACIÓN PARA EL DESEMPEÑO DE CARGOS PÚBLICOS
-        </div>
-        <div class="alert alert-warning" id="alertaSinCompletar" role="alert" hidden>
-          Debe completar la declaración Jurada 
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Canelar</button>
-        <button type="button" id='btnPostularse' class="btn btn-primary">Postularse</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-
-  document.getElementById('btnPostularse').addEventListener('click', ()=>{
-    let art22 = document.getElementById('art22').checked
-    let confirm_data = document.getElementById('confirm_data').checked
-    console.log(art22)
-    if(!art22 || !confirm_data){
-      document.getElementById('alertaSinCompletar').hidden=false
-    }
-  })
-
-  </script> 
+<?php
+  Modal::begin([
+    'id'=>'modal',
+    'class' =>'modal',
+    'size' => 'modal-md',
+  ]);
+  echo "<div id='modalContent'></div>";
+  Modal::end();
+?>
 <?php else: ?>
 <div class="container">
   <h2>Concurso NO Encontrado</h2>
