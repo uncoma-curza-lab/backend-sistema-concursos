@@ -21,8 +21,12 @@ class m211111_032054_create_persons_table extends Migration
             'contact_email' => $this->string(),
             'cellphone' => $this->string(),
             'phone' => $this->string(),
-            'real_address' => $this->string(),
-            'legal_address' => $this->string(),
+            'real_address_city_id' => $this->integer(),
+            'real_address_street' => $this->string(),
+            'real_address_number' => $this->string(),
+            'legal_address_city_id' => $this->integer(),
+            'legal_address_street' => $this->string(),
+            'legal_address_number' => $this->string(),
             'citizenship' => $this->string(),
             'date_of_birth' => $this->date(),
             'place_of_birth' => $this->integer(),
@@ -47,6 +51,22 @@ class m211111_032054_create_persons_table extends Migration
             'users',
             'id',
             'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'fk-person-real_address_city_id',
+            'persons',
+            'real_address_city_id',
+            'cities',
+            'id',
+        );
+
+        $this->addForeignKey(
+            'fk-person-legal_address_city_id',
+            'persons',
+            'legal_address_city_id',
+            'cities',
+            'id',
         );
     }
 

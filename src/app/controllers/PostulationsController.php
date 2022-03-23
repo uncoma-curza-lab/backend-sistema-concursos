@@ -4,11 +4,13 @@ namespace app\controllers;
 
 use app\models\Contests;
 use app\models\InscriptionForm;
+use app\models\Postulations;
 use app\models\search\MyPostulationsSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
+use kartik\mpdf\Pdf;
 
 class PostulationsController extends Controller
 {
@@ -38,6 +40,11 @@ class PostulationsController extends Controller
                         'matchCallback' => function($rule, $action) {
                             return \Yii::$app->user->identity->isValid();
                         }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['download-pdf'],
+                        'roles' => ['@'],
                     ],
                 ],
                 'denyCallback' => function($rule, $action) {
@@ -103,5 +110,34 @@ class PostulationsController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionDownloadPdf($postulationId){
+        
+        $postulation = Postulations::findOne($postulationId);
+        $contest = $postulation->contest;
+        // get your HTML raw content without any layouts or scripts
+        $content = $this->renderPartial('postulationPdf',[
+            'postulation' => $postulation,
+            'contest' => $contest
+        ]);
+        
+        
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_CORE, 
+            'format' => Pdf::FORMAT_A4, 
+            'orientation' => Pdf::ORIENT_PORTRAIT, 
+            'destination' => Pdf::DEST_BROWSER, 
+            'content' => $content,  
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}', 
+            'options' => ['title' => 'Comprobante de Postulación'],
+            'methods' => [ 
+                'SetHeader'=>['Universidad Nacional Del Comahue'],
+            ]
+        ]);
+        
+        return $pdf->render(); 
+        
     }
 }
