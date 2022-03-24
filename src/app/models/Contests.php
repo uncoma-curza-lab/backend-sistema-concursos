@@ -88,7 +88,7 @@ class Contests extends ActiveRecord
             'enrollment_date_end' => Yii::t('models/contest', 'enrollment_date_end'),
             'description' => Yii::t('models/contest', 'description'),
             'resolution_file_path' => Yii::t('models/contest', 'resolution_file_path'),
-            'publish_resolution' => Yii::t('models/contest', 'publish_resolution'),
+            'resolution_published' => Yii::t('models/contest', 'publish_resolution'),
             'remuneration_type_id' => Yii::t('models/contest', 'remuneration_type'),
             'working_day_type_id' => Yii::t('models/contest', 'working_day_type'),
             'course_id' => Yii::t('models/contest', 'course'),
@@ -226,12 +226,25 @@ class Contests extends ActiveRecord
 
     public function isDownloadeableResolution() : bool
     {
-        return $this->resolution_file_path && $this->resolution_published;
+        return !is_null($this->resolution_file_path);
     }
 
     public function canUploadResolution() : bool
     {
-        return !$this->resolution_published;
+        return !$this->isResolutionPublished();
+    }
+
+    public function isResolutionPublished() : bool
+    {
+        return $this->resolution_published;
+    }
+
+    public function publishResolution() : bool
+    {
+        if (!$this->resolution_file_path) {
+            return false;
+        }
+        return $this->resolution_published = true;
     }
 
     public function beforeSave($insert)

@@ -204,6 +204,16 @@ class ContestController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionPublishResolution($slug)
+    {
+        $model = $this->findModel($slug);
+        if ($model->publishResolution()) {
+            $model->save();
+        }
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Contests model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
