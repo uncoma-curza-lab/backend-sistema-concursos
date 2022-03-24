@@ -101,11 +101,13 @@ class ContestsUploadResolutionForm extends Model
     {
         if ($this->validate()) { 
             $name = 'resolutions/'
-                . Yii::$app->slug->format($this->resolution_file_path->baseName)
+                . Yii::$app->slug->format($this->resolution_file_path->baseName . ' ' . date('Y-m-d H:i:s'))
+                . '.'
                 . $this->resolution_file_path->extension;
             $this->resolution_file_path->saveAs($name);
             $model = $this->findModel($this->slug);
             $model->resolution_file_path = $name;
+            $model->save();
             return true;
         } else {
             return false;
