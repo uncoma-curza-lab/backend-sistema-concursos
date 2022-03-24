@@ -3,7 +3,6 @@
 namespace app\rbac;
 
 use app\models\Contests;
-use Yii;
 use yii\rbac\Rule;
 
 class IsPresident extends Rule
