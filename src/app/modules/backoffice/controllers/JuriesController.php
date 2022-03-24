@@ -7,6 +7,7 @@ use app\models\Contests;
 use app\models\User;
 use app\modules\backoffice\models\AddJuryForm;
 use app\modules\backoffice\searchs\JuriesByContestSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,7 +31,17 @@ class JuriesController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-            ]
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['teach_departament', 'admin'],
+                            'actions' => ['add-jury'],
+                        ],
+                    ]
+                ],
+            ],
         );
     }
 
