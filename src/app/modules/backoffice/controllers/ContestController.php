@@ -52,6 +52,11 @@ class ContestController extends Controller
                         ],
                         [
                             'allow' => true,
+                            'roles' => ['teach_departament', 'admin', 'jury'],
+                            'actions' => ['index', 'view'],
+                        ],
+                        [
+                            'allow' => true,
                             'actions' => ['publish-resolution'],
                             'roles' => ['teach_departament'],
                         ],
@@ -68,7 +73,12 @@ class ContestController extends Controller
                         [
                             'allow' => true,
                             'actions' => ['download-resolution'],
-                            'roles' => ['is_jury'],
+                            'roles' => ['isJury'],
+                            'roleParams' => function() {
+                                return [
+                                    'contestSlug' => Yii::$app->request->get('slug'),
+                                ];
+                            },
                         ],
                     ],
                 ],
