@@ -1,5 +1,6 @@
 <?php
 
+use app\rbac\IsPresident;
 use yii\db\Migration;
 
 /**
@@ -7,11 +8,28 @@ use yii\db\Migration;
  */
 class m220324_225020_add_permission_upload_resolution extends Migration
 {
+    protected $auth;
+
+    public function __construct()
+    {
+        $this->auth = \Yii::$app->authManager;
+        parent::__construct();
+    }
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
+        $rule = new IsPresident();
+        $this->auth->add($rule);
+
+        $permission = $this->auth->createPermission('uploadResolution');
+        $permission->description = 'Permiso para subir un dictament de concurso';
+        $permission->ruleName = $rule->name;
+        $this->auth->add($permission);
+
+        $role = $this->auth->getRole('jury');
+        $this->auth->addChild($role, $permission);
 
     }
 
@@ -24,19 +42,4 @@ class m220324_225020_add_permission_upload_resolution extends Migration
 
         return false;
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m220324_225020_add_permission_upload_resolution cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
