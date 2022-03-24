@@ -7,6 +7,7 @@ use app\models\Career;
 use app\models\CategoryTypes;
 use app\models\Contests;
 use app\models\ContestStatus;
+use app\models\ContestsUploadResolutionForm;
 use app\models\Course;
 use app\models\Departament;
 use app\models\Orientations;
@@ -18,6 +19,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * ContestController implements the CRUD actions for Contests model.
@@ -149,6 +151,29 @@ class ContestController extends Controller
             'statuses' => ArrayHelper::map($statuses, 'id', function($model) {
                 return ContestStatus::getTranslation($model->name);
             }),
+        ]);
+    }
+
+    public function actionUploadResolution($slug)
+    {
+        $model = $this->findModel($slug);
+        $modelForm = new ContestsUploadResolutionForm();
+        // TODO check finish contest?
+        //if ($model->isFinish()) {
+        //}
+        if (\Yii::$app->request->isPost) {
+            $modelForm->resolution_file_path = UploadedFile::getInstance($model, 'resolutions');
+            if ($modelForm->upload()) {
+                // file is uploaded successfully
+                return $this->redirect(['index']);
+            }
+        }
+        //if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        //}
+
+        return $this->render('set_status', [
+            'model' => $model,
+            'modelForm' => $modelForm,
         ]);
     }
 
