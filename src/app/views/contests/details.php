@@ -6,24 +6,25 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $pjaxError = <<< JS
-    $(document).on("pjax:error", function(event,  resp, texts, err, option) {
-        console.log(event, resp, texts, err, option);
-        $("#alert").html('<div class="alert alert-warning fade show"> Error! </div>')
-        setTimeout(function() {
-            console.log('alert close')
-            $(".alert").alert("close")
-        }, 3000)
-        return false;
+    $(document).ready(function() {
+        $("#pjax_inscription_form").on("pjax:error", function(event,  resp, texts, err, option) {
+            console.log('error')
+            $("#alert").html('<div class="alert alert-warning fade show"> Error! </div>')
+            setTimeout(function() {
+                $(".alert").alert("close")
+            }, 3000)
+            return false;
+
+        })
 
     })
 JS;
 $this->registerjs($pjaxError);
 $this->registerjs(
     '$("document").ready(function() {
-        $("#pjax_inscription_form").on("pjax:end", function(e) {
-            
-            console.log("qweqweqwe", e.preventDefault());
-            $.pjax.reload({container:"#countries"});
+        $("#pjax_inscription_form").on("pjax:success", function(e) {
+            console.log("reload")
+            $.pjax.reload({container:"#contest-container"});
         })
     })'
 );
@@ -32,7 +33,7 @@ if ($contest!=null):
 ?>
 <div class="contaner">
   <h2>Concurso - <?= $contest->name ?></h2>
-  <div class="container" id="countries">
+  <div class="container" id="contest-container">
     <p>
         El Centro Universitario Regional Zona Atlántica de la Universidad Nacional 
         del Comahue comunica que se llama a concurso de antecedentes para cubrir 
