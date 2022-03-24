@@ -42,6 +42,7 @@ class ContestController extends Controller
                 ],
                 'access' => [
                     'class' => AccessControl::class,
+                    // TODO add rule jury upload file.
                     'rules' => [
                         [
                             'allow' => true,
