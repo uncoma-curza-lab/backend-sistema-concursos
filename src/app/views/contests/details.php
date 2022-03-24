@@ -5,11 +5,34 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$pjaxError = <<< JS
+    $(document).on("pjax:error", function(event,  resp, texts, err, option) {
+        console.log(event, resp, texts, err, option);
+        $("#alert").html('<div class="alert alert-warning fade show"> Error! </div>')
+        setTimeout(function() {
+            console.log('alert close')
+            $(".alert").alert("close")
+        }, 3000)
+        return false;
+
+    })
+JS;
+$this->registerjs($pjaxError);
+$this->registerjs(
+    '$("document").ready(function() {
+        $("#pjax_inscription_form").on("pjax:end", function(e) {
+            
+            console.log("qweqweqwe", e.preventDefault());
+            $.pjax.reload({container:"#countries"});
+        })
+    })'
+);
+
 if ($contest!=null):
 ?>
 <div class="contaner">
   <h2>Concurso - <?= $contest->name ?></h2>
-  <div class="container">
+  <div class="container" id="countries">
     <p>
         El Centro Universitario Regional Zona Atlántica de la Universidad Nacional 
         del Comahue comunica que se llama a concurso de antecedentes para cubrir 
@@ -72,17 +95,18 @@ if ($contest!=null):
 </div>
 <!-- Modal -->
 <?php
+  \yii\widgets\Pjax::begin(['id' => 'pjax_inscription_form', 'enablePushState' => false, 'timeout' => 10000]);
   Modal::begin([
     'id'=>'modal',
     'class' =>'modal',
     'size' => 'modal-md',
-  ]);
-  echo "<div id='modalContent'></div>";
-  Modal::end();
+  ]); ?>
+    <?= "<div id='modalContent'></div>";?>
+<?php Modal::end();
+  \yii\widgets\Pjax::end();
 ?>
 <?php else: ?>
 <div class="container">
   <h2>Concurso NO Encontrado</h2>
 </div>
 <?php endif; ?>
-

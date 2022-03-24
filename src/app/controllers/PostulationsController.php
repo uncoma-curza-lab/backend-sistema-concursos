@@ -85,6 +85,12 @@ class PostulationsController extends Controller
         $inscriptionForm->contest = $contest;
 
         if ($inscriptionForm->load(Yii::$app->request->post())) {
+            if (!$inscriptionForm->validate()) {
+
+                $response = Yii::$app->getResponse();
+                $response->statusCode = 400;
+                return $response;
+            }
             if ($inscriptionForm->save()) {
                 $this->redirect(Url::toRoute('postulations/my-postulations'));
             }
