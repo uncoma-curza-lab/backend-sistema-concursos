@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'end_date:date',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => ' {view} {update} {delete} {postulations} {juries} {set-status}',
+                'template' => ' {view} {update} {delete} {postulations} {juries} {set-status} {upload-resolution}',
                 'buttons' => [
                     'postulations' =>  function($url, $model, $key) {
                         return Html::a(
@@ -63,7 +63,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             '<span class="bi bi-ui-radios" aria-hidden="true"></span>',
                             Url::to(['contest/set-status', 'slug' => $model->code])
                         );
-                    }
+                    },
+                    'upload-resolution' => function($url, $model, $key) {
+                        return Html::a(
+                            '<span class="bi bi-file" aria-hidden="true"></span>',
+                            Url::to(['contest/upload-resolution', 'slug' => $model->code])
+                        );
+                    },
                 ],
                 'urlCreator' => function($action, $model, $key, $index) {
                     $entity = 'contest';
