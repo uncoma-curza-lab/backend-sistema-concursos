@@ -44,6 +44,7 @@ class ContestController extends Controller
                 'access' => [
                     'class' => AccessControl::class,
                     // TODO add rule jury upload file.
+                    // TODO add rule for publish resolution teach_departament.
                     'rules' => [
                         [
                             'allow' => true,
