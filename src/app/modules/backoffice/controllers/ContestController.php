@@ -50,6 +50,21 @@ class ContestController extends Controller
                             'allow' => true,
                             'roles' => ['teach_departament', 'admin'],
                         ],
+                        [
+                            'allow' => true,
+                            'actions' => ['publish-resolution'],
+                            'roles' => ['teach_departament'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['upload-resolution'],
+                            'roles' => ['isPresident'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['download-resolution'],
+                            'roles' => ['is_jury'],
+                        ],
                     ],
                 ],
             ],
