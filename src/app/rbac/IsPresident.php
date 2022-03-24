@@ -24,12 +24,11 @@ class IsPresident extends Rule
 
         $contest = Contests::find()->getBySlug($contestSlug);
 
-        foreach($contest->juries as $jury) {
-            if ($jury->id === $user) {
-                return true;
-            }
+        $president = $contest->getContestJuriesRelationship()->where(['=', 'is_president', true])->one();->isPresident();
+        if (!$president) {
+            return false;
         }
 
-        return false;
+        return $president->user_id == $user->id;
     }
 }
