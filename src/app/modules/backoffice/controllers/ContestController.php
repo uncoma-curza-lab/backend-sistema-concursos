@@ -58,7 +58,7 @@ class ContestController extends Controller
                         [
                             'allow' => true,
                             'actions' => ['upload-resolution'],
-                            'roles' => ['isPresident'],
+                            'roles' => ['uploadResolution'],
                         ],
                         [
                             'allow' => true,
