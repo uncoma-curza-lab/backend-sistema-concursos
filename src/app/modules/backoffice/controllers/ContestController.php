@@ -39,6 +39,7 @@ class ContestController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        'publish-resolution' => ['POST'],
                     ],
                 ],
                 'access' => [
