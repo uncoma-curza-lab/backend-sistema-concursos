@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'end_date:date',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => ' {view} {update} {delete} {postulations} {juries} {set-status} {upload-resolution}',
+                'template' => ' {view} {update} {delete} {postulations} {juries} {set-status} {upload-resolution} {download-resolution}',
                 'buttons' => [
                     'postulations' =>  function($url, $model, $key) {
                         return Html::a(
@@ -68,6 +68,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a(
                             '<span class="bi bi-file-pdf" aria-hidden="true"></span>',
                             Url::to(['contest/upload-resolution', 'slug' => $model->code])
+                        );
+                    },
+                    'download-resolution' => function($url, $model, $key) {
+                        return Html::a(
+                            '<span class="bi bi-download" aria-hidden="true"></span>',
+                            Url::to(['contest/download-resolution', 'slug' => $model->code])
                         );
                     },
                 ],

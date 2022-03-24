@@ -14,6 +14,7 @@ use app\models\Orientations;
 use app\models\RemunerationType;
 use app\models\search\ContestSearch;
 use app\models\WorkingDayTypes;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -177,6 +178,16 @@ class ContestController extends Controller
             'model' => $model,
             'modelForm' => $modelForm,
         ]);
+    }
+
+    public function actionDownloadResolution($slug)
+    {
+        $model = $this->findModel($slug);
+        $filepath = Yii::getAlias('@webroot') . '/' . $model->resolution_file_path;
+        if ($model->resolution_file_path && file_exists($filepath)) {
+            return Yii::$app->response->sendFile($filepath);
+        }
+        return $this->redirect(['index']);
     }
 
     /**
