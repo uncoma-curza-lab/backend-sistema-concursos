@@ -224,12 +224,12 @@ class Contests extends ActiveRecord
         $this->code = $code;
     }
 
-    public function isDownloadeableResolution()
+    public function isDownloadeableResolution() : bool
     {
         return $this->resolution_file_path && $this->resolution_published;
     }
 
-    public function canUploadResolution()
+    public function canUploadResolution() : bool
     {
         return !$this->resolution_published;
     }
