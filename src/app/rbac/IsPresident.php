@@ -24,7 +24,7 @@ class IsPresident extends Rule
 
         $contest = Contests::find()->getBySlug($contestSlug);
 
-        $president = $contest->getContestJuriesRelationship()->where(['=', 'is_president', true])->one();->isPresident();
+        $president = $contest->getContestJuriesRelationship()->where(['=', 'is_president', true])->one();
         if (!$president) {
             return false;
         }
