@@ -71,10 +71,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'download-resolution' => function($url, $model, $key) {
-                        return Html::a(
-                            '<span class="bi bi-download" aria-hidden="true"></span>',
-                            Url::to(['contest/download-resolution', 'slug' => $model->code])
-                        );
+                        if ($model->isDownloadeableResolution()) {
+                            return Html::a(
+                                '<span class="bi bi-download" aria-hidden="true"></span>',
+                                Url::to(['contest/download-resolution', 'slug' => $model->code])
+                            );
+                        }
                     },
                 ],
                 'urlCreator' => function($action, $model, $key, $index) {

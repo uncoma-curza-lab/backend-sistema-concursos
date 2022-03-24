@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\helpers\Sluggable;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -223,6 +222,11 @@ class Contests extends ActiveRecord
         }
 
         $this->code = $code;
+    }
+
+    public function isDownloadeableResolution()
+    {
+        return $this->resolution_file_path && $this->resolution_published;
     }
 
     public function beforeSave($insert)
