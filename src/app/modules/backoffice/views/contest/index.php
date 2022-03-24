@@ -65,10 +65,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'upload-resolution' => function($url, $model, $key) {
-                        return Html::a(
-                            '<span class="bi bi-file-pdf" aria-hidden="true"></span>',
-                            Url::to(['contest/upload-resolution', 'slug' => $model->code])
-                        );
+                        if ($model->canUploadResolution()) {
+                            return Html::a(
+                                '<span class="bi bi-file-pdf" aria-hidden="true"></span>',
+                                Url::to(['contest/upload-resolution', 'slug' => $model->code])
+                            );
+                        }
                     },
                     'download-resolution' => function($url, $model, $key) {
                         if ($model->isDownloadeableResolution()) {

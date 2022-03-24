@@ -60,7 +60,7 @@ class Contests extends ActiveRecord
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'integer'],
             [['init_date', 'end_date', 'enrollment_date_end'], 'safe'],
             [['description', 'resolution_file_path'], 'string'],
-            [['publish_resolution'], 'boolean'],
+            [['resolution_published'], 'boolean'],
             [['name', 'course_id', 'departament_id', 'evaluation_departament_id', 'career_id'], 'string', 'max' => 255],
             [['code'], 'string', 'max' => 100],
             [['code'], 'unique'],
