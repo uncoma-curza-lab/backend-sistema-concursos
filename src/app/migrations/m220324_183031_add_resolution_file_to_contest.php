@@ -13,7 +13,7 @@ class m220324_183031_add_resolution_file_to_contest extends Migration
     public function safeUp()
     {
         echo "m220324_183031_add_resolution_file_to_contest add column.\n";
-        $this->addColumn('{{%contest}}', 'resolution_file_path', $this->string());
+        $this->addColumn('{{%contests}}', 'resolution_file_path', $this->string());
     }
 
     /**
@@ -22,7 +22,7 @@ class m220324_183031_add_resolution_file_to_contest extends Migration
     public function safeDown()
     {
         echo "m220324_183031_add_resolution_file_to_contest start revert.\n";
-        $this->dropColumn('{{%contest}}', 'resolution_file_path');
+        $this->dropColumn('{{%contests}}', 'resolution_file_path');
 
         return true;
     }
