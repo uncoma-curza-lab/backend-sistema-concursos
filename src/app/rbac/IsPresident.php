@@ -29,6 +29,6 @@ class IsPresident extends Rule
             return false;
         }
 
-        return $president->user_id == $user->id;
+        return $president->user_id == $user;
     }
 }
