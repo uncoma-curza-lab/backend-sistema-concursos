@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\helpers\Sluggable;
 use Yii;
+use yii\base\Model;
 use yii\db\ActiveRecord;
 
 /**
@@ -31,14 +32,21 @@ use yii\db\ActiveRecord;
  * @property RemunerationType $remunerationType
  * @property WorkingDayTypes $workingDayType
  */
-class ContestsUploadResolutionForm extends ActiveRecord
+class ContestsUploadResolutionForm extends Model
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+    public $resolution_file_path;
+    public $slug;
+
+    public function __construct($slug)
     {
-        return 'contests';
+        parent::__construct();
+        $model = Contests::find()->findBySlug($slug);
+        if (!$model) {
+            throw new \Exception();
+        }
+        $this->resolution_file_path = $model->resolution_file_path;
+        $this->slug = $slug;
+
     }
     
     public function behaviors() {
@@ -92,10 +100,24 @@ class ContestsUploadResolutionForm extends ActiveRecord
     public function upload()
     {
         if ($this->validate()) { 
-            $this->resolution_file_path->saveAs('resolutions/' . $this->baseName . '.' . $this->extension);
+            $name = 'resolutions/'
+                . Yii::$app->slug->format($this->resolution_file_path->baseName)
+                . $this->resolution_file_path->extension;
+            $this->resolution_file_path->saveAs($name);
+            $model = $this->findModel($this->slug);
+            $model->resolution_file_path = $name;
             return true;
         } else {
             return false;
         }
+    }
+
+    protected function findModel($slug)
+    {
+        if (($model = Contests::find()->findBySlug($slug)) !== null) {
+            return $model;
+        }
+
+        return null;
     }
 }

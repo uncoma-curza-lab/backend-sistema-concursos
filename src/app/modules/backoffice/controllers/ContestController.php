@@ -157,12 +157,13 @@ class ContestController extends Controller
     public function actionUploadResolution($slug)
     {
         $model = $this->findModel($slug);
-        $modelForm = new ContestsUploadResolutionForm();
+        $modelForm = new ContestsUploadResolutionForm($slug);
+        $modelForm->resolution_file_path = $model->resolution_file_path;
         // TODO check finish contest?
         //if ($model->isFinish()) {
         //}
         if (\Yii::$app->request->isPost) {
-            $modelForm->resolution_file_path = UploadedFile::getInstance($model, 'resolutions');
+            $modelForm->resolution_file_path = UploadedFile::getInstance($modelForm, 'resolution_file_path');
             if ($modelForm->upload()) {
                 // file is uploaded successfully
                 return $this->redirect(['index']);
@@ -171,7 +172,7 @@ class ContestController extends Controller
         //if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
         //}
 
-        return $this->render('set_status', [
+        return $this->render('upload_resolution', [
             'model' => $model,
             'modelForm' => $modelForm,
         ]);
