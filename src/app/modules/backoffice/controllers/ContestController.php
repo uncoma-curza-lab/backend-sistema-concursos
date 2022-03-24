@@ -59,6 +59,11 @@ class ContestController extends Controller
                             'allow' => true,
                             'actions' => ['upload-resolution'],
                             'roles' => ['uploadResolution'],
+                            'roleParams' => function() {
+                                return [
+                                    'contestSlug' => Yii::$app->request->get('slug'),
+                                ];
+                            },
                         ],
                         [
                             'allow' => true,
