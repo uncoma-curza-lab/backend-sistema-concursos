@@ -229,6 +229,11 @@ class Contests extends ActiveRecord
         return $this->resolution_file_path && $this->resolution_published;
     }
 
+    public function canUploadResolution()
+    {
+        return !$this->resolution_published;
+    }
+
     public function beforeSave($insert)
     {
         if ($insert) {
