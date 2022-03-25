@@ -25,7 +25,7 @@ class IsJuryUser extends Rule
         $contest = Contests::find()->getBySlug($contestSlug);
 
         foreach($contest->juries as $jury) {
-            if ($jury->id === $user) {
+            if ($jury->id == $user) {
                 return true;
             }
         }
