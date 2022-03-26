@@ -31,4 +31,12 @@ class CityQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function getOneComplete(int $id)
+    {
+        return $this->with([
+            'province',
+            'province.country',
+        ])->where(['=', 'id', $id])->one();
+    }
 }

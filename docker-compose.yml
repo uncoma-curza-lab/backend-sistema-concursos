@@ -2,49 +2,31 @@ version: '3.1'
 
 services:
   db:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: test123
-      POSTGRES_USER: test
-      POSTGRES_DB: testdb
-    ports:
-      - 4000:5432
+    image: postgres:14.2-alpine
+    env_file: .env
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
-  
-  cloud:
-    image: nextcloud
-    restart: always
-    ports:
-      - 8080:80
-    links:
-      - db
-    volumes:
-      - ./nextcloud:/var/www/html
-    environment:
-      POSTGRES_PASSWORD: test123
-      POSTGRES_DB: testdb
-      POSTGRES_USER: test
-      POSTGRES_HOST: db
 
   app:
     image: yiisoftware/yii2-php:8.0-apache
     volumes:
       - ./src/composer/cache:/root/.composer/cache:delegated
       - ./src/app:/app:delegated
-    environment:
-      DDBB_NAME: testdb
-      DDBB_HOST: db
-      DDBB_USER: test
-      DDBB_PASSWORD: test123
     env_file: .env
     ports:
       - 8000:80
 
-  myadmin:
-    image: bitnami/phppgadmin
-    environment:
-      DATABASE_HOST: db
-      DATABASE_PORT_NUMBER: 5432
-    ports:
-      - 8002:8080
+  #cloud:
+  #  image: nextcloud
+  #  restart: always
+  #  ports:
+  #    - 8080:80
+  #  links:
+  #    - db
+  #  volumes:
+  #    - ./nextcloud:/var/www/html
+  #  environment:
+  #    POSTGRES_PASSWORD: test123
+  #    POSTGRES_DB: testdb
+  #    POSTGRES_USER: test
+  #    POSTGRES_HOST: db

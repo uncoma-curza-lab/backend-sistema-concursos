@@ -46,10 +46,26 @@ class Persons extends \yii\db\ActiveRecord
             [['first_name', 'user_id'], 'required'],
             [['date_of_birth', 'validate_date'], 'safe'],
             [['place_of_birth', 'user_id'], 'default', 'value' => null],
-            [['place_of_birth', 'user_id'], 'integer'],
+            [['place_of_birth', 'user_id', 'real_address_city_id', 'legal_address_city_id'], 'integer'],
             [['is_valid'], 'boolean'],
-            [['first_name', 'last_name', 'uid', 'dni', 'contact_email', 'cellphone', 'phone', 'real_address', 'legal_address', 'citizenship'], 'string', 'max' => 255],
-            [['place_of_birth'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['place_of_birth' => 'id']],
+            [[
+                'first_name', 'last_name', 'uid', 'dni',
+                'contact_email', 'cellphone', 'phone',
+                'real_address_street', 'legal_address_street',
+                'real_address_number', 'legal_address_number',
+                'citizenship'
+            ], 'string', 'max' => 255],
+            [
+                [
+                    'place_of_birth', 'real_address_city_id', 'legal_address_city_id'
+                ], 
+                'exist', 'skipOnError' => true, 'targetClass' => City::className(),
+                'targetAttribute' => [
+                    'place_of_birth' => 'id',
+                    'real_address_city_id' => 'id',
+                    'legal_address_city_id' => 'id'
+                ]
+            ],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -96,6 +112,15 @@ class Persons extends \yii\db\ActiveRecord
         return $this->hasOne(City::className(), ['id' => 'place_of_birth']);
     }
 
+    public function getLegalAddressCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'legal_address_city_id']);
+    }
+
+    public function getRealAddressCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'real_address_city_id']);
+    }
     /**
      * Gets query for [[Postulations]].
      *
@@ -138,5 +163,24 @@ class Persons extends \yii\db\ActiveRecord
     public function getFullName()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function isMinCompleteDataForValidUser()
+    {
+        $data = array_keys(array_filter($this->getAttributes()));
+        $required = [
+            'first_name',
+            'last_name',
+            'real_address_city_id',
+            'legal_address_city_id',
+            'cellphone',
+            'phone',
+        ];
+
+        foreach($required as $attribute) {
+            if (!in_array($attribute, $data))
+                return false;
+        }
+        return true;
     }
 }

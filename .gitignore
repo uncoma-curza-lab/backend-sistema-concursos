@@ -9,3 +9,4 @@ postgresdata/*
 nextcloud/*
 src/basic/vendor/*
 .env
+docker-compose.override.yml
