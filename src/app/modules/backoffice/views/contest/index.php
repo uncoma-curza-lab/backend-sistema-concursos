@@ -44,26 +44,63 @@ $this->params['breadcrumbs'][] = $this->title;
             'end_date:date',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => ' {view} {update} {delete} {postulations} {juries} {set-status}',
+                'template' => ' {view} {update} {delete} {postulations} {juries} {set-status} {upload-resolution} {download-resolution} {publish-resolution}',
                 'buttons' => [
                     'postulations' =>  function($url, $model, $key) {
-                        return Html::a(
-                            '<span class="bi bi-person-lines-fill" aria-hidden="true"></span>',
-                            Url::to(['postulation/contest', 'slug' => $model->code])
-                        );
+                        if (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'viewImplicatedPostulations', ['contestSlug' => $model->code])) {
+                            return Html::a(
+                                '<span class="bi bi-person-lines-fill" aria-hidden="true"></span>',
+                                Url::to(['postulation/contest', 'slug' => $model->code])
+                            );
+                        }
                     },
                     'juries' => function($url, $model, $key) {
-                        return Html::a(
-                            '<span class="bi bi-people-fill" aria-hidden="true"></span>',
-                            Url::to(['juries/contest', 'slug' => $model->code])
-                        );
+                        if (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'viewImplicatedPostulations', ['contestSlug' => $model->code])) {
+                            return Html::a(
+                                '<span class="bi bi-people-fill" aria-hidden="true"></span>',
+                                Url::to(['juries/contest', 'slug' => $model->code])
+                            );
+                        }
                     },
                     'set-status' => function($url, $model, $key) {
-                        return Html::a(
-                            '<span class="bi bi-ui-radios" aria-hidden="true"></span>',
-                            Url::to(['contest/set-status', 'slug' => $model->code])
-                        );
-                    }
+                        if (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')) {
+                            return Html::a(
+                                '<span class="bi bi-ui-radios" aria-hidden="true"></span>',
+                                Url::to(['contest/set-status', 'slug' => $model->code])
+                            );
+                        }
+                    },
+                    'upload-resolution' => function($url, $model, $key) {
+                        if ($model->canUploadResolution()) {
+                            return Html::a(
+                                '<span class="bi bi-file-pdf" aria-hidden="true"></span>',
+                                Url::to(['contest/upload-resolution', 'slug' => $model->code])
+                            );
+                        }
+                    },
+                    'download-resolution' => function($url, $model, $key) {
+                        if ($model->isDownloadeableResolution()) {
+                            return Html::a(
+                                '<span class="bi bi-download" aria-hidden="true"></span>',
+                                Url::to(['contest/download-resolution', 'slug' => $model->code])
+                            );
+                        }
+                    },
+                    'publish-resolution' => function($url, $model, $key) {
+                        if ($model->isDownloadeableResolution() && !$model->isResolutionPublished()) {
+                            return Html::a(
+                                '<span class="bi bi-file-plus" aria-hidden="true"></span>',
+                                ['contest/publish-resolution', 'slug' => $model->code],
+                                [
+                                    'data' => 
+                                    [
+                                        'confirm' => Yii::t('app', 'Desea publicar el dictamen?'),
+                                        'method' => 'post',
+                                    ]
+                                ]
+                            );
+                        }
+                    },
                 ],
                 'urlCreator' => function($action, $model, $key, $index) {
                     $entity = 'contest';

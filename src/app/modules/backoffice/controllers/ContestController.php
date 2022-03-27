@@ -7,17 +7,20 @@ use app\models\Career;
 use app\models\CategoryTypes;
 use app\models\Contests;
 use app\models\ContestStatus;
+use app\models\ContestsUploadResolutionForm;
 use app\models\Course;
 use app\models\Departament;
 use app\models\Orientations;
 use app\models\RemunerationType;
 use app\models\search\ContestSearch;
 use app\models\WorkingDayTypes;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * ContestController implements the CRUD actions for Contests model.
@@ -36,14 +39,47 @@ class ContestController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        'publish-resolution' => ['POST'],
                     ],
                 ],
                 'access' => [
                     'class' => AccessControl::class,
+                    // TODO add rule jury upload file.
+                    // TODO add rule for publish resolution teach_departament.
                     'rules' => [
                         [
                             'allow' => true,
                             'roles' => ['teach_departament', 'admin'],
+                        ],
+                        [
+                            'allow' => true,
+                            'roles' => ['teach_departament', 'admin', 'jury'],
+                            'actions' => ['index', 'view'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['publish-resolution'],
+                            'roles' => ['teach_departament'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['upload-resolution'],
+                            'roles' => ['uploadResolution'],
+                            'roleParams' => function() {
+                                return [
+                                    'contestSlug' => Yii::$app->request->get('slug'),
+                                ];
+                            },
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['download-resolution'],
+                            'roles' => ['isJury'],
+                            'roleParams' => function() {
+                                return [
+                                    'contestSlug' => Yii::$app->request->get('slug'),
+                                ];
+                            },
                         ],
                     ],
                 ],
@@ -152,6 +188,40 @@ class ContestController extends Controller
         ]);
     }
 
+    public function actionUploadResolution($slug)
+    {
+        $model = $this->findModel($slug);
+        $modelForm = new ContestsUploadResolutionForm($slug);
+        $modelForm->resolution_file_path = $model->resolution_file_path;
+        // TODO check finish contest?
+        //if ($model->isFinish()) {
+        //}
+        if (\Yii::$app->request->isPost) {
+            $modelForm->resolution_file_path = UploadedFile::getInstance($modelForm, 'resolution_file_path');
+            if ($modelForm->upload()) {
+                // file is uploaded successfully
+                return $this->redirect(['index']);
+            }
+        }
+        //if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        //}
+
+        return $this->render('upload_resolution', [
+            'model' => $model,
+            'modelForm' => $modelForm,
+        ]);
+    }
+
+    public function actionDownloadResolution($slug)
+    {
+        $model = $this->findModel($slug);
+        $filepath = Yii::getAlias('@webroot') . '/' . $model->resolution_file_path;
+        if ($model->resolution_file_path && file_exists($filepath)) {
+            return Yii::$app->response->sendFile($filepath);
+        }
+        return $this->redirect(['index']);
+    }
+
     /**
      * Deletes an existing Contests model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -162,6 +232,16 @@ class ContestController extends Controller
     public function actionDelete($slug)
     {
         $this->findModel($slug)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionPublishResolution($slug)
+    {
+        $model = $this->findModel($slug);
+        if ($model->publishResolution()) {
+            $model->save();
+        }
 
         return $this->redirect(['index']);
     }
