@@ -244,6 +244,7 @@ class Contests extends ActiveRecord
         if (!$this->resolution_file_path) {
             return false;
         }
+        $this->contest_status_id = ContestStatus::FINISHED;
         return $this->resolution_published = true;
     }
 
