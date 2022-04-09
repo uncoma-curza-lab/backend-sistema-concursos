@@ -240,20 +240,12 @@ class ProfileForm extends Model
                 $person->is_valid = true;
             }
 
-            // TODO: active no se deberia cambiar el active
-            //if (!$user->active) {
-            //    $user->active = true;
-            //    $user->save();
-            //}
-            
             $person->save();
 
             $transaction->commit();
             return true;
         } catch (\Throwable $e) {
             $transaction->rollBack();
-            var_dump($e);
-            die();
         }
         return false;
 
