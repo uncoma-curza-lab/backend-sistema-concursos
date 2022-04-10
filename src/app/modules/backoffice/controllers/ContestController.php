@@ -215,8 +215,8 @@ class ContestController extends Controller
     public function actionDownloadResolution($slug)
     {
         $model = $this->findModel($slug);
-        $filepath = Yii::getAlias('@webroot') . '/' . $model->resolution_file_path;
-        if ($model->resolution_file_path && file_exists($filepath)) {
+        $filepath = $model->getResolutionPath();
+        if ($filepath) {
             return Yii::$app->response->sendFile($filepath);
         }
         return $this->redirect(['index']);

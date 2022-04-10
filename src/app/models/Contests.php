@@ -261,6 +261,15 @@ class Contests extends ActiveRecord
             && !$person->isPostulatedInContest($this->id);
     }
 
+    public function getResolutionPath(): ?string
+    {
+        $filepath = Yii::getAlias('@webroot') . '/' . $this->resolution_file_path;
+        return $this->resolution_file_path && file_exists($filepath) ?
+            $filepath
+            :
+            null;
+    }
+
     public function beforeSave($insert)
     {
         if ($insert) {
