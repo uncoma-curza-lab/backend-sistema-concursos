@@ -248,6 +248,11 @@ class Contests extends ActiveRecord
         return $this->resolution_published = true;
     }
 
+    public function isPostulateAvailable() : bool
+    {
+        return \Yii::$app->formatter->asDatetime('now') > $this->enrollment_date_end;
+    }
+
     public function beforeSave($insert)
     {
         if ($insert) {

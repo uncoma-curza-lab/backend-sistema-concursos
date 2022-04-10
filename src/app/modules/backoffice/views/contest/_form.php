@@ -53,7 +53,6 @@ JS;
 
 $form = ActiveForm::begin([]); ?>
 
-<? var_dump($model->getErrors());?>
     <?= $form->field($model, 'name')->textInput([
         'maxlength' => true,
     ]) ?>

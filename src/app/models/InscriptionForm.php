@@ -44,6 +44,9 @@ class InscriptionForm extends Model
 
     public function save()
     {
+        if ($this->contest->isPostulateAvailable()) {
+            return false;
+        }
         $postulations = new Postulations();
         $postulations->contest_id = $this->contest->id;
         $postulations->person_id = Yii::$app->user->identity->person->id;
