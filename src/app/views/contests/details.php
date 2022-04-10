@@ -62,11 +62,9 @@ if ($contest!=null):
 
   </div>
   <br>
-  <a href="<?= Url::toRoute(['postulations/contest-inscription', 'slug' => $contest->code ]) ?>" 
-  class="btn btn-success"><i class="bi bi-person-plus-fill"></i> Insribirse </a>
-  <?= Html::button('Postularse con Modal', [
+  <?= Html::button('<i class="bi bi-person-plus-fill"></i> Postularse con Modal', [
     'value' => Url::to(['postulations/contest-inscription', 'slug' => $contest->code]),
-    'class' => 'btn btn-danger',
+    'class' => 'btn btn-info',
     'id' => 'modalButton'
   ]);  ?>
 </div>
