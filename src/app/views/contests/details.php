@@ -62,12 +62,13 @@ if ($contest!=null):
 
   </div>
   <br>
-<?= $contest->isPostulateAvailable() ? 'si' : 'no'; die(); ?>
+<?php if ($contest->canPostulate()): ?>
   <?= Html::button('<i class="bi bi-person-plus-fill"></i> Postularse con Modal', [
     'value' => Url::to(['postulations/contest-inscription', 'slug' => $contest->code]),
     'class' => 'btn btn-info',
     'id' => 'modalButton'
   ]);  ?>
+<?php endif; ?>
 </div>
 <!-- Modal -->
 <?php

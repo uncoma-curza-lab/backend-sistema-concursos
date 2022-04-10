@@ -253,6 +253,14 @@ class Contests extends ActiveRecord
         return \Yii::$app->formatter->asDatetime('now') > $this->enrollment_date_end;
     }
 
+    public function canPostulate(): bool
+    {
+        $person = \Yii::$app->user->identity->person;
+
+        return $this->isPostulateAvailable()
+            && !$person->isPostulatedInContest($this->id);
+    }
+
     public function beforeSave($insert)
     {
         if ($insert) {

@@ -44,7 +44,7 @@ class InscriptionForm extends Model
 
     public function save()
     {
-        if ($this->contest->isPostulateAvailable()) {
+        if (!$this->contest->canPostulate()) {
             return false;
         }
         $postulations = new Postulations();
