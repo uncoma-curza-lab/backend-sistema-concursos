@@ -64,6 +64,16 @@ class PostulationsController extends Controller
         ];
     }
 
+    public function actionDownloadResolution($slug)
+    {
+        $model = $this->findModel($slug);
+        $filepath = $model->getResolutionPath();
+        if ($filepath) {
+            return Yii::$app->response->sendFile($filepath);
+        }
+        return $this->redirect(['index']);
+    }
+
     /**
      * Displays homepage.
      *
