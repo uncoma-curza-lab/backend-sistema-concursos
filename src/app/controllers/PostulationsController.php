@@ -90,7 +90,7 @@ class PostulationsController extends Controller
             }
         }
 
-        return $this->render('/postulations/inscription', [
+        return $this->renderAjax('/postulations/inscription', [
             'contest' => $contest,
             'inscriptionForm' => $inscriptionForm,
         ]);

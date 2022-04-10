@@ -1,6 +1,9 @@
 <?php
 
+use yii\bootstrap4\Modal;
 use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 if ($contest!=null):
 ?>
@@ -59,10 +62,22 @@ if ($contest!=null):
 
   </div>
   <br>
-  <a href="<?= Url::toRoute(['postulations/contest-inscription', 'slug' => $contest->code ]) ?>" 
-  class="btn btn-success"><i class="bi bi-person-plus-fill"></i> Insribirse </a>
-
+  <?= Html::button('<i class="bi bi-person-plus-fill"></i> Postularse con Modal', [
+    'value' => Url::to(['postulations/contest-inscription', 'slug' => $contest->code]),
+    'class' => 'btn btn-info',
+    'id' => 'modalButton'
+  ]);  ?>
 </div>
+<!-- Modal -->
+<?php
+  Modal::begin([
+    'id'=>'modal',
+    'class' =>'modal',
+    'size' => 'modal-md',
+  ]);
+  echo "<div id='modalContent'></div>";
+  Modal::end();
+?>
 <?php else: ?>
 <div class="container">
   <h2>Concurso NO Encontrado</h2>
