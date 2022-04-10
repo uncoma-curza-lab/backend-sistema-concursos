@@ -55,7 +55,7 @@ class LocationController extends Controller
         $response = [];
 
         if ($dep = $_POST['depdrop_parents']) {
-            $province = $dep[0];
+            $province = $dep[1];
             $cities = City::find()->where(['=', 'province_id', $province])->all();
             $response = ['output' => ArrayHelper::map($cities, 'id', fn($model) => $model), 'selected' => ''];
         }

@@ -173,13 +173,16 @@ class Persons extends \yii\db\ActiveRecord
             'last_name',
             'real_address_city_id',
             'legal_address_city_id',
+            'place_of_birth',
             'cellphone',
-            'phone',
+            'contact_email',
+            'dni'
         ];
 
         foreach($required as $attribute) {
-            if (!in_array($attribute, $data))
+            if (!in_array($attribute, $data)) {
                 return false;
+            }
         }
         return true;
     }

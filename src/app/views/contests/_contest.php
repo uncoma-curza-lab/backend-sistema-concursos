@@ -27,7 +27,7 @@ $moreUrl = Url::to([
             Jornada <?= $model->workingDayType->name; ?>
         </h6>
         <p class="card-text">
-            Asignatura: <?= $model->course->name; ?>
+            Asignatura: <?=  $model->course->name ?? 'undefined'; ?>
         </p>
         <?= Html::tag('a', 'Ver más', [
             'class' => 'btn btn-info btn-sm card-link',

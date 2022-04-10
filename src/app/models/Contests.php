@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\helpers\Sluggable;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -60,7 +59,8 @@ class Contests extends ActiveRecord
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'integer'],
             [['init_date', 'end_date', 'enrollment_date_end'], 'safe'],
-            [['description'], 'string'],
+            [['description', 'resolution_file_path'], 'string'],
+            [['resolution_published'], 'boolean'],
             [['name', 'course_id', 'departament_id', 'evaluation_departament_id', 'career_id'], 'string', 'max' => 255],
             [['code'], 'string', 'max' => 100],
             [['code'], 'unique'],
@@ -87,6 +87,8 @@ class Contests extends ActiveRecord
             'end_date' => Yii::t('models/contest', 'end_date'),
             'enrollment_date_end' => Yii::t('models/contest', 'enrollment_date_end'),
             'description' => Yii::t('models/contest', 'description'),
+            'resolution_file_path' => Yii::t('models/contest', 'resolution_file_path'),
+            'resolution_published' => Yii::t('models/contest', 'publish_resolution'),
             'remuneration_type_id' => Yii::t('models/contest', 'remuneration_type'),
             'working_day_type_id' => Yii::t('models/contest', 'working_day_type'),
             'course_id' => Yii::t('models/contest', 'course'),
@@ -220,6 +222,30 @@ class Contests extends ActiveRecord
         }
 
         $this->code = $code;
+    }
+
+    public function isDownloadeableResolution() : bool
+    {
+        return !is_null($this->resolution_file_path);
+    }
+
+    public function canUploadResolution() : bool
+    {
+        return !$this->isResolutionPublished();
+    }
+
+    public function isResolutionPublished() : bool
+    {
+        return $this->resolution_published;
+    }
+
+    public function publishResolution() : bool
+    {
+        if (!$this->resolution_file_path) {
+            return false;
+        }
+        $this->contest_status_id = ContestStatus::FINISHED;
+        return $this->resolution_published = true;
     }
 
     public function beforeSave($insert)

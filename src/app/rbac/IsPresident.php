@@ -3,12 +3,11 @@
 namespace app\rbac;
 
 use app\models\Contests;
-use Yii;
 use yii\rbac\Rule;
 
-class IsJuryUser extends Rule
+class IsPresident extends Rule
 {
-    public $name = 'isJuryUser';
+    public $name = 'isPresident';
 
     /**
      * @param string|int $user el ID de usuario.
@@ -24,12 +23,11 @@ class IsJuryUser extends Rule
 
         $contest = Contests::find()->getBySlug($contestSlug);
 
-        foreach($contest->juries as $jury) {
-            if ($jury->id == $user) {
-                return true;
-            }
+        $president = $contest->getContestJuriesRelationship()->where(['=', 'is_president', true])->one();
+        if (!$president) {
+            return false;
         }
 
-        return false;
+        return $president->user_id == $user;
     }
 }

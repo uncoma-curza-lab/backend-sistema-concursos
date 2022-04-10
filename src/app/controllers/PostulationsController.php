@@ -119,6 +119,7 @@ class PostulationsController extends Controller
         // get your HTML raw content without any layouts or scripts
         $content = $this->renderPartial('postulationPdf',[
             'postulation' => $postulation,
+            'person' => Yii::$app->user->identity->person,
             'contest' => $contest
         ]);
         

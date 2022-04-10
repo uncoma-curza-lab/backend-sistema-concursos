@@ -1,8 +1,6 @@
-
 <body>
-
-    <h1>Comprobante de Postulación a <?= $contest->name ?></h1>
-    <p>Ud esta incripto al cargo de <?= $contest->course->name ?> con estado <?= $postulation->getStatusDescription() ?></p>
+    <h2>Comprobante de Postulación a <?= $contest->name ?></h2>
+    <p>Centro Universitario Zona Atlántica certifica que <?= $person->getFullName() ?>, D.N.I. <?= $person->dni ?>, se encuentra inscripto como postulante para cubrir el cargo:</p>
     
     <table class="table">
       <thead>
@@ -30,8 +28,9 @@
     </table>
 
     <ul>
-        <li>Regrisrado el: <?= $postulation->created_at?></li>
+        <li> Estado de postulación: <?= $postulation->getStatusDescription() ?></li>
+        <li>Fecha de inscripción: <?= $postulation->created_at?></li>
         <li>Finalización de la incripciones: <?= $contest->enrollment_date_end ?></li>
-</ul>
+    </ul>
 </body>
 </html>
