@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -42,9 +43,19 @@ class Contests extends ActiveRecord
     
     public function behaviors() {
     	return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
         	'FormatDate' => [
             	'class' => 'app\behaviors\FormatDate',
-            	'attributes' => ['init_date', 'end_date', 'enrollment_date_end'],
+                'attributes' => [
+                    'created_at', 'updated_at',
+                    'init_date', 'end_date', 'enrollment_date_end'
+                ],
             ],
     	];
 	}
@@ -58,7 +69,7 @@ class Contests extends ActiveRecord
             [['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'integer'],
-            [['init_date', 'end_date', 'enrollment_date_end'], 'safe'],
+            [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end'], 'safe'],
             [['description', 'resolution_file_path'], 'string'],
             [['resolution_published'], 'boolean'],
             [['name', 'course_id', 'departament_id', 'evaluation_departament_id', 'career_id'], 'string', 'max' => 255],

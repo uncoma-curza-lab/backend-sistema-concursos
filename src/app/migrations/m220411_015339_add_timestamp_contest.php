@@ -12,7 +12,9 @@ class m220411_015339_add_timestamp_contest extends Migration
      */
     public function safeUp()
     {
-
+        echo "add timestamps.\n";
+        $this->addColumn('{{%contests}}', 'created_at', $this->dateTime());
+        $this->addColumn('{{%contests}}', 'updated_at', $this->dateTime());
     }
 
     /**
@@ -20,23 +22,7 @@ class m220411_015339_add_timestamp_contest extends Migration
      */
     public function safeDown()
     {
-        echo "m220411_015339_add_timestamp_contest cannot be reverted.\n";
-
-        return false;
+        $this->dropColumn('{{%contests}}', 'created_at');
+        $this->dropColumn('{{%contests}}', 'updated_at');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m220411_015339_add_timestamp_contest cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
