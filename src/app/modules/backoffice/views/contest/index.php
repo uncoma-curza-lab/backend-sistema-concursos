@@ -8,6 +8,8 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\ContestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$loggedUser = Yii::$app->user;
+$roles = Yii::$app->authManager->getRolesByUser($loggedUser->id);
 
 $this->title = Yii::t('backoffice', 'contests');
 $this->params['breadcrumbs'][] = $this->title;
@@ -17,7 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('backoffice', 'create_contest_button'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php if (in_array('admin', $roles) || in_array('teach_departament', $roles)): ?>
+            <?= Html::a(Yii::t('backoffice', 'create_contest_button'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -101,27 +105,46 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
+                    'delete' => function($url, $model, $key) {
+                        $loggedUser = Yii::$app->user;
+                        $roles = Yii::$app->authManager->getRolesByUser($loggedUser->id);
+                        if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
+
+                            return Html::a(
+                                '<span class="bi bi-trash" aria-hidden="true"></span>',
+                                Url::toRoute([
+                                    '/backoffice/contest/delete',
+                                    'slug' => $model->code,
+                                ]),
+                                [
+                                    'data' => 
+                                    [
+                                        'confirm' => Yii::t('app', 'Desea publicar el dictamen?'),
+                                        'method' => 'post',
+                                    ]
+                                ]
+                            );
+                        }
+                    },
+                    'update' => function($url, $model, $key) {
+                        $loggedUser = Yii::$app->user;
+                        $roles = Yii::$app->authManager->getRolesByUser($loggedUser->id);
+                        if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
+
+                            return Html::a(
+                                '<span class="bi bi-trash" aria-hidden="true"></span>',
+                                Url::toRoute([
+                                    '/backoffice/contest/update',
+                                    'slug' => '' . $model->code
+                                ]),
+                            );
+                        }
+                    }
                 ],
                 'urlCreator' => function($action, $model, $key, $index) {
-                    $entity = 'contest';
-                    $routePrefix = '/backoffice/' . $entity;
                     if($action === 'view') {
                         return Url::toRoute([
-                            $routePrefix . '/view',
-                            'slug' => '' . $model->code
-                        ]);
-                    }
-
-                    if($action === 'update') {
-                            return Url::toRoute([
-                            $routePrefix . '/update',
-                            'slug' => '' . $model->code
-                        ]);
-                    }
-
-                    if($action === 'delete') {
-                        return Url::toRoute([
-                            $routePrefix . '/delete',
+                            '/backoffice/contest/view',
                             'slug' => '' . $model->code
                         ]);
                     }
