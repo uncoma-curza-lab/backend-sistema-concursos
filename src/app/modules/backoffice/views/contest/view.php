@@ -48,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'enrollment_date_end',
                 'type' => 'date',
             ],
-            'description:ntext',
             [
                 'attribute' => 'remuneration_type_id',
                 'value' => $model->remunerationType->name
