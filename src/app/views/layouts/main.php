@@ -40,7 +40,7 @@ AppAsset::register($this);
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav ml-auto'],
+        'options' => ['class' => 'navbar-nav ml-auto nav-pills'],
         'items' => NavbarGenerator::getItems(),
     ]);
     NavBar::end();

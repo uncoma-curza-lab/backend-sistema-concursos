@@ -47,18 +47,15 @@ class NavbarGenerator
             ];
         }
         $navbarUser[] = [
-            'label' => Yii::t('menu', 'Profile') ,
-            'url' =>['user/profile']
+            'label' => Yii::$app->user->identity->getUsername(),
+            'items' => [
+                [
+                    'label' => Yii::t('menu', 'Profile') ,
+                    'url' =>['user/profile']
+                ],
+                self::getLogout(),
+            ],
         ];
-        $navbarUser[] = 
-            '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-            . Html::submitButton(
-                Yii::t('menu', 'logout') . ' (' . Yii::$app->user->identity->getUsername() . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
 
         return $navbarUser;
 
@@ -74,5 +71,15 @@ class NavbarGenerator
 
         return array_merge($items, NavbarGenerator::getUserItems());
 
+    }
+
+    private static function getLogout()
+    {
+        return 
+            [
+                'label' => Yii::t('menu', 'logout'),
+                'url' => '/site/logout',
+                'linkOptions' =>  [ 'data-method' => 'post']
+        ];
     }
 }
