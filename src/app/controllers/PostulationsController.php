@@ -45,7 +45,12 @@ class PostulationsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['download-pdf'],
-                        'roles' => ['@'],
+                        'roles' => ['postulateToContest'],
+                        'roleParams' => function() {
+                            return [
+                                'contestSlug' => Yii::$app->request->get('slug'),
+                            ];
+                        },
                     ],
                     [
                         'allow' => true,
@@ -135,6 +140,10 @@ class PostulationsController extends Controller
     public function actionDownloadPdf($postulationId){
         
         $postulation = Postulations::findOne($postulationId);
+        $user = Yii::$app->user;
+        if (!$user || !$user->identity || $user->identity->id !== $postulation->person_id) {
+            throw new HttpException(401, 'Verifique la solicitud nuevamente');
+        }
         $contest = $postulation->contest;
         // get your HTML raw content without any layouts or scripts
         $content = $this->renderPartial('postulationPdf',[
