@@ -39,7 +39,7 @@ class PublicContestController extends Controller
     public function actionIndex()
     {
 
-        $buildQuery = Contests::find()->with('workingDayType')
+        $buildQuery = Contests::find()->with([ 'workingDayType', 'juries' ])
                                        ->onlyPublic()
                                        ->sortBy(['init_date' => SORT_DESC]);
 

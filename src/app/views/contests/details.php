@@ -44,7 +44,7 @@ if ($contest!=null):
   </div>
   <div class="container">
     <div class="row">
-<div>
+     <div>
       <h3>Incripciones</h3>
        <ul>
             <?php
@@ -54,9 +54,20 @@ if ($contest!=null):
             <li>Se recibirán incripciones desde el <?= $initDate?> 
             hasta el  <?= $enrollmentDate ?></li>
         </ul>
-    </div>  
+      </div>  
      <div>
         <?= $contest->description;  ?>
+        <div>
+            <?php if (count($contest->juries) > 0): ?>
+            <h5> Jurado </h5>
+                <?php foreach($contest->juries as $jury): ?>
+                <ul>
+                    <li><?= $jury->person->getFullName(); ?></li>
+                </ul>
+                    
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
     </div> 
    </div>
 
