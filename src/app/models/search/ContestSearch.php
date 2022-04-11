@@ -50,6 +50,8 @@ class ContestSearch extends Contests
 
         $this->load($params);
 
+        $query->orderBy(['created_at' => SORT_DESC]);
+
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
