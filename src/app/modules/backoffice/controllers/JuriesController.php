@@ -48,7 +48,7 @@ class JuriesController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['teach_departament', 'admin'],
-                            'actions' => ['add-jury',  'delete'],
+                            'actions' => ['add-jury', 'delete', 'contest'],
                         ],
                     ]
                 ],
