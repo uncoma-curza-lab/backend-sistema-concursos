@@ -20,6 +20,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\HttpException;
 use yii\web\UploadedFile;
 
 /**
@@ -231,7 +232,11 @@ class ContestController extends Controller
      */
     public function actionDelete($slug)
     {
-        $this->findModel($slug)->delete();
+        try {
+            $this->findModel($slug)->delete();
+        } catch (\Throwable $e) {
+            throw new HttpException(401, 'No pudo realizarse la operación, revise si ya posee postulantes o jurado') ;
+        }
 
         return $this->redirect(['index']);
     }
