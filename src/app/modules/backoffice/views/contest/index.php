@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\search\ContestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $loggedUser = Yii::$app->user;
-$roles = Yii::$app->authManager->getRolesByUser($loggedUser->id);
+$roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
 
 $this->title = Yii::t('backoffice', 'contests');
 $this->params['breadcrumbs'][] = $this->title;
@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'delete' => function($url, $model, $key) {
                         $loggedUser = Yii::$app->user;
-                        $roles = Yii::$app->authManager->getRolesByUser($loggedUser->id);
+                        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
                         if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
 
                             return Html::a(
@@ -128,11 +128,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'update' => function($url, $model, $key) {
                         $loggedUser = Yii::$app->user;
-                        $roles = Yii::$app->authManager->getRolesByUser($loggedUser->id);
+                        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
                         if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
 
                             return Html::a(
-                                '<span class="bi bi-trash" aria-hidden="true"></span>',
+                                '<span class="bi bi-pencil" aria-hidden="true"></span>',
                                 Url::toRoute([
                                     '/backoffice/contest/update',
                                     'slug' => '' . $model->code

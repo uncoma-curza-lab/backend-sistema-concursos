@@ -36,32 +36,41 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top',
         ],
     ]);
+    $loggedUser = Yii::$app->user;
+    $roles = null;
+    if ($loggedUser) {
+        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
+    }
+    if (in_array('admin', $roles) || in_array('jury', $roles) || in_array('teach_departament', $roles))
+    $items = [
+        ['label' => Yii::t('menu', 'home'), 'url' => ['/site/index']],
+        ['label' => 'Concursos', 'url' => ['/backoffice/contest']],
+    ];
+    if ($roles && in_array('admin', $roles)) {
+        $items[] = [
+            'label' => 'Administrar',
+            'items' => [
+                 ['label' => 'Areas', 'url' => '/backoffice/area'],
+                 ['label' => 'Orientaciones', 'url' => '/backoffice/orientation'],
+                 ['label' => 'Usuarios', 'url' => '/backoffice/user'],
+            ],
+        ];
+    }
+    $items[] = Yii::$app->user->isGuest ? (
+        ['label' => Yii::t('menu', 'login'), 'url' => ['/site/login']]
+    ) : (
+        '<li>'
+        . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+        . Html::submitButton(
+            Yii::t('menu', 'logout') . ' (' . Yii::$app->user->identity->username . ')',
+            ['class' => 'btn btn-link logout']
+        )
+        . Html::endForm()
+        . '</li>'
+    );
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
-        'items' => [
-            ['label' => Yii::t('menu', 'home'), 'url' => ['/site/index']],
-            ['label' => 'Concursos', 'url' => ['/backoffice/contest']],
-            [
-                'label' => 'Administrar',
-                'items' => [
-                     ['label' => 'Areas', 'url' => '/backoffice/area'],
-                     ['label' => 'Orientaciones', 'url' => '/backoffice/orientation'],
-                     ['label' => 'Usuarios', 'url' => '/backoffice/user'],
-                ],
-            ],
-            Yii::$app->user->isGuest ? (
-                ['label' => Yii::t('menu', 'login'), 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    Yii::t('menu', 'logout') . ' (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items' => $items,
     ]);
     NavBar::end();
     ?>
