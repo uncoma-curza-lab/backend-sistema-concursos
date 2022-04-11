@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'uid',
+            'person.fullname',
             [
                 'attribute' => 'roles',
                 'format' => 'html',
