@@ -266,9 +266,13 @@ class Contests extends ActiveRecord
 
     public function canPostulate(): bool
     {
+        if (!\Yii::$app->user->identity) {
+            return false;
+        }
+
         $person = \Yii::$app->user->identity->person;
 
-        return $this->isPostulateAvailable()
+        return $person->isValid() && $this->isPostulateAvailable()
             && !$person->isPostulatedInContest($this->id);
     }
 
