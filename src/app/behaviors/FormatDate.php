@@ -31,10 +31,11 @@ class FormatDate extends Behavior {
 
     	foreach ($this->attributes as $attribute) {
             if (isset($this->owner->$attribute) && !empty($this->owner->$attribute) && $this->owner->$attribute != null) {
+                $dateTime = is_string($this->owner->$attribute) ? strtotime($this->owner->$attribute) : $this->owner->$attribute;
                 $this->owner->$attribute = (!$this->saveAsMySql) ? 
-                    date($this->saveformat, strtotime($this->owner->$attribute))
+                    date($this->saveformat, $dateTime)
                     :
-                    gmdate('Y-m-d H:i:s', $this->owner->$attribute);
+                    gmdate('Y-m-d H:i:s', $dateTime);
             }
     	}
 	}
