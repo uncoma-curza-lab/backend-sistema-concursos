@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => fn($model) => $model->getStatusDescription()
             ],
-            'created_at:datetime',
+                'created_at',
             [
                'class' => 'yii\grid\ActionColumn',
                'template' => ' {download} {download-resolution}',

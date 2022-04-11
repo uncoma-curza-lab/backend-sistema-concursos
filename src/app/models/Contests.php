@@ -250,7 +250,7 @@ class Contests extends ActiveRecord
 
     public function isPostulateAvailable() : bool
     {
-        return \Yii::$app->formatter->asDatetime('now') > $this->enrollment_date_end;
+        return \Yii::$app->formatter->asDatetime('now') < $this->enrollment_date_end;
     }
 
     public function canPostulate(): bool

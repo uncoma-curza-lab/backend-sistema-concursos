@@ -48,11 +48,11 @@ if ($contest!=null):
       <h3>Incripciones</h3>
        <ul>
             <?php
-                $initDate = date_create($contest->init_date);
-                $enrollmentDate = date_create($contest->enrollment_date_end);        
+                $initDate = $contest->init_date;
+                $enrollmentDate = $contest->enrollment_date_end;
             ?>
-            <li>Se recibirán incripciones desde el <?= date_format($initDate, "d-m-Y")?> 
-            hasta el  <?= date_format($enrollmentDate, "d-m-Y")?></li>
+            <li>Se recibirán incripciones desde el <?= $initDate?> 
+            hasta el  <?= $enrollmentDate ?></li>
         </ul>
     </div>  
      <div>
