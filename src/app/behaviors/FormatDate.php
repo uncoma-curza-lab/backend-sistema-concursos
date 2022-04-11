@@ -15,7 +15,7 @@ use yii\db\ActiveRecord;
 class FormatDate extends Behavior {
 
 	public $attributes;
-	public $viewformat = 'dd-MM-yyyy H:mm:ss';
+	public $viewformat = 'dd-MM-yyyy HH:mm:ss';
 	public $saveformat = 'Y-m-d H:i:s';
 	public $saveAsMySql = TRUE;
 
