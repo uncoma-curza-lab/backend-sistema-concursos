@@ -49,4 +49,17 @@ class AddRoleToUserForm extends Model
         return true;
     }
 
+    public function replace($userId) 
+    {
+        if (!$userId || !$this->role) {
+            throw new Exception('save_role_to_user_error');
+        }
+
+        $authManager = Yii::$app->authManager;
+        $authManager->revokeAll($userId);
+        $authManager->assign($authManager->getRole($this->role), $userId);
+
+        return true;
+    }
+
 }

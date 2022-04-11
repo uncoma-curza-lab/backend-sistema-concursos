@@ -19,8 +19,8 @@ return [
         ],
         [
             'class' => 'yii\web\UrlRule',
-            'pattern' => 'roles/add-to-user/<userId:[\d]+>',
-            'route' => 'roles/add-to-user',
+            'pattern' => 'roles/replace-to-user/<userId:[\d]+>',
+            'route' => 'roles/replace-to-user',
         ],
         [
             'class' => 'yii\web\UrlRule',

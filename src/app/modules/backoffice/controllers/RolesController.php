@@ -34,6 +34,24 @@ class RolesController extends Controller
         );
     }
 
+    public function actionReplaceToUser($userId)
+    {
+        $user = User::findOne($userId);
+        $roles = ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name');
+        $addUserRoleForm = new AddRoleToUserForm();
+
+        if ($addUserRoleForm->load($this->request->post()) && $addUserRoleForm->replace($user->id)) {
+            return $this->redirect(['/backoffice/user']);
+        }
+
+        return $this->render('replace_role_to_user', [
+            'model' => $addUserRoleForm,
+            'user' => $user,
+            'roles' => $roles,
+        ]);
+
+    }
+
     public function actionAddToUser($userId)
     {
         $user = User::findOne($userId);

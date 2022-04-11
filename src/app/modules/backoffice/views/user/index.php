@@ -42,12 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => ' {view} {update} {delete} {edit-profile}',
+                'template' => ' {view} {update} {delete} {edit-profile} {add-role}',
                 'buttons' => [
                     'edit-profile' =>  function($url, $model, $key) {
                         return Html::a(
                             '<span class="bi bi-person-lines-fill" aria-hidden="true"></span>',
                             Url::to(['user/edit-profile', 'id' => $model->id])
+                        );
+                    },
+                    'add-role' =>  function($url, $model, $key) {
+                        return Html::a(
+                            '<span class="bi bi-key-fill" aria-hidden="true"></span>',
+                            Url::to(['roles/replace-to-user', 'userId' => $model->id])
                         );
                     },
                 ],

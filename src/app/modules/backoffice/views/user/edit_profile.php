@@ -18,9 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($profile, 'contact_email')->textInput(['maxlength' => true, 'type' => 'email', 'disabled' => true]) ?>
 
-    <?= $form->field($profile, 'legal_address')->textInput(['maxlength' => true, 'disabled' => true]) ?>
-
-    <?= $form->field($profile, 'real_address')->textInput(['maxlength' => true, 'disabled' => true]) ?>
 
     <?= $form->field($profile, 'cellphone')->textInput(['maxlength' => true, 'disabled' => true]) ?>
 
