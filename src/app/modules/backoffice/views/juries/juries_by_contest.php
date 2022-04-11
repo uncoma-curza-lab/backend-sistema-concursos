@@ -40,16 +40,30 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{delete}',
-                'urlCreator' => function($action, $model, $key, $index) {
-                    $routePrefix = '/backoffice/juries';
-                    if($action === 'delete') {
-                        return Url::toRoute([
-                            $routePrefix . '/delete',
-                            'contest' => $model->contest->code,
-                            'user' => '' . $model->user_id
-                        ]);
+                'buttons' => [
+                    'delete' => function($url, $model, $key) {
+                        $loggedUser = Yii::$app->user;
+                        $roles = Yii::$app->authManager->getRolesByUser($loggedUser->id);
+                        if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
+
+                            return Html::a(
+                                '<span class="bi bi-trash" aria-hidden="true"></span>',
+                                Url::toRoute([
+                                    '/backoffice/juries/delete',
+                                    'contest' => $model->contest->code,
+                                    'user' => '' . $model->user_id
+                                ]),
+                                [
+                                    'data' => 
+                                    [
+                                        'confirm' => Yii::t('app', 'Desea publicar el dictamen?'),
+                                        'method' => 'post',
+                                    ]
+                                ]
+                            );
+                        }
                     }
-                },
+                ]
             ],
         ],
     ]); ?>

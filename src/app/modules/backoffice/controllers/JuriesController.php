@@ -7,6 +7,7 @@ use app\models\Contests;
 use app\models\User;
 use app\modules\backoffice\models\AddJuryForm;
 use app\modules\backoffice\searchs\JuriesByContestSearch;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -36,8 +37,18 @@ class JuriesController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
+                            'roles' => ['viewImplicatedPostulations'],
+                            'actions' => ['contest'],
+                            'roleParams' => function() {
+                                return [
+                                    'contestSlug' => Yii::$app->request->get('slug'),
+                                ];
+                            },
+                        ],
+                        [
+                            'allow' => true,
                             'roles' => ['teach_departament', 'admin'],
-                            'actions' => ['add-jury'],
+                            'actions' => ['add-jury',  'delete'],
                         ],
                     ]
                 ],
