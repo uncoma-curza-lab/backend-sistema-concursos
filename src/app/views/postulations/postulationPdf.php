@@ -1,6 +1,6 @@
 <body>
     <h2>Comprobante de Postulación a <?= $contest->name ?></h2>
-    <p>Centro Universitario Zona Atlántica certifica que <?= $person->getFullName() ?>, D.N.I. <?= $person->dni ?>, se encuentra inscripto como postulante para cubrir el cargo:</p>
+    <p>Centro Universitario Zona Atlántica certifica que <?= $person->getFullName() ?>, identificación <?= $person->uid ?> y número de postulación #<?= $postulation->id ?>, se encuentra inscripto como postulante para cubrir el cargo:</p>
     
     <table class="table">
       <thead>
