@@ -5,6 +5,7 @@ namespace app\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Contests;
+use Yii;
 
 /**
  * ContestSearch represents the model behind the search form of `app\models\Contests`.
@@ -56,6 +57,12 @@ class ContestSearch extends Contests
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+
+        $user = Yii::$app->user;
+        $roles = array_keys(Yii::$app->getAuthManager()->getRolesByUser($user->id));
+        if (in_array('jury', $roles)) {
+            $query->joinWith(['juries'])->andFilterWhere(['=', 'contest_juries.user_id', $user->id]);
         }
 
         // grid filtering conditions
