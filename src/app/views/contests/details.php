@@ -70,7 +70,7 @@ if ($contest!=null):
     ]);  ?>
   <?php endif; ?>
   <?php if ($contest->isResolutionPublished()): ?>
-    <?= Html::a('Descargar dictamen',
+    <?= Html::a('<span class="bi bi-file-earmark-arrow-down-fill" aria-hidden="true"></span> Descargar dictamen',
       Url::to(['postulations/download-resolution', 'slug' => $contest->code]),
       ['class' => 'btn btn-success'],
     );  ?>

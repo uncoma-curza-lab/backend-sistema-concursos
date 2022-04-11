@@ -31,13 +31,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at:datetime',
             [
                'class' => 'yii\grid\ActionColumn',
-               'template' => ' {download}',
+               'template' => ' {download} {download-resolution}',
                'buttons'=> [
                     'download' => function($url, $model, $key){
                         return Html::a(
                             '<span class="bi bi-file-earmark-arrow-down-fill" aria-hidden="true"></span>',
                             ['postulations/download-pdf', 'postulationId' => $model->id]
                         );
+                    },
+                    'download-resolution' => function($url, $model, $key){
+                        if ($model->contest->isResolutionPublished()) {
+                            return Html::a(
+                                '<span class="bi bi-file-earmark-text-fill" aria-hidden="true"></span>',
+                                ['postulations/download-resolution', 'slug' => $model->contest->code]
+                            );
+                        }
                     }
                ]
            ],
