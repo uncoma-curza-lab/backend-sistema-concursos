@@ -69,6 +69,12 @@ if ($contest!=null):
       'id' => 'modalButton'
     ]);  ?>
   <?php endif; ?>
+  <?php if ($contest->isResolutionPublished()): ?>
+    <?= Html::a('Descargar dictamen',
+      Url::to(['postulations/download-resolution', 'slug' => $contest->code]),
+      ['class' => 'btn btn-success'],
+    );  ?>
+  <?php endif ?>
 </div>
 <!-- Modal -->
 <?php

@@ -11,6 +11,7 @@ use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
 use kartik\mpdf\Pdf;
+use yii\web\HttpException;
 
 class PostulationsController extends Controller
 {
@@ -46,6 +47,10 @@ class PostulationsController extends Controller
                         'actions' => ['download-pdf'],
                         'roles' => ['@'],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['download-resolution'],
+                    ],
                 ],
                 'denyCallback' => function($rule, $action) {
                     if (!\Yii::$app->user->identity->isValid()) {
@@ -66,7 +71,12 @@ class PostulationsController extends Controller
 
     public function actionDownloadResolution($slug)
     {
-        $model = $this->findModel($slug);
+        $model= Contests::find()->onlyPublic()
+                                ->getBySlug($slug);
+        if (!$model->isResolutionPublished()) {
+            throw new HttpException(403, 'No se ha encontrado la resolución');
+        }
+
         $filepath = $model->getResolutionPath();
         if ($filepath) {
             return Yii::$app->response->sendFile($filepath);
