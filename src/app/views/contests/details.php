@@ -74,7 +74,7 @@ if ($contest!=null):
   </div>
   <br>
   <?php if ($contest->canPostulate()): ?>
-    <?= Html::button('<i class="bi bi-person-plus-fill"></i> Postularse con Modal', [
+    <?= Html::button('<i class="bi bi-person-plus-fill"></i> Postularse', [
       'value' => Url::to(['postulations/contest-inscription', 'slug' => $contest->code]),
       'class' => 'btn btn-info',
       'id' => 'modalButton'

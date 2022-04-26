@@ -141,14 +141,14 @@ class PostulationsController extends Controller
         
         $postulation = Postulations::findOne($postulationId);
         $user = Yii::$app->user;
-        if (!$user || !$user->identity || $user->identity->id !== $postulation->person_id) {
+        if (!$user || !$user->identity || $user->identity->person->id !== $postulation->person_id) {
             throw new HttpException(401, 'Verifique la solicitud nuevamente');
         }
         $contest = $postulation->contest;
         // get your HTML raw content without any layouts or scripts
         $content = $this->renderPartial('postulationPdf',[
             'postulation' => $postulation,
-            'person' => Yii::$app->user->identity->person,
+            'person' => $user->identity->person,
             'contest' => $contest
         ]);
         

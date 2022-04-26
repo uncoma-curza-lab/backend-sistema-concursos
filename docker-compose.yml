@@ -16,17 +16,13 @@ services:
     ports:
       - 8000:80
 
-  #cloud:
-  #  image: nextcloud
-  #  restart: always
-  #  ports:
-  #    - 8080:80
-  #  links:
-  #    - db
-  #  volumes:
-  #    - ./nextcloud:/var/www/html
-  #  environment:
-  #    POSTGRES_PASSWORD: test123
-  #    POSTGRES_DB: testdb
-  #    POSTGRES_USER: test
-  #    POSTGRES_HOST: db
+  cloud:
+    image: nextcloud
+      #     restart: always
+    ports:
+      - 8080:80
+    links:
+      - db
+    volumes:
+      - ./nextcloud:/var/www/html
+    env_file: .env 
