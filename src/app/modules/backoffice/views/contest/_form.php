@@ -10,9 +10,9 @@ use kartik\depdrop\DepDrop;
 
 use dosamigos\tinymce\TinyMce;
 
-$spcBase = Yii::$app->params['spc']['url'];
+$spcBase = Yii::$app->params['spc']['local'];
 $apiUrls = <<< 'JS'
-    const $careerBaseUrl = "/carrera/departamento?id=";
+    const $careerBaseUrl = "/careers/departments/";
     let deptoId = '';
     let coursesUrl = '';
 JS;
@@ -140,7 +140,7 @@ $form = ActiveForm::begin([]); ?>
             'allowClear' => true,
             //'minimumInputLength' => 2,
            'ajax' => [
-               'url' => new JsExpression('function($ex) {return (' . $spcBase .'/$careerBaseUrl + deptoId);}'),
+               'url' => new JsExpression('function($ex) {return (' . $spcBase .'/$careerBaseUrl / deptoId);}'),
                'dataType' => 'json',
                'delay' => 400,
                'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
