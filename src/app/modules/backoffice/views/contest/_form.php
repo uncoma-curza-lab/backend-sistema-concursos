@@ -10,8 +10,9 @@ use kartik\depdrop\DepDrop;
 
 use dosamigos\tinymce\TinyMce;
 
+$spcBase = Yii::$app->params['spc']['url'];
 $apiUrls = <<< 'JS'
-    const $careerBaseUrl = "https://apps.curza.uncoma.edu.ar/api/v1/carrera/departamento?id=";
+    const $careerBaseUrl = "/carrera/departamento?id=";
     let deptoId = '';
     let coursesUrl = '';
 JS;
@@ -30,8 +31,8 @@ var formatRepoSelection = function (repo) {
 JS;
  
 // Register the formatting script
-$this->registerJs($formatJs, View::POS_HEAD);
 $this->registerJs($apiUrls, View::POS_HEAD);
+$this->registerJs($formatJs, View::POS_HEAD);
 
 $resultsJs = <<< JS
 function (data, params) {
@@ -116,7 +117,7 @@ $form = ActiveForm::begin([]); ?>
         'pluginOptions' => [
             'allowClear' => true,
             'ajax' => [
-                'url' => 'https://apps.curza.uncoma.edu.ar/api/v1/departamento',
+                'url' => $spcBase . '/departamento',
                 'dataType' => 'json',
                 'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
                 'processResults' => new JsExpression($resultsJs),
@@ -139,7 +140,7 @@ $form = ActiveForm::begin([]); ?>
             'allowClear' => true,
             //'minimumInputLength' => 2,
            'ajax' => [
-               'url' => new JsExpression('function($ex) {return ($careerBaseUrl + deptoId);}'),
+               'url' => new JsExpression('function($ex) {return (' . $spcBase .'/$careerBaseUrl + deptoId);}'),
                'dataType' => 'json',
                'delay' => 400,
                'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
@@ -180,7 +181,7 @@ $form = ActiveForm::begin([]); ?>
         'pluginOptions' => [
             'allowClear' => true,
             'ajax' => [
-                'url' => 'https://apps.curza.uncoma.edu.ar/api/v1/departamento',
+                'url' => $spcBase . '/departamento',
                 'dataType' => 'json',
                 'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
                 'processResults' => new JsExpression($resultsJs),
