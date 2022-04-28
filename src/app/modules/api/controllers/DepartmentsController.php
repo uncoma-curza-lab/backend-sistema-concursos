@@ -7,9 +7,6 @@ use yii\web\Controller;
 
 class DepartmentsController extends Controller
 {
-    const $methodResources= [
-        'departments' => Departament::class,
-    ];
 
     public function actionAll()
     {
