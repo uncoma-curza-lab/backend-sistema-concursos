@@ -3,17 +3,20 @@
 namespace app\models;
 
 use app\services\SPCService;
+use JsonSerializable;
 
-class Career
+class Career implements JsonSerializable
 {
     protected $name;
     protected $code;
+    protected $metadata;
 
 
-    public function __construct(string $name, string $code)
+    public function __construct(string $name, string $code, array $metadata = [])
     {
         $this->name = $name;
         $this->code = $code;
+        $this->metadata = $metadata;
     }
 
     /**
@@ -34,9 +37,16 @@ class Career
 
         $collect = json_decode($careers['data']);
         $collect = array_map(function($career){
+            $metadata = [];
+            if ($career->plan_vigente) {
+                $metadata = [ 'actually_plan' => [
+                    'id' => $career->plan_vigente->id
+                ]];
+            }
             $entity = new self(
                 $career->nombre,
-                $career->id
+                $career->id,
+                $metadata,
             );
             return $entity;
         }, $collect);
@@ -112,6 +122,16 @@ class Career
             return $this->getName();
 
         }
+
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'code' => $this->getCode(),
+            'name' => $this->getName(),
+            'metadata' => $this->metadata,
+        ];
 
     }
 }
