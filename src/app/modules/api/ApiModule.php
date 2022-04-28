@@ -2,10 +2,13 @@
 
 namespace app\modules\api;
 
+use yii\base\BootstrapInterface;
+use yii\web\GroupUrlRule;
+
 /**
  * api module definition class
  */
-class ApiModule extends \yii\base\Module
+class ApiModule extends \yii\base\Module implements BootstrapInterface
 {
     /**
      * {@inheritdoc}
@@ -18,7 +21,14 @@ class ApiModule extends \yii\base\Module
     public function init()
     {
         parent::init();
+    }
 
-        // custom initialization code goes here
+    public function bootstrap($app)
+    {
+        $routeConfig = require __DIR__ . '/config/routes.php';
+        $app->getUrlManager()->addRules([
+            new GroupUrlRule($routeConfig)
+        ], false);
+
     }
 }
