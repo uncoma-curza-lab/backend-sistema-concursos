@@ -148,7 +148,7 @@ $form = ActiveForm::begin([]); ?>
            ],
            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
            'templateResult' => new JsExpression('formatRepo'),
-           'templateSelection' => new JsExpression('function(depto) { if (depto.plan_vigente) {coursesUrl = depto.plan_vigente._links.asignaturas.href;} return depto.nombre || depto.text;}')//new JsExpression('formatRepoSelection'),
+           'templateSelection' => new JsExpression('function(depto) { if (depto.metadata.actually_plan) {coursesUrl = depto.metadata.actually_plan.id;} return depto.code|| depto.name;}')//new JsExpression('formatRepoSelection'),
         ],
         'pluginEvents' => [
             'change' => new JsExpression('function(event){ $("#contests-course_id").val("").trigger("change");}'),
