@@ -9,6 +9,11 @@ return [
         ],
         [
             'class' => 'yii\web\UrlRule',
+            'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<id:[\d]+>',
+            'route' => '<controller>/<action>',
+        ],
+        [
+            'class' => 'yii\web\UrlRule',
             'pattern' => '<controller:[\w\-]+>/<id:[\d]+>',
             'route' => '<controller>/one',
         ],

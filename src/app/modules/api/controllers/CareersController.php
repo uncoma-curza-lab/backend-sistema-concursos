@@ -31,7 +31,7 @@ class CareersController extends Controller
         ;
     }
 
-    public function actionDepartaments($id)
+    public function actionDepartments($id)
     {
         $response = \Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
