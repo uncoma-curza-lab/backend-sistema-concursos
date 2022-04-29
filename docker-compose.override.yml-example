@@ -2,4 +2,10 @@ services:
   db:
     ports:
       - 5432:5432
+  spc-mock:
+    build: ../spc-mock
+    ports:
+      - 8080:80
+    volumes:
+      - ../spc-mock/app:/app
 
