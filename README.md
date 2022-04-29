@@ -3,7 +3,16 @@ Descripción del Sistema...
 
 
 ## Puesta en marcha del Ambiente Yii + NextCloud
-  
+  - Clonar este repo
+  - Clonar el repo de spc-mock de esta organización en `../spc-mock`. *Para más info  ver `docker-compose.override.yml`*
+  - Copiar `.env.example` a `.env`
+  ```
+    cp .env.example .env
+  ```
+  - Copiar `docker-compose.override.yml.example` a `docker-compose.override.yml.example`
+  ```
+    cp docker-compose.override.yml.example docker-compose.override.yml
+  ```
   - Ejecutar el docker compose:
 ```
   docker-compose up -d
