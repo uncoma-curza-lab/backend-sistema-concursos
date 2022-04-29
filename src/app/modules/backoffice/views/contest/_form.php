@@ -12,7 +12,8 @@ use dosamigos\tinymce\TinyMce;
 
 $spcBase = Yii::$app->params['spc']['local'];
 $apiUrls = <<< 'JS'
-    const $careerBaseUrl = "/careers/departments/";
+    const $careerBaseUrl = "/careers/departments";
+    const $courseBaseUrl = "/courses/plan"
     let deptoId = '';
     let coursesUrl = '';
 JS;
@@ -20,13 +21,13 @@ JS;
 $formatJs = <<< 'JS'
 var formatRepo = function (repo) {
     if (repo.loading) {
-        return repo.nombre 
+        return repo.text
     }
-    var markup = repo.nombre
+    var markup = repo.text
     return '<div style="overflow:hidden;">' + markup + '</div>';
 };
 var formatRepoSelection = function (repo) {
-    return repo.nombre;
+    return repo.text;
 }
 JS;
  
@@ -37,11 +38,19 @@ $this->registerJs($formatJs, View::POS_HEAD);
 $resultsJs = <<< JS
 function (data, params) {
     params.page = params.page || 1;
+    mapped = data.map(item => {
+        mapItem = {
+            id: item.code,
+            text: item.name
+        }
+        if (item.metadata && item.metadata.actually_plan){
+            mapItem["plan_id"] = item.metadata.actually_plan.id;
+        }
+        return mapItem;
+
+    })
     return {
-        results: data,
-        //pagination: {
-        //    more: (params.page * 30) < data.total_count
-        //}
+        results: mapped
     };
 }
 JS;
@@ -117,17 +126,17 @@ $form = ActiveForm::begin([]); ?>
         'pluginOptions' => [
             'allowClear' => true,
             'ajax' => [
-                'url' => $spcBase . '/departamento',
+                'url' => $spcBase . '/departments',
                 'dataType' => 'json',
-                'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
+                'data' => new JsExpression('function(params) {return {q:params.term, page: params.page}; }'),
                 'processResults' => new JsExpression($resultsJs),
             ],
-            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+            'escapeMarkup' => new JsExpression('function (markup) {return markup; }'),
             'templateResult' => new JsExpression('formatRepo'),
-            'templateSelection' => new JsExpression('function(depto) {deptoId = depto.id; return depto.nombre || depto.text;}')//new JsExpression('formatRepoSelection'),
+            'templateSelection' => new JsExpression('function(depto) { deptoId = depto.id; return depto.name || depto.text;}')//new JsExpression('formatRepoSelection'),
         ],
         'pluginEvents' => [
-            'change' => new JsExpression('function(event){ console.log($("#contests-career_id"));$("#contests-career_id").val("").trigger("change"); deptoId = $(this).val();}'),
+            'change' => new JsExpression('function(event){ $("#contests-career_id").val("").trigger("change"); deptoId = $(this).val();}'),
         ]
     ]) ?>
 
@@ -138,9 +147,8 @@ $form = ActiveForm::begin([]); ?>
         'initValueText' => $careerList[$model->career_id] ?? null,
         'pluginOptions' => [
             'allowClear' => true,
-            //'minimumInputLength' => 2,
            'ajax' => [
-               'url' => new JsExpression('function($ex) {return (' . $spcBase .'/$careerBaseUrl / deptoId);}'),
+               'url' => new JsExpression('function($ex) {return ("' . $spcBase .'" + $careerBaseUrl + "/" + deptoId);}'),
                'dataType' => 'json',
                'delay' => 400,
                'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
@@ -148,7 +156,7 @@ $form = ActiveForm::begin([]); ?>
            ],
            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
            'templateResult' => new JsExpression('formatRepo'),
-           'templateSelection' => new JsExpression('function(depto) { if (depto.metadata.actually_plan) {coursesUrl = depto.metadata.actually_plan.id;} return depto.code|| depto.name;}')//new JsExpression('formatRepoSelection'),
+           'templateSelection' => new JsExpression('function(depto) { if (depto.plan_id) {coursesUrl = "' . $spcBase . '" + $courseBaseUrl + "/" +depto.plan_id;} return depto.name || depto.text;}')
         ],
         'pluginEvents' => [
             'change' => new JsExpression('function(event){ $("#contests-course_id").val("").trigger("change");}'),
@@ -163,7 +171,7 @@ $form = ActiveForm::begin([]); ?>
         'pluginOptions' => [
             'allowClear' => true,
            'ajax' => [
-               'url' => new JsExpression('function($ex) {return coursesUrl.replace(/^http:\/\//i, "https://");}'),
+               'url' => new JsExpression('function($ex) {return coursesUrl;}'),
                'dataType' => 'json',
                'delay' => 750,
                'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
@@ -171,7 +179,7 @@ $form = ActiveForm::begin([]); ?>
            ],
            'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
            'templateResult' => new JsExpression('formatRepo'),
-           'templateSelection' => new JsExpression('function(depto) {return depto.nombre || depto.text;}')//new JsExpression('formatRepoSelection'),
+           'templateSelection' => new JsExpression('function(depto) {return depto.name || depto.text;}')//new JsExpression('formatRepoSelection'),
         ],
     ]) ?>
 
@@ -181,14 +189,14 @@ $form = ActiveForm::begin([]); ?>
         'pluginOptions' => [
             'allowClear' => true,
             'ajax' => [
-                'url' => $spcBase . '/departamento',
+                'url' => $spcBase . '/departments',
                 'dataType' => 'json',
                 'data' => new JsExpression('function(params) {return{q:params.term, page: params.page}; }'),
                 'processResults' => new JsExpression($resultsJs),
             ],
             'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
             'templateResult' => new JsExpression('formatRepo'),
-            'templateSelection' => new JsExpression('function(depto) {deptoId = depto.id; return depto.nombre || depto.text;}')//new JsExpression('formatRepoSelection'),
+            'templateSelection' => new JsExpression('function(depto) {return depto.name || depto.text;}')//new JsExpression('formatRepoSelection'),
         ],
     ]) ?>
 
