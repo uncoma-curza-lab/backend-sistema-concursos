@@ -91,4 +91,9 @@ class ContestStatus extends \yii\db\ActiveRecord
     {
         return self::getTranslation($this->name);
     }
+
+    public function is(int $contestStatus)
+    {
+        return $this->id == $contestStatus;
+    }
 }

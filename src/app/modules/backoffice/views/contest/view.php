@@ -1,5 +1,6 @@
 <?php
 
+use app\models\ContestStatus;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -24,6 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php if ($model->contestStatus->is(ContestStatus::DRAFT)) : ?>
+        <?= Html::a(Yii::t('backoffice', 'Publicar concurso'), ['set-status', 'slug' => $model->code], [
+            'class' => 'btn btn-info',
+        ]) ?>
+        <?php endif; ?>
     </p>
 
     <?= DetailView::widget([
