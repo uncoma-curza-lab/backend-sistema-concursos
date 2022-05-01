@@ -14,6 +14,9 @@ $this->title = \Yii::$app->name;
         <p class="mt-5">
             Utilice la barra de navegación superior para gestionar concursos, usuarios y otros aspectos del sistema
         </p>
+        <p class="">
+           La página principal del backoffice está en construcción...
+        </p>
     </div>
 
 </div>
