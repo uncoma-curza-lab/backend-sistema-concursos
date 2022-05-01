@@ -12,7 +12,7 @@ $this->title = \Yii::$app->name;
     <div class="jumbotron text-center bg-transparent">
         <h1 class="display-4">Panel de Gestion</h1>
         <p class="mt-5">
-            En construcción
+            Utilice la barra de navegación superior para gestionar concursos, usuarios y otros aspectos del sistema
         </p>
     </div>
 
