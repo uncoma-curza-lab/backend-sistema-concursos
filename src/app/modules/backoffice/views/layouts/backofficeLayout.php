@@ -30,7 +30,7 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name.' - Backoffice',
+        'brandLabel' => 'Backoffice / Gestión',
         'brandUrl' => '/backoffice/contest',
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top',
