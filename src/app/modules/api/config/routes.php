@@ -9,13 +9,18 @@ return [
         ],
         [
             'class' => 'yii\web\UrlRule',
-            'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<slug:[\w\-]+>',
+            'pattern' => '<controller:[\w\-]+>/<action:[\w\-]+>/<id:[\d]+>',
             'route' => '<controller>/<action>',
         ],
         [
             'class' => 'yii\web\UrlRule',
-            'pattern' => '<controller:[\w\-]+>/<action:\w+>',
-            'route' => '<controller>/<action>',
+            'pattern' => '<controller:[\w\-]+>/<id:[\d]+>',
+            'route' => '<controller>/one',
+        ],
+        [
+            'class' => 'yii\web\UrlRule',
+            'pattern' => '<controller:[\w\-]+>',
+            'route' => '<controller>/all',
         ],
     ]
 ];
