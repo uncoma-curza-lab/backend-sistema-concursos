@@ -2,8 +2,10 @@
 
 namespace app\modules\backoffice\controllers;
 
+use app\models\City;
 use app\models\Countries;
 use app\models\Provinces;
+use app\models\search\CitiesSearch;
 use app\models\search\ProvincesSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -11,7 +13,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 
-class ProvincesController extends Controller
+class CitiesController extends Controller
 {
     /**
      * @inheritDoc
@@ -46,7 +48,7 @@ class ProvincesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProvincesSearch();
+        $searchModel = new CitiesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -75,19 +77,21 @@ class ProvincesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Provinces();
+        $model = new City();
 
         if ($this->request->isPost) {
-            if ($model = Provinces::create($this->request->post())) {
+            if ($model = City::create($this->request->post())) {
                 return $this->redirect(['view', 'slug' => $model->code]);
             }
         } else {
             $model->loadDefaultValues();
         }
 
-        $refModel= ArrayHelper::map(Countries::find()->all(), 'id', 'name');
+        $countryList = ArrayHelper::map(Countries::find()->all(), 'id', 'name');
+        $refModel= ArrayHelper::map(Provinces::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
+            'countryList' => $countryList,
             'refModel' => $refModel,
         ]);
     }
@@ -107,7 +111,7 @@ class ProvincesController extends Controller
         }
 
 
-        $refModel= ArrayHelper::map(Countries::find()->all(), 'id', 'name');
+        $refModel= ArrayHelper::map(Provinces::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,
             'refModel' => $refModel,
@@ -137,29 +141,10 @@ class ProvincesController extends Controller
      */
     protected function findModel($slug)
     {
-        if (($model = Provinces::find()->getByCode($slug)) !== null) {
+        if (($model = City::find()->getByCode($slug)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('backoffice', 'The requested page does not exist.'));
-    }
-
-
-    /** 
-     * Get depdrop api
-     * country creation
-     */
-    public function actionCountry() {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $out = [];
-        if (isset($_POST['depdrop_parents'])) {
-            $parents = $_POST['depdrop_parents'];
-            if ($parents) {
-               $data = Provinces::find()->where(['=', 'country_id', $parents[0]])->all();
-               
-               return ['output' => $data, 'selected' => ''];
-            }
-        }
-        return ['output'=>'', 'selected'=>''];
     }
 }

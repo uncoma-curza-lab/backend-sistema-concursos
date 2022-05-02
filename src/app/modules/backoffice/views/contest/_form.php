@@ -6,8 +6,6 @@ use kartik\select2\Select2;
 use yii\web\JsExpression;
 use yii\web\View;
 
-use kartik\depdrop\DepDrop;
-
 use dosamigos\tinymce\TinyMce;
 
 $spcBase = Yii::$app->params['spc']['local'];
