@@ -3,6 +3,7 @@
 namespace app\modules\backoffice\controllers;
 
 use app\models\Provinces;
+use app\models\search\ProvincesSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
