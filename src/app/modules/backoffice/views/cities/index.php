@@ -30,7 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'code',
-            'province.name',
+            [
+                'label' => 'Provincia',
+                'attribute' => 'province.name'
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'urlCreator' => function($action, $model, $key, $index) {
