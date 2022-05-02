@@ -3,9 +3,6 @@
 namespace app\modules\backoffice\controllers;
 
 use app\models\Provinces;
-use app\models\search\CountriesSearch;
-use app\models\search\ProvincesSearch;
-use app\modules\backoffice\models\UserForm;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -75,10 +72,10 @@ class ProvincesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Countries();
+        $model = new Provinces();
 
         if ($this->request->isPost) {
-            if ($model = Countries::create($this->request->post())) {
+            if ($model = Provinces::create($this->request->post())) {
                 return $this->redirect(['view', 'slug' => $model->code]);
             }
         } else {
