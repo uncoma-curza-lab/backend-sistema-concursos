@@ -2,14 +2,11 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Areas */
-
-$this->title = Yii::t('backoffice', 'Create Country');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'Country'), 'url' => ['index']];
+$this->title = Yii::t('backoffice', 'Create Province');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'Province'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="countries-create">
+<div class="provinces-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

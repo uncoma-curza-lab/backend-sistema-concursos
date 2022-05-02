@@ -7,11 +7,11 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Areas */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'Country'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'Province'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="countries-view">
+<div class="provinces-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
