@@ -2,12 +2,14 @@
 
 namespace app\modules\backoffice\controllers;
 
+use app\models\Countries;
 use app\models\Provinces;
 use app\models\search\ProvincesSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 class ProvincesController extends Controller
 {
@@ -83,8 +85,10 @@ class ProvincesController extends Controller
             $model->loadDefaultValues();
         }
 
+        $refModel= ArrayHelper::map(Countries::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
+            'refModel' => $refModel,
         ]);
     }
 
@@ -103,8 +107,10 @@ class ProvincesController extends Controller
         }
 
 
+        $refModel= ArrayHelper::map(Countries::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,
+            'refModel' => $refModel,
         ]);
     }
 
