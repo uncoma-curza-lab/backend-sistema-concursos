@@ -22,6 +22,7 @@ use yii\widgets\ActiveForm;
     <?= Select2::widget([
         'name' => 'country_id',
         'data' => $countryList,
+        'value' => $model->province->country_id ?? null,
         'options' => [
             'placeholder' => 'Seleccione País...',
             'id' => 'country',
@@ -33,9 +34,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'province_id')->widget(DepDrop::class, [
         'options' => ['placeholder' => 'Seleccione la provincia de referencia...'],
+        'value' => $model->province_id,
+        'type' => DepDrop::TYPE_SELECT2,
+        'select2Options' => ['pluginOptions' => ['allowClear' => true]],
+        'data' => $model->province_id ? [$model->province_id => $model->province->name] : null,
         'pluginOptions' => [
             'allowClear' => true,
             'depends' => [ 'country' ],
+            'initialize' => true,
             'url' => Url::to(['/backoffice/provinces/country'])
         ],
     ]) ?>

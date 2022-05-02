@@ -88,11 +88,9 @@ class CitiesController extends Controller
         }
 
         $countryList = ArrayHelper::map(Countries::find()->all(), 'id', 'name');
-        $refModel= ArrayHelper::map(Provinces::find()->all(), 'id', 'name');
         return $this->render('create', [
             'model' => $model,
             'countryList' => $countryList,
-            'refModel' => $refModel,
         ]);
     }
 
@@ -111,10 +109,10 @@ class CitiesController extends Controller
         }
 
 
-        $refModel= ArrayHelper::map(Provinces::find()->all(), 'id', 'name');
+        $countryList = ArrayHelper::map(Countries::find()->all(), 'id', 'name');
         return $this->render('update', [
             'model' => $model,
-            'refModel' => $refModel,
+            'countryList' => $countryList,
         ]);
     }
 

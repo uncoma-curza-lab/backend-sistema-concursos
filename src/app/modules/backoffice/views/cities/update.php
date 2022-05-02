@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = Yii::t('backoffice', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'refModel' => $refModel,
         'countryList' => $countryList,
     ]) ?>
 
