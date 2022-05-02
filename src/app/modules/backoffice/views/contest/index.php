@@ -29,12 +29,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => [
+            'class' => 'container-fluid',
+        ],
+        'tableOptions' => [
+            'class' => 'table table-responsive table-bordered table-striped',
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'name',
-            'code',
-            'qty',
+            [
+                'attribute' => 'qty',
+                'contentOptions' => [
+                    'style' => 'width: 5%;',
+                ] 
+            ],
             [
                 'attribute' => 'course_id',
                 'value' => fn($data) => $data->getCourse()->name ?? 'unavailable'
