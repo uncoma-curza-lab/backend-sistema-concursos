@@ -7,6 +7,13 @@ services:
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
 
+  dbCloud:
+    image: postgres:14.2-alpine
+    env_file: .env
+    volumes:
+      - ./postgresdataclud:/var/lib/postgresql/data
+
+
   app:
     image: yiisoftware/yii2-php:8.0-apache
     volumes:
@@ -22,7 +29,7 @@ services:
     ports:
       - 8080:80
     links:
-      - db
+      - dbCloud
     volumes:
       - ./nextcloud:/var/www/html
     env_file: .env 
