@@ -9,9 +9,9 @@ services:
 
   dbCloud:
     image: postgres:14.2-alpine
-    env_file: .env
+    env_file: .envcloud
     volumes:
-      - ./postgresdataclud:/var/lib/postgresql/data
+      - ./postgresdatacloud:/var/lib/postgresql/data
 
 
   app:

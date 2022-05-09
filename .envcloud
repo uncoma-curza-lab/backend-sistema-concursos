@@ -1,0 +1,5 @@
+SPC_API_URL=https://apps.curza.uncoma.edu.ar/api/v1
+POSTGRES_PASSWORD=test123
+POSTGRES_USER=test
+POSTGRES_DB=testdb
+POSTGRES_HOST=dbCloud
