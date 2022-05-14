@@ -29,12 +29,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => [
+            'class' => 'container-fluid',
+        ],
+        'tableOptions' => [
+            'class' => 'table table-responsive table-bordered table-striped',
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'name',
-            'code',
-            'qty',
+            [
+                'attribute' => 'qty',
+                'contentOptions' => [
+                    'style' => 'width: 5%;',
+                ] 
+            ],
             [
                 'attribute' => 'course_id',
                 'value' => fn($data) => $data->getCourse()->name ?? 'unavailable'
@@ -60,7 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         ) {
                             return Html::a(
                                 '<span class="bi bi-person-lines-fill" aria-hidden="true"></span>',
-                                Url::to(['postulation/contest', 'slug' => $model->code])
+                                Url::to(['postulation/contest', 'slug' => $model->code]),
+                                [
+                                    'title' => 'Postulaciones'
+                                ]
                             );
                         }
                     },
@@ -74,7 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         ) {
                             return Html::a(
                                 '<span class="bi bi-people-fill" aria-hidden="true"></span>',
-                                Url::to(['juries/contest', 'slug' => $model->code])
+                                Url::to(['juries/contest', 'slug' => $model->code]),
+                                [
+                                    'title' => 'Jurados'
+                                ]
                             );
                         }
                     },
@@ -86,7 +101,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         ) {
                             return Html::a(
                                 '<span class="bi bi-ui-radios" aria-hidden="true"></span>',
-                                Url::to(['contest/set-status', 'slug' => $model->code])
+                                Url::to(['contest/set-status', 'slug' => $model->code]),
+                                [
+                                    'title' => 'Cambiar estado'
+                                ]
                             );
                         }
                     },
@@ -94,7 +112,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         if ($model->canUploadResolution()) {
                             return Html::a(
                                 '<span class="bi bi-file-pdf" aria-hidden="true"></span>',
-                                Url::to(['contest/upload-resolution', 'slug' => $model->code])
+                                Url::to(['contest/upload-resolution', 'slug' => $model->code]),
+                                [
+                                    'title' => 'Subir resolución'
+                                ]
                             );
                         }
                     },
@@ -102,7 +123,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         if ($model->isDownloadeableResolution()) {
                             return Html::a(
                                 '<span class="bi bi-download" aria-hidden="true"></span>',
-                                Url::to(['contest/download-resolution', 'slug' => $model->code])
+                                Url::to(['contest/download-resolution', 'slug' => $model->code]),
+                                [
+                                    'title' => 'Descargar resolución'
+                                ]
                             );
                         }
                     },
@@ -116,7 +140,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     [
                                         'confirm' => Yii::t('app', 'Desea publicar el dictamen?'),
                                         'method' => 'post',
-                                    ]
+                                    ],
+                                    'title' => 'Publicar resolución',
                                 ]
                             );
                         }
@@ -139,7 +164,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     [
                                         'confirm' => Yii::t('app', 'Desea publicar el dictamen?'),
                                         'method' => 'post',
-                                    ]
+                                    ],
+                                    'title' => 'Eliminar concurso',
                                 ]
                             );
                         }
@@ -155,6 +181,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     '/backoffice/contest/update',
                                     'slug' => '' . $model->code
                                 ]),
+                                [
+                                    'title' => 'Actualizar concurso',
+                                ]
                             );
                         }
                     }
