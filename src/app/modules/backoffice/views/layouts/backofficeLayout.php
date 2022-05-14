@@ -52,6 +52,8 @@ AppAsset::register($this);
             'items' => [
                  ['label' => 'Areas', 'url' => '/backoffice/area'],
                  ['label' => 'Orientaciones', 'url' => '/backoffice/orientation'],
+                 ['label' => 'Provincias', 'url' => '/backoffice/provinces'],
+                 ['label' => 'Ciudades', 'url' => '/backoffice/cities'],
                  ['label' => 'Usuarios', 'url' => '/backoffice/user'],
             ],
         ];

@@ -31,4 +31,9 @@ class ProvincesQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function getByCode($slug)
+    {
+        return $this->where(['=', 'code', $slug])->one();
+    }
 }

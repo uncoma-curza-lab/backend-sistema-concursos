@@ -31,4 +31,13 @@ class CountriesQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    /**
+     * {@inheritdoc}
+     * @return Countries|array|null
+     */
+    public function getByCode($slug)
+    {
+        return $this->where(['=', 'code', $slug])->one();
+    }
 }
