@@ -6,21 +6,51 @@ class NextcludService
 {
     use GuzzleTrait;
 
-    protected $url;
+    protected $baseUrl;
+    protected $urlValues;
     protected $headers;
+    protected $auth;
 
     public function __construct()
     {
-        $this->url = \Yii::$app->params['spc']['url'];
+        $this->baseUrl = \Yii::$app->params['nextcloud']['url'];
         $this->headers = [
-            //'Authorization' => 'Basic ' . $this->token,
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
+            'Content-Type' => 'application/xml',
+            'Accept' => 'application/xml',
+        ];
+        $this->auth = [
+            \Yii::$app->params['nextcloud']['username'],
+            \Yii::$app->params['nextcloud']['password'],
         ];
     }
 
     public function createFolder(string $folder)
     {
+        $dir = \Yii::$app->params['nextcloud']['dir'];
+        try{
+            $response = self::exec(
+                url: $this->baseUrl . "remote.php/dav/files/admin/$dir/$folder",
+                params: [
+                    'headers' => $this->headers,
+                    'auth' => $this->auth,
+                ],
+                method: 'MKCOL',
+            );
+
+            return [
+                'code' => $response->getStatusCode(),
+                'data' => simplexml_load_string($response->getBody(),'SimpleXMLElement',LIBXML_NOCDATA),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'code' => 500,
+                'data' => 'Error en el servidor',
+                'messege' => $e->getMessage(),
+                'exception' => $e,
+            ];
+
+        }
+
 
     }
 /*
@@ -28,7 +58,7 @@ class NextcludService
     {
         try {
             $response = self::exec(
-                $this->url . '/' . $endpoint,
+                $this->baseUrl . '/' . $endpoint,
                 null,
                 $this->headers,
                 'GET'
@@ -51,7 +81,7 @@ class NextcludService
     {
         try {
             $response = self::exec(
-                $this->url . '/' . $endpoint . '/' . $id,
+                $this->baseUrl . '/' . $endpoint . '/' . $id,
                 null,
                 $this->headers,
                 'GET'
@@ -69,5 +99,5 @@ class NextcludService
 
         }
 
-    }
-}*/
+    }*/
+}

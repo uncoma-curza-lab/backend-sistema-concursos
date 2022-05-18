@@ -24,8 +24,7 @@ class SPCService
         try {
             $response = self::exec(
                 $this->url . '/' . $endpoint,
-                null,
-                $this->headers,
+                ['headers' => $this->headers],
                 'GET'
             );
 
@@ -47,8 +46,7 @@ class SPCService
         try {
             $response = self::exec(
                 $this->url . '/' . $endpoint . '/' . $id,
-                null,
-                $this->headers,
+                ['headers' => $this->headers],
                 'GET'
             );
 

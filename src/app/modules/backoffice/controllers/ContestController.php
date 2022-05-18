@@ -128,7 +128,11 @@ class ContestController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'slug' => $model->code]);
+                if($model->createConstestFolder()){
+                    return $this->redirect(['view', 'slug' => $model->code]);
+
+                }
+                //var_dump($createFolder);
             }
         }
         //
