@@ -133,9 +133,9 @@ class Postulations extends \yii\db\ActiveRecord
         return PostulationStatus::getTranslation($this->status);
     }
 
-    public function createPostulationFolder($contestFolder, $personFolder) 
+    public function createPostulationFolder() 
     {
-        $pathToFolder = $contestFolder . '/' . $personFolder;
+        $pathToFolder = $this->contest->code . '/' . $this->person->uid;
         $service = new NextcludService();
         $response = $service->createFolder($pathToFolder);
         if($response['code'] < 300){
@@ -145,9 +145,9 @@ class Postulations extends \yii\db\ActiveRecord
         }
     }
 
-    public function createPostulationFolderShare($contestFolder, $personFolder, $permission, $expireDate)
+    public function createPostulationFolderShare($permission, $expireDate)
     {
-        $pathToFolder = $contestFolder . '/' . $personFolder;
+        $pathToFolder = $this->contest->code . '/' . $this->person->uid;
         $service = new NextcludService();
         $response = $service->createFolderShare($pathToFolder, $permission, $expireDate);
         return $response;

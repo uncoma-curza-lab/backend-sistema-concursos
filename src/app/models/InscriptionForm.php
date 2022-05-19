@@ -47,20 +47,14 @@ class InscriptionForm extends Model
         if (!$this->contest->canPostulate()) {
             return false;
         }
-        $person_uid = Yii::$app->user->identity->person->uid;
         $postulations = new Postulations();
         $postulations->contest_id = $this->contest->id;
         $postulations->person_id = Yii::$app->user->identity->person->id;
         $postulations->accepted_term_article22 = $this->accepted_term_article22;
         $postulations->confirm_data = $this->confirm_data;
         $postulations->status = PostulationStatus::PENDING;
-        if($postulations->createPostulationFolder($this->contest->code, $person_uid)){
-            $share = $postulations->createPostulationFolderShare(
-                $this->contest->code,
-                $person_uid,
-                4,
-                '2022-05-20'
-            );
+        if($postulations->createPostulationFolder()){
+            $share = $postulations->createPostulationFolderShare(4, '2022-05-20');
             var_dump($share);
             if($share['code'] == 100){
                 $postulations->shere_id = 22; // $share['data']['id'];
