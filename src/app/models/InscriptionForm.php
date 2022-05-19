@@ -47,12 +47,17 @@ class InscriptionForm extends Model
         if (!$this->contest->canPostulate()) {
             return false;
         }
+        $person_uid = Yii::$app->user->identity->person->uid;
         $postulations = new Postulations();
         $postulations->contest_id = $this->contest->id;
         $postulations->person_id = Yii::$app->user->identity->person->id;
         $postulations->accepted_term_article22 = $this->accepted_term_article22;
         $postulations->confirm_data = $this->confirm_data;
         $postulations->status = PostulationStatus::PENDING;
-        return $postulations->save();
+        if($postulations->createPostulationFolder($this->contest->code, $person_uid)){
+            return $postulations->save();
+        }else{
+            return false;
+        }
     }
 }

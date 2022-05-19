@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\services\NextcludService;
 use DateTime;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -130,5 +131,15 @@ class Postulations extends \yii\db\ActiveRecord
         return PostulationStatus::getTranslation($this->status);
     }
 
+    public function createPostulationFolder($contestCode, $person_uid) 
+    {
+        $service = new NextcludService();
+        $response = $service->createFolder($contestCode . '/' . $person_uid);
+        if($response['code'] < 300){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
