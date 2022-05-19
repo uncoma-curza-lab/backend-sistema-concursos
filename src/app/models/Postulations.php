@@ -17,6 +17,7 @@ use yii\db\Expression;
  * @property int $person_id
  * @property string|null $files
  * @property string|null $meet_date
+ * @property int $shere_id
  *
  * @property Contests $contest
  * @property Persons $person
@@ -56,7 +57,7 @@ class Postulations extends \yii\db\ActiveRecord
         return [
             [['contest_id', 'person_id'], 'required'],
             [['contest_id', 'person_id'], 'default', 'value' => null],
-            [['contest_id', 'person_id'], 'integer'],
+            [['contest_id', 'person_id', 'shere_id'], 'integer'],
             [['status'], 'string'],
             [['files'], 'string'],
             [['meet_date', 'created_at', 'updated_at'], 'safe'],
@@ -79,6 +80,7 @@ class Postulations extends \yii\db\ActiveRecord
             'created_at' => 'Fecha de registro',
             'updated_at' => 'Fecha de actualización',
             'status' => 'Estado',
+            'shere_id' => 'Shere ID',
         ];
     }
 
@@ -131,15 +133,24 @@ class Postulations extends \yii\db\ActiveRecord
         return PostulationStatus::getTranslation($this->status);
     }
 
-    public function createPostulationFolder($contestCode, $person_uid) 
+    public function createPostulationFolder($contestFolder, $personFolder) 
     {
+        $pathToFolder = $contestFolder . '/' . $personFolder;
         $service = new NextcludService();
-        $response = $service->createFolder($contestCode . '/' . $person_uid);
+        $response = $service->createFolder($pathToFolder);
         if($response['code'] < 300){
             return true;
         }else{
             return false;
         }
+    }
+
+    public function createPostulationFolderShare($contestFolder, $personFolder, $permission, $expireDate)
+    {
+        $pathToFolder = $contestFolder . '/' . $personFolder;
+        $service = new NextcludService();
+        $response = $service->createFolderShare($pathToFolder, $permission, $expireDate);
+        return $response;
     }
 
 }

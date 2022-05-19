@@ -7,9 +7,9 @@ class NextcludService
     use GuzzleTrait;
 
     protected $baseUrl;
-    protected $urlValues;
     protected $headers;
     protected $auth;
+    protected $dir;
 
     public function __construct()
     {
@@ -22,14 +22,14 @@ class NextcludService
             \Yii::$app->params['nextcloud']['username'],
             \Yii::$app->params['nextcloud']['password'],
         ];
+        $this->dir = \Yii::$app->params['nextcloud']['dir'];
     }
 
     public function createFolder(string $folder)
     {
-        $dir = \Yii::$app->params['nextcloud']['dir'];
         try{
             $response = self::exec(
-                url: $this->baseUrl . "remote.php/dav/files/admin/$dir/$folder",
+                url: $this->baseUrl . "remote.php/dav/files/admin/$this->dir/$folder",
                 params: [
                     'headers' => $this->headers,
                     'auth' => $this->auth,
@@ -50,54 +50,39 @@ class NextcludService
             ];
 
         }
-
-
     }
-/*
-    public function getAll(string $endpoint) : array
+    public function createFolderShare(string $pathToFolder, int $permissions, string $expireDate)
     {
-        try {
+        $urlValues = '';
+        $path = "/$this->dir/$pathToFolder";
+        $shareType = 4;
+        $urlValues = "?path=$path&shareType=$shareType&expireDate=$expireDate&permissions=$permissions";
+
+        $this->headers['OCS-APIRequest'] = 'true';
+
+        try{
             $response = self::exec(
-                $this->baseUrl . '/' . $endpoint,
-                null,
-                $this->headers,
-                'GET'
+                url: $this->baseUrl . "ocs/v1.php/apps/files_sharing/api/v1/shares$urlValues",
+                params: [
+                    'headers' => $this->headers,
+                    'auth' => $this->auth,
+                ],
+                method: 'POST',
             );
 
             return [
                 'code' => $response->getStatusCode(),
-                'data' => $response->getBody()->getContents(),
+                'data' => simplexml_load_string($response->getBody(),'SimpleXMLElement',LIBXML_NOCDATA),
             ];
         } catch (\Exception $e) {
             return [
                 'code' => 500,
                 'data' => 'Error en el servidor',
+                'messege' => $e->getMessage(),
+                'exception' => $e,
             ];
 
         }
     }
 
-    public function getOne(string $endpoint, string $id) : array
-    {
-        try {
-            $response = self::exec(
-                $this->baseUrl . '/' . $endpoint . '/' . $id,
-                null,
-                $this->headers,
-                'GET'
-            );
-
-            return [
-                'code' => $response->getStatusCode(),
-                'data' => $response->getBody()->getContents(),
-            ];
-        } catch (\Exception $e) {
-            return [
-                'code' => 500,
-                'data' => 'Error en el servidor',
-            ];
-
-        }
-
-    }*/
 }

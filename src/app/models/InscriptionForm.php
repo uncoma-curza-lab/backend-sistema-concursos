@@ -55,7 +55,20 @@ class InscriptionForm extends Model
         $postulations->confirm_data = $this->confirm_data;
         $postulations->status = PostulationStatus::PENDING;
         if($postulations->createPostulationFolder($this->contest->code, $person_uid)){
-            return $postulations->save();
+            $share = $postulations->createPostulationFolderShare(
+                $this->contest->code,
+                $person_uid,
+                4,
+                '2022-05-20'
+            );
+            var_dump($share);
+            if($share['code'] == 100){
+                $postulations->shere_id = 22; // $share['data']['id'];
+                return $postulations->save();
+            }else{
+            var_dump($share);
+                return false;
+            }
         }else{
             return false;
         }
