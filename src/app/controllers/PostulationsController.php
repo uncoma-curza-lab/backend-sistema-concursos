@@ -44,7 +44,7 @@ class PostulationsController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['download-pdf'],
+                        'actions' => ['download-pdf', 'postulation-files'],
                         'roles' => ['postulateToContest'],
                         'roleParams' => function() {
                             return [
@@ -169,5 +169,16 @@ class PostulationsController extends Controller
         
         return $pdf->render(); 
         
+    }
+
+    public function actionPostulationFiles($postulationId)
+    {
+        $postulation = Postulations::findOne($postulationId);
+
+        $shareUrl = $postulation->getPostulationFolderShareUrl();
+        
+        return $this->render('postulation_files', [
+            'shareUrl' => $shareUrl,
+        ]);
     }
 }

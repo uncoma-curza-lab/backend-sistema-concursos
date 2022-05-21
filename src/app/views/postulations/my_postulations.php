@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'created_at',
             [
                'class' => 'yii\grid\ActionColumn',
-               'template' => ' {download} {download-resolution}',
+               'template' => ' {download} {download-resolution} {files}',
                'buttons'=> [
                     'download' => function($url, $model, $key){
                         return Html::a(
@@ -46,7 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ['postulations/download-resolution', 'slug' => $model->contest->code]
                             );
                         }
-                    }
+                    },
+                    'files' => function($url, $model, $key){
+                        return Html::a(
+                            '<span class="bi bi-folder-fill" aria-hidden="true"></span>',
+                            ['postulations/postulation-files', 'postulationId' => $model->id]
+                        );
+                    },
                ]
            ],
         ],

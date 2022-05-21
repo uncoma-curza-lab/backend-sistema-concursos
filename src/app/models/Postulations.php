@@ -167,7 +167,7 @@ class Postulations extends \yii\db\ActiveRecord
     {
         $service = new NextcloudService();
         $response = $service->getFolderShare($this->share_id);
-        return $response;
+        return $response['url'];
     }
 
 }
