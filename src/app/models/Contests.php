@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use app\services\NextcludService;
+use app\services\NextcloudService;
 
 /**
  * This is the model class for table "contests".
@@ -296,7 +296,7 @@ class Contests extends ActiveRecord
 
     public function createConstestFolder() 
     {
-        $service = new NextcludService();
+        $service = new NextcloudService();
         $response = $service->createFolder(folder: $this->code);
         if($response['code'] < 300){
             return true;
