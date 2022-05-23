@@ -60,8 +60,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
-<style>
-span{
-    font-size: 1.7em;
-}
-</style>
+

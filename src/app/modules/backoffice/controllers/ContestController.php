@@ -132,7 +132,6 @@ class ContestController extends Controller
                     return $this->redirect(['view', 'slug' => $model->code]);
 
                 }
-                //var_dump($createFolder);
             }
         }
         //

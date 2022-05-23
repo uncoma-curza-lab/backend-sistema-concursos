@@ -5,12 +5,6 @@ use yii\helpers\Url;
 
 $this->title = 'Archivos de la Postulación';
 
-//--------------------------------------------
-//-------FIX MOMENTANEO DE URL---------------
-//-----------------------------------------
-//$shareUrl = str_replace("cloud", "localhost:8080", $shareUrl);
-//$shareUrl = str_replace("http", "https", $shareUrl);
-//-------------------------------------------
 ?>
 <div class="postulations-files-index">
 

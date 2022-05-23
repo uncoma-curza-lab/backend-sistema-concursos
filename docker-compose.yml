@@ -32,4 +32,4 @@ services:
       - dbCloud
     volumes:
       - ./nextcloud:/var/www/html
-    env_file: .env 
+    env_file: .envcloud 

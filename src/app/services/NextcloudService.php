@@ -31,7 +31,7 @@ class NextcloudService
 
     public function createFolder(string $folder)
     {
-        $user = \Yii::$app->params['nextcloud']['username'];
+        $user = $this->auth[0];
         try{
             $response = self::exec(
                 url: $this->baseUrl . "remote.php/dav/files/$user/$this->dir/$folder",

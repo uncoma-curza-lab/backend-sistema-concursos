@@ -58,11 +58,9 @@ class InscriptionForm extends Model
             if($share['code'] < 300){
                 $postulations->share_id = $share['shareId'];
                 return $postulations->save();
-            }else{
-                return false;
             }
-        }else{
-            return false;
-        }
+        } 
+        return false;
+       
     }
 }
