@@ -163,11 +163,11 @@ class Postulations extends \yii\db\ActiveRecord
         return $response;
     }
 
-    public function getPostulationFolderShareUrl()
+    public function getPostulationFolderShare()
     {
         $service = new NextcloudService();
         $response = $service->getFolderShare($this->share_id);
-        return $response['url'];
+        return $response;
     }
 
 }

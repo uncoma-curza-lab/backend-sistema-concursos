@@ -12,7 +12,7 @@ class NextcloudService
     protected $auth;
     protected $dir;
 
-    const PUBLIC_PERMISSION = 4;
+    const PUBLIC_PERMISSION = 31;
     const READ_ONLY_PERMISSION = 1;
 
     public function __construct()
@@ -31,9 +31,10 @@ class NextcloudService
 
     public function createFolder(string $folder)
     {
+        $user = \Yii::$app->params['nextcloud']['username'];
         try{
             $response = self::exec(
-                url: $this->baseUrl . "remote.php/dav/files/admin/$this->dir/$folder",
+                url: $this->baseUrl . "remote.php/dav/files/$user/$this->dir/$folder",
                 params: [
                     'headers' => $this->headers,
                     'auth' => $this->auth,
@@ -55,7 +56,7 @@ class NextcloudService
         }
     }
 
-    public function createFolderShare(string $pathToFolder, int $permissions, string $expireDate = null): array
+    public function createFolderShare(string $pathToFolder, int $permissions, string $publicUpload = 'false', string $expireDate = null): array
     {
         if(!$this->isValidPermission($permissions)){
             throw new Exception('El permiso no es valido');
@@ -64,7 +65,7 @@ class NextcloudService
         $urlValues = '';
         $path = "/$this->dir/$pathToFolder";
         $shareType = 3;
-        $urlValues = "?path=$path&shareType=$shareType$expireDate&permissions=$permissions";
+        $urlValues = "?path=$path&shareType=$shareType$expireDate&permissions=$permissions&publicUpload=$publicUpload";
 
         $this->headers['OCS-APIRequest'] = 'true';
 
@@ -98,6 +99,7 @@ class NextcloudService
         return $this->createFolderShare(
             $path,
             self::PUBLIC_PERMISSION,
+            'true',
             $expireDate
         );
     }
@@ -133,12 +135,21 @@ class NextcloudService
                 ],
                 method: 'GET',
             );
-            $url = simplexml_load_string($response->getBody())->data->element->url;
-            return [
-                'code' => $response->getStatusCode(),
-                'url' => $url,
-            ];
-        } catch (\Exception $e) {
+            $statusCode = simplexml_load_string($response->getBody())->meta->statuscode;
+            if($statusCode == 100){
+                $url = simplexml_load_string($response->getBody())->data->element->url;
+                return [
+                    'code' => $statusCode,
+                    'url' => $url,
+                ];
+
+            }else{
+                return [
+                    'code' => $statusCode,
+                ];
+
+            }
+                    } catch (\Exception $e) {
             return [
                 'code' => 500,
                 'data' => 'Error en el servidor',

@@ -175,10 +175,15 @@ class PostulationsController extends Controller
     {
         $postulation = Postulations::findOne($postulationId);
 
-        $shareUrl = $postulation->getPostulationFolderShareUrl();
+        $response = $postulation->getPostulationFolderShare();
+
+        if($response['code'] == 100){
+            $shareUrl = $response['url'];
+            return $this->render('postulation_files', [
+                'shareUrl' => $shareUrl,
+            ]);
+        }
         
-        return $this->render('postulation_files', [
-            'shareUrl' => $shareUrl,
-        ]);
+        return $this->render('postulation_files');
     }
 }
