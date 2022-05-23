@@ -139,16 +139,4 @@ class SiteController extends SCController
     {
         return $this->render('about');
     }
-
-    public function actionHealthcheck()
-    {
-        $response = \Yii::$app->response;
-        $response->format = \yii\web\Response::FORMAT_JSON;
-        $response->statusCode = 200;
-
-        return [
-            'message' => 'Estado de salud OK',
-            'status_code' => $response->statusCode,
-        ];
-    }
 }

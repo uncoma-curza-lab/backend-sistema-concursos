@@ -74,7 +74,7 @@ if ($contest!=null):
   </div>
   <br>
   <?php if ($contest->canPostulate()): ?>
-    <?= Html::button('<i class="bi bi-person-plus-fill"></i> Postularse', [
+    <?= Html::button('<i class="bi bi-person-plus-fill"></i> ' . \Yii::t('app', 'inscription_button'), [
       'value' => Url::to(['postulations/contest-inscription', 'slug' => $contest->code]),
       'class' => 'btn btn-info',
       'id' => 'modalButton'
@@ -99,7 +99,7 @@ if ($contest!=null):
 ?>
 <?php else: ?>
 <div class="container">
-  <h2>Concurso NO Encontrado</h2>
+<h2><?= \Yii::t('app', 'contest_not_found') ?></h2>
 </div>
 <?php endif; ?>
 

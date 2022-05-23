@@ -3,8 +3,9 @@
 namespace app\models;
 
 use app\services\SPCService;
+use JsonSerializable;
 
-class Course
+class Course implements JsonSerializable
 {
     protected $name;
     protected $code;
@@ -42,6 +43,33 @@ class Course
         }, $collect);
 
         return $collect;
+    }
+
+    public static function findByPlan($planID)
+    {
+        $service = new SPCService();
+        $courses = $service->getAll('asignatura/plan?id=' . $planID);
+
+        if ($courses['code'] >= 400) {
+            throw new \Exception('Model error, status:'. $courses['code'] . $courses['data']);
+        }
+
+        $collect = json_decode($courses['data']);
+        $collect = array_map(function($career){
+            return self::entityMapper($career);
+        }, $collect);
+        return $collect;
+
+    }
+
+    public static function entityMapper($data)
+    {
+        $entity = new self(
+            $data->nombre,
+            $data->id
+        );
+        return $entity;
+
     }
 
     public static function findByCareer($careerID)
@@ -105,5 +133,13 @@ class Course
         }
 
     }
-}
 
+    public function jsonSerialize()
+    {
+        return [
+            'code' => $this->getCode(),
+            'name' => $this->getName(),
+        ];
+
+    }
+}

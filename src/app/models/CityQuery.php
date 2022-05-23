@@ -39,4 +39,9 @@ class CityQuery extends \yii\db\ActiveQuery
             'province.country',
         ])->where(['=', 'id', $id])->one();
     }
+
+    public function getByCode($slug)
+    {
+        return $this->where(['=', 'code', $slug])->one();
+    }
 }

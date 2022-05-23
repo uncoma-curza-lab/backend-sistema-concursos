@@ -1,6 +1,7 @@
 <?php
 
 use app\helpers\Sluggable;
+use app\modules\api\ApiModule;
 use app\modules\backoffice\Backoffice;
 
 $params = require __DIR__ . '/params.php';
@@ -13,6 +14,7 @@ $config = [
     'bootstrap' => [
         'log',
         'backoffice',
+        'api',
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -133,7 +135,7 @@ $config = [
     ],
     'modules' => [
         'api' => [
-            'class' => 'app\modules\api\ApiModule',
+            'class' => ApiModule::class,
         ],
         'backoffice' => [
             'class' => Backoffice::class,

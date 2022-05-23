@@ -3,17 +3,20 @@
 namespace app\models;
 
 use app\services\SPCService;
+use JsonSerializable;
 
-class Career
+class Career implements JsonSerializable
 {
     protected $name;
     protected $code;
+    protected $metadata;
 
 
-    public function __construct(string $name, string $code)
+    public function __construct(string $name, string $code, array $metadata = [])
     {
         $this->name = $name;
         $this->code = $code;
+        $this->metadata = $metadata;
     }
 
     /**
@@ -34,14 +37,26 @@ class Career
 
         $collect = json_decode($careers['data']);
         $collect = array_map(function($career){
-            $entity = new self(
-                $career->nombre,
-                $career->id
-            );
-            return $entity;
+            return self::entityMapper($career);
         }, $collect);
 
         return $collect;
+    }
+
+    protected static function entityMapper($data)
+    {
+        $metadata = [];
+        if ($data->plan_vigente) {
+            $metadata = [ 'actually_plan' => [
+                'id' => $data->plan_vigente->id
+            ]];
+        }
+        $entity = new self(
+            $data->nombre,
+            $data->id,
+            $metadata,
+        );
+        return $entity;
     }
 
     public static function findByDepartament($departamentID)
@@ -55,8 +70,7 @@ class Career
 
         $collect = json_decode($careers['data']);
         $collect = array_map(function($career){
-            $entity = new self($career->nombre, $career->id);
-            return $entity;
+            return self::entityMapper($career);
         }, $collect);
         return $collect;
     }
@@ -71,12 +85,8 @@ class Career
             throw new \Exception('Model error');
         }
 
-        $departamentRawData = json_decode($departaments['data']);
-        $departament = new self(
-            $departamentRawData->nombre,
-            $departamentRawData->id
-        );
-        return $departament;
+        $rawData = json_decode($departaments['data']);
+        return self::entityMapper($rawData);
     }
 
     public static function getFullData($id)
@@ -112,6 +122,16 @@ class Career
             return $this->getName();
 
         }
+
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'code' => $this->getCode(),
+            'name' => $this->getName(),
+            'metadata' => $this->metadata,
+        ];
 
     }
 }

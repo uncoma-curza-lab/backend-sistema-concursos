@@ -3,8 +3,9 @@
 namespace app\models;
 
 use app\services\SPCService;
+use JsonSerializable;
 
-class Departament //extends Model
+class Departament implements JsonSerializable
 {
     protected $name;
     protected $code;
@@ -80,6 +81,15 @@ class Departament //extends Model
             return $this->getName();
 
         }
+
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'code' => $this->getCode(),
+            'name' => $this->getName(),
+        ];
 
     }
 }

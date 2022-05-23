@@ -30,8 +30,8 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name.' - Backoffice',
-        'brandUrl' => '/backoffice/contest',
+        'brandLabel' => 'Backoffice del ' . Yii::$app->name,
+        'brandUrl' => '/backoffice/index',
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top',
         ],
@@ -43,7 +43,7 @@ AppAsset::register($this);
     }
     if (in_array('admin', $roles) || in_array('jury', $roles) || in_array('teach_departament', $roles))
     $items = [
-        ['label' => Yii::t('menu', 'home'), 'url' => ['/site/index']],
+        //['label' => Yii::t('menu', 'home'), 'url' => ['/backoffice/index']],
         ['label' => 'Concursos', 'url' => ['/backoffice/contest']],
     ];
     if ($roles && in_array('admin', $roles)) {
@@ -52,22 +52,27 @@ AppAsset::register($this);
             'items' => [
                  ['label' => 'Areas', 'url' => '/backoffice/area'],
                  ['label' => 'Orientaciones', 'url' => '/backoffice/orientation'],
+                 ['label' => 'Provincias', 'url' => '/backoffice/provinces'],
+                 ['label' => 'Ciudades', 'url' => '/backoffice/cities'],
                  ['label' => 'Usuarios', 'url' => '/backoffice/user'],
             ],
         ];
     }
-    $items[] = Yii::$app->user->isGuest ? (
-        ['label' => Yii::t('menu', 'login'), 'url' => ['/site/login']]
-    ) : (
-        '<li>'
-        . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-        . Html::submitButton(
-            Yii::t('menu', 'logout') . ' (' . Yii::$app->user->identity->username . ')',
-            ['class' => 'btn btn-link logout']
-        )
-        . Html::endForm()
-        . '</li>'
-    );
+    $items[]= [
+        'label' => Yii::$app->user->identity->getUsername(),
+        'items' => [
+            [
+                'label' => Yii::t('menu', 'Profile') ,
+                'url' =>['/user/profile']
+            ],
+            [
+                'label' => Yii::t('menu', 'logout'),
+                'url' => '/site/logout',
+                'linkOptions' =>  [ 'data-method' => 'post']
+            ],
+        ],
+    ];
+    $items[] = '<a class="btn btn-link nav-link" href="/site/index"><i class="bi bi-house-door-fill"></i> Volver al inicio</a>';
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => $items,

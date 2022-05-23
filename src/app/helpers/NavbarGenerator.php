@@ -75,8 +75,7 @@ class NavbarGenerator
 
     private static function getLogout()
     {
-        return 
-            [
+        return [
                 'label' => Yii::t('menu', 'logout'),
                 'url' => '/site/logout',
                 'linkOptions' =>  [ 'data-method' => 'post']

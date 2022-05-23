@@ -6,5 +6,5 @@ return [
     'logout' => 'Salir',
     'signup' => 'Registrarse',
     'my_postulations' => 'Postulaciones',
-    'Profile' => 'Editar perfil'
+    'Profile' => 'Editar perfil',
 ];
