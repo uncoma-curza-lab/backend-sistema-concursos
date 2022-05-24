@@ -109,6 +109,7 @@ class NextcloudService
         return $this->createFolderShare(
             $path,
             self::READ_ONLY_PERMISSION,
+            'false',
             $expireDate
         );
     }

@@ -179,6 +179,7 @@ class PostulationsController extends Controller
 
         if($response['code'] == 100){
             $shareUrl = $response['url'];
+            $shareUrl = str_replace($_ENV['NEXTCLOUD_URL'], $_ENV['NEXTCLUD_ALTERNATIVE_URL'], $shareUrl);
             return $this->render('postulation_files', [
                 'shareUrl' => $shareUrl,
             ]);
