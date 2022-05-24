@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker-compose exec -u www-data app yii $@
+docker-compose exec app yii $@
 
 if [ $1 == migrate/create ] 
 then
