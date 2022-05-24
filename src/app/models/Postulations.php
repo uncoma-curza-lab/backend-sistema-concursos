@@ -149,12 +149,15 @@ class Postulations extends \yii\db\ActiveRecord
     {
         $expireDate = '';
         $pathToFolder = $this->contest->code . '/' . $this->person->uid;
-        $today = date('d-m-Y');
+        $today = date_create();
+
+        $enrollment_date_end = date_create($this->contest->enrollment_date_end);
+        date_modify($enrollment_date_end, '+1 day');
 
         $service = new NextcloudService();
 
-        if($today < $this->contest->end_date){
-            $expireDate = $this->contest->end_date;
+        if($today < $enrollment_date_end){
+            $expireDate = date_format($enrollment_date_end, 'Y-m-d');
             $response = $service->createPublicShare($pathToFolder, $expireDate);
         }else{
             $response = $service->createReadOnlyShare($pathToFolder);
