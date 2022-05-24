@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\services\NextcloudService;
 use DateTime;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -16,6 +17,7 @@ use yii\db\Expression;
  * @property int $person_id
  * @property string|null $files
  * @property string|null $meet_date
+ * @property int $share_id
  *
  * @property Contests $contest
  * @property Persons $person
@@ -55,7 +57,7 @@ class Postulations extends \yii\db\ActiveRecord
         return [
             [['contest_id', 'person_id'], 'required'],
             [['contest_id', 'person_id'], 'default', 'value' => null],
-            [['contest_id', 'person_id'], 'integer'],
+            [['contest_id', 'person_id', 'share_id'], 'integer'],
             [['status'], 'string'],
             [['files'], 'string'],
             [['meet_date', 'created_at', 'updated_at'], 'safe'],
@@ -78,6 +80,7 @@ class Postulations extends \yii\db\ActiveRecord
             'created_at' => 'Fecha de registro',
             'updated_at' => 'Fecha de actualización',
             'status' => 'Estado',
+            'share_id' => 'Share ID',
         ];
     }
 
@@ -130,5 +133,52 @@ class Postulations extends \yii\db\ActiveRecord
         return PostulationStatus::getTranslation($this->status);
     }
 
+    private function generateFolderName()
+    {
+        return \Yii::$app->slug->format(
+            $this->person->uid . ' ' .
+            $this->person->last_name . ' ' . 
+            $this->person->first_name);
+    }
+
+    public function createPostulationFolder() 
+    {
+        $pathToFolder = $this->contest->code . '/' . $this->generateFolderName();
+        $service = new NextcloudService();
+        $response = $service->createFolder($pathToFolder);
+        if($response['code'] < 300){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function createPostulationFolderShare()
+    {
+        $expireDate = '';
+        $pathToFolder = $this->contest->code . '/' . $this->generateFolderName();
+        $today = date_create();
+
+        $enrollment_date_end = date_create($this->contest->enrollment_date_end);
+        date_modify($enrollment_date_end, '+1 day');
+
+        $service = new NextcloudService();
+
+        if($today < $enrollment_date_end){
+            $expireDate = date_format($enrollment_date_end, 'Y-m-d');
+            $response = $service->createPublicShare($pathToFolder, $expireDate);
+        }else{
+            $response = $service->createReadOnlyShare($pathToFolder);
+        }
+
+        return $response;
+    }
+
+    public function getPostulationFolderShare()
+    {
+        $service = new NextcloudService();
+        $response = $service->getFolderShare($this->share_id);
+        return $response;
+    }
 
 }

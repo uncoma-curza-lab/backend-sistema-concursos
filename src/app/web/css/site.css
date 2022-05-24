@@ -82,3 +82,8 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+a > span.bi{
+    font-size: 1.7em;
+}
+

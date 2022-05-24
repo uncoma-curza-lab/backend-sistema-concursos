@@ -44,7 +44,7 @@ class PostulationsController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['download-pdf'],
+                        'actions' => ['download-pdf', 'postulation-files'],
                         'roles' => ['postulateToContest'],
                         'roleParams' => function() {
                             return [
@@ -141,14 +141,14 @@ class PostulationsController extends Controller
         
         $postulation = Postulations::findOne($postulationId);
         $user = Yii::$app->user;
-        if (!$user || !$user->identity || $user->identity->id !== $postulation->person_id) {
+        if (!$user || !$user->identity || $user->identity->person->id !== $postulation->person_id) {
             throw new HttpException(401, 'Verifique la solicitud nuevamente');
         }
         $contest = $postulation->contest;
         // get your HTML raw content without any layouts or scripts
         $content = $this->renderPartial('postulationPdf',[
             'postulation' => $postulation,
-            'person' => Yii::$app->user->identity->person,
+            'person' => $user->identity->person,
             'contest' => $contest
         ]);
         
@@ -169,5 +169,22 @@ class PostulationsController extends Controller
         
         return $pdf->render(); 
         
+    }
+
+    public function actionPostulationFiles($postulationId)
+    {
+        $postulation = Postulations::findOne($postulationId);
+
+        $response = $postulation->getPostulationFolderShare();
+
+        if($response['code'] == 100){
+            $shareUrl = $response['url'];
+            $shareUrl = str_replace($_ENV['NEXTCLOUD_URL'], $_ENV['NEXTCLUD_ALTERNATIVE_URL'], $shareUrl);
+            return $this->render('postulation_files', [
+                'shareUrl' => $shareUrl,
+            ]);
+        }
+        
+        return $this->render('postulation_files');
     }
 }

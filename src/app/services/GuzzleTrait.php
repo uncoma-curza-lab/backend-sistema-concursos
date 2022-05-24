@@ -5,7 +5,7 @@ use GuzzleHttp\Psr7\Response as GuzzleResponse;
 
 trait GuzzleTrait
 {
-    public static function exec($url, $data = [], array $headers =[], $method = null) : ?GuzzleResponse
+    public static function exec($url, array $params =[], $method = null) : ?GuzzleResponse
     {
         try {
             $client = new \GuzzleHttp\Client([
@@ -13,13 +13,18 @@ trait GuzzleTrait
                 'connect_timeout' => 5,
             ]);
 
-            $request = [
-                'headers' => $headers
-            ];
+            $request = [];
 
-            if (! empty($data) ) {
-                $request['json'] = $data;
+            if(array_key_exists('headers', $params)){
+                $request['headers'] = $params['headers'];
             }
+            if(array_key_exists('auth', $params)){
+                $request['auth'] = $params['auth'];
+            }
+            if(array_key_exists('body', $params)){
+                $request['body'] = $params['body'];
+            }
+
 
             $response = $client->request($method, $url, $request);
 

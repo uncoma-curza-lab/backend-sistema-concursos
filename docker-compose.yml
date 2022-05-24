@@ -7,6 +7,13 @@ services:
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
 
+        #  dbCloud:
+        #    image: postgres:14.2-alpine
+        #    env_file: .envcloud
+        #    volumes:
+        #      - ./postgresdatacloud:/var/lib/postgresql/data
+        #
+
   app:
     image: yiisoftware/yii2-php:8.0-apache
     volumes:
@@ -20,15 +27,11 @@ services:
 
   cloud:
     image: nextcloud
-    restart: always
+      #     restart: always
     ports:
       - 8080:80
     links:
       - db
     volumes:
       - ./nextcloud:/var/www/html
-    environment:
-      POSTGRES_PASSWORD: test123
-      POSTGRES_DB: testdb
-      POSTGRES_USER: test
-      POSTGRES_HOST: db
+    env_file: .envcloud 

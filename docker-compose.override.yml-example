@@ -2,6 +2,9 @@ services:
   db:
     ports:
       - 5432:5432
+  dbCloud:
+    ports:
+      - 5400:5432
   spc-mock:
     build: ../spc-mock
     ports:

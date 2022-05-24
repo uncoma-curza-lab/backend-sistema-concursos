@@ -6,6 +6,7 @@ protected/runtime/*
 protected/data/*.db
 themes/classic/views/
 postgresdata/*
+postgresdatacloud/*
 nextcloud/*
 src/basic/vendor/*
 .env

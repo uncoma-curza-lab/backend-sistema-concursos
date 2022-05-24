@@ -53,6 +53,14 @@ class InscriptionForm extends Model
         $postulations->accepted_term_article22 = $this->accepted_term_article22;
         $postulations->confirm_data = $this->confirm_data;
         $postulations->status = PostulationStatus::PENDING;
-        return $postulations->save();
+        if($postulations->createPostulationFolder()){
+            $share = $postulations->createPostulationFolderShare();
+            if($share['code'] < 300){
+                $postulations->share_id = $share['shareId'];
+                return $postulations->save();
+            }
+        } 
+        return false;
+       
     }
 }
