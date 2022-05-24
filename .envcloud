@@ -1,9 +1,5 @@
 POSTGRES_PASSWORD=test123
 POSTGRES_USER=test
-POSTGRES_DB=testdb
-POSTGRES_HOST=dbCloud
-PHP_USER_ID=1000
-NEXTCLOUD_URL=https://nextcloud.curza.com.ar/ #http://cloud/
-NEXTCLOUD_USER=mlopezjove
-NEXTCLOUD_PASS=manuellopezjove
-NEXTCLOUD_DIR=concursos
+POSTGRES_DB=testdbcloud
+POSTGRES_HOST=db
+
