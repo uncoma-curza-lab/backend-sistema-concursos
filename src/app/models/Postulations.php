@@ -133,9 +133,17 @@ class Postulations extends \yii\db\ActiveRecord
         return PostulationStatus::getTranslation($this->status);
     }
 
+    private function generateFolderName()
+    {
+        return \Yii::$app->slug->format(
+            $this->person->uid . ' ' .
+            $this->person->last_name . ' ' . 
+            $this->person->first_name);
+    }
+
     public function createPostulationFolder() 
     {
-        $pathToFolder = $this->contest->code . '/' . $this->person->uid;
+        $pathToFolder = $this->contest->code . '/' . $this->generateFolderName();
         $service = new NextcloudService();
         $response = $service->createFolder($pathToFolder);
         if($response['code'] < 300){
@@ -148,7 +156,7 @@ class Postulations extends \yii\db\ActiveRecord
     public function createPostulationFolderShare()
     {
         $expireDate = '';
-        $pathToFolder = $this->contest->code . '/' . $this->person->uid;
+        $pathToFolder = $this->contest->code . '/' . $this->generateFolderName();
         $today = date_create();
 
         $enrollment_date_end = date_create($this->contest->enrollment_date_end);

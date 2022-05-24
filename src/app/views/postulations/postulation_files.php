@@ -12,7 +12,7 @@ $this->title = 'Archivos de la Postulación';
 <?php
     if(isset($shareUrl)):
 ?>
-    <iframe src="<?= $shareUrl ?>" width="100%" height="500" title="Postualtion Files Iframe">
+    <iframe src="<?= $shareUrl ?>" width="100%" height="350px" title="Postualtion Files Iframe">
 </iframe>
  
 <?php
@@ -21,10 +21,10 @@ $this->title = 'Archivos de la Postulación';
     <div class="alert alert-warning" role="alert">
         Ya no tiene acceso a su carpeta compartida.
     </div>
-    <a href="<?= Url::to('my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
 <?php
     endif
 ?>
+    <a href="<?= Url::to('my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
 
 
 </div>
