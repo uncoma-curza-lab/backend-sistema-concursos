@@ -124,7 +124,7 @@ class PersonController extends Controller
      */
     protected function findModel($slug)
     {
-        if (($model = Persons::find()->findBySlug($slug)) !== null) {
+        if (($model = Persons::find()->where(['=', 'uid', $slug])->one()) !== null) {
             return $model;
         }
 
