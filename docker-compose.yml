@@ -29,7 +29,7 @@ services:
     image: nextcloud
       #     restart: always
     ports:
-      - 9080:80
+      - 8080:80
     links:
       - db
     volumes:
