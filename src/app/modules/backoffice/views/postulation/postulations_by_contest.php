@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         if ($model->canReject()) {
                             return Html::a(
                                 '<span class="bi bi-x" aria-hidden="true"></span>',
-                                ['person/view', 'slug' => $model->person->uid],
+                                ['person/show', 'slug' => $model->person->uid],
                             );
                         }
                     },
