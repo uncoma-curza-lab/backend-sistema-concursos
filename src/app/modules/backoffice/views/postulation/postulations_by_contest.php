@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'viewProfile' =>  function($url, $model, $key) {
                         if ($model->canReject()) {
                             return Html::a(
-                                '<span class="bi bi-x" aria-hidden="true"></span>',
+                                '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
                                 ['person/show', 'slug' => $model->person->uid],
                             );
                         }
