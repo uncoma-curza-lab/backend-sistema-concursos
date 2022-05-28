@@ -304,4 +304,14 @@ class Contests extends ActiveRecord
             return false;
         }
     }
+
+    public function getIntroDetails(): string
+    {
+        $description = "El Centro Universitario Regional Zona Atlántica de la Universidad Nacional 
+        del Comahue comunica que se llama a concurso de";
+        if ($this->categoryType->is(CategoryTypes::REGULARES_CODE)){
+          return $description . "ingreso, antecedentes y oposición para cubrir cargos docentes regulares.";
+        }
+        return  $description . " antecedentes para cubrir cargos docentes para el año académico en curso.";
+    }
 }
