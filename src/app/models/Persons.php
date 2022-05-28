@@ -87,7 +87,7 @@ class Persons extends \yii\db\ActiveRecord
             'real_address' => \Yii::t('app', 'real_address'),
             'legal_address' => \Yii::t('app', 'legal_address'),
             'citizenship' => 'Citizenship',
-            'date_of_birth' => 'Date Of Birth',
+            'date_of_birth' => \Yii::t('app', 'date_of_birth'),
             'place_of_birth' => \Yii::t('app', 'place_of_birth'),
             'user_id' => 'User ID',
             'valid_date' => 'Valid Date',

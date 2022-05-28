@@ -58,7 +58,7 @@ class PostulationsController extends Controller
                     ],
                 ],
                 'denyCallback' => function($rule, $action) {
-                    if (!\Yii::$app->user->identity->isValid()) {
+                    if (!\Yii::$app->user || !\Yii::$app->user->identity || !\Yii::$app->user->identity->isValid()) {
                         \Yii::$app->cache->set('error', [
                             'message' => 'Debe completar los datos del perfil antes de inscribirse',
                         ]);

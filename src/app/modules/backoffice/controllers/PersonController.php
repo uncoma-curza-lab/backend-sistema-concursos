@@ -59,6 +59,13 @@ class PersonController extends Controller
         ]);
     }
 
+    public function actionShow($slug)
+    {
+        return $this->render('read_only_profile', [
+            'profile' => $this->findModel($slug),
+        ]);
+    }
+
     /**
      * Creates a new Persons model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -124,7 +131,7 @@ class PersonController extends Controller
      */
     protected function findModel($slug)
     {
-        if (($model = Persons::find()->findBySlug($slug)) !== null) {
+        if (($model = Persons::find()->where(['=', 'uid', $slug])->one()) !== null) {
             return $model;
         }
 

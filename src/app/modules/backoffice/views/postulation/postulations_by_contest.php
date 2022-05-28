@@ -20,6 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
+                'attribute' => 'uid',
+                'label' => 'Documento',
+                'value'  =>'person.uid'
+            ],
+            [
                 'attribute' => 'personFullName',
                 'label' => 'Nombre y Apellido',
                 'value'  =>'person.fullName'
@@ -34,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{approve} {reject}',
+                'template' => '{approve} {reject} {viewProfile}',
                 'buttons' => [
                     'approve' =>  function($url, $model, $key) {
                         if ($model->canApprove()) {
@@ -63,6 +68,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'method' => 'post',
                                     ]
                                 ]
+                            );
+                        }
+                    },
+                    'viewProfile' =>  function($url, $model, $key) {
+                        if ($model->canReject()) {
+                            return Html::a(
+                                '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
+                                ['person/show', 'slug' => $model->person->uid],
                             );
                         }
                     },
