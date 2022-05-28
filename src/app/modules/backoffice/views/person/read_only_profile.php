@@ -27,6 +27,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($profile, 'date_of_birth')->textInput(['maxlength' => true,  'type' => 'date', 'disabled' => true]) ?>
 
+    <?= $form->field($profile, 'place_of_birth')->textInput(['value' => $profile->placeOfBirth->getCompleteString(), 'disabled' => true]) ?>
+
     <div class="form-group accordion" id="addresses-ac">
         <div class="card">
             <div class="card-header" id="placeBirthHeading">
@@ -63,6 +65,7 @@ use yii\widgets\ActiveForm;
             </div>
             <div id="legalAddressAccordion" class="collapse" aria-labelledby="legalAddressHeading" data-parent="#addresses-ac">
                 <div class="card-body">
+                    <?= $profile->placeOfBirth->name; ?>
                     <?=
                         $this->render('profile_fragments/_address_form', [
                             'form' => $form,

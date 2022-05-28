@@ -9,6 +9,7 @@ use kartik\select2\Select2;
     'type' => DepDrop::TYPE_SELECT2,
     'options' => [
         'id' => $cityName . '-id',
+        'disabled' => true,
     ],
     'select2Options' => ['pluginOptions' => ['allowClear' => true]],
     'pluginOptions' => [

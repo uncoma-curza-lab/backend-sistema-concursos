@@ -82,4 +82,13 @@ class City extends \yii\db\ActiveRecord
     {
         return new CityQuery(get_called_class());
     }
+
+    public function getCompleteString()
+    {
+
+      return $this->name . ' - ' .
+        $this->province->name . ' - ' .
+        $this->province->country->name;
+
+    }
 }
