@@ -4,6 +4,7 @@ namespace app\modules\backoffice\controllers;
 
 use app\models\Areas;
 use app\models\Career;
+use app\models\Categories;
 use app\models\CategoryTypes;
 use app\models\Contests;
 use app\models\ContestStatus;
@@ -276,6 +277,7 @@ class ContestController extends Controller
         $workingDayTypeList = ArrayHelper::map(WorkingDayTypes::find()->all(), 'id', 'name');
         $remunerationTypeList = ArrayHelper::map(RemunerationType::find()->all(), 'id', 'name');
         $categoryTypeList = ArrayHelper::map(CategoryTypes::find()->all(), 'id', 'name');
+        $categoryList = ArrayHelper::map(Categories::find()->all(), 'id', 'name');
         $orientationList = ArrayHelper::map(Orientations::find()->all(), 'id', 'name');
         $areaList = ArrayHelper::map(Areas::find()->all(), 'id', 'name');
 
@@ -283,6 +285,7 @@ class ContestController extends Controller
             'workingDayTypeList' => $workingDayTypeList,
             'remunerationTypeList' => $remunerationTypeList,
             'categoryTypeList' => $categoryTypeList,
+            'categoryList' => $categoryList,
             'orientationList' => $orientationList,
             'areaList' => $areaList,
             'departamentList' => $departaments ? ArrayHelper::map($departaments, 'code', 'name') : null,

@@ -67,8 +67,8 @@ class Contests extends ActiveRecord
     public function rules()
     {
         return [
-            [['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
-            [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'default', 'value' => null],
+            [['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
+            [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'category_id', 'area_id', 'orientation_id'], 'integer'],
             [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end'], 'safe'],
             [['description', 'resolution_file_path'], 'string'],
@@ -105,6 +105,7 @@ class Contests extends ActiveRecord
             'remuneration_type_id' => Yii::t('models/contest', 'remuneration_type'),
             'working_day_type_id' => Yii::t('models/contest', 'working_day_type'),
             'course_id' => Yii::t('models/contest', 'course'),
+            'category_id' => Yii::t('models/contest', 'category'),
             'category_type_id' => Yii::t('models/contest', 'category_type'),
             'area_id' => Yii::t('models/contest', 'area'),
             'orientation_id' => Yii::t('models/contest', 'orientation'),

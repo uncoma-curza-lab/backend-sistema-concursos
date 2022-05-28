@@ -198,6 +198,8 @@ $form = ActiveForm::begin([]); ?>
         ],
     ]) ?>
 
+    <?= $form->field($model, 'category_id')->dropDownList($categoryList, []) ?>
+
     <?= $form->field($model, 'category_type_id')->dropDownList($categoryTypeList, []) ?>
 
     <?= $form->field($model, 'area_id')->dropDownList($areaList, [])  ?>
