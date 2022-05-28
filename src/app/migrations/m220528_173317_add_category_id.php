@@ -12,7 +12,15 @@ class m220528_173317_add_category_id extends Migration
      */
     public function safeUp()
     {
-
+        $this->addColumn('{{%contests}}', 'category_id', $this->integer()->unsigned());
+        $this->addForeignKey(
+            'fk-contest-category_id',
+            'contests',
+            'category_id',
+            'categories',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
@@ -20,23 +28,8 @@ class m220528_173317_add_category_id extends Migration
      */
     public function safeDown()
     {
-        echo "m220528_173317_add_category_id cannot be reverted.\n";
-
-        return false;
+        $this->dropForeignKey('fk-contest-category_id', '{{%contests}}');
+        $this->dropColumn('{{%contests}}', 'category_id');
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m220528_173317_add_category_id cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
