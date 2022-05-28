@@ -31,31 +31,6 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group accordion" id="addresses-ac">
         <div class="card">
-            <div class="card-header" id="placeBirthHeading">
-                <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#placeBirthAccordion" aria-expanded="true" aria-controls="placeBirthAccordion">
-                        <?= \Yii::t('models/profile', 'place_of_birth_title'); ?>
-                    </button>
-                </h2>
-            </div>
-            <div id="placeBirthAccordion" class="collapse" aria-labelledby="placeBirthHeading" data-parent="#addresses-ac">
-                <div class="card-body">
-                    <?=
-                        $this->render('profile_fragments/_address_form', [
-                            'form' => $form,
-                            'person' => $profile,
-                            'countryName' => 'place_birth_country',
-                            'provinceName' => 'place_birth_province',
-                            'cityName' => 'place_of_birth',
-                            'countryList' => [],
-                            'provincesList' => [],
-                            'citiesList' => [],
-                        ]);
-                    ?>
-                </div>
-            </div>
-        </div>
-        <div class="card">
             <div class="card-header" id="legalAddressHeading">
                 <h2 class="mb-0">
                     <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#legalAddressAccordion" aria-expanded="true" aria-controls="legalAddressAccordion">
@@ -65,21 +40,16 @@ use yii\widgets\ActiveForm;
             </div>
             <div id="legalAddressAccordion" class="collapse" aria-labelledby="legalAddressHeading" data-parent="#addresses-ac">
                 <div class="card-body">
-                    <?= $profile->placeOfBirth->name; ?>
-                    <?=
-                        $this->render('profile_fragments/_address_form', [
-                            'form' => $form,
-                            'person' => $profile,
-                            'countryName' => 'legal_address_country',
-                            'provinceName' => 'legal_address_province',
-                            'cityName' => 'legal_address_city_id',
-                            'provincesList' => [],
-                            'citiesList' => [],
-                            'countryList' => [],
-                        ]);
-                    ?>
-                    <?= $form->field($profile, 'legal_address_street')->textInput(['maxlength' => true]) ?>
-                    <?= $form->field($profile, 'legal_address_number')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($profile, 'legal_address_city_id')->textInput([
+                        'value' => $profile->legalAddressCity->getCompleteString(),
+                        'disabled' => true,
+                    ]) ?>
+                    <?= $form->field($profile, 'legal_address_street')->textInput([
+                        'disabled' => true,
+                    ]) ?>
+                    <?= $form->field($profile, 'legal_address_number')->textInput([
+                        'disabled' => true,
+                    ]) ?>
                 </div>
             </div>
         </div>
@@ -93,21 +63,16 @@ use yii\widgets\ActiveForm;
             </div>
             <div id="realAddressAccordion" class="collapse" aria-labelledby="realAddressHeading" data-parent="#addresses-ac">
                 <div class="card-body">
-                    <?=
-                        $this->render('profile_fragments/_address_form', [
-                            'form' => $form,
-                            'person' => $profile,
-                            'countryName' => 'real_address_country',
-                            'provinceName' => 'real_address_province',
-                            'cityName' => 'real_address_city_id',
-                            'countryList' => [],
-                            'provincesList' => [],
-                            'citiesList' => [],
-                        ]);
-
-                    ?>
-                    <?= $form->field($profile, 'real_address_street')->textInput(['maxlength' => true]) ?>
-                    <?= $form->field($profile, 'real_address_number')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($profile, 'real_address_city_id')->textInput([
+                        'value' => $profile->realAddressCity->getCompleteString(),
+                        'disabled' => true,
+                    ]) ?>
+                    <?= $form->field($profile, 'real_address_street')->textInput([
+                        'disabled' => true,
+                    ]) ?>
+                    <?= $form->field($profile, 'real_address_number')->textInput([
+                        'disabled' => true,
+                    ]) ?>
                 </div>
             </div>
         </div>
