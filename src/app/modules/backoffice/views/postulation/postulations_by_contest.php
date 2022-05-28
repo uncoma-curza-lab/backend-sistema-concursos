@@ -5,7 +5,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 $this->title = Yii::t('backoffice', 'postulations_by_contest_title') . ' ' . $contest->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'Contest') . ' ' . $contest->name, 'url' => [ 'contest/view/'. $contest->code]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'contests') . ' ' . $contest->name, 'url' => [ 'contest/view/'. $contest->code]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="postulations-by-contest-index">
