@@ -20,4 +20,5 @@ return [
     'departament' => 'Departamento',
     'evaluation_departament' => 'Departamento evaluador',
     'contest_status' => 'Estado de concurso',
+    'label_field_qty' => 'Cantidad de cargos a cubrir',
 ];
