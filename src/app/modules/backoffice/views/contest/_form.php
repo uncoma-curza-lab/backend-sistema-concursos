@@ -109,7 +109,7 @@ $form = ActiveForm::begin([]); ?>
     ]) ?>
     </div>
 
-    <div class="form-row">
+    <div class="form-row justify-content-between">
         <?= $form->field($model, 'description', [
             'options' => [
                 'class' => 'form-group col-md-12',
@@ -130,7 +130,7 @@ $form = ActiveForm::begin([]); ?>
 
     <h4> Definición de cargo </h4>
     <hr>
-    <div class="form-row">
+    <div class="form-row justify-content-between">
     <?= $form->field($model, 'category_id')->dropDownList($categoryList, []) ?>
 
     <?= $form->field($model, 'category_type_id')->dropDownList($categoryTypeList, []) ?>
@@ -139,11 +139,10 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'working_day_type_id')->dropDownList($workingDayTypeList, []) ?>
     </div>
-    <hr>
 
     <h4>Sector a cubrir</h4>
     <hr>
-    <div class="form-row">
+    <div class="form-row justify-content-between">
     <?= $form->field($model, 'departament_id')->widget(Select2::class, [
         //'data' => $departamentList,
         'initValueText' => $departamentList[$model->departament_id] ?? null,
@@ -209,7 +208,7 @@ $form = ActiveForm::begin([]); ?>
     ]) ?>
     </div>
 
-    <div class="form-row">
+    <div class="form-row justify-content-between">
     <?= $form->field($model, 'evaluation_departament_id')->widget(Select2::class, [
         'initValueText' => $departamentList[$model->evaluation_departament_id] ?? null,
         'options' => ['placeholder' => 'Seleccione el departamento evaluador...'],
@@ -231,7 +230,6 @@ $form = ActiveForm::begin([]); ?>
 
     <?= $form->field($model, 'orientation_id')->dropDownList($orientationList, [])  ?>
     </div>
-    <hr>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('backoffice', 'save_button'), ['class' => 'btn btn-success']) ?>
