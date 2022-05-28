@@ -312,6 +312,6 @@ class Contests extends ActiveRecord
         if ($this->categoryType->is(CategoryTypes::REGULARES_CODE)){
           return $description . "ingreso, antecedentes y oposición para cubrir cargos docentes regulares.";
         }
-        return  $description . " antecedentes para cubrir cargos docentes para el año académico en curso.";
+        return $description . " antecedentes para cubrir cargos docentes para el año académico en curso.";
     }
 }
