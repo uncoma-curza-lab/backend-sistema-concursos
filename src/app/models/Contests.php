@@ -152,7 +152,7 @@ class Contests extends ActiveRecord
 
     public function getCategory()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
+        return $this->hasOne(Categories::class, ['id' => 'category_id']);
     }
     /**
      * Gets query for [[CategoryType]].
