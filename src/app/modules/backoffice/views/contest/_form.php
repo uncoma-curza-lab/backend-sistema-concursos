@@ -112,6 +112,7 @@ $form = ActiveForm::begin([]); ?>
             'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         ]
     ]);?>
+    <?= $form->field($model, 'activity')->dropDownList($activityList, []) ?>
 
     <?= $form->field($model, 'remuneration_type_id')->dropDownList($remunerationTypeList, []) ?>
 

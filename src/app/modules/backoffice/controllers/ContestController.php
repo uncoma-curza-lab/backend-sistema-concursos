@@ -2,6 +2,7 @@
 
 namespace app\modules\backoffice\controllers;
 
+use app\models\Activity;
 use app\models\Areas;
 use app\models\Career;
 use app\models\CategoryTypes;
@@ -278,6 +279,7 @@ class ContestController extends Controller
         $categoryTypeList = ArrayHelper::map(CategoryTypes::find()->all(), 'id', 'name');
         $orientationList = ArrayHelper::map(Orientations::find()->all(), 'id', 'name');
         $areaList = ArrayHelper::map(Areas::find()->all(), 'id', 'name');
+        $activities = Activity::getLabelsByCode();
 
         return [
             'workingDayTypeList' => $workingDayTypeList,
@@ -288,6 +290,7 @@ class ContestController extends Controller
             'departamentList' => $departaments ? ArrayHelper::map($departaments, 'code', 'name') : null,
             'careerList' => $contest->departament_id ? ArrayHelper::map(Career::findByDepartament($contest->departament_id), 'code', 'name') : [],
             'courseList' => $contest->career_id ? ArrayHelper::map(Course::findByCareer($contest->career_id), 'code', 'name') : [],
+            'activityList' => $activities,
         ];
     }
 }
