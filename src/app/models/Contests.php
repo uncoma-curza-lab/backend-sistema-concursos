@@ -46,23 +46,23 @@ class Contests extends ActiveRecord
     }
     
     public function behaviors() {
-    	return [
-            [
-                'class' => TimestampBehavior::class,
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-            ],
-        	'FormatDate' => [
-            	'class' => 'app\behaviors\FormatDate',
-                'attributes' => [
-                    'created_at', 'updated_at',
-                    'init_date', 'end_date', 'enrollment_date_end'
-                ],
-            ],
-    	];
-	}
+        return [
+              [
+                  'class' => TimestampBehavior::class,
+                  'attributes' => [
+                      ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                      ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                  ],
+              ],
+            'FormatDate' => [
+                'class' => 'app\behaviors\FormatDate',
+                  'attributes' => [
+                      'created_at', 'updated_at',
+                      'init_date', 'end_date', 'enrollment_date_end'
+                  ],
+              ],
+        ];
+    }
 
     public function scenarios()
     {
