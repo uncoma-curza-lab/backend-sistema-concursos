@@ -16,7 +16,7 @@ class m220529_002337_add_activity_to_contest extends Migration
             CREATE TYPE activities AS ENUM ('TEACHER', 'DEPARTMENT_ASSISTANT');
         SQL;
         $createField = <<<SQL
-            ALTER TABLE contests ADD activity activities;
+            ALTER TABLE contests ADD activity activities DEFAULT 'TEACHER';
         SQL;
         $this->execute($createType);
         $this->execute($createField);
