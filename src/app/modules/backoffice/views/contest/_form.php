@@ -28,10 +28,59 @@ var formatRepoSelection = function (repo) {
     return repo.text;
 }
 JS;
+
+$defineRequireFields = <<<'JS'
+const activity = $('#contests-activity');
+const categoryType = $('#contests-category_type_id');
+const targetFields = {
+  course_id: $('#contests-course_id'),
+  departament_id: $('#contests-departament_id'),
+  career_id: $('#contests-career_id'),
+  area_id: $('#contests-area_id'),
+  orientation_id: $('#contests-orientation_id'),
+};
+
+const fieldsRequired = () => {
+  switch(activity.val()) {
+    case 'DEPARTMENT_ASSISTANT':
+      targetFields.course_id.parent().hide();
+      targetFields.departament_id.parent().hide();
+      targetFields.career_id.parent().hide();
+      targetFields.orientation_id.parent().hide();
+      targetFields.area_id.parent().hide();
+      break;
+    default:
+      if(Number(categoryType.val()) === 3) {
+        targetFields.course_id.parent().hide();
+        targetFields.departament_id.parent().hide();
+        targetFields.career_id.parent().hide();
+      } else {
+        targetFields.course_id.parent().show();
+        targetFields.departament_id.parent().show();
+        targetFields.career_id.parent().show();
+        targetFields.orientation_id.parent().show();
+        targetFields.area_id.parent().show();
+      }
+
+      break;
+
+  }
+}
+activity.on('change', () => {
+  fieldsRequired();
+
+});
+
+categoryType.on('change', () => {
+  fieldsRequired();
+});
+
+JS;
  
 // Register the formatting script
 $this->registerJs($apiUrls, View::POS_HEAD);
 $this->registerJs($formatJs, View::POS_HEAD);
+$this->registerJs($defineRequireFields, View::POS_LOAD);
 
 $resultsJs = <<< JS
 function (data, params) {
