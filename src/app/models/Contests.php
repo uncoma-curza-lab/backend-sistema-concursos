@@ -320,4 +320,17 @@ class Contests extends ActiveRecord
             return false;
         }
     }
+
+    public function defineScenario()
+    {
+        switch($this->activity) {
+            case Activity::DEPARTMENT_ASSISTANT_CODE:
+                return self::SCENARIO_ASSISTANT_DEPARTMENT;
+            default:
+                if (!$this->categoryType || $this->categoryType->code === 'regulares') {
+                  return self::SCENARIO_REGULAR;
+                }
+                return self::SCENARIO_ANOTHERS;
+        }
+    }
 }

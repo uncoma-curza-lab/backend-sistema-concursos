@@ -126,6 +126,7 @@ class ContestController extends Controller
     public function actionCreate()
     {
         $model = new Contests();
+        $model->defineScenario();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
