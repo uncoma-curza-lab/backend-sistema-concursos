@@ -11,9 +11,7 @@ if ($contest!=null):
   <h2>Concurso - <?= $contest->name ?></h2>
   <div class="container">
     <p>
-        El Centro Universitario Regional Zona Atlántica de la Universidad Nacional 
-        del Comahue comunica que se llama a concurso de antecedentes para cubrir 
-        cargos docentes para el año académico 2021.
+        <?= $contest->getIntroDetails() ?>
     </p>
   </div>
   <div class="container">

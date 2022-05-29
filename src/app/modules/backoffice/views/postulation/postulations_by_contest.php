@@ -71,7 +71,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     'viewProfile' =>  function($url, $model, $key) {
-                        if ($model->canReject()) {
+                        $loggedUser = Yii::$app->user;
+                        if (
+                          Yii::$app->authManager->checkAccess($loggedUser->id, 'viewImplicatedPostulations', ['contestSlug' => $model->contest->code])
+                          ||
+                          $model->canApprove()
+                        ) {
                             return Html::a(
                                 '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
                                 ['person/show', 'slug' => $model->person->uid],

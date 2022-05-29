@@ -33,7 +33,7 @@ AppAsset::register($this);
         'brandLabel' => 'Backoffice del ' . Yii::$app->name,
         'brandUrl' => '/backoffice/index',
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-secondary fixed-top',
         ],
     ]);
     $loggedUser = Yii::$app->user;

@@ -15,6 +15,11 @@ use Yii;
  */
 class CategoryTypes extends \yii\db\ActiveRecord
 {
+
+    const REGULARES_CODE = 'regulares';
+    const INTERINOS_CODE = 'interinos';
+    const SUPLENTES_CODE = 'supolente';
+
     /**
      * {@inheritdoc}
      */
@@ -65,5 +70,10 @@ class CategoryTypes extends \yii\db\ActiveRecord
     public static function find()
     {
         return new CategoryTypesQuery(get_called_class());
+    }
+
+    public function is(string $code): bool
+    {
+        return $this->code === $code;
     }
 }
