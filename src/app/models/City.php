@@ -61,7 +61,7 @@ class City extends \yii\db\ActiveRecord
      */
     public function getPeople()
     {
-        return $this->hasMany(Person::className(), ['place_of_birth' => 'id']);
+        return $this->hasMany(Persons::className(), ['place_of_birth' => 'id']);
     }
 
     /**
@@ -81,5 +81,14 @@ class City extends \yii\db\ActiveRecord
     public static function find()
     {
         return new CityQuery(get_called_class());
+    }
+
+    public function getCompleteString()
+    {
+
+      return $this->name . ' - ' .
+        $this->province->name . ' - ' .
+        $this->province->country->name;
+
     }
 }
