@@ -67,9 +67,9 @@ class Contests extends ActiveRecord
     public function rules()
     {
         return [
-            [['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
-            [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'default', 'value' => null],
-            [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'integer'],
+            [['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
+            [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
+            [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'category_id', 'area_id', 'orientation_id'], 'integer'],
             [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end'], 'safe'],
             [['description', 'resolution_file_path'], 'string'],
             [['resolution_published'], 'boolean'],
@@ -78,6 +78,7 @@ class Contests extends ActiveRecord
             [['code'], 'unique'],
             [['area_id'], 'exist', 'skipOnError' => true, 'targetClass' => Areas::className(), 'targetAttribute' => ['area_id' => 'id']],
             [['category_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryTypes::className(), 'targetAttribute' => ['category_type_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['orientation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orientations::className(), 'targetAttribute' => ['orientation_id' => 'id']],
             [['remuneration_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => RemunerationType::className(), 'targetAttribute' => ['remuneration_type_id' => 'id']],
             [['contest_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => ContestStatus::className(), 'targetAttribute' => ['contest_status_id' => 'id']],
@@ -104,6 +105,7 @@ class Contests extends ActiveRecord
             'remuneration_type_id' => Yii::t('models/contest', 'remuneration_type'),
             'working_day_type_id' => Yii::t('models/contest', 'working_day_type'),
             'course_id' => Yii::t('models/contest', 'course'),
+            'category_id' => Yii::t('models/contest', 'category'),
             'category_type_id' => Yii::t('models/contest', 'category_type'),
             'area_id' => Yii::t('models/contest', 'area'),
             'orientation_id' => Yii::t('models/contest', 'orientation'),
@@ -147,6 +149,11 @@ class Contests extends ActiveRecord
     public function getContestStatus()
     {
         return $this->hasOne(ContestStatus::className(), ['id' => 'contest_status_id']);
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Categories::class, ['id' => 'category_id']);
     }
     /**
      * Gets query for [[CategoryType]].
