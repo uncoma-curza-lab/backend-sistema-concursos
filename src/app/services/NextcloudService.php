@@ -140,13 +140,13 @@ class NextcloudService
             if($statusCode == 100){
                 $url = simplexml_load_string($response->getBody())->data->element->url;
                 return [
-                    'code' => $statusCode,
+                    'status' => true,
                     'url' => $url,
                 ];
 
             }else{
                 return [
-                    'code' => $statusCode,
+                    'status' => false,
                 ];
 
             }
