@@ -155,6 +155,7 @@ class NextcloudService
                     } catch (\Exception $e) {
             return [
                 'code' => 500,
+                'status' => false,
                 'data' => 'Error en el servidor',
                 'messege' => $e->getMessage(),
             ];
