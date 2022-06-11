@@ -28,3 +28,13 @@ Descripción del Sistema...
   ```
   chmod 777 src/app/runtime/ src/app/web/assets/
   ```
+## Vista de Iframe de NextCloud
+  - Ingresar a: NextCloud/lib/public/AppFramework/Http/ContentSecurityPolicy.php
+  - Agregar Url's al Array de dominios aceptados para montar el iframe en la linea 88:
+  ```
+  /** @var array Domains which can embed this Nextcloud instance */
+	protected $allowedFrameAncestors = [
+		'\'self\'',
+		'http://dominio.a.utilizar/',
+		];
+  ```

@@ -141,18 +141,21 @@ class NextcloudService
                 $url = simplexml_load_string($response->getBody())->data->element->url;
                 return [
                     'code' => $statusCode,
+                    'status' => true,
                     'url' => $url,
                 ];
 
             }else{
                 return [
                     'code' => $statusCode,
+                    'status' => false,
                 ];
 
             }
                     } catch (\Exception $e) {
             return [
                 'code' => 500,
+                'status' => false,
                 'data' => 'Error en el servidor',
                 'messege' => $e->getMessage(),
             ];

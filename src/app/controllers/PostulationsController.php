@@ -177,7 +177,7 @@ class PostulationsController extends Controller
 
         $response = $postulation->getPostulationFolderShare();
 
-        if($response['code'] == 100){
+        if($response['status']){
             $shareUrl = $response['url'];
             $shareUrl = str_replace($_ENV['NEXTCLOUD_URL'], $_ENV['NEXTCLUD_ALTERNATIVE_URL'], $shareUrl);
             return $this->render('postulation_files', [
