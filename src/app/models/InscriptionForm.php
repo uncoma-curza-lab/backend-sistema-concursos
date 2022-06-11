@@ -59,8 +59,10 @@ class InscriptionForm extends Model
                 $transaction->commit();
                 try{
                     $share = $postulations->createPostulationFolderShare();
-                    $postulations->share_id = $share['shareId'];
-                    $postulations->save();
+                    if($share['code'] < 300){
+                        $postulations->share_id = $share['shareId'];
+                        $postulations->save();
+                    }
                 } catch (\Throwable $e){
                     Yii::warning($e->getMessage(), 'CreateShareFolder');
                 }
