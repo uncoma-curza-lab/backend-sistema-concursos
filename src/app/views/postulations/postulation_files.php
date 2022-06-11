@@ -10,7 +10,7 @@ $this->title = 'Archivos de la Postulación';
 
     <h1><?= Html::encode($this->title) ?></h1>
 <?php
-    if(isset($shareUrl)):
+    if($shareUrl != ''):
 ?>
     <iframe src="<?= $shareUrl ?>" width="100%" height="350px" title="Postualtion Files Iframe">
 </iframe>
