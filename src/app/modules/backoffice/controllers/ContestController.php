@@ -16,6 +16,7 @@ use app\models\RemunerationType;
 use app\models\search\ContestSearch;
 use app\models\WorkingDayTypes;
 use Yii;
+use yii\db\Connection;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -128,12 +129,20 @@ class ContestController extends Controller
         $model = new Contests();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                if($model->createConstestFolder()){
-                    return $this->redirect(['view', 'slug' => $model->code]);
-
+            $transaction = Yii::$app->db->beginTransaction();
+            try{
+                if ($model->load($this->request->post()) && $model->save()) {
+                    if($model->createConstestFolder()){
+                        $transaction->commit();
+                        return $this->redirect(['view', 'slug' => $model->code]);
+                    }
                 }
+                $transaction->rollBack();
+            } catch (\Throwable $e){
+                $transaction->rollBack();
+                throw $e;
             }
+
         }
         //
         //Carga de la descripcion por defecto a travez de archivo HTML

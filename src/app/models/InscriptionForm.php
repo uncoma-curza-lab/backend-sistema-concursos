@@ -47,20 +47,32 @@ class InscriptionForm extends Model
         if (!$this->contest->canPostulate()) {
             return false;
         }
-        $postulations = new Postulations();
-        $postulations->contest_id = $this->contest->id;
-        $postulations->person_id = Yii::$app->user->identity->person->id;
-        $postulations->accepted_term_article22 = $this->accepted_term_article22;
-        $postulations->confirm_data = $this->confirm_data;
-        $postulations->status = PostulationStatus::PENDING;
-        if($postulations->createPostulationFolder()){
-            $share = $postulations->createPostulationFolderShare();
-            if($share['code'] < 300){
-                $postulations->share_id = $share['shareId'];
-                return $postulations->save();
-            }
+        $transaction = Yii::$app->db->beginTransaction();
+        try{
+            $postulations = new Postulations();
+            $postulations->contest_id = $this->contest->id;
+            $postulations->person_id = Yii::$app->user->identity->person->id;
+            $postulations->accepted_term_article22 = $this->accepted_term_article22;
+            $postulations->confirm_data = $this->confirm_data;
+            $postulations->status = PostulationStatus::PENDING;
+            if($postulations->save() && $postulations->createPostulationFolder()){
+                $transaction->commit();
+                try{
+                    $share = $postulations->createPostulationFolderShare();
+                    if($share['status']){
+                        $postulations->share_id = $share['shareId'];
+                        $postulations->save();
+                    }
+                } catch (\Throwable $e){
+                    Yii::warning($e->getMessage(), 'CreateShareFolder');
+                }
+                return true;
+            } 
+            $transaction->rollBack();
+            return false;
+        } catch (\Throwable $e){
+            $transaction->rollBack();
+            throw $e;
         } 
-        return false;
-       
     }
 }
