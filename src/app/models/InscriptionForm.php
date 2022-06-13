@@ -59,7 +59,7 @@ class InscriptionForm extends Model
                 $transaction->commit();
                 try{
                     $share = $postulations->createPostulationFolderShare();
-                    if($share['code'] < 300){
+                    if($share['status']){
                         $postulations->share_id = $share['shareId'];
                         $postulations->save();
                     }

@@ -82,11 +82,13 @@ class NextcloudService
             $shareId = (int) $shareId;
             return [
                 'code' => $response->getStatusCode(),
+                'status' => true,
                 'shareId' => $shareId,
             ];
         } catch (\Exception $e) {
             return [
                 'code' => 500,
+                'status' => false,
                 'data' => 'Error en el servidor',
                 'messege' => $e->getMessage(),
             ];
