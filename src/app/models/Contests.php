@@ -332,12 +332,12 @@ class Contests extends ActiveRecord
     {
         switch($this->activity) {
             case Activity::DEPARTMENT_ASSISTANT_CODE:
-                return self::SCENARIO_ASSISTANT_DEPARTMENT;
+                $this->scenario = self::SCENARIO_ASSISTANT_DEPARTMENT;
             default:
                 if (!$this->categoryType || $this->categoryType->code === 'regulares') {
-                  return self::SCENARIO_REGULAR;
+                  $this->scenario = self::SCENARIO_REGULAR;
                 }
-                return self::SCENARIO_ANOTHERS;
+                $this->scenario = self::SCENARIO_ANOTHERS;
         }
     }
 
