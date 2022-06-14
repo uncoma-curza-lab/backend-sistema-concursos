@@ -2,7 +2,8 @@
 
 namespace app\services;
 
-use Exception;
+use Yii;
+
 class NextcloudService
 {
     use GuzzleTrait;
@@ -45,7 +46,9 @@ class NextcloudService
                 'code' => $response->getStatusCode(),
                 'data' => simplexml_load_string($response->getBody(),'SimpleXMLElement',LIBXML_NOCDATA),
             ];
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            Yii::warning($e->getMessage(), 'NextcloudService-creteFolder');
+
             return [
                 'code' => 500,
                 'data' => 'Error en el servidor',
@@ -59,7 +62,7 @@ class NextcloudService
     public function createFolderShare(string $pathToFolder, int $permissions, string $publicUpload = 'false', string $expireDate = null): array
     {
         if(!$this->isValidPermission($permissions)){
-            throw new Exception('El permiso no es valido');
+            throw new Throwable('El permiso no es valido');
         }
         $expireDate = ($expireDate != null) ? "&expireDate=$expireDate" : '';
         $urlValues = '';
@@ -80,12 +83,15 @@ class NextcloudService
             );
             $shareId = simplexml_load_string($response->getBody())->data->id;
             $shareId = (int) $shareId;
+            $shareUrl = simplexml_load_string($response->getBody())->data->url;
             return [
                 'code' => $response->getStatusCode(),
                 'status' => true,
                 'shareId' => $shareId,
+                'shareUrl' => $shareUrl,
             ];
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            Yii::warning($e->getMessage(), 'NextcloudService-createFolderShare');
             return [
                 'code' => 500,
                 'status' => false,
@@ -154,7 +160,8 @@ class NextcloudService
                 ];
 
             }
-                    } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            Yii::warning($e->getMessage(), 'NextcloudService-getFolderShare');
             return [
                 'code' => 500,
                 'status' => false,
