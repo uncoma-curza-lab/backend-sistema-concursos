@@ -35,7 +35,6 @@ use app\services\NextcloudService;
 class Contests extends ActiveRecord
 {
     const SCENARIO_REGULAR = 'regular';
-    const SCENARIO_ANOTHERS = 'anothers';
     const SCENARIO_ASSISTANT_DEPARTMENT = 'assistant_department';
     /**
      * {@inheritdoc}
@@ -67,7 +66,6 @@ class Contests extends ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_ANOTHERS] = ['name', 'remuneration_type_id', 'working_day_type_id', 'course_id', 'category_type_id', 'area_id', 'orientation_id'];
         $scenarios[self::SCENARIO_ASSISTANT_DEPARTMENT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id'];
         $scenarios[self::SCENARIO_REGULAR] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'];
         return $scenarios;
