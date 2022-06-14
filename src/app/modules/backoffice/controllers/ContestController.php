@@ -5,6 +5,7 @@ namespace app\modules\backoffice\controllers;
 use app\models\Activity;
 use app\models\Areas;
 use app\models\Career;
+use app\models\Categories;
 use app\models\CategoryTypes;
 use app\models\Contests;
 use app\models\ContestStatus;
@@ -16,6 +17,7 @@ use app\models\RemunerationType;
 use app\models\search\ContestSearch;
 use app\models\WorkingDayTypes;
 use Yii;
+use yii\db\Connection;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -129,12 +131,20 @@ class ContestController extends Controller
         $model->defineScenario();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                if($model->createConstestFolder()){
-                    return $this->redirect(['view', 'slug' => $model->code]);
-
+            $transaction = Yii::$app->db->beginTransaction();
+            try{
+                if ($model->load($this->request->post()) && $model->save()) {
+                    if($model->createConstestFolder()){
+                        $transaction->commit();
+                        return $this->redirect(['view', 'slug' => $model->code]);
+                    }
                 }
+                $transaction->rollBack();
+            } catch (\Throwable $e){
+                $transaction->rollBack();
+                throw $e;
             }
+
         }
         //
         //Carga de la descripcion por defecto a travez de archivo HTML
@@ -278,6 +288,7 @@ class ContestController extends Controller
         $workingDayTypeList = ArrayHelper::map(WorkingDayTypes::find()->all(), 'id', 'name');
         $remunerationTypeList = ArrayHelper::map(RemunerationType::find()->all(), 'id', 'name');
         $categoryTypeList = ArrayHelper::map(CategoryTypes::find()->all(), 'id', 'name');
+        $categoryList = ArrayHelper::map(Categories::find()->all(), 'id', 'name');
         $orientationList = ArrayHelper::map(Orientations::find()->all(), 'id', 'name');
         $areaList = ArrayHelper::map(Areas::find()->all(), 'id', 'name');
         $activities = Activity::getLabelsByCode();
@@ -286,6 +297,7 @@ class ContestController extends Controller
             'workingDayTypeList' => $workingDayTypeList,
             'remunerationTypeList' => $remunerationTypeList,
             'categoryTypeList' => $categoryTypeList,
+            'categoryList' => $categoryList,
             'orientationList' => $orientationList,
             'areaList' => $areaList,
             'departamentList' => $departaments ? ArrayHelper::map($departaments, 'code', 'name') : null,

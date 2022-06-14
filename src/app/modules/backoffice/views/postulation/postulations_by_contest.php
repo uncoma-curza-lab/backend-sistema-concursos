@@ -2,10 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\helpers\Url;
 
 $this->title = Yii::t('backoffice', 'postulations_by_contest_title') . ' ' . $contest->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'Contest') . ' ' . $contest->name, 'url' => [ 'contest/view/'. $contest->code]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'contests') . ' ' . $contest->name, 'url' => [ 'contest/view/'. $contest->code]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="postulations-by-contest-index">
@@ -72,7 +71,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     'viewProfile' =>  function($url, $model, $key) {
-                        if ($model->canReject()) {
+                        $loggedUser = Yii::$app->user;
+                        if (
+                          Yii::$app->authManager->checkAccess($loggedUser->id, 'viewImplicatedPostulations', ['contestSlug' => $model->contest->code])
+                          ||
+                          $model->canApprove()
+                        ) {
                             return Html::a(
                                 '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
                                 ['person/show', 'slug' => $model->person->uid],

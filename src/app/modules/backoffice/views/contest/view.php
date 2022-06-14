@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Contests */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'Contests'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'contests'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
