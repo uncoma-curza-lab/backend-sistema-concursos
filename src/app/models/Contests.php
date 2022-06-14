@@ -67,7 +67,7 @@ class Contests extends ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_ANOTHERS] = ['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_type_id', 'area_id', 'orientation_id'];
+        $scenarios[self::SCENARIO_ANOTHERS] = ['name', 'remuneration_type_id', 'working_day_type_id', 'course_id', 'category_type_id', 'area_id', 'orientation_id'];
         $scenarios[self::SCENARIO_ASSISTANT_DEPARTMENT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id'];
         $scenarios[self::SCENARIO_REGULAR] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'];
         return $scenarios;
@@ -79,10 +79,10 @@ class Contests extends ActiveRecord
     public function rules()
     {
         return [
-            [['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
+            [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id'], 'required'],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'category_id', 'area_id', 'orientation_id'], 'integer'],
-            [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end'], 'safe'],
+            [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end', 'course_id'], 'safe'],
             [['activity', 'description', 'resolution_file_path'], 'string'],
             [['resolution_published'], 'boolean'],
             [['name', 'course_id', 'departament_id', 'evaluation_departament_id', 'career_id'], 'string', 'max' => 255],
@@ -337,7 +337,7 @@ class Contests extends ActiveRecord
                 if (!$this->categoryType || $this->categoryType->code === 'regulares') {
                   $this->scenario = self::SCENARIO_REGULAR;
                 }
-                $this->scenario = self::SCENARIO_ANOTHERS;
+                $this->scenario = self::SCENARIO_DEFAULT;
         }
     }
 
