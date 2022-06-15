@@ -2,6 +2,7 @@
 
 namespace app\services;
 
+use Exception;
 use Yii;
 
 class NextcloudService
@@ -62,7 +63,7 @@ class NextcloudService
     public function createFolderShare(string $pathToFolder, int $permissions, string $publicUpload = 'false', string $expireDate = null): array
     {
         if(!$this->isValidPermission($permissions)){
-            throw new Throwable('El permiso no es valido');
+            throw new Exception('El permiso no es valido');
         }
         $expireDate = ($expireDate != null) ? "&expireDate=$expireDate" : '';
         $urlValues = '';
@@ -81,9 +82,9 @@ class NextcloudService
                 ],
                 method: 'POST',
             );
-            $shareId = simplexml_load_string($response->getBody())->data->id;
-            $shareId = (int) $shareId;
-            $shareUrl = simplexml_load_string($response->getBody())->data->url;
+            $xml = simplexml_load_string($response->getBody());
+            $shareId = (int) $xml->data->id;
+            $shareUrl = $xml->data->url;
             return [
                 'code' => $response->getStatusCode(),
                 'status' => true,
