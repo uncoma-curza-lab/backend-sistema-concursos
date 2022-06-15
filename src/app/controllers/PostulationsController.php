@@ -175,16 +175,26 @@ class PostulationsController extends Controller
     {
         $postulation = Postulations::findOne($postulationId);
 
-        $response = $postulation->getPostulationFolderShare();
+        $shareUrl = $postulation->getPostulationFolderShareUrl();
 
-        if($response['status']){
-            $shareUrl = $response['url'];
-            $shareUrl = str_replace($_ENV['NEXTCLOUD_URL'], $_ENV['NEXTCLUD_ALTERNATIVE_URL'], $shareUrl);
-            return $this->render('postulation_files', [
+        if(!$shareUrl){
+            try{
+                $share = $postulation->createPostulationFolderShare();
+                if($share['status']){
+                    $shareUrl = $share['shareUrl'];
+                    $postulation->share_id = $share['shareId'];
+                    $postulation->save();
+                }
+
+            } catch (\Throwable $e){
+                Yii::warning($e->getMessage(), 'PostulationsController-actionPostulationFiles');
+            }
+            
+        }        
+        $shareUrl = str_replace($_ENV['NEXTCLOUD_URL'], $_ENV['NEXTCLUD_ALTERNATIVE_URL'], $shareUrl);
+        return $this->render('postulation_files', [
                 'shareUrl' => $shareUrl,
             ]);
-        }
-        
-        return $this->render('postulation_files');
+
     }
 }
