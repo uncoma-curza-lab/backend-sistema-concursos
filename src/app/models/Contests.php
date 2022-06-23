@@ -150,6 +150,11 @@ class Contests extends ActiveRecord
         return Course::find($this->course_id);
     }
 
+    public function getCourseName()
+    {
+        return $this->getCourse() ? $this->getCourse()->name : '';
+    }
+
     /**
      * Gets query for [[Area]].
      *
