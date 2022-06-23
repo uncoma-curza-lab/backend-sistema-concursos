@@ -36,6 +36,8 @@ class Contests extends ActiveRecord
 {
     const SCENARIO_REGULAR = 'regular';
     const SCENARIO_ASSISTANT_DEPARTMENT = 'assistant_department';
+    const SCENARIO_OTHERS = 'others';
+
     /**
      * {@inheritdoc}
      */
@@ -68,6 +70,7 @@ class Contests extends ActiveRecord
         $scenarios = parent::scenarios();
         $scenarios[self::SCENARIO_ASSISTANT_DEPARTMENT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id'];
         $scenarios[self::SCENARIO_REGULAR] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'];
+        $scenarios[self::SCENARIO_OTHERS] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'];
         return $scenarios;
     }
 
@@ -78,6 +81,9 @@ class Contests extends ActiveRecord
     {
         return [
             [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id'], 'required'],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id'], 'required', 'on' => self::SCENARIO_ASSISTANT_DEPARTMENT],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'required', 'on' => self::SCENARIO_REGULAR],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'], 'required', 'on' => self::SCENARIO_OTHERS],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'category_id', 'area_id', 'orientation_id'], 'integer'],
             [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end', 'course_id'], 'safe'],
@@ -336,11 +342,18 @@ class Contests extends ActiveRecord
         switch($this->activity) {
             case Activity::DEPARTMENT_ASSISTANT_CODE:
                 $this->scenario = self::SCENARIO_ASSISTANT_DEPARTMENT;
+                break;
             default:
-                if (!$this->categoryType || $this->categoryType->code === 'regulares') {
-                  $this->scenario = self::SCENARIO_REGULAR;
+                if ($this->categoryType) {
+                  if ($this->categoryType->code === 'regulares') {
+                    $this->scenario = self::SCENARIO_REGULAR;
+                  } else {
+                    $this->scenario = self::SCENARIO_OTHERS;
+                  }
+                } else {
+                  $this->scenario = self::SCENARIO_DEFAULT;
                 }
-                $this->scenario = self::SCENARIO_DEFAULT;
+                break;
         }
     }
 

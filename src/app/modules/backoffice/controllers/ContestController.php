@@ -128,12 +128,12 @@ class ContestController extends Controller
     public function actionCreate()
     {
         $model = new Contests();
-        $model->defineScenario();
 
-        if ($this->request->isPost) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->defineScenario();
             $transaction = Yii::$app->db->beginTransaction();
             try{
-                if ($model->load($this->request->post()) && $model->save()) {
+                if ($model->save()) {
                     if($model->createConstestFolder()){
                         $transaction->commit();
                         return $this->redirect(['view', 'slug' => $model->code]);
