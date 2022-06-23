@@ -146,6 +146,8 @@ class ContestController extends Controller
             }
 
         }
+
+        $model->scenario = Contests::SCENARIO_DEFAULT;
         //
         //Carga de la descripcion por defecto a travez de archivo HTML
         // 

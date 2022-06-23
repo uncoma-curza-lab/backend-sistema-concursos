@@ -80,7 +80,7 @@ class Contests extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id'], 'required'],
+            [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id', 'evaluation_departament_id'], 'required'],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id'], 'required', 'on' => self::SCENARIO_ASSISTANT_DEPARTMENT],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'required', 'on' => self::SCENARIO_REGULAR],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'], 'required', 'on' => self::SCENARIO_OTHERS],
