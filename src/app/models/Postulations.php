@@ -165,7 +165,6 @@ class Postulations extends \yii\db\ActiveRecord
         $today = date_create();
 
         $enrollment_date_end = date_create($this->contest->enrollment_date_end);
-        date_modify($enrollment_date_end, '+1 day');
 
         $service = new NextcloudService();
 
@@ -173,17 +172,23 @@ class Postulations extends \yii\db\ActiveRecord
             $expireDate = date_format($enrollment_date_end, 'Y-m-d');
             $response = $service->createPublicShare($pathToFolder, $expireDate);
         }else{
-            $response = $service->createReadOnlyShare($pathToFolder);
+            date_modify($today, '+3 day');
+            $expireDate = date_format($today, 'Y-m-d');
+            $response = $service->createReadOnlyShare($pathToFolder, $expireDate);
         }
 
         return $response;
     }
 
-    public function getPostulationFolderShare()
+    public function getPostulationFolderShareUrl(): ?string
     {
-        $service = new NextcloudService();
-        $response = $service->getFolderShare($this->share_id);
-        return $response;
+        if($this->share_id){
+            $service = new NextcloudService();
+            $response = $service->getFolderShare($this->share_id);
+            if($response['status']){
+                return $response['url'];
+            }
+        }
+        return null;
     }
-
 }

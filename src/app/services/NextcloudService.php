@@ -3,6 +3,8 @@
 namespace app\services;
 
 use Exception;
+use Yii;
+
 class NextcloudService
 {
     use GuzzleTrait;
@@ -45,7 +47,9 @@ class NextcloudService
                 'code' => $response->getStatusCode(),
                 'data' => simplexml_load_string($response->getBody(),'SimpleXMLElement',LIBXML_NOCDATA),
             ];
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            Yii::warning($e->getMessage(), 'NextcloudService-creteFolder');
+
             return [
                 'code' => 500,
                 'data' => 'Error en el servidor',
@@ -78,14 +82,17 @@ class NextcloudService
                 ],
                 method: 'POST',
             );
-            $shareId = simplexml_load_string($response->getBody())->data->id;
-            $shareId = (int) $shareId;
+            $xml = simplexml_load_string($response->getBody());
+            $shareId = (int) $xml->data->id;
+            $shareUrl = $xml->data->url;
             return [
                 'code' => $response->getStatusCode(),
                 'status' => true,
                 'shareId' => $shareId,
+                'shareUrl' => $shareUrl,
             ];
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            Yii::warning($e->getMessage(), 'NextcloudService-createFolderShare');
             return [
                 'code' => 500,
                 'status' => false,
@@ -154,7 +161,8 @@ class NextcloudService
                 ];
 
             }
-                    } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            Yii::warning($e->getMessage(), 'NextcloudService-getFolderShare');
             return [
                 'code' => 500,
                 'status' => false,
