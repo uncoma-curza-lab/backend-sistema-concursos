@@ -6,6 +6,7 @@ class SPCService
 {
     use GuzzleTrait;
 
+    const TIMEOUT = 25;
     protected $url;
     protected $headers;
 

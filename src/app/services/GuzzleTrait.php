@@ -9,8 +9,8 @@ trait GuzzleTrait
     {
         try {
             $client = new \GuzzleHttp\Client([
-                'timeout' => 5,
-                'connect_timeout' => 5,
+                'timeout' => self::TIMEOUT ??  5,
+                'connect_timeout' => self::TIMEOUT ?? 5,
             ]);
 
             $request = [];
