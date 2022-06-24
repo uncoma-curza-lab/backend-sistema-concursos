@@ -371,7 +371,16 @@ class Contests extends ActiveRecord
     {
         // TODO: qué restricciones tiene publicar el concurso.
         // fecha, el estado actual? qué pasa si está finalizado.
+        if (!$this->canPublish()) {
+          return;
+        }
+
         $this->contest_status_id = ContestStatus::PUBLISHED;
         $this->save();
+    }
+
+    public function canPublish(): bool
+    {
+        return $this->contest_status_id === ContestStatus::DRAFT;
     }
 }
