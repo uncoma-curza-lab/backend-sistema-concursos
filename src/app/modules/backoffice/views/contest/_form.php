@@ -56,8 +56,14 @@ const fieldsRequired = () => {
     default:
       if(Number(categoryType.val()) === 3) {
         targetFields.course_id.parent().hide();
+        targetFields.course_id.val('');
+        targetFields.course_id.trigger('change');
         targetFields.departament_id.parent().hide();
+        targetFields.departament_id.val('');
+        targetFields.departament_id.trigger('change');
         targetFields.career_id.parent().hide();
+        targetFields.career_id.val('');
+        targetFields.career_id.trigger('change');
       } else {
         targetFields.course_id.parent().show();
         targetFields.departament_id.parent().show();
