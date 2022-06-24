@@ -366,4 +366,12 @@ class Contests extends ActiveRecord
         }
         return $description . " antecedentes para cubrir cargos docentes para el año académico en curso.";
     }
+
+    public function setToPublish(): void
+    {
+        // TODO: qué restricciones tiene publicar el concurso.
+        // fecha, el estado actual? qué pasa si está finalizado.
+        $this->contest_status_id = ContestStatus::PUBLISHED;
+        $this->save();
+    }
 }
