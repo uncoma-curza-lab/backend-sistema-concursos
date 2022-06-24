@@ -45,6 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'course_id',
                 'value' => $model->getCourseName(),
             ],
+            [
+              'attribute' => 'contest_status_id',
+              'value' => $model->contestStatus ?  ContestStatus::getTranslation($model->contestStatus->code) : '',
+            ],
             'qty',
             [
                 'attribute' => 'init_date',
