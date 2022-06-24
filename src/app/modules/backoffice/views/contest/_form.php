@@ -47,7 +47,11 @@ const fieldsRequired = () => {
       targetFields.departament_id.parent().hide();
       targetFields.career_id.parent().hide();
       targetFields.orientation_id.parent().hide();
+      targetFields.orientation_id.val('');
+      targetFields.orientation_id.trigger('change');
       targetFields.area_id.parent().hide();
+      targetFields.area_id.val('');
+      targetFields.area_id.trigger('change');
       break;
     default:
       if(Number(categoryType.val()) === 3) {
@@ -279,9 +283,23 @@ $form = ActiveForm::begin([]); ?>
         ],
     ]) ?>
 
-    <?= $form->field($model, 'area_id')->dropDownList($areaList, [])  ?>
+    <?= $form->field($model, 'area_id')->widget(Select2::class, [
+        'initValueText' => null,
+        'data' => $areaList,
+        'options' => ['placeholder' => 'Seleccione la orientación', 'autocomplete' => 'off'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ])  ?>
 
-    <?= $form->field($model, 'orientation_id')->dropDownList($orientationList, [])  ?>
+    <?= $form->field($model, 'orientation_id')->widget(Select2::class, [
+        'initValueText' => null,
+        'data' => $orientationList,
+        'options' => ['placeholder' => 'Seleccione la orientación', 'autocomplete' => 'off'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ])  ?>
     </div>
 
     <div class="form-group">
