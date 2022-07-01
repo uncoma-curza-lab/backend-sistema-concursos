@@ -28,10 +28,71 @@ var formatRepoSelection = function (repo) {
     return repo.text;
 }
 JS;
+
+$defineRequireFields = <<<'JS'
+const activity = $('#contests-activity');
+const categoryType = $('#contests-category_type_id');
+const targetFields = {
+  course_id: $('#contests-course_id'),
+  departament_id: $('#contests-departament_id'),
+  career_id: $('#contests-career_id'),
+  area_id: $('#contests-area_id'),
+  orientation_id: $('#contests-orientation_id'),
+};
+
+const fieldsRequired = () => {
+  switch(activity.val()) {
+    case 'DEPARTMENT_ASSISTANT':
+      targetFields.course_id.parent().hide();
+      targetFields.departament_id.parent().hide();
+      targetFields.career_id.parent().hide();
+      targetFields.orientation_id.parent().hide();
+      targetFields.orientation_id.val('');
+      targetFields.orientation_id.trigger('change');
+      targetFields.area_id.parent().hide();
+      targetFields.area_id.val('');
+      targetFields.area_id.trigger('change');
+      break;
+    default:
+      if(Number(categoryType.val()) === 3) {
+        targetFields.course_id.parent().hide();
+        targetFields.course_id.val('');
+        targetFields.course_id.trigger('change');
+        targetFields.departament_id.parent().hide();
+        targetFields.departament_id.val('');
+        targetFields.departament_id.trigger('change');
+        targetFields.career_id.parent().hide();
+        targetFields.career_id.val('');
+        targetFields.career_id.trigger('change');
+      } else {
+        targetFields.course_id.parent().show();
+        targetFields.departament_id.parent().show();
+        targetFields.career_id.parent().show();
+        targetFields.orientation_id.parent().show();
+        targetFields.area_id.parent().show();
+      }
+
+      break;
+
+  }
+}
+activity.on('change', () => {
+  fieldsRequired();
+
+});
+
+categoryType.on('change', () => {
+  fieldsRequired();
+});
+
+fieldsRequired();
+
+JS;
  
 // Register the formatting script
 $this->registerJs($apiUrls, View::POS_HEAD);
 $this->registerJs($formatJs, View::POS_HEAD);
+$this->registerJs($defineRequireFields, View::POS_LOAD);
 
 $resultsJs = <<< JS
 function (data, params) {
@@ -127,6 +188,8 @@ $form = ActiveForm::begin([]); ?>
           ]
         ]);?>
     </div>
+
+    <?= $form->field($model, 'activity')->dropDownList($activityList, []) ?>
 
     <h4> Definición de cargo </h4>
     <hr>
@@ -226,9 +289,23 @@ $form = ActiveForm::begin([]); ?>
         ],
     ]) ?>
 
-    <?= $form->field($model, 'area_id')->dropDownList($areaList, [])  ?>
+    <?= $form->field($model, 'area_id')->widget(Select2::class, [
+        'initValueText' => null,
+        'data' => $areaList,
+        'options' => ['placeholder' => 'Seleccione la orientación', 'autocomplete' => 'off'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ])  ?>
 
-    <?= $form->field($model, 'orientation_id')->dropDownList($orientationList, [])  ?>
+    <?= $form->field($model, 'orientation_id')->widget(Select2::class, [
+        'initValueText' => null,
+        'data' => $orientationList,
+        'options' => ['placeholder' => 'Seleccione la orientación', 'autocomplete' => 'off'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ])  ?>
     </div>
 
     <div class="form-group">

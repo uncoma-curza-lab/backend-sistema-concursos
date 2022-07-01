@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'code',
             [
                 'attribute' => 'course_id',
-                'value' => $model->getCourse()->name
+                'value' => $model->getCourseName(),
             ],
             'qty',
             [

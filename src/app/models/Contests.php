@@ -34,6 +34,10 @@ use app\services\NextcloudService;
  */
 class Contests extends ActiveRecord
 {
+    const SCENARIO_REGULAR = 'regular';
+    const SCENARIO_ASSISTANT_DEPARTMENT = 'assistant_department';
+    const SCENARIO_OTHERS = 'others';
+
     /**
      * {@inheritdoc}
      */
@@ -43,23 +47,32 @@ class Contests extends ActiveRecord
     }
     
     public function behaviors() {
-    	return [
-            [
-                'class' => TimestampBehavior::class,
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-            ],
-        	'FormatDate' => [
-            	'class' => 'app\behaviors\FormatDate',
-                'attributes' => [
-                    'created_at', 'updated_at',
-                    'init_date', 'end_date', 'enrollment_date_end'
-                ],
-            ],
-    	];
-	}
+        return [
+              [
+                  'class' => TimestampBehavior::class,
+                  'attributes' => [
+                      ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                      ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                  ],
+              ],
+            'FormatDate' => [
+                'class' => 'app\behaviors\FormatDate',
+                  'attributes' => [
+                      'created_at', 'updated_at',
+                      'init_date', 'end_date', 'enrollment_date_end'
+                  ],
+              ],
+        ];
+    }
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_ASSISTANT_DEPARTMENT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id'];
+        $scenarios[self::SCENARIO_REGULAR] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'];
+        $scenarios[self::SCENARIO_OTHERS] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'];
+        return $scenarios;
+    }
 
     /**
      * {@inheritdoc}
@@ -67,14 +80,21 @@ class Contests extends ActiveRecord
     public function rules()
     {
         return [
-            [['remuneration_type_id', 'working_day_type_id', 'course_id', 'category_id', 'category_type_id', 'area_id', 'orientation_id'], 'required'],
+            [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id', 'evaluation_departament_id'], 'required'],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id'], 'required', 'on' => self::SCENARIO_ASSISTANT_DEPARTMENT],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'required', 'on' => self::SCENARIO_REGULAR],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'], 'required', 'on' => self::SCENARIO_OTHERS],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'category_id', 'area_id', 'orientation_id'], 'integer'],
-            [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end'], 'safe'],
-            [['description', 'resolution_file_path'], 'string'],
+            [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end', 'course_id'], 'safe'],
+            [['activity', 'description', 'resolution_file_path'], 'string'],
             [['resolution_published'], 'boolean'],
             [['name', 'course_id', 'departament_id', 'evaluation_departament_id', 'career_id'], 'string', 'max' => 255],
             [['code'], 'string', 'max' => 100],
+            [['activity'], 'in', 'range' => [
+              Activity::DEPARTMENT_ASSISTANT_CODE, 
+              Activity::TEACHER_CODE, 
+            ]],
             [['code'], 'unique'],
             [['area_id'], 'exist', 'skipOnError' => true, 'targetClass' => Areas::className(), 'targetAttribute' => ['area_id' => 'id']],
             [['category_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryTypes::className(), 'targetAttribute' => ['category_type_id' => 'id']],
@@ -134,6 +154,11 @@ class Contests extends ActiveRecord
     public function getCourse()
     {
         return Course::find($this->course_id);
+    }
+
+    public function getCourseName()
+    {
+        return $this->getCourse() ? $this->getCourse()->name : '';
     }
 
     /**
@@ -309,6 +334,26 @@ class Contests extends ActiveRecord
             return true;
         }else{
             return false;
+        }
+    }
+
+    public function defineScenario()
+    {
+        switch($this->activity) {
+            case Activity::DEPARTMENT_ASSISTANT_CODE:
+                $this->scenario = self::SCENARIO_ASSISTANT_DEPARTMENT;
+                break;
+            default:
+                if ($this->categoryType) {
+                  if ($this->categoryType->code === 'regulares') {
+                    $this->scenario = self::SCENARIO_REGULAR;
+                  } else {
+                    $this->scenario = self::SCENARIO_OTHERS;
+                  }
+                } else {
+                  $this->scenario = self::SCENARIO_DEFAULT;
+                }
+                break;
         }
     }
 

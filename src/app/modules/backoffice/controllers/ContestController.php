@@ -2,6 +2,7 @@
 
 namespace app\modules\backoffice\controllers;
 
+use app\models\Activity;
 use app\models\Areas;
 use app\models\Career;
 use app\models\Categories;
@@ -128,10 +129,11 @@ class ContestController extends Controller
     {
         $model = new Contests();
 
-        if ($this->request->isPost) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->defineScenario();
             $transaction = Yii::$app->db->beginTransaction();
             try{
-                if ($model->load($this->request->post()) && $model->save()) {
+                if ($model->save()) {
                     if($model->createConstestFolder()){
                         $transaction->commit();
                         return $this->redirect(['view', 'slug' => $model->code]);
@@ -144,6 +146,8 @@ class ContestController extends Controller
             }
 
         }
+
+        $model->scenario = Contests::SCENARIO_DEFAULT;
         //
         //Carga de la descripcion por defecto a travez de archivo HTML
         // 
@@ -289,6 +293,7 @@ class ContestController extends Controller
         $categoryList = ArrayHelper::map(Categories::find()->all(), 'id', 'name');
         $orientationList = ArrayHelper::map(Orientations::find()->all(), 'id', 'name');
         $areaList = ArrayHelper::map(Areas::find()->all(), 'id', 'name');
+        $activities = Activity::getLabelsByCode();
 
         return [
             'workingDayTypeList' => $workingDayTypeList,
@@ -300,6 +305,7 @@ class ContestController extends Controller
             'departamentList' => $departaments ? ArrayHelper::map($departaments, 'code', 'name') : null,
             'careerList' => $contest->departament_id ? ArrayHelper::map(Career::findByDepartament($contest->departament_id), 'code', 'name') : [],
             'courseList' => $contest->career_id ? ArrayHelper::map(Course::findByCareer($contest->career_id), 'code', 'name') : [],
+            'activityList' => $activities,
         ];
     }
 }
