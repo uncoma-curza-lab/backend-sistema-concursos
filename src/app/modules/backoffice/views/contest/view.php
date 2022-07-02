@@ -26,8 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         <?php if ($model->contestStatus->is(ContestStatus::DRAFT)) : ?>
-        <?= Html::a(Yii::t('backoffice', 'Publicar concurso'), ['set-status', 'slug' => $model->code], [
+        <?= Html::a(Yii::t('backoffice', 'Publicar concurso'), ['publish-contest', 'slug' => $model->code], [
             'class' => 'btn btn-info',
+            'data' => [
+                'confirm' => Yii::t('backoffice', 'Está seguro de que desea publciar el concurso?'),
+                'method' => 'post',
+            ],
         ]) ?>
         <?php endif; ?>
     </p>
@@ -40,6 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'course_id',
                 'value' => $model->getCourseName(),
+            ],
+            [
+              'attribute' => 'contest_status_id',
+              'value' => $model->contestStatus ?  ContestStatus::getTranslation($model->contestStatus->code) : '',
             ],
             'qty',
             [

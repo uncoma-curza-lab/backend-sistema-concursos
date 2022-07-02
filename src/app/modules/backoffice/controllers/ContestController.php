@@ -44,6 +44,7 @@ class ContestController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                         'publish-resolution' => ['POST'],
+                        'publish-contest' => ['POST'],
                     ],
                 ],
                 'access' => [
@@ -204,6 +205,14 @@ class ContestController extends Controller
                 return ContestStatus::getTranslation($model->name);
             }),
         ]);
+    }
+
+    public function actionPublishContest($slug)
+    {
+        $model = $this->findModel($slug);
+        $model->setToPublish();
+
+        return $this->redirect(['view', 'slug' => $model->code]);
     }
 
     public function actionUploadResolution($slug)
