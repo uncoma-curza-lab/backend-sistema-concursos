@@ -186,6 +186,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             );
                         }
+                    },
+                    'view' => function($url, $model, $key) {
+                        $loggedUser = Yii::$app->user;
+                        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
+                        if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
+
+                            return Html::a(
+                                '<span class="bi bi-eye-fill" aria-hidden="true"></span>',
+                                Url::toRoute([
+                                    '/backoffice/contest/view',
+                                    'slug' => '' . $model->code
+                                ]),
+                                [
+                                    'title' => 'Actualizar concurso',
+                                ]
+                            );
+                        }
                     }
                 ],
                 'urlCreator' => function($action, $model, $key, $index) {
