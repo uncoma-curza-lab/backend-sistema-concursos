@@ -86,6 +86,8 @@ class Contests extends ActiveRecord
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'], 'required', 'on' => self::SCENARIO_OTHERS],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'category_id', 'area_id', 'orientation_id'], 'integer'],
+            [['qty'], 'compare', 'compareValue' => 0, 'operator' => '>'],
+            [['init_date', 'end_date', 'enrollment_date_end'], 'validateDates'],
             [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end', 'course_id'], 'safe'],
             [['activity', 'description', 'resolution_file_path'], 'string'],
             [['resolution_published'], 'boolean'],
@@ -134,6 +136,20 @@ class Contests extends ActiveRecord
             'evaluation_departament_id' => Yii::t('models/contest', 'evaluation_departament'),
             'contest_status_id' => Yii::t('models/contest', 'contest_status'),
         ];
+    }
+
+    public function validateDates()
+    {
+        if(strtotime($this->end_date) <= strtotime($this->init_date)){
+            $this->addError('end_date','La fecha de fin debe ser mayor a la de inicio');
+        }
+        if(strtotime($this->init_date) >= strtotime($this->enrollment_date_end)){
+            $this->addError('enrollment_date_end','La fecha de fin de la inscripciones debe ser mayor a la de inicio');
+        }
+    
+        if(strtotime($this->end_date) <= strtotime($this->enrollment_date_end)){
+            $this->addError('enrollment_date_end','La fecha de fin de la inscripciones debe ser menor a la de fin');
+        }
     }
 
     public function getCareer()
