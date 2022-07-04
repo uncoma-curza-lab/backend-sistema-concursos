@@ -199,7 +199,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'slug' => '' . $model->code
                                 ]),
                                 [
-                                    'title' => 'Actualizar concurso',
+                                    'title' => 'Ver Concurso',
                                 ]
                             );
                         }
