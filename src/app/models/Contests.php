@@ -138,18 +138,19 @@ class Contests extends ActiveRecord
         ];
     }
 
-    public function validateDates(){
-    if(strtotime($this->end_date) <= strtotime($this->init_date)){
-        $this->addError('end_date','La fecha de fin debe ser mayor a la de inicio');
+    public function validateDates()
+    {
+        if(strtotime($this->end_date) <= strtotime($this->init_date)){
+            $this->addError('end_date','La fecha de fin debe ser mayor a la de inicio');
+        }
+        if(strtotime($this->init_date) >= strtotime($this->enrollment_date_end)){
+            $this->addError('enrollment_date_end','La fecha de fin de la inscripciones debe ser mayor a la de inicio');
+        }
+    
+        if(strtotime($this->end_date) <= strtotime($this->enrollment_date_end)){
+            $this->addError('enrollment_date_end','La fecha de fin de la inscripciones debe ser menor a la de fin');
+        }
     }
-    if(strtotime($this->init_date) >= strtotime($this->enrollment_date_end)){
-        $this->addError('enrollment_date_end','La fecha de fin de la inscripciones debe ser mayor a la de inicio');
-    }
-
-    if(strtotime($this->end_date) <= strtotime($this->enrollment_date_end)){
-        $this->addError('enrollment_date_end','La fecha de fin de la inscripciones debe ser menor a la de fin');
-    }
-}
 
     public function getCareer()
     {
