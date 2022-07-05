@@ -30,8 +30,8 @@ if ($contest!=null):
       <tbody>
         <tr>      
         <td name="departamento"><?= $contest->getEvaluationDepartament()->name ?? 'unavailable' ?></td>
-          <td name="area"><?= $contest->area->name ?></td>
-          <td name="orientacion"><?= $contest->orientation->name ?></td>
+          <td name="area"><?= $contest->getAreaName() ?></td>
+          <td name="orientacion"><?= $contest->getOrientationName() ?></td>
           <td name="asignatura"><?= $contest->course->name ?? 'unavailable' ?></td>
           <td name="cargos"><?= $contest->qty ?></td>
           <td name="categoria"><?= $contest->categoryType->name ?></td>
