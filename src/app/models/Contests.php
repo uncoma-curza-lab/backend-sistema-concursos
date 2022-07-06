@@ -177,7 +177,17 @@ class Contests extends ActiveRecord
         return $this->getCourse() ? $this->getCourse()->name : '';
     }
 
-    /**
+    public function getAreaName()
+    {
+        return $this->area ? $this->area->name : '';
+    }
+
+    public function getOrientationName()
+    {
+        return $this->orientation ? $this->orientation->name : '';
+    }
+
+   /**
      * Gets query for [[Area]].
      *
      * @return \yii\db\ActiveQuery|AreasQuery

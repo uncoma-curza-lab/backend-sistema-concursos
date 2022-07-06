@@ -76,11 +76,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'area_id',
-                'value' => $model->area->name
+                'value' => $model->getAreaName()
             ],
             [
                 'attribute' => 'orientation_id',
-                'value' => $model->orientation->name
+                'value' => $model->getOrientationName()
             ],
         ],
     ]) ?>
