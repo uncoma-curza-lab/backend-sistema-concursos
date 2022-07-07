@@ -1,11 +1,22 @@
 <?php
 
+use app\models\Activity;
 use yii\bootstrap4\Modal;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 if ($contest!=null):
+  $th = '';
+  $td = '';
+  if($contest->activity == Activity::TEACHER_CODE){
+    $th = '<th scope="col">Área</th><th scope="col">Orientación</th>';
+    $td = "<td name='area'>{$contest->getAreaName()}</td><td name='orientacion'>{$contest->getOrientationName()}</td>";
+    if($contest->category_type_id != 3){
+      $th .= '<th scope="col">Asignatura</th>';
+      $td .= '<td name="asignatura">' . $contest->course->name ?? 'unavailable' . '</td>';
+    }
+  }
 ?>
 <div class="contaner">
   <h2>Concurso - <?= $contest->name ?></h2>
@@ -19,23 +30,21 @@ if ($contest!=null):
       <thead>
         <tr>
           <th scope="col">Departamento</th>
-          <th scope="col">Área</th>
-          <th scope="col">Orientación</th>
-          <th scope="col">Asignatura</th>
+          <?= $th ?>          
           <th scope="col">Cargos</th>
           <th scope="col">Categoría</th>
           <th scope="col">Dedicación</th>
+          <th scope="col">Caracter</th>
         </tr>
       </thead>
       <tbody>
         <tr>      
         <td name="departamento"><?= $contest->getEvaluationDepartament()->name ?? 'unavailable' ?></td>
-          <td name="area"><?= $contest->getAreaName() ?></td>
-          <td name="orientacion"><?= $contest->getOrientationName() ?></td>
-          <td name="asignatura"><?= $contest->course->name ?? 'unavailable' ?></td>
+          <?= $td ?>
           <td name="cargos"><?= $contest->qty ?></td>
-          <td name="categoria"><?= $contest->categoryType->name ?></td>
+          <td name="categoria"><?= $contest->category->code ?></td>
           <td name="dedicacion"><?= $contest->workingDayType->name ?></td>      
+          <td name="caracter"><?= $contest->categoryType->name ?></td>      
         </tr>  
       </tbody>
     </table>
