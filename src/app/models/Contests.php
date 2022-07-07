@@ -135,6 +135,7 @@ class Contests extends ActiveRecord
             'departament_id' => Yii::t('models/contest', 'departament'),
             'evaluation_departament_id' => Yii::t('models/contest', 'evaluation_departament'),
             'contest_status_id' => Yii::t('models/contest', 'contest_status'),
+            'activity' => Yii::t('models/contest', 'activity'),
         ];
     }
 
