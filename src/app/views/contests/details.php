@@ -14,7 +14,7 @@ if ($contest!=null):
     $td = "<td name='area'>{$contest->getAreaName()}</td><td name='orientacion'>{$contest->getOrientationName()}</td>";
     if($contest->category_type_id != 3){
       $th .= '<th scope="col">Asignatura</th>';
-      $td .= '<td name="asignatura">' . $contest->course->name ?? 'unavailable' . '</td>';
+      $td .= '<td name="asignatura">' . $contest->getCourseName() . '</td>';
     }
   }
 ?>

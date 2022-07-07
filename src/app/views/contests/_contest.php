@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Activity;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -26,9 +27,11 @@ $moreUrl = Url::to([
         <h6 class="card-subtitle mb-2 text-muted">
             Jornada <?= $model->workingDayType->name; ?>
         </h6>
-        <p class="card-text">
-            Asignatura: <?=  $model->course->name ?? 'undefined'; ?>
-        </p>
+        <?php if($model->activity == Activity::TEACHER_CODE && $model->category_type_id != 3): ?>
+            <p class="card-text">
+                Asignatura: <?= $model->getCourseName(); ?>
+            </p>
+        <?php endif; ?>
         <?= Html::tag('a', 'Ver más', [
             'class' => 'btn btn-info btn-sm card-link',
             'href' => $moreUrl
