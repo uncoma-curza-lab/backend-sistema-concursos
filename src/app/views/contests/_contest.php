@@ -27,7 +27,7 @@ $moreUrl = Url::to([
         <h6 class="card-subtitle mb-2 text-muted">
             Jornada <?= $model->workingDayType->name; ?>
         </h6>
-        <?php if($model->hasCurseName()): ?>
+        <?php if($model->hasCourseName()): ?>
             <p class="card-text">
                 Asignatura: <?= $model->getCourseName(); ?>
             </p>

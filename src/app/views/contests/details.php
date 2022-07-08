@@ -9,14 +9,15 @@ use yii\widgets\ActiveForm;
 if ($contest!=null):
   $th = '';
   $td = '';
-  if($contest->activity == Activity::TEACHER_CODE){
+  if($contest->isTeacher()){
     $th = '<th scope="col">Área</th><th scope="col">Orientación</th>';
     $td = "<td name='area'>{$contest->getAreaName()}</td><td name='orientacion'>{$contest->getOrientationName()}</td>";
-    if($contest->category_type_id != 3){
-      $th .= '<th scope="col">Asignatura</th>';
-      $td .= '<td name="asignatura">' . $contest->getCourseName() . '</td>';
-    }
   }
+  if($contest->hasCourseName()){
+    $th .= '<th scope="col">Asignatura</th>';
+    $td .= '<td name="asignatura">' . $contest->getCourseName() . '</td>';
+  }
+
 ?>
 <div class="contaner">
   <h2>Concurso - <?= $contest->name ?></h2>

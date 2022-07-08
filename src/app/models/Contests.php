@@ -411,8 +411,13 @@ class Contests extends ActiveRecord
         return $this->contest_status_id === ContestStatus::DRAFT;
     }
 
-    public function hasCurseName(): bool
+    public function hasCourseName(): bool
     {
         return $this->activity == Activity::TEACHER_CODE && $this->category_type_id != 3;
+    }
+
+    public function isTeacher(): bool
+    {
+        return $this->activity == Activity::TEACHER_CODE;
     }
 }
