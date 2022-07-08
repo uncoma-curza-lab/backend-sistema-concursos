@@ -135,6 +135,7 @@ class Contests extends ActiveRecord
             'departament_id' => Yii::t('models/contest', 'departament'),
             'evaluation_departament_id' => Yii::t('models/contest', 'evaluation_departament'),
             'contest_status_id' => Yii::t('models/contest', 'contest_status'),
+            'activity' => Yii::t('models/contest', 'activity'),
         ];
     }
 
@@ -408,5 +409,15 @@ class Contests extends ActiveRecord
     public function canPublish(): bool
     {
         return $this->contest_status_id === ContestStatus::DRAFT;
+    }
+
+    public function hasCourseName(): bool
+    {
+        return $this->activity == Activity::TEACHER_CODE && $this->category_type_id != 3;
+    }
+
+    public function isTeacher(): bool
+    {
+        return $this->activity == Activity::TEACHER_CODE;
     }
 }

@@ -10,3 +10,4 @@ nextcloud/*
 src/basic/vendor/*
 .env
 docker-compose.override.yml
+src/app/web/resolutions/*
