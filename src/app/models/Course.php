@@ -4,8 +4,16 @@ namespace app\models;
 
 use app\services\SPCService;
 use JsonSerializable;
+use yii\db\ActiveRecord;
 
-class Course implements JsonSerializable
+/**
+ * This is the model class for table "courses".
+ *
+ * @property int $id
+ * @property string|null $name
+ * @property string|null $update_date
+ */
+class Course extends ActiveRecord implements JsonSerializable
 {
     protected $name;
     protected $code;
@@ -15,6 +23,38 @@ class Course implements JsonSerializable
     {
         $this->name = $name;
         $this->code = $code;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'courses';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['update_date'], 'safe'],
+            [['name'], 'string', 'max' => 50],
+        ];
+    }
+
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'update_date' => 'Update Date',
+        ];
     }
 
     /**
