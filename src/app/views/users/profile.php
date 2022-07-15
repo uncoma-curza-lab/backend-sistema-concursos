@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
         </div>
     <?php 
       endif;
-      Yii::$app->session->getFlash('success');
+      Yii::$app->session->getAllFlashes();
     ?>
 
     <?php $form = ActiveForm::begin(); ?>
