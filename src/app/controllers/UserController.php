@@ -77,7 +77,7 @@ class UserController extends Controller
 
         $request = \Yii::$app->request;
         if ($request->isPost && $profileForm->load($request->post()) && $profileForm->save()) {
-            \Yii::$app->session->setFlash('contactFormSubmitted');
+            \Yii::$app->session->setFlash('success', 'Su información fue guardada con éxito');
             return $this->refresh();
         }
         $countries = Countries::find()->where(['=', 'code', 'AR'])->all();
