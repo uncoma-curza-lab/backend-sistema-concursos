@@ -43,11 +43,10 @@ $columns = [
         'showConfirmAlert' => false,
         'exportConfig' => [
           ExportMenu::FORMAT_HTML => false,
-          ExportMenu::FORMAT_EXCEL_X => false,
+          ExportMenu::FORMAT_EXCEL => false,
           ExportMenu::FORMAT_TEXT => false,
-          ExportMenu::FORMAT_EXCEL => [
+          ExportMenu::FORMAT_EXCEL_X => [
             'label' => 'Planilla de calculo',
-            'extension' => 'ods',
           ],
         ],
         'dropdownOptions' => [
