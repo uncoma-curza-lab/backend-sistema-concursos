@@ -22,4 +22,5 @@ return [
     'contest_status' => 'Estado de concurso',
     'label_field_qty' => 'Cantidad de cargos a cubrir',
     'category' => 'Categoría',
+    'activity' => 'Actividad',
 ];
