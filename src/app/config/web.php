@@ -144,6 +144,7 @@ $config = [
         'backoffice' => [
             'class' => Backoffice::class,
         ],
+        'gridview' => ['class' => 'kartik\grid\Module']
     ],
     'params' => $params,
 ];
