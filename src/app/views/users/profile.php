@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -10,11 +9,16 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="profile-form">
-<?php if($error): ?>
-<div class="alert alert-warning" role="alert">
-<?= $error['message'] ?? 'Ocurrió un error' ?>
-</div>
-<?php endif; ?>
+    <?php
+      if($error):
+    ?>
+        <div class="alert alert-warning" role="alert">
+        <?= $error['message'] ?? 'Ocurrió un error' ?>
+        </div>
+    <?php 
+      endif;
+      Yii::$app->session->getAllFlashes();
+    ?>
 
     <?php $form = ActiveForm::begin(); ?>
 
