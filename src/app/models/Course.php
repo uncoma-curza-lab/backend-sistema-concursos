@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "courses".
  *
  * @property int $id
- * @property string|null $name
+ * @property string|null $description
  * @property string|null $update_date
  */
 class Course extends ActiveRecord implements JsonSerializable
@@ -19,10 +19,15 @@ class Course extends ActiveRecord implements JsonSerializable
     protected $code;
 
 
-    public function __construct(string $name, string $code)
+    public function __construct(string $name = null, string $code = null, array $config = [])
     {
         $this->name = $name;
         $this->code = $code;
+
+        if (!empty($config)) {
+            \Yii::configure($this, $config);
+        }
+        $this->init();
     }
 
     /**
@@ -40,7 +45,7 @@ class Course extends ActiveRecord implements JsonSerializable
     {
         return [
             [['update_date'], 'safe'],
-            [['name'], 'string', 'max' => 50],
+            [['description'], 'string', 'max' => 50],
         ];
     }
 
@@ -52,7 +57,7 @@ class Course extends ActiveRecord implements JsonSerializable
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'description' => 'Name',
             'update_date' => 'Update Date',
         ];
     }
@@ -135,7 +140,7 @@ class Course extends ActiveRecord implements JsonSerializable
     }
 
 
-    public static function find($id)
+    public static function findBySCPService($id)
     {
         $service = new SPCService();
         $departaments = $service->getOne('asignatura', $id);
@@ -181,5 +186,20 @@ class Course extends ActiveRecord implements JsonSerializable
             'name' => $this->getName(),
         ];
 
+    }
+
+    public static function saveValue($id){
+        $newCourse = self::findBySCPService($id);
+        $newCourse->id = $newCourse['code'];
+        $newCourse->description = $newCourse['name'];
+        $newCourse->update_date = date('Y-m-d h:m:s');
+
+        $oldCourse = self::findOne($id);
+        if($oldCourse){
+            $oldCourse->description = $newCourse['name'];
+            $oldCourse->update_date = date('Y-m-d h:m:s');
+            return $oldCourse->update();
+        }
+        return $newCourse->save();
     }
 }
