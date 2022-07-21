@@ -76,9 +76,12 @@ class UserController extends Controller
         }
 
         $request = \Yii::$app->request;
-        if ($request->isPost && $profileForm->load($request->post()) && $profileForm->save()) {
-            \Yii::$app->session->setFlash('contactFormSubmitted');
+        if ($request->isPost) {
+          if ($profileForm->load($request->post()) && $profileForm->save()) {
+            \Yii::$app->session->setFlash('success', 'Su información fue guardada con éxito');
             return $this->refresh();
+          }
+          \Yii::$app->session->setFlash('error', 'No se pudo guardar su información');
         }
         $countries = Countries::find()->where(['=', 'code', 'AR'])->all();
         $provinces = Provinces::find()->all();
