@@ -14,7 +14,7 @@ class m220708_172721_create_courses_table extends Migration
     {
         $this->createTable('{{%courses}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(50),
+            'description' => $this->string(100),
             'update_date' => $this->dateTime(),
         ]);
     }

@@ -45,7 +45,7 @@ class Course extends ActiveRecord implements JsonSerializable
     {
         return [
             [['update_date'], 'safe'],
-            [['description'], 'string', 'max' => 50],
+            [['description'], 'string', 'max' => 100],
         ];
     }
 
