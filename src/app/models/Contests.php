@@ -170,7 +170,7 @@ class Contests extends ActiveRecord
 
     public function getCourse()
     {
-        return Course::find($this->course_id);
+        return Course::findOne($this->course_id);
     }
 
     public function getCourseName()

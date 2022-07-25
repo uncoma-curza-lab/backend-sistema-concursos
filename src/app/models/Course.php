@@ -193,13 +193,34 @@ class Course extends ActiveRecord implements JsonSerializable
         $newCourse->id = $newCourse['code'];
         $newCourse->description = $newCourse['name'];
         $newCourse->update_date = date('Y-m-d h:m:s');
-
-        $oldCourse = self::findOne($id);
+        $oldCourse = self::findByActiveRecord($id);
         if($oldCourse){
             $oldCourse->description = $newCourse['name'];
             $oldCourse->update_date = date('Y-m-d h:m:s');
             return $oldCourse->update();
         }
         return $newCourse->save();
+    }
+
+    public static function findOne($id)
+    {
+        $courseByActiveRecord = static::findByCondition($id)->one();
+        if($courseByActiveRecord){
+            return $courseByActiveRecord;
+        }
+        
+        $courseBySCPService = self::findBySCPService($id);
+        if(!$courseBySCPService){
+            return null;
+        }
+
+        self::saveValue($id);
+        return $courseBySCPService;
+
+    }
+    
+    public static function findByActiveRecord($id)
+    {
+        return static::findByCondition($id)->one();
     }
 }
