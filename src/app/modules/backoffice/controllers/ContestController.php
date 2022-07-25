@@ -320,9 +320,4 @@ class ContestController extends Controller
             'activityList' => $activities,
         ];
     }
-
-    public function actionTestCourse()
-    {
-        Course::saveValue('3');
-    }
 }
