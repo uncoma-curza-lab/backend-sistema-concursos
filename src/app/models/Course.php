@@ -208,6 +208,10 @@ class Course extends ActiveRecord implements JsonSerializable
 
     public static function findOne($id)
     {
+        if($id == ''){
+            return null;
+        }
+
         $courseByActiveRecord = self::findByActiveRecord($id);
         if($courseByActiveRecord){
             $courseByActiveRecord->name = $courseByActiveRecord->description;

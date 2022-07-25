@@ -136,7 +136,9 @@ class ContestController extends Controller
             try{
                 if ($model->save()) {
                     if($model->createConstestFolder()){
-                        Course::saveValue($model->course_id);
+                        if($model->hasCourseName()){
+                            Course::saveValue($model->course_id);
+                        }
                         $transaction->commit();
                         return $this->redirect(['view', 'slug' => $model->code]);
                     }
