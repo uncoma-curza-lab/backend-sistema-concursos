@@ -169,6 +169,10 @@ class Course extends ActiveRecord implements JsonSerializable
 
     public function __get($property)
     {
+        $value = parent::__get($property);
+        if($value){
+            return $value;
+        }
         switch($property){
         case 'code': 
             return $this->getCode();
@@ -204,8 +208,9 @@ class Course extends ActiveRecord implements JsonSerializable
 
     public static function findOne($id)
     {
-        $courseByActiveRecord = static::findByCondition($id)->one();
+        $courseByActiveRecord = self::findByActiveRecord($id);
         if($courseByActiveRecord){
+            $courseByActiveRecord->name = $courseByActiveRecord->description;
             return $courseByActiveRecord;
         }
         
