@@ -214,17 +214,14 @@ class Course extends ActiveRecord implements JsonSerializable
 
         $courseByActiveRecord = self::findByActiveRecord($id);
         if($courseByActiveRecord){
-            $courseByActiveRecord->name = $courseByActiveRecord->description;
             return $courseByActiveRecord;
         }
         
-        $courseBySCPService = self::findBySCPService($id);
-        if(!$courseBySCPService){
+        if(!self::saveValue($id)){
             return null;
         }
 
-        self::saveValue($id);
-        return $courseBySCPService;
+        return self::findByActiveRecord($id);
 
     }
     
