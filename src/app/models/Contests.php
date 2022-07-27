@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use app\services\NextcloudService;
+use DateTime;
 
 /**
  * This is the model class for table "contests".
@@ -321,7 +322,10 @@ class Contests extends ActiveRecord
 
     public function isPostulateAvailable() : bool
     {
-        return \Yii::$app->formatter->asDatetime('now') < $this->enrollment_date_end;
+        $now = new DateTime();
+        $enrollment_date_end = new DateTime($this->enrollment_date_end);
+
+        return $now < $enrollment_date_end;
     }
 
     public function canPostulate(): bool
