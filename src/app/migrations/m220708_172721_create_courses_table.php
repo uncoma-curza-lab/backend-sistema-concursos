@@ -13,8 +13,8 @@ class m220708_172721_create_courses_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%courses}}', [
-            'id' => $this->primaryKey(),
-            'description' => $this->string(100),
+            'code' => $this->primaryKey(),
+            'name' => $this->string(100),
             'update_date' => $this->dateTime(),
         ]);
     }
