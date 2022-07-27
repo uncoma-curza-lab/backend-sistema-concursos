@@ -175,7 +175,7 @@ class Contests extends ActiveRecord
 
     public function getCourseName()
     {
-        return $this->hasCourseName() ? $this->getCourse()->description : '';
+        return $this->hasCourseName() ? $this->getCourse()->name : '';
     }
 
     public function getAreaName()
