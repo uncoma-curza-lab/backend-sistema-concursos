@@ -4,17 +4,47 @@ namespace app\models;
 
 use app\services\SPCService;
 use JsonSerializable;
+use yii\db\ActiveRecord;
 
-class Course implements JsonSerializable
+/**
+ * This is the model class for table "courses".
+ *
+ * @property int $code
+ * @property string|null $name
+ * @property string|null $update_date
+ */
+class Course extends ActiveRecord implements JsonSerializable
 {
-    protected $name;
-    protected $code;
-
-
-    public function __construct(string $name, string $code)
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
     {
-        $this->name = $name;
-        $this->code = $code;
+        return 'courses';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['update_date'], 'safe'],
+            [['name'], 'string', 'max' => 100],
+        ];
+    }
+
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'code' => 'Code',
+            'name' => 'Name',
+            'update_date' => 'Update Date',
+        ];
     }
 
     /**
@@ -35,10 +65,9 @@ class Course implements JsonSerializable
 
         $collect = json_decode($careers['data']);
         $collect = array_map(function($career){
-            $entity = new self(
-                $career->nombre,
-                $career->id
-            );
+            $entity = new self();
+            $entity->name = $career->nombre;
+            $entity->code = $career->id;
             return $entity;
         }, $collect);
 
@@ -64,10 +93,9 @@ class Course implements JsonSerializable
 
     public static function entityMapper($data)
     {
-        $entity = new self(
-            $data->nombre,
-            $data->id
-        );
+        $entity = new self();
+        $entity->name = $data->nombre;
+        $entity->code = $data->id;
         return $entity;
 
     }
@@ -88,14 +116,16 @@ class Course implements JsonSerializable
 
         $collect = json_decode($courses['data']);
         $collect = array_map(function($course){
-            $entity = new self($course->nombre, $course->id);
+            $entity = new self();
+            $entity->name = $course->nombre;
+            $entity->code = $course->id;
             return $entity;
         }, $collect);
         return $collect;
     }
 
 
-    public static function find($id)
+    public static function findBySCPService($id)
     {
         $service = new SPCService();
         $departaments = $service->getOne('asignatura', $id);
@@ -105,10 +135,9 @@ class Course implements JsonSerializable
         }
 
         $departamentRawData = json_decode($departaments['data']);
-        $departament = new self(
-            $departamentRawData->nombre,
-            $departamentRawData->id
-        );
+        $departament = new self();
+        $departament->name = $departamentRawData->nombre;
+        $departament->code = $departamentRawData->id;
         return $departament;
     }
 
@@ -122,24 +151,41 @@ class Course implements JsonSerializable
         return $this->name;
     }
 
-    public function __get($property)
-    {
-        switch($property){
-        case 'code': 
-            return $this->getCode();
-        case 'name':
-            return $this->getName();
-
-        }
-
-    }
-
     public function jsonSerialize()
     {
         return [
             'code' => $this->getCode(),
             'name' => $this->getName(),
         ];
+    }
 
+    public static function saveValue($code){
+        $newCourse = self::findBySCPService($code);
+        $newCourse->update_date = date('Y-m-d H:i:s');
+        $oldCourse = self::findByActiveRecord($code);
+        if($oldCourse){
+            $oldCourse->update_date = date('Y-m-d H:i:s');
+            return ($oldCourse->update()) ? $oldCourse : null;
+        }
+        return ($newCourse->save()) ? $newCourse : null;
+    }
+
+    public static function findOne($code)
+    {
+        if($code == ''){
+            return null;
+        }
+
+        $courseByActiveRecord = self::findByActiveRecord($code);
+        if($courseByActiveRecord){
+            return $courseByActiveRecord;
+        }
+        
+        return self::saveValue($code);
+    }
+    
+    public static function findByActiveRecord($code)
+    {
+        return static::findByCondition($code)->one();
     }
 }
