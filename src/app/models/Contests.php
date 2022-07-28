@@ -368,6 +368,40 @@ class Contests extends ActiveRecord
         }
     }
 
+    public function createContestFolderShare()
+    {
+        $expireDate = '';
+        $folder = $this->code;
+        $today = date_create();
+
+        $end_date = date_create($this->end_date);
+
+        $service = new NextcloudService();
+
+        if($today < $end_date){
+            $expireDate = date_format($end_date, 'Y-m-d');
+            $response = $service->createReadOnlyShare($folder, $expireDate);
+        }else{
+            date_modify($today, '+3 day');
+            $expireDate = date_format($today, 'Y-m-d');
+            $response = $service->createReadOnlyShare($folder, $expireDate);
+        }
+
+        return $response;
+    }
+
+    public function getContestFolderShareUrl(): ?string
+    {
+        if($this->share_id){
+            $service = new NextcloudService();
+            $response = $service->getFolderShare($this->share_id);
+            if($response['status']){
+                return $response['url'];
+            }
+        }
+        return null;
+    }
+
     public function defineScenario()
     {
         switch($this->activity) {
