@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'end_date:date',
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => ' {view} {update} {delete} {postulations} {juries} {set-status} {upload-resolution} {download-resolution} {publish-resolution}',
+                'template' => ' {view} {update} {delete} {postulations} {files} {juries} {set-status} {upload-resolution} {download-resolution} {publish-resolution}',
                 'buttons' => [
                     'postulations' =>  function($url, $model, $key) {
                         if (
@@ -73,6 +73,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
                                     'title' => 'Postulaciones'
                                 ]
+                            );
+                        }
+                    },
+                    'files' => function($url, $model, $key){
+                        if (
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'viewImplicatedPostulations', ['contestSlug' => $model->code])
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                        ) {
+                            return Html::a(
+                                '<span class="bi bi-folder-fill" aria-hidden="true"></span>',
+                                ['contest/contest-files', 'contestId' => $model->id],
+                                ['title' => 'Archivos']
                             );
                         }
                     },
