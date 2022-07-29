@@ -134,8 +134,14 @@ class ContestController extends Controller
             $model->defineScenario();
             $transaction = Yii::$app->db->beginTransaction();
             try{
-                if ($model->save()) {
-                    if($model->createConstestFolder()){
+                $model->generateCode();
+                if($model->createConstestFolder()) {
+                    $share = $model->createContestFolderShare();
+                    if($share['status']){
+                        $model->share_id = $share['shareId'];
+                    }
+
+                    if($model->save()){
                         if($model->hasCourseName()){
                             Course::saveValue($model->course_id);
                         }
@@ -320,4 +326,32 @@ class ContestController extends Controller
             'activityList' => $activities,
         ];
     }
+
+    public function actionContestFiles($contestId)
+    {
+        $contest = Contests::findOne($contestId);
+
+        $shareUrl = $contest->getContestFolderShareUrl();
+
+        if(!$shareUrl){
+            try{
+                $share = $contest->createContestFolderShare();
+                if($share['status']){
+                    $shareUrl = $share['shareUrl'];
+                    $contest->share_id = $share['shareId'];
+                    $contest->save();
+                }
+
+            } catch (\Throwable $e){
+                Yii::warning($e->getMessage(), 'ContestsController-actionContestFiles');
+            }
+            
+        }        
+        $shareUrl = str_replace($_ENV['NEXTCLOUD_URL'], $_ENV['NEXTCLUD_ALTERNATIVE_URL'], $shareUrl);
+        return $this->render('contest_files', [
+                'shareUrl' => $shareUrl,
+            ]);
+
+    }
+
 }
