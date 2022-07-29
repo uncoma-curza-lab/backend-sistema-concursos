@@ -134,8 +134,14 @@ class ContestController extends Controller
             $model->defineScenario();
             $transaction = Yii::$app->db->beginTransaction();
             try{
-                if ($model->save()) {
-                    if($model->createConstestFolder()){
+                $model->generateCode();
+                if($model->createConstestFolder()) {
+                    $share = $model->createContestFolderShare();
+                    if($share['status']){
+                        $model->share_id = $share['shareId'];
+                    }
+
+                    if($model->save()){
                         if($model->hasCourseName()){
                             Course::saveValue($model->course_id);
                         }

@@ -25,6 +25,7 @@ use DateTime;
  * @property int $category_type_id
  * @property int $area_id
  * @property int $orientation_id
+ * @property int $share_id
  *
  * @property Areas $area
  * @property CategoryTypes $categoryType
@@ -89,7 +90,7 @@ class Contests extends ActiveRecord
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'category_id', 'area_id', 'orientation_id'], 'integer'],
             [['qty'], 'compare', 'compareValue' => 0, 'operator' => '>'],
             [['init_date', 'end_date', 'enrollment_date_end'], 'validateDates'],
-            [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end', 'course_id'], 'safe'],
+            [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end', 'course_id', 'share_id'], 'safe'],
             [['activity', 'description', 'resolution_file_path'], 'string'],
             [['resolution_published'], 'boolean'],
             [['name', 'course_id', 'departament_id', 'evaluation_departament_id', 'career_id'], 'string', 'max' => 255],
@@ -137,6 +138,7 @@ class Contests extends ActiveRecord
             'evaluation_departament_id' => Yii::t('models/contest', 'evaluation_departament'),
             'contest_status_id' => Yii::t('models/contest', 'contest_status'),
             'activity' => Yii::t('models/contest', 'activity'),
+            'share_id' => Yii::t('models/contest', 'share_id'),
         ];
     }
 
@@ -351,7 +353,7 @@ class Contests extends ActiveRecord
 
     public function beforeSave($insert)
     {
-        if ($insert) {
+        if ($insert && !$this->code) {
             $this->generateCode();
         }
         return parent::beforeSave($insert);
