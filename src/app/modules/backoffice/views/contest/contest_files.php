@@ -24,7 +24,7 @@ $this->title = 'Archivos del Concurso';
 <?php
     endif
 ?>
-    <a href="<?= Url::to('my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
+    <a href="<?= Url::to('index') ?>" class="btn btn-primary" role="button">Regresar</a>
 
 
 </div>
