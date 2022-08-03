@@ -13,7 +13,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?php 
+            if (
+                \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                ||
+                \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+            ) :
+        ?>
         <?= Html::a(Yii::t('backoffice', 'add_jury_to_contest_button'), ['add-jury', 'slug' => $contest->code], ['class' => 'btn btn-success']) ?>
+<?php 
+            endif;
+?>
     </p>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

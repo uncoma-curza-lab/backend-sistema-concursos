@@ -59,7 +59,7 @@ class ContestController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['teach_departament', 'admin', 'jury'],
-                            'actions' => ['index', 'view'],
+                            'actions' => ['index', 'view', 'contest-files'],
                         ],
                         [
                             'allow' => true,
