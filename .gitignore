@@ -1,11 +1,11 @@
-src/composer/cache/*
+src/composer/cache/
 assets/*
 !assets/.gitignore
 protected/runtime/*
 !protected/runtime/.gitignore
 protected/data/*.db
 themes/classic/views/
-postgresdata/*
+postgresdata/
 nextcloud/*
 src/basic/vendor/*
 .env
