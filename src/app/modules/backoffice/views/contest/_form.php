@@ -123,11 +123,8 @@ JS;
 $form = ActiveForm::begin([]); ?>
 
     <h4>Información principal</h4>
-    <div class="form-row">
-    <?= $form->field($model, 'name',[
-          'options' => ['class' => 'col-md-8'],
-        ])->textInput([
-          'class' => 'form-control',
+    <div class="mb-3">
+    <?= $form->field($model, 'name')->textInput([
           'maxlength' => true,
     ]) ?>
     </div>
@@ -149,20 +146,19 @@ $form = ActiveForm::begin([]); ?>
             'format' => 'dd-mm-yyyy HH:ii P',
         ]
     ]) ?>
-    <?= $form->field($model, 'end_date')->widget(\kartik\datetime\DateTimePicker::class, [
+    <?= $form->field($model, 'enrollment_date_end')->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control col-md-6',
-        'options' => ['autocomplete' => 'off'],
         'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
+        'options' => ['autocomplete' => 'off'],
         'pluginOptions' => [
             'autoclose'=>true,
             'format' => 'dd-mm-yyyy HH:ii P',
         ]
     ]) ?>
-
-    <?= $form->field($model, 'enrollment_date_end')->widget(\kartik\datetime\DateTimePicker::class, [
+    <?= $form->field($model, 'end_date')->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control col-md-6',
-        'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
         'options' => ['autocomplete' => 'off'],
+        'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
         'pluginOptions' => [
             'autoclose'=>true,
             'format' => 'dd-mm-yyyy HH:ii P',
