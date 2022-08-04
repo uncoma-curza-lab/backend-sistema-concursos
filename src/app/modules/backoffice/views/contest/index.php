@@ -124,12 +124,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     'upload-resolution' => function($url, $model, $key) {
-                        if ($model->canUploadResolution()) {
+                        
+                        if (
+                            $model->canUploadResolution()
+                            &&
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $model->code])
+                        ) {
                             return Html::a(
                                 '<span class="bi bi-file-pdf" aria-hidden="true"></span>',
                                 Url::to(['contest/upload-resolution', 'slug' => $model->code]),
                                 [
-                                    'title' => 'Subir resolución'
+                                    'title' => 'Subir dictamen'
                                 ]
                             );
                         }
