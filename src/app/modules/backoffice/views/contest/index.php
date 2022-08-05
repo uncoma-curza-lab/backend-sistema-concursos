@@ -128,10 +128,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         if (
                             $model->canUploadResolution()
                             &&
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $model->code])
+                            (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $model->code]))
                         ) {
                             return Html::a(
-                                '<span class="bi bi-file-pdf" aria-hidden="true"></span>',
+                                '<span class="bi bi-file-earmark-arrow-up" aria-hidden="true"></span>',
                                 Url::to(['contest/upload-resolution', 'slug' => $model->code]),
                                 [
                                     'title' => 'Subir dictamen'
@@ -145,15 +149,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 '<span class="bi bi-download" aria-hidden="true"></span>',
                                 Url::to(['contest/download-resolution', 'slug' => $model->code]),
                                 [
-                                    'title' => 'Descargar resolución'
+                                    'title' => 'Descargar dictamen'
                                 ]
                             );
                         }
                     },
                     'publish-resolution' => function($url, $model, $key) {
-                        if ($model->isDownloadeableResolution() && !$model->isResolutionPublished()) {
+                        if ($model->isDownloadeableResolution() 
+                            &&
+                            !$model->isResolutionPublished()
+                            &&
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                        ) {
                             return Html::a(
-                                '<span class="bi bi-file-plus" aria-hidden="true"></span>',
+                                '<span class="bi bi-file-earmark-check" aria-hidden="true"></span>',
                                 ['contest/publish-resolution', 'slug' => $model->code],
                                 [
                                     'data' => 
@@ -161,7 +172,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'confirm' => Yii::t('app', 'Desea publicar el dictamen?'),
                                         'method' => 'post',
                                     ],
-                                    'title' => 'Publicar resolución',
+                                    'title' => 'Publicar dictamen',
                                 ]
                             );
                         }
