@@ -155,7 +155,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     'publish-resolution' => function($url, $model, $key) {
-                        if ($model->isDownloadeableResolution() && !$model->isResolutionPublished()) {
+                        if ($model->isDownloadeableResolution() 
+                            &&
+                            !$model->isResolutionPublished()
+                            &&
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                        ) {
                             return Html::a(
                                 '<span class="bi bi-file-plus" aria-hidden="true"></span>',
                                 ['contest/publish-resolution', 'slug' => $model->code],
