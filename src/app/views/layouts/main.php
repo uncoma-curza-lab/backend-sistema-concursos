@@ -32,10 +32,10 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => Html::img('@web/images/logo_blanco100x100.png', ['alt'=>'some', 'width'=>70]) . ' ' . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top',
+            'class' => 'navbar navbar-expand-lg navbar-dark bg-primary',
         ],
     ]);
     echo Nav::widget([
