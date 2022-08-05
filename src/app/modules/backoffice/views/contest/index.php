@@ -128,7 +128,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         if (
                             $model->canUploadResolution()
                             &&
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $model->code])
+                            (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $model->code]))
                         ) {
                             return Html::a(
                                 '<span class="bi bi-file-pdf" aria-hidden="true"></span>',
