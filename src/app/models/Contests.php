@@ -275,6 +275,8 @@ class Contests extends ActiveRecord
     {
         $presidents = [];
         foreach($this->juries as $jurie){
+            var_dump(ContestJury::find()->where(['user_id' => $jurie['id']])->one());
+            var_dump('<br>');
             if (ContestJury::find()->where('user_id=' . $jurie['id'])->one()->is_president){
                 array_push($presidents, $jurie['id']);
             }
