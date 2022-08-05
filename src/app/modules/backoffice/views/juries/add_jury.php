@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Orientations */
@@ -13,7 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'userId')->dropDownList($juryUsers, []) ?>
+    <?= $form->field($model, 'userId')->widget(Select2::class, [
+        'data' => $juryUsers,
+        'options' => ['placeholder' => 'Seleccione un usuario...'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ]]);
+ ?>
 
     <?= $form->field($model, 'isPresident')->checkbox([]) ?>
 

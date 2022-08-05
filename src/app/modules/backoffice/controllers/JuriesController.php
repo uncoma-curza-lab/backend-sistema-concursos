@@ -81,9 +81,11 @@ class JuriesController extends Controller
             return $this->redirect(['contest', 'slug' => $contest->code]);
         }
 
-        $juryUsers = array_map(function($user) {
-            return [ $user->id => $user->person->first_name . ' ' . $user->person->last_name];
-        }, User::find()->all());
+        $juryUsers = [];
+        $users = User::find()->all(); 
+        array_walk($users, function($user) use (&$juryUsers) {
+            $juryUsers[ $user->id ] = $user->person->first_name . ' ' . $user->person->last_name;
+        });
 
         return $this->render('add_jury', [
             'model' => $juryForm,

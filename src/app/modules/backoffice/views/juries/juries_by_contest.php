@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
             ) :
         ?>
-        <?= Html::a(Yii::t('backoffice', 'add_jury_to_contest_button'), ['add-jury', 'slug' => $contest->code], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="bi bi-person-plus-fill"></i> ' . Yii::t('backoffice', 'add_jury_to_contest_button'), ['add-jury', 'slug' => $contest->code], ['class' => 'btn btn-success']) ?>
 <?php 
             endif;
 ?>
@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -53,20 +52,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'delete' => function($url, $model, $key) {
                         $loggedUser = Yii::$app->user;
-                        $roles = Yii::$app->authManager->getRolesByUser($loggedUser->id);
+                        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
                         if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
 
                             return Html::a(
-                                '<span class="bi bi-trash" aria-hidden="true"></span>',
+                                '<span class="bi bi-person-x-fill" aria-hidden="true"></span>',
                                 Url::toRoute([
                                     '/backoffice/juries/delete',
                                     'contest' => $model->contest->code,
                                     'user' => '' . $model->user_id
                                 ]),
                                 [
+                                    'title' => 'Eliminar Jurado',
                                     'data' => 
                                     [
-                                        'confirm' => Yii::t('app', 'Desea publicar el dictamen?'),
+                                        'confirm' => Yii::t('app', '¿Desea eliminar este Jurado?'),
                                         'method' => 'post',
                                     ]
                                 ]
