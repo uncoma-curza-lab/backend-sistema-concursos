@@ -53,13 +53,13 @@ if ($contest!=null):
   <div class="container">
     <div class="row">
      <div>
-      <h3>Incripciones</h3>
+      <h3>Inscripciones</h3>
        <ul>
             <?php
                 $initDate = $contest->init_date;
                 $enrollmentDate = $contest->enrollment_date_end;
             ?>
-            <li>Se recibirán incripciones desde el <?= $initDate?> 
+            <li>Se recibirán inscripciones desde el <?= $initDate?> 
             hasta el  <?= $enrollmentDate ?></li>
         </ul>
       </div>  
