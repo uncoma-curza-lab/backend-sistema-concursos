@@ -14,6 +14,10 @@ $moreUrl = Url::to([
     'slug' => $model->code
 ]);
 
+$today = date_create();
+$enrollmentDateEnd = date_create($model->enrollment_date_end);
+$incriptionText = ($enrollmentDateEnd > $today) ? 'Inscripciones abiertas hasta ' : 'Incripciones cerradas el '; 
+
 ?>
 
 <div class="card mr-2 mb-2" style="width: 15rem;">
@@ -22,7 +26,7 @@ $moreUrl = Url::to([
             <?= $model->name; ?>
         </h5>
         <h6 class="card-subtitle mb-2 text-muted">
-            Inscripciones abiertas <?= $model->enrollment_date_end; ?>
+            <?=$incriptionText . $model->enrollment_date_end; ?>
         </h6>
         <h6 class="card-subtitle mb-2 text-muted">
             Jornada <?= $model->workingDayType->name; ?>
