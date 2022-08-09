@@ -33,6 +33,7 @@ AppAsset::register($this);
     <?php
     $logo = Html::img('@web/images/logo_blanco100x100.png', ['alt'=>'Logo_curza', 'width'=>70]) . ' ';
     NavBar::begin([
+        'brandImage' => '@web/images/TituloSistemasCocursos.png',
         'brandLabel' => $logo . Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
