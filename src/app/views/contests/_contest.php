@@ -16,7 +16,9 @@ $moreUrl = Url::to([
 
 $today = date_create();
 $enrollmentDateEnd = date_create($model->enrollment_date_end);
-$incriptionText = ($enrollmentDateEnd > $today) ? 'Inscripciones abiertas hasta ' : 'Incripciones cerradas el '; 
+$enrollmentEnd = $enrollmentDateEnd > $today;
+$incriptionText = $enrollmentEnd ? 'Inscripciones abiertas hasta ' : 'Incripciones cerradas el '; 
+$incriptionTextClass = $enrollmentEnd ? 'text-muted' : 'text-danger';
 
 ?>
 
@@ -25,7 +27,7 @@ $incriptionText = ($enrollmentDateEnd > $today) ? 'Inscripciones abiertas hasta 
         <h5 class="card-title">
             <?= $model->name; ?>
         </h5>
-        <h6 class="card-subtitle mb-2 text-muted">
+        <h6 class="card-subtitle mb-2 <?= $incriptionTextClass ?>">
             <?=$incriptionText . $model->enrollment_date_end; ?>
         </h6>
         <h6 class="card-subtitle mb-2 text-muted">
