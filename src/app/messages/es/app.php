@@ -39,7 +39,7 @@ return [
     'date_of_birth' => 'Fecha de nacimiento',
     'save_button' => 'Confirmar',
     'postulations' => 'Inscripciones realizadas',
-    'terms_accepted_article_22' => 'Artículo 22 (Res. CD CURZA N 112/1991): La presentación de la solicitud de inscripción importa, por
+    'terms_accepted_article_22' => 'Artículo 9 (Res. CD CURZA N 150/2020): La presentación de la solicitud de inscripción importa, por
 parte del postulante, el conocimiento y la aceptación de las condiciones fijadas en este reglamento',
     'confirm_data' => 'DECLARO BAJO JURAMENTO NO ESTAR COMPROMETIDO EN LAS CAUSALES DE INHABILITACIÓN PARA EL DESEMPEÑO DE CARGOS PÚBLICOS',
     'inscription_button' => 'Postularse',
