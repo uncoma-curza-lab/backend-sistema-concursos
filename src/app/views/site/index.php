@@ -26,8 +26,28 @@ $listView = ListView::begin([
         'nextPageLabel' => '<span class="bi bi-caret-right-fill"></span>',
     ],
 ]);
+$alertText = '';
+if(\Yii::$app->user->isGuest){
+    $alertText = 'Debe ' . Html::tag('a', 'Registrarse', ['href' => Url::to('/signup')]) . 
+        ' o ' . Html::tag('a', 'Iniciar Sesión', ['href' => Url::to('/login')]) . ' para incribirse a un concurso';
+}elseif(!\Yii::$app->user->identity->isValid()){
+    $alertText = 'Debe completar todos sus datos personales para incirbirse a un concurso: ' . Html::tag('a', 'Completar Datos', [
+            'href' => Url::to('/user/profile'),
+        ]);
+}
+
 ?>
 <div class="site-index">
+    <?php 
+    if($alertText):
+    ?>
+    <div class="alert alert-warning" role="alert">
+        <?= $alertText ?>
+    </div>
+    <?php 
+       endif;
+    ?>
+    
 
     <div class="jumbotron text-center bg-transparent">
         <h1 class="display-4"><?= \Yii::t('app', 'welcome'); ?></h1>
