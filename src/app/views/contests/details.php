@@ -6,6 +6,16 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$alertText = '';
+if(\Yii::$app->user->isGuest){
+    $alertText = 'Debe ' . Html::tag('a', 'Registrarse', ['href' => Url::to('/signup')]) . 
+        ' o ' . Html::tag('a', 'Iniciar Sesión', ['href' => Url::to('/login')]) . ' para incribirse a un concurso';
+}elseif(!\Yii::$app->user->identity->isValid()){
+    $alertText = 'Debe completar todos sus datos personales para incirbirse a un concurso: ' . Html::tag('a', 'Completar Datos', [
+            'href' => Url::to('/user/profile'),
+        ]);
+}
+
 if ($contest!=null):
   $th = '';
   $td = '';
@@ -20,6 +30,16 @@ if ($contest!=null):
 
 ?>
 <div class="contaner">
+    <?php 
+    if($alertText):
+    ?>
+    <div class="alert alert-warning" role="alert">
+        <?= $alertText ?>
+    </div>
+    <?php 
+       endif;
+    ?>
+
   <h2>Concurso - <?= $contest->name ?></h2>
   <div class="container">
     <p>
