@@ -12,6 +12,11 @@ $this->title = 'Archivos de la Postulación';
 <?php
     if($shareUrl):
 ?>
+
+    <div class="alert alert-warning" role="alert">
+        Si no puede ver sus archivos abra en una nueva pestaña con el boton correspondiente.
+    </div>
+
     <iframe src="<?= $shareUrl ?>" width="100%" height="350px" title="Postualtion Files Iframe">
 </iframe>
  
@@ -25,6 +30,7 @@ $this->title = 'Archivos de la Postulación';
     endif
 ?>
     <a href="<?= Url::to('my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
+    <a href="<?= $shareUrl ?>" class="btn btn-warning" role="button" target="_blank">Abrir en nueva pestaña</a>
 
 
 </div>
