@@ -54,7 +54,12 @@ class RegisterController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                    \Yii::$app->cache->set('error', [
+                        'message' => 'Debe completar los datos del perfil antes de inscribirse',
+                    ]);
+                    return $this->redirect([
+                        'user/profile',
+                    ]);
                 }
             }
         }

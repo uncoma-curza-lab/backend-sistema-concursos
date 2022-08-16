@@ -9,9 +9,9 @@ use yii\widgets\ActiveForm;
 $alertText = '';
 if(\Yii::$app->user->isGuest){
     $alertText = 'Debe ' . Html::tag('a', 'Registrarse', ['href' => Url::to('/signup')]) . 
-        ' o ' . Html::tag('a', 'Iniciar Sesión', ['href' => Url::to('/login')]) . ' para incribirse a un concurso';
+        ' o ' . Html::tag('a', 'Iniciar Sesión', ['href' => Url::to('/login')]) . ' para inscribirse a un concurso';
 }elseif(!\Yii::$app->user->identity->isValid()){
-    $alertText = 'Debe completar todos sus datos personales para incirbirse a un concurso: ' . Html::tag('a', 'Completar Datos', [
+    $alertText = 'Debe completar todos sus datos personales para inscribirse a un concurso: ' . Html::tag('a', 'Completar Datos', [
             'href' => Url::to('/user/profile'),
         ]);
 }
