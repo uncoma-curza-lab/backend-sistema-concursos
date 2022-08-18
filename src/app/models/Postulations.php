@@ -169,6 +169,7 @@ class Postulations extends \yii\db\ActiveRecord
         $service = new NextcloudService();
 
         if($today < $enrollment_date_end){
+            date_modify($enrollment_date_end, '+1 day');
             $expireDate = date_format($enrollment_date_end, 'Y-m-d');
             $response = $service->createPublicShare($pathToFolder, $expireDate);
         }else{
