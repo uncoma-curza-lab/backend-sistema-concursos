@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use app\services\NextcloudService;
+use app\services\SPCService;
 use DateTime;
 
 /**
@@ -459,5 +460,25 @@ class Contests extends ActiveRecord
     public function isTeacher(): bool
     {
         return $this->activity == Activity::TEACHER_CODE;
+    }
+
+    public function getProgramUrl(): ?string
+    {
+        $service = new SPCService();
+
+        $response = $service->getOne('asignatura', $this->course_id, ['withExport' => '1']);
+
+        if($response['code'] == 200){
+            $data = json_decode($response['data']);
+            if(isset($data->_links->exports)){
+                $exports =  (array) $data->_links->exports;
+                $keys = array_keys($exports);
+                $lentg = count($exports);
+                return $exports[$keys[$lentg - 1]]->href;
+            }
+    
+        }
+
+        return null;
     }
 }
