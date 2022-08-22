@@ -42,8 +42,12 @@ class SPCService
         }
     }
 
-    public function getOne(string $endpoint, string $id) : array
+    public function getOne(string $endpoint, string $id, array $headers = null) : array
     {
+        if($headers){
+            $this->headers += $headers;
+        }
+
         try {
             $response = self::exec(
                 $this->url . '/' . $endpoint . '/' . $id,
