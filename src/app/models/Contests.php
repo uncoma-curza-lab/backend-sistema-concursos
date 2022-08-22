@@ -470,7 +470,7 @@ class Contests extends ActiveRecord
 
         if($response['code'] == 200){
             $data = json_decode($response['data']);
-            if(isset($data->_links->exports)){
+            if($data->_links->exports){
                 $exports =  (array) $data->_links->exports;
                 $keys = array_keys($exports);
                 $lentg = count($exports);
@@ -480,5 +480,10 @@ class Contests extends ActiveRecord
         }
 
         return null;
+    }
+    
+    public function isHelper(): bool
+    {
+        return in_array($this->category->code, ['AYP', 'AYS']);
     }
 }
