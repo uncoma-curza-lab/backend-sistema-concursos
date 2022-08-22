@@ -484,6 +484,6 @@ class Contests extends ActiveRecord
     
     public function isHelper(): bool
     {
-        return in_array($this->category->code, ['AYP', 'AYS']);
+        return in_array($this->category->code, ['AYP', 'AYS', 'GFD']);
     }
 }
