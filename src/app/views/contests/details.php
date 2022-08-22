@@ -96,6 +96,16 @@ if ($contest!=null):
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
+        <div>
+            <?php if ($contest->isHelper() && $contest->hasCourseName()): ?>
+            <h5> Programa </h5>
+                <p>
+                    Programa: <a href="<?= $contest->getProgramUrl(); ?>">Descargar Programa</a> 
+                </p>
+                    
+            <?php endif; ?>
+        </div>
+
     </div> 
    </div>
 
