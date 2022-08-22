@@ -42,19 +42,25 @@ class SPCService
         }
     }
 
-    public function getOne(string $endpoint, string $id, array $headers = null) : array
+    public function getOne(string $endpoint, string $id, array $params = null) : array
     {
-        if($headers){
-            $this->headers += $headers;
+        $paramsStr = '';
+        if($params){
+            $paramsStr = '?';
+            $i = 0;
+            foreach ($params as $key => $param) {
+                $paramsStr .= $i > 0 ? '&' : '';
+                $paramsStr .= $key . '=' . $param;
+                $i++;
+            }
         }
 
         try {
             $response = self::exec(
-                $this->url . '/' . $endpoint . '/' . $id,
+                $this->url . '/' . $endpoint . '/' . $id . $paramsStr,
                 ['headers' => $this->headers],
                 'GET'
             );
-
             return [
                 'code' => $response->getStatusCode(),
                 'data' => $response->getBody()->getContents(),
