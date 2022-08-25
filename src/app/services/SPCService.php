@@ -44,16 +44,7 @@ class SPCService
 
     public function getOne(string $endpoint, string $id, array $params = null) : array
     {
-        $paramsStr = '';
-        if($params){
-            $paramsStr = '?';
-            $i = 0;
-            foreach ($params as $key => $param) {
-                $paramsStr .= $i > 0 ? '&' : '';
-                $paramsStr .= $key . '=' . $param;
-                $i++;
-            }
-        }
+        $paramsStr = $this->paramsToStr($params);
 
         try {
             $response = self::exec(
@@ -73,5 +64,20 @@ class SPCService
 
         }
 
+    }
+
+    private function paramsToStr(?array $params) : string
+    {
+        $paramsStr = '';
+        if($params){
+            $paramsStr = '?';
+            $i = 0;
+            foreach ($params as $key => $param) {
+                $paramsStr .= $i > 0 ? '&' : '';
+                $paramsStr .= $key . '=' . $param;
+                $i++;
+            }
+        }
+        return $paramsStr;
     }
 }
