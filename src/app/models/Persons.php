@@ -154,6 +154,15 @@ class Persons extends \yii\db\ActiveRecord
     }
 
     /**
+     * Seters
+     */
+    public function setFirstName($value)
+    {
+        $this->first_name = strtoupper($value);
+    }
+
+
+    /**
      * {@inheritdoc}
      * @return PersonsQuery the active query used by this AR class.
      */
