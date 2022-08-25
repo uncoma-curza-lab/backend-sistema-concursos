@@ -466,20 +466,7 @@ class Contests extends ActiveRecord
     {
         $service = new SPCService();
 
-        $response = $service->getOne('asignatura', $this->course_id, ['withExport' => '1']);
-
-        if($response['code'] == 200){
-            $data = json_decode($response['data']);
-            if($data->_links->exports){
-                $exports =  (array) $data->_links->exports;
-                $keys = array_keys($exports);
-                $lentg = count($exports);
-                return $exports[$keys[$lentg - 1]]->href;
-            }
-    
-        }
-
-        return null;
+        return $service->getProgramUrl($this->course_id);
     }
     
     public function isHelper(): bool

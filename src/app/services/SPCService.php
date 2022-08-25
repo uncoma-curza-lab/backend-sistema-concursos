@@ -66,6 +66,22 @@ class SPCService
 
     }
 
+    public function getProgramUrl(int $course_id) : ?string
+    {
+        $response = $this->getOne('asignatura', $course_id, ['withExport' => '1']);
+
+        if($response['code'] == 200){
+            $data = json_decode($response['data']);
+            if($data->_links->exports){
+                $exports =  (array) $data->_links->exports;
+                $keys = array_keys($exports);
+                $lentg = count($exports);
+                return $exports[$keys[$lentg - 1]]->href;
+            }
+        }
+        return null;
+    }
+
     private function paramsToStr(?array $params) : string
     {
         $paramsStr = '';
