@@ -154,13 +154,25 @@ class Persons extends \yii\db\ActiveRecord
     }
 
     /**
-     * Seters
+     * Make full name upper case on before save.
      */
-    public function setFirstName($value)
-    {
-        $this->first_name = strtoupper($value);
-    }
 
+    private function upperFullName()
+    {
+        $this->first_name = strtoupper($this->first_name);
+        $this->last_name = strtoupper($this->last_name);
+    }
+    
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+    
+        $this->upperFullName();
+        return true;
+
+    }
 
     /**
      * {@inheritdoc}
