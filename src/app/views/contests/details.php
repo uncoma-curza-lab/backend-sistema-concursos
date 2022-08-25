@@ -4,6 +4,7 @@ use app\models\Activity;
 use yii\bootstrap4\Modal;
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
 $alertText = '';
@@ -96,6 +97,18 @@ if ($contest!=null):
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
+        <div>
+            <?php if ($contest->isHelper() && $contest->hasCourseName()): 
+              $programUrl = $contest->getProgramUrl();
+            ?>
+            <h5> Programa </h5>
+                <p>
+                Programa: <a href="<?= $programUrl; ?>" <?= !$programUrl ? 'data-toggle="modal" data-target="#modalNoProgram"' : '' ?>>Descargar Programa</a> 
+                </p>
+                    
+            <?php endif; ?>
+        </div>
+
     </div> 
    </div>
 
@@ -125,9 +138,31 @@ if ($contest!=null):
   echo "<div id='modalContent'></div>";
   Modal::end();
 ?>
+<?php
+  Modal::begin([
+    'id'=>'modalNoProgram',
+    'class' =>'modal',
+    'size' => 'modal-md',
+    'title' => 'No hay un programa Vigente',
+  ]);
+  echo '<div><p>No se encuentra disponible un programa vigente. Contacte al departamento docente para más información: <a href="mailto:departamento.docente.curza@gmail.com"> departamento.docente.curza@gmail.com </a></p></div>';
+  Modal::end();
+?>
+
 <?php else: ?>
 <div class="container">
 <h2><?= \Yii::t('app', 'contest_not_found') ?></h2>
 </div>
 <?php endif; ?>
 
+<?php 
+$alertNoProgram = <<< 'JS'
+var notFindProgram = (event) => {
+    event.preventDefault();
+    $('#modalNoProgram').modal('show');
+    console.log($('#modalNoProgram'))
+}
+JS;
+
+$this->registerJs($alertNoProgram, View::POS_HEAD);
+?>
