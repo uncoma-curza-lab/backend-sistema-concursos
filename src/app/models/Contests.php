@@ -466,7 +466,7 @@ class Contests extends ActiveRecord
     {
         $service = new SPCService();
 
-        return $service->getProgramUrl($this->course_id);
+        return $service->getLastProgramUrl($this->course_id);
     }
     
     public function isHelper(): bool

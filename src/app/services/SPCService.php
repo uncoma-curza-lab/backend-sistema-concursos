@@ -66,7 +66,7 @@ class SPCService
 
     }
 
-    public function getProgramUrl(int $course_id) : ?string
+    public function getLastProgramUrl(int $course_id) : ?string
     {
         $response = $this->getOne('asignatura', $course_id, ['withExport' => '1']);
 
