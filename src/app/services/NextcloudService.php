@@ -5,6 +5,8 @@ namespace app\services;
 use Exception;
 use Yii;
 
+use function GuzzleHttp\json_decode;
+
 class NextcloudService
 {
     use GuzzleTrait;
@@ -84,6 +86,9 @@ class NextcloudService
                 method: 'POST',
             );
             $xml = simplexml_load_string($response->getBody());
+            
+            Yii::info(json_encode($xml), 'NextcloudService-createFolderShare');
+
             $shareId = (int) $xml->data->id;
             $shareUrl = $xml->data->url;
             return [
