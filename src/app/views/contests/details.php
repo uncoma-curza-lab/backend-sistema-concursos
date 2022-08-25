@@ -161,7 +161,6 @@ var notFindProgram = (event) => {
     event.preventDefault();
     $('#modalNoProgram').modal('show');
     console.log($('#modalNoProgram'))
-    //alert('<h1>No hay un programa</h1>');
 }
 JS;
 
