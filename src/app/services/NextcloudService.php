@@ -84,6 +84,9 @@ class NextcloudService
                 method: 'POST',
             );
             $xml = simplexml_load_string($response->getBody());
+            
+            Yii::info(json_encode($xml), 'NextcloudService-createFolderShare');
+
             $shareId = (int) $xml->data->id;
             $shareUrl = $xml->data->url;
             return [
