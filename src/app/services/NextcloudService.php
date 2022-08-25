@@ -5,8 +5,6 @@ namespace app\services;
 use Exception;
 use Yii;
 
-use function GuzzleHttp\json_decode;
-
 class NextcloudService
 {
     use GuzzleTrait;
