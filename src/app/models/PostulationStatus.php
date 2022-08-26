@@ -17,16 +17,16 @@ class PostulationStatus
         return Yii::t('models/postulation-status', $status);
     }
 
-    public static function isEqualStatus($compareStatus, $selfStatus) : bool
+    public static function isEqualStatus(string $compareStatus, string $equlaToStatus) : bool
     {
-        if(!self::isValidStauts($selfStatus)){
-            throw new \Exception("Error: The param $selfStatus is not a valid Postulation Status");
+        if(!self::isValidStauts($equlaToStatus)){
+            throw new \Exception("Error: The param $equlaToStatus is not a valid Postulation Status");
         }
 
-        return $compareStatus == $selfStatus;
+        return $compareStatus == $equlaToStatus;
     }
 
-    private static function isValidStauts($status) : bool
+    private static function isValidStauts(string $status) : bool
     {
         return in_array($status, self::STATUSES);
     }
