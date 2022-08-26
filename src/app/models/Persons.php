@@ -154,6 +154,27 @@ class Persons extends \yii\db\ActiveRecord
     }
 
     /**
+     * Make full name upper case on before save.
+     */
+
+    private function upperFullName()
+    {
+        $this->first_name = strtoupper($this->first_name);
+        $this->last_name = strtoupper($this->last_name);
+    }
+    
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+    
+        $this->upperFullName();
+        return true;
+
+    }
+
+    /**
      * {@inheritdoc}
      * @return PersonsQuery the active query used by this AR class.
      */
