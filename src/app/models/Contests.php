@@ -474,4 +474,14 @@ class Contests extends ActiveRecord
     {
         return in_array($this->category->code, ['AYP', 'AYS', 'GFD']);
     }
+
+    public function hasPendingPostulations() : bool
+    {
+        foreach ($this->postulations as $postulation) {
+            if($postulation->isStatusPending()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

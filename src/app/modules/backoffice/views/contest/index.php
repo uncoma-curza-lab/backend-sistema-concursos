@@ -67,8 +67,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ||
                             \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
                         ) {
+                            //Notify when have postulations on pending status
+                            $notify = $model->hasPendingPostulations() ? 'style="color: #E58B16;"' : '';
                             return Html::a(
-                                '<span class="bi bi-person-lines-fill" aria-hidden="true"></span>',
+                                '<span class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"></span>',
                                 Url::to(['postulation/contest', 'slug' => $model->code]),
                                 [
                                     'title' => 'Postulaciones'

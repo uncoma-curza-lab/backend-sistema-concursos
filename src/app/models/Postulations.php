@@ -192,4 +192,9 @@ class Postulations extends \yii\db\ActiveRecord
         }
         return null;
     }
+    
+    public function isStatusPending() : bool
+    {
+        return PostulationStatus::isEqualStatus($this->status, PostulationStatus::PENDING);
+    }
 }
