@@ -327,8 +327,9 @@ class Contests extends ActiveRecord
     {
         $now = new DateTime();
         $enrollment_date_end = new DateTime($this->enrollment_date_end);
+        $init_date = new DateTime($this->init_date);
 
-        return $now < $enrollment_date_end;
+        return $now < $enrollment_date_end && $now > $init_date;
     }
 
     public function canPostulate(): bool
