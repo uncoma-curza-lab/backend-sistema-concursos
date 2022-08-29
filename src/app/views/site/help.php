@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'Ayuda';
+$this->title = Yii::t('menu', 'help');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
