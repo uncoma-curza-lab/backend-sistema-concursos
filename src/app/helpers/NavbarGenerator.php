@@ -14,7 +14,11 @@ class NavbarGenerator
             [
                 'label' => Yii::t('menu', 'home'),
                 'url' => ['/site/index']
-            ]
+            ],
+            [
+                'label' => Yii::t('menu', 'help'),
+                'url' => ['/site/help']
+            ],
         ];
     }
 

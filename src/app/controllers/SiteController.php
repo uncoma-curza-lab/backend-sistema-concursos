@@ -135,8 +135,8 @@ class SiteController extends SCController
      *
      * @return string
      */
-    public function actionAbout()
+    public function actionHelp()
     {
-        return $this->render('about');
+        return $this->render('help');
     }
 }
