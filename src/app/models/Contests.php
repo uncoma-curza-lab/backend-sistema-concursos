@@ -263,7 +263,7 @@ class Contests extends ActiveRecord
 
     public function getContestJuriesRelationship()
     {
-        return $this->hasOne(ContestJury::class, ['contest_id' => 'id']);
+        return $this->hasMany(ContestJury::class, ['contest_id' => 'id']);
 
     }
 
