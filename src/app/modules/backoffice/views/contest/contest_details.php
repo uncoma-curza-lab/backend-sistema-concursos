@@ -34,6 +34,12 @@ if ($loggedUser) {
          ['contest/contest-files', 'contestId' => $params['model']->id],
          ['title' => 'Archivos', 'class' => 'nav-link vnav-link px-0']
      ));
+
+     array_push($contestLinks, Html::a(
+         '<i class="bi bi-people-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Jurados</span>',
+         Url::to(['juries/contest', 'slug' => $params['model']->code]),
+         ['title' => 'Jurados', 'class' => 'nav-link vnav-link px-0']
+     ));
  }
 ?>
 <div class="contests-details">
