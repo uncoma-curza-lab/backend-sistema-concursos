@@ -40,6 +40,7 @@ if ($loggedUser) {
        <div class="row align-items-center">
          <div id="column" class="col-md-auto">
              <nav class="nav flex-column vnav">
+                <h4><i class="bi bi-list"></i><span class="vnav-title" style="display: none"> Manú</span></h4>
                <?php 
                    foreach($contestLinks as $link){
                        echo $link;
@@ -58,13 +59,13 @@ $sideNavBar = <<< 'JS'
 let show = false;
 $('.vnav').hover(() => {
     if(!show){
-        $('.vnav-title').show("slow", () => {
+        $('.vnav-title').show(1000, () => {
             show = true
         })
        }
     }, () => {
     if(show){
-        $('.vnav-title').hide("slow", () => {
+        $('.vnav-title').hide(1000, () => {
             show = false
         })
         }
