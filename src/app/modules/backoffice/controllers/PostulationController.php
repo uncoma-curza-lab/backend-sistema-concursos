@@ -59,10 +59,14 @@ class PostulationController extends Controller
         $searchModel = new PostulationsByContestSearch($slug);
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('postulations_by_contest', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'contest' => $contest
+        return $this->render('/contest/contest_details', [
+            'view' => '/postulation/postulations_by_contest',
+            'params' => [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'contest' => $contest,
+                'model' => $contest
+            ],
         ]);
     }
 
