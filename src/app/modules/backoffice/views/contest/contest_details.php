@@ -17,7 +17,15 @@ $roles = null;
 if ($loggedUser) {
     $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
 }
-
+ if (in_array('admin', $roles) || in_array('jury', $roles) || in_array('teach_departament', $roles)) {
+     //Notify when have postulations on pending status
+     $notify = $params['model']->hasPendingPostulations() ? 'style="color: #E58B16;"' : '';
+     array_push($contestLinks, Html::a(
+         '<i class="bi bi-eye-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Detalles</span>',
+         Url::to(['/backoffice/contest/view', 'slug' => $params['model']->code]),
+         ['title' => 'Detalles', 'class' => 'nav-link vnav-link px-0']
+     ));
+ }
  if (in_array('admin', $roles) || in_array('jury', $roles) || in_array('teach_departament', $roles)) {
      //Notify when have postulations on pending status
      $notify = $params['model']->hasPendingPostulations() ? 'style="color: #E58B16;"' : '';
@@ -26,7 +34,6 @@ if ($loggedUser) {
          Url::to(['postulation/contest', 'slug' => $params['model']->code]),
          ['title' => 'Postulaciones', 'class' => 'nav-link vnav-link px-0']
      ));
-     
  }
  if (in_array('admin', $roles) || in_array('jury', $roles) || in_array('teach_departament', $roles)) {
      array_push($contestLinks, Html::a(
