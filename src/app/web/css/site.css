@@ -87,7 +87,11 @@ a > span.bi{
     font-size: 1.7em;
 }
 
-a > i.bi{
+.vnav-link{
     font-size: 1.4em;
+    transition: transform .2s;
 }
 
+.vnav-link:hover{
+    transform: scale(1.1);
+}

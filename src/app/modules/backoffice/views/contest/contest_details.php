@@ -24,7 +24,7 @@ if ($loggedUser) {
      array_push($contestLinks, Html::a(
          '<i class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"></i><span class="vnav-title" style="display: none"> Postulaciones</span>',
          Url::to(['postulation/contest', 'slug' => $params['model']->code]),
-         ['title' => 'Postulaciones', 'class' => 'nav-link px-0']
+         ['title' => 'Postulaciones', 'class' => 'nav-link vnav-link px-0']
      ));
      
  }
@@ -32,7 +32,7 @@ if ($loggedUser) {
      array_push($contestLinks, Html::a(
          '<i class="bi bi-folder-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Archivos</span>',
          ['contest/contest-files', 'contestId' => $params['model']->id],
-         ['title' => 'Archivos', 'class' => 'nav-link px-0']
+         ['title' => 'Archivos', 'class' => 'nav-link vnav-link px-0']
      ));
  }
 ?>
