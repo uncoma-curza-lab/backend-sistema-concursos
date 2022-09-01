@@ -348,8 +348,12 @@ class ContestController extends Controller
             
         }        
         $shareUrl = str_replace($_ENV['NEXTCLOUD_URL'], $_ENV['NEXTCLUD_ALTERNATIVE_URL'], $shareUrl);
-        return $this->render('contest_files', [
-                'shareUrl' => $shareUrl,
+        return $this->render('contest_details', [
+                 'params' => [
+                     'shareUrl' => $shareUrl,
+                     'model' => $contest,
+                 ],
+                'view' => '_contest_files',
             ]);
 
     }

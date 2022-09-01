@@ -19,10 +19,7 @@ $this->params['breadcrumbs'][] = $view;
              </nav>
          </div>
          <div class="col-11">
-             <?= $this->render($view, [
-                 'model' => $model,
-                 'params' => $params,
-                 ]) ?>
+             <?= $this->render($view, $params) ?>
          </div>
        </div>
      </div>
