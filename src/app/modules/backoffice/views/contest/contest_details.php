@@ -6,6 +6,7 @@
 
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backoffice', 'contests'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $view;
@@ -21,25 +22,24 @@ if ($loggedUser) {
      //Notify when have postulations on pending status
      $notify = $params['model']->hasPendingPostulations() ? 'style="color: #E58B16;"' : '';
      array_push($contestLinks, Html::a(
-         '<span class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"> Postulaciones</span>',
+         '<i class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"></i><span class="vnav-title" style="display: none"> Postulaciones</span>',
          Url::to(['postulation/contest', 'slug' => $params['model']->code]),
-         ['title' => 'Postulaciones', 'class' => 'nav-link']
+         ['title' => 'Postulaciones', 'class' => 'nav-link px-0']
      ));
      
  }
  if (in_array('admin', $roles) || in_array('jury', $roles) || in_array('teach_departament', $roles)) {
      array_push($contestLinks, Html::a(
-         '<span class="bi bi-folder-fill" aria-hidden="true"> Archivos</span>',
+         '<i class="bi bi-folder-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Archivos</span>',
          ['contest/contest-files', 'contestId' => $params['model']->id],
-         ['title' => 'Archivos', 'class' => 'nav-link']
+         ['title' => 'Archivos', 'class' => 'nav-link px-0']
      ));
  }
 ?>
 <div class="contests-create">
-     <div class="container">
-       <div class="row">
-         <div class="col-1">
-             <nav class="nav flex-column">
+       <div class="row align-items-center">
+         <div id="column" class="col-md-auto">
+             <nav class="nav flex-column vnav">
                <?php 
                    foreach($contestLinks as $link){
                        echo $link;
@@ -47,9 +47,30 @@ if ($loggedUser) {
                ?>
              </nav>
          </div>
-         <div class="col-11">
+         <div class="col vnav-side">
              <?= $this->render($view, $params) ?>
          </div>
        </div>
-     </div>
 </div>
+<?php 
+$sideNavBar = <<< 'JS'
+    
+let show = false;
+$('.vnav').hover(() => {
+    if(!show){
+        $('.vnav-title').show("slow", () => {
+            show = true
+        })
+       }
+    }, () => {
+    if(show){
+        $('.vnav-title').hide("slow", () => {
+            show = false
+        })
+        }
+});
+JS;
+
+$this->registerJs($sideNavBar, View::POS_READY, 'side-nav-bar');
+?>
+
