@@ -44,4 +44,6 @@ parte del postulante, el conocimiento y la aceptación de las condiciones fijada
     'confirm_data' => 'DECLARO BAJO JURAMENTO NO ESTAR COMPROMETIDO EN LAS CAUSALES DE INHABILITACIÓN PARA EL DESEMPEÑO DE CARGOS PÚBLICOS',
     'inscription_button' => 'Postularse',
     'contest_not_found' => 'Concurso no encontrado',
+    'change_pass_old_password' => 'Contraseña actual',
+    'change_pass_new_password' => 'Nueva contraseña',
 ];
