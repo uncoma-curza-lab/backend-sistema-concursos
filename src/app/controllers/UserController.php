@@ -6,6 +6,7 @@ use app\models\City;
 use app\models\Countries;
 use app\models\Persons;
 use app\models\ProfileForm;
+use app\models\ChangePasswordForm;
 use app\models\Provinces;
 use app\models\User;
 use yii\web\Controller;
@@ -95,4 +96,13 @@ class UserController extends Controller
         ]);
     }
 
+    public function actionChangePassword()
+    {
+        $changePasswordForm = new ChangePasswordForm();
+
+        return $this->render('/user/change_password', [
+            'model' => $changePasswordForm,
+        ]);
+
+    }
 }

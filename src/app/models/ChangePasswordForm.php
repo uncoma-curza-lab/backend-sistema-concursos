@@ -6,13 +6,10 @@ use Yii;
 use yii\base\Model;
 
 
-class LoginForm extends Model
+class ChangePasswordForm extends Model
 {
     public $oldPassword;
     public $newPassword;
-
-    private $_user;
-
 
     /**
      * @return array the validation rules.
