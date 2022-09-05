@@ -100,6 +100,15 @@ class UserController extends Controller
     {
         $changePasswordForm = new ChangePasswordForm();
 
+        $request = \Yii::$app->request;
+        if ($request->isPost) {
+          if ($changePasswordForm->load($request->post()) && $changePasswordForm->changePassword()) {
+            \Yii::$app->session->setFlash('success', 'Su contraseña fue actualizada con éxito');
+            return $this->refresh();
+          }
+          \Yii::$app->session->setFlash('error', 'No se pudo guardar la contraseña. Verifique la información');
+        }
+
         return $this->render('/users/change_password', [
             'model' => $changePasswordForm,
         ]);

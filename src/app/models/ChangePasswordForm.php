@@ -11,6 +11,7 @@ class ChangePasswordForm extends Model
     public $oldPassword;
     public $newPassword;
 
+    private $_user = false;
     /**
      * @return array the validation rules.
      */
@@ -19,7 +20,7 @@ class ChangePasswordForm extends Model
         return [
             [['oldPassword', 'newPassword'], 'required'],
             // password is validated by validatePassword()
-            ['newPassword', 'validatePassword'],
+            ['oldPassword', 'validatePassword'],
         ];
     }
 
@@ -40,8 +41,10 @@ class ChangePasswordForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
+        //var_dump($this->getUser() == \Yii::$app->user->identity);
+        //exit;
         if (!$this->hasErrors()) {
-            $user = \Yii::$app->user;
+            $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->oldPassword)) {
                 $this->addError($attribute, 'Contraseña incorrecta.');
@@ -54,6 +57,36 @@ class ChangePasswordForm extends Model
 
     public function changePassword()
     {
-        //code
+         if (!$this->validate()) {
+            return null;
+        }
+        
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
+            $user = $this->getUser();
+            $user->setPassword($this->newPassword);
+        
+            if (!$user->save()) {
+                $transaction->rollBack();
+                return null;
+            }
+
+            $transaction->commit();
+            return $user;
+        } catch(\Throwable $e) {
+            \Yii::error($e);
+            $transaction->rollBack();
+            return null;
+        }
     }
+
+    public function getUser()
+    {
+        if ($this->_user === false) {
+            $this->_user = User::find()->getByUsername(\Yii::$app->user->identity['uid']);
+        }
+
+        return $this->_user;
+    }
+
 }
