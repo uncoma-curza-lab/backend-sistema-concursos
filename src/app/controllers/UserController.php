@@ -26,7 +26,7 @@ class UserController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['logout', 'profile'],
+                        'actions' => ['logout', 'profile', 'change-password'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -100,7 +100,7 @@ class UserController extends Controller
     {
         $changePasswordForm = new ChangePasswordForm();
 
-        return $this->render('/user/change_password', [
+        return $this->render('/users/change_password', [
             'model' => $changePasswordForm,
         ]);
 
