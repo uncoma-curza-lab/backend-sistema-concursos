@@ -17,6 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+<?php 
+        if (
+            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+            ||
+            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+            ):
+?>
         <?= Html::a(Yii::t('backoffice', 'Actualizar'), ['update', 'slug' => $model->code], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('backoffice', 'Eliminar'), ['delete', 'slug' => $model->code], [
             'class' => 'btn btn-danger',
@@ -24,7 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'confirm' => Yii::t('backoffice', 'Está seguro de que desea eliminar el concurso?'),
                 'method' => 'post',
             ],
-        ]) ?>
+        ]);
+        endif;
+?>
         <?php if ($model->contestStatus->is(ContestStatus::DRAFT)) : ?>
         <?= Html::a(Yii::t('backoffice', 'Publicar concurso'), ['publish-contest', 'slug' => $model->code], [
             'class' => 'btn btn-info',

@@ -64,10 +64,14 @@ class JuriesController extends Controller
         $searchModel = new JuriesByContestSearch($slug);
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('juries_by_contest', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'contest' => $contest
+        return $this->render('/contest/contest_details', [
+            'view' => '/juries/_juries_by_contest',
+            'params' => [
+                 'searchModel' => $searchModel,
+                 'dataProvider' => $dataProvider,
+                 'contest' => $contest,
+                 'model' => $contest
+            ],
         ]);
     }
 

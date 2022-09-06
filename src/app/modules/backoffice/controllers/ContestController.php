@@ -115,9 +115,13 @@ class ContestController extends Controller
      */
     public function actionView($slug)
     {
-        return $this->render('view', [
-            'model' => Contests::find()->filterQueryBySlug($slug)
-                                       ->complete()->one(),
+        $model = Contests::find()->filterQueryBySlug($slug)
+                                       ->complete()->one();
+        return $this->render('contest_details', [
+            'view' => '_view',
+            'params' => [
+                'model' => $model,
+            ],
         ]);
     }
 
@@ -348,8 +352,12 @@ class ContestController extends Controller
             
         }        
         $shareUrl = str_replace($_ENV['NEXTCLOUD_URL'], $_ENV['NEXTCLUD_ALTERNATIVE_URL'], $shareUrl);
-        return $this->render('contest_files', [
-                'shareUrl' => $shareUrl,
+        return $this->render('contest_details', [
+                 'params' => [
+                     'shareUrl' => $shareUrl,
+                     'model' => $contest,
+                 ],
+                'view' => '_contest_files',
             ]);
 
     }
