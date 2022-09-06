@@ -12,6 +12,8 @@ use yii\widgets\ActiveForm;
       Yii::$app->session->getAllFlashes();
     ?>
 
+    <h1><?= Yii::t('app', 'change_password_title') ?></h1>
+
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'oldPassword')->passwordInput(['maxlength' => true]) ?>

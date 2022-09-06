@@ -48,5 +48,5 @@ part of the applicant, the knowledge and acceptance of the conditions establishe
     'contest_not_found' => 'Contest not found',
     'change_pass_old_password' => 'Current password',
     'change_pass_new_password' => 'New password',
-
+    'change_password_title' => 'Change Password',
 ];

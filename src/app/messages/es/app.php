@@ -46,4 +46,5 @@ parte del postulante, el conocimiento y la aceptación de las condiciones fijada
     'contest_not_found' => 'Concurso no encontrado',
     'change_pass_old_password' => 'Contraseña actual',
     'change_pass_new_password' => 'Nueva contraseña',
+    'change_password_title' => 'Cambiar Contraseña',
 ];
