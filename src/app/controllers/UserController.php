@@ -6,6 +6,7 @@ use app\models\City;
 use app\models\Countries;
 use app\models\Persons;
 use app\models\ProfileForm;
+use app\models\ChangePasswordForm;
 use app\models\Provinces;
 use app\models\User;
 use yii\web\Controller;
@@ -25,7 +26,7 @@ class UserController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['logout', 'profile'],
+                        'actions' => ['logout', 'profile', 'change-password'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -95,4 +96,22 @@ class UserController extends Controller
         ]);
     }
 
+    public function actionChangePassword()
+    {
+        $changePasswordForm = new ChangePasswordForm();
+
+        $request = \Yii::$app->request;
+        if ($request->isPost) {
+          if ($changePasswordForm->load($request->post()) && $changePasswordForm->changePassword()) {
+            \Yii::$app->session->setFlash('success', 'Su contraseña fue actualizada con éxito');
+            return $this->refresh();
+          }
+          \Yii::$app->session->setFlash('error', 'No se pudo guardar la contraseña. Verifique la información');
+        }
+
+        return $this->render('/users/change_password', [
+            'model' => $changePasswordForm,
+        ]);
+
+    }
 }

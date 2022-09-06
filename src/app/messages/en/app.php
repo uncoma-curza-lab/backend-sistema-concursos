@@ -46,4 +46,7 @@ part of the applicant, the knowledge and acceptance of the conditions establishe
     'confirm_data' => 'I DECLARE UNDER OATH NOT TO BE INVOLVED IN THE CAUSES OF DISQUALIFICATION FOR THE PERFORMANCE OF PUBLIC OFFICES',
     'inscription_button' => 'Apply',
     'contest_not_found' => 'Contest not found',
+    'change_pass_old_password' => 'Current password',
+    'change_pass_new_password' => 'New password',
+    'change_password_title' => 'Change Password',
 ];

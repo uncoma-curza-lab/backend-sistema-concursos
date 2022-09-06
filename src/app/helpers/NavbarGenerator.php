@@ -57,6 +57,10 @@ class NavbarGenerator
                     'label' => Yii::t('menu', 'Profile') ,
                     'url' =>['user/profile']
                 ],
+                [
+                    'label' => Yii::t('menu', 'change_password') ,
+                    'url' =>['user/change-password']
+                ],
                 self::getLogout(),
             ],
         ];

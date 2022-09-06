@@ -8,4 +8,5 @@ return [
     'signup' => 'Registrarse',
     'my_postulations' => 'Postulaciones',
     'Profile' => 'Editar perfil',
+    'change_password' => 'Cambiar contraseña',
 ];
