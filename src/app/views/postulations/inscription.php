@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
 <div class="form-group text-center">
 
-    <?= Html::tag('a', 'Ver reglamentación', [
+    <?= Html::tag('a', Yii::t('app', 'view_regulations'), [
         'href' => Url::to('/site/help/'),
         'target' => '_blank',
         'class' => 'btn btn-outline-info',

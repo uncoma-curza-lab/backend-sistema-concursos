@@ -46,4 +46,5 @@ return [
     'change_pass_old_password' => 'Contraseña actual',
     'change_pass_new_password' => 'Nueva contraseña',
     'change_password_title' => 'Cambiar Contraseña',
+    'view_regulations' => 'Ver reglamentaciones', 
 ];
