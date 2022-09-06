@@ -19,6 +19,7 @@ class ChangePasswordForm extends Model
     {
         return [
             [['oldPassword', 'newPassword'], 'required'],
+            ['newPassword', 'string', 'min' => 6],
             // password is validated by validatePassword()
             ['oldPassword', 'validatePassword'],
         ];
