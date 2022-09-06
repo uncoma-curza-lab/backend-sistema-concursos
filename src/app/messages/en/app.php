@@ -41,8 +41,7 @@ return [
     'date_of_birth' => 'Date of birth',
     'save_button' => 'Save',
     'postulations' => 'My postulations',
-    'terms_accepted_article_22' => 'Article 22 (Res. CD CURZA N 112/1991): The presentation of the application for registration matters, for
-part of the applicant, the knowledge and acceptance of the conditions established in this regulation',
+    'terms_accepted_article_22' => 'The presentation of the application for registration matters, for part of the applicant, the knowledge and acceptance of the conditions established in this regulation',
     'confirm_data' => 'I DECLARE UNDER OATH NOT TO BE INVOLVED IN THE CAUSES OF DISQUALIFICATION FOR THE PERFORMANCE OF PUBLIC OFFICES',
     'inscription_button' => 'Apply',
     'contest_not_found' => 'Contest not found',
