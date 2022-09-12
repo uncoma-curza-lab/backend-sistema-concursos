@@ -39,12 +39,12 @@ return [
     'date_of_birth' => 'Fecha de nacimiento',
     'save_button' => 'Confirmar',
     'postulations' => 'Inscripciones realizadas',
-    'terms_accepted_article_22' => 'Artículo 9 (Res. CD CURZA N 150/2020): La presentación de la solicitud de inscripción importa, por
-parte del postulante, el conocimiento y la aceptación de las condiciones fijadas en este reglamento',
+    'terms_accepted_article_22' => 'La presentación de la solicitud de inscripción importa, por parte del postulante, el conocimiento y la aceptación de las condiciones fijadas en la reglamentación vigente',
     'confirm_data' => 'DECLARO BAJO JURAMENTO NO ESTAR COMPROMETIDO EN LAS CAUSALES DE INHABILITACIÓN PARA EL DESEMPEÑO DE CARGOS PÚBLICOS',
     'inscription_button' => 'Postularse',
     'contest_not_found' => 'Concurso no encontrado',
     'change_pass_old_password' => 'Contraseña actual',
     'change_pass_new_password' => 'Nueva contraseña',
     'change_password_title' => 'Cambiar Contraseña',
+    'view_regulations' => 'Ver reglamentaciones', 
 ];

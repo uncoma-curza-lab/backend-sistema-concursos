@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 ?>
@@ -20,6 +21,16 @@ use yii\widgets\ActiveForm;
         'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
     ]) ?>
 
+<div class="form-group text-center">
+
+    <?= Html::tag('a', Yii::t('app', 'view_regulations'), [
+        'href' => Url::to('/site/help/'),
+        'target' => '_blank',
+        'class' => 'btn btn-outline-info',
+        ]);
+    ?>
+
+</div>
     <?= $form->field($inscriptionForm, 'confirm_data')->checkbox([
         'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
     ]) ?>
