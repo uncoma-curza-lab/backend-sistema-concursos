@@ -175,10 +175,10 @@ $form = ActiveForm::begin([]); ?>
           'options' => ['rows' => 15],
           'language' => 'es',
           'clientOptions' => [
-              'plugins' => [
-                  "advlist autolink lists link charmap print preview anchor",
-                  "searchreplace visualblocks code fullscreen",
-                  "insertdatetime media table contextmenu paste"
+            'plugins' => [
+              'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+              'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+              'media', 'table', 'emoticons', 'template', 'help'
               ],
               'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
           ]
