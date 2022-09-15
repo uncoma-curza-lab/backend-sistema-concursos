@@ -25,4 +25,6 @@ return [
     'label_field_qty' => 'Cantidad de cargos a cubrir',
     'category' => 'Categoría',
     'activity' => 'Actividad',
+    'enrollment_active' => 'Inscripciones abiertas hasta ',
+    'enrollment_close' => 'Inscripciones cerradas el ',
 ];
