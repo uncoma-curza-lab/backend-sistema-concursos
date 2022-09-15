@@ -13,6 +13,7 @@ return [
     'remuneration_type' => 'Remuneración',
     'course' => 'Asignatura / Curso',
     'quantity' => 'Cantidad',
+    'contest_files' => 'Archivos',
     'orientation' => 'Orientación',
     'area' => 'Area',
     'description' => 'Descripción',

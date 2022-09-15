@@ -24,15 +24,16 @@ if ($loggedUser) {
       //Notify when have postulations on pending status
      $notify = $params['model']->hasPendingPostulations() ? 'style="color: #E58B16;"' : '';
      array_push($contestLinks, Html::a(
-         '<i class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"></i><span class="vnav-title" style="display: none"> Postulaciones</span>',
+         '<i class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"></i><span class="vnav-title" style="display: none"> ' .
+             Yii::t('models/postulation', 'plural') . '</span>',
          Url::to(['postulation/contest', 'slug' => $params['model']->code]),
-         ['title' => 'Postulaciones', 'class' => 'nav-link vnav-link px-0 vnav-close']
+         ['title' => Yii::t('models/postulation', 'plural'), 'class' => 'nav-link vnav-link px-0 vnav-close']
      ));
 
       array_push($contestLinks, Html::a(
-         '<i class="bi bi-folder-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Archivos</span>',
+         '<i class="bi bi-folder-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> '.Yii::t('models/contest', 'contest_files') .'</span>',
          ['contest/contest-files', 'contestId' => $params['model']->id],
-         ['title' => 'Archivos', 'class' => 'nav-link vnav-link px-0 vnav-close']
+         ['title' => Yii::t('models/contest', 'contest_files'), 'class' => 'nav-link vnav-link px-0 vnav-close']
      ));
 
      array_push($contestLinks, Html::a(
