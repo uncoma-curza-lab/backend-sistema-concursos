@@ -18,6 +18,7 @@ return [
     'area' => 'Area',
     'description' => 'Descripción',
     'career' => 'Carrera',
+    'view_title' => 'Detalles',
     'departament' => 'Departamento',
     'evaluation_departament' => 'Departamento evaluador',
     'contest_status' => 'Estado de concurso',
