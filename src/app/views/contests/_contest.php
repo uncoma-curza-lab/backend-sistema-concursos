@@ -17,7 +17,7 @@ $moreUrl = Url::to([
 $today = date_create();
 $enrollmentDateEnd = date_create($model->enrollment_date_end);
 $enrollmentEnd = $enrollmentDateEnd > $today;
-$incriptionText = $enrollmentEnd ? 'Inscripciones abiertas hasta ' : 'Incripciones cerradas el '; 
+$incriptionText = $enrollmentEnd ? \Yii::t('models/contest', 'enrollment_active') : \Yii::t('models/contest', 'enrollment_close'); 
 $incriptionTextClass = $enrollmentEnd ? 'text-muted' : 'text-danger';
 
 ?>

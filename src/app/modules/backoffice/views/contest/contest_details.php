@@ -16,29 +16,30 @@ if ($loggedUser) {
 }
  if (in_array('admin', $roles) || in_array('jury', $roles) || in_array('teach_departament', $roles)) {
      array_push($contestLinks, Html::a(
-         '<i class="bi bi-eye-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Detalles</span>',
+         '<i class="bi bi-eye-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> '.Yii::t('models/contest', 'view_title').'</span>',
          Url::to(['/backoffice/contest/view', 'slug' => $params['model']->code]),
-         ['title' => 'Detalles', 'class' => 'nav-link vnav-link px-0 vnav-close']
+         ['title' => Yii::t('models/contest', 'view_title'), 'class' => 'nav-link vnav-link px-0 vnav-close']
      ));
 
       //Notify when have postulations on pending status
      $notify = $params['model']->hasPendingPostulations() ? 'style="color: #E58B16;"' : '';
      array_push($contestLinks, Html::a(
-         '<i class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"></i><span class="vnav-title" style="display: none"> Postulaciones</span>',
+         '<i class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"></i><span class="vnav-title" style="display: none"> ' .
+             Yii::t('models/postulation', 'plural') . '</span>',
          Url::to(['postulation/contest', 'slug' => $params['model']->code]),
-         ['title' => 'Postulaciones', 'class' => 'nav-link vnav-link px-0 vnav-close']
+         ['title' => Yii::t('models/postulation', 'plural'), 'class' => 'nav-link vnav-link px-0 vnav-close']
      ));
 
       array_push($contestLinks, Html::a(
-         '<i class="bi bi-folder-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Archivos</span>',
+         '<i class="bi bi-folder-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> '.Yii::t('models/contest', 'contest_files') .'</span>',
          ['contest/contest-files', 'contestId' => $params['model']->id],
-         ['title' => 'Archivos', 'class' => 'nav-link vnav-link px-0 vnav-close']
+         ['title' => Yii::t('models/contest', 'contest_files'), 'class' => 'nav-link vnav-link px-0 vnav-close']
      ));
 
      array_push($contestLinks, Html::a(
-         '<i class="bi bi-people-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Jurados</span>',
+         '<i class="bi bi-people-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> '.Yii::t('models/jury', 'plural').'</span>',
          Url::to(['juries/contest', 'slug' => $params['model']->code]),
-         ['title' => 'Jurados', 'class' => 'nav-link vnav-link px-0 vnav-close']
+         ['title' => Yii::t('models/jury', 'plural'), 'class' => 'nav-link vnav-link px-0 vnav-close']
      ));
  }
 ?>
@@ -46,12 +47,19 @@ if ($loggedUser) {
        <div class="row align-items-center">
          <div id="column" class="col-md-auto">
              <nav class="nav flex-column vnav">
-                <a id="btn-menu" href="" class="nav-link vnav-link px-0 vnav-close"><h4><i class="bi bi-list"></i><span class="vnav-title" style="display: none"> Manú</span></h4></a>
-               <?php 
-                   foreach($contestLinks as $link){
-                       echo $link;
-                   }
-               ?>
+                 <a id="btn-menu" href="" class="nav-link vnav-link px-0 vnav-close">
+                     <h4>
+                         <i class="bi bi-list"></i>
+                         <span class="vnav-title" style="display: none">
+                            <?= Yii::t('backoffice','menu') ?>
+                         </span>
+                     </h4>
+                 </a>
+                 <?php 
+                     foreach($contestLinks as $link){
+                         echo $link;
+                     }
+                 ?>
              </nav>
          </div>
          <div class="col">
