@@ -51,6 +51,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'contest_status_id',
                 'value' => fn($data) =>  $data->contestStatus->getStatusName() ?? 'unavailable',
+                'filter'    => [
+                    1 => \Yii::t('models/contest-status', 'draft'),
+                    2 => \Yii::t('models/contest-status', 'published'),
+                    3 => \Yii::t('models/contest-status', 'in_process'),
+                    4 => \Yii::t('models/contest-status', 'finished')
+                ]
             ],
             'init_date:date',
             'enrollment_date_end:date',

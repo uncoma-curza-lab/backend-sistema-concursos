@@ -18,7 +18,7 @@ class ContestSearch extends Contests
     public function rules()
     {
         return [
-            [['id', 'qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'share_id'], 'integer'],
+            [['id', 'qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'share_id', 'contest_status_id'], 'integer'],
             [['name', 'code', 'init_date', 'end_date', 'enrollment_date_end', 'description', 'course_id'], 'safe'],
         ];
     }
@@ -77,6 +77,7 @@ class ContestSearch extends Contests
             'category_type_id' => $this->category_type_id,
             'area_id' => $this->area_id,
             'orientation_id' => $this->orientation_id,
+            'contest_status_id' => $this->contest_status_id,
         ]);
 
         $query->andFilterWhere(['ilike', 'name', $this->name])
