@@ -46,12 +46,19 @@ if ($loggedUser) {
        <div class="row align-items-center">
          <div id="column" class="col-md-auto">
              <nav class="nav flex-column vnav">
-                <a id="btn-menu" href="" class="nav-link vnav-link px-0 vnav-close"><h4><i class="bi bi-list"></i><span class="vnav-title" style="display: none"> Menú</span></h4></a>
-               <?php 
-                   foreach($contestLinks as $link){
-                       echo $link;
-                   }
-               ?>
+                 <a id="btn-menu" href="" class="nav-link vnav-link px-0 vnav-close">
+                     <h4>
+                         <i class="bi bi-list"></i>
+                         <span class="vnav-title" style="display: none">
+                            <?= Yii::t('backoffice','menu') ?>
+                         </span>
+                     </h4>
+                 </a>
+                 <?php 
+                     foreach($contestLinks as $link){
+                         echo $link;
+                     }
+                 ?>
              </nav>
          </div>
          <div class="col">

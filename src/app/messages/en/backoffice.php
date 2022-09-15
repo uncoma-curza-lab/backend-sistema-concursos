@@ -1,9 +1,10 @@
+
 <?php
 
 return [
     'Areas' => 'Areas',
     'Create Areas' => 'Crear area',
-    'menu' => 'Menú',
+    'menu' => 'Menu',
     'contests' => 'Concursos',
     'update_contest_title' => 'Editando - {name}',
     'create_contest' => 'Creando concurso',
