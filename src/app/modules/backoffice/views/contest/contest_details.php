@@ -37,9 +37,9 @@ if ($loggedUser) {
      ));
 
      array_push($contestLinks, Html::a(
-         '<i class="bi bi-people-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> Jurados</span>',
+         '<i class="bi bi-people-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> '.Yii::t('models/jury', 'plural').'</span>',
          Url::to(['juries/contest', 'slug' => $params['model']->code]),
-         ['title' => 'Jurados', 'class' => 'nav-link vnav-link px-0 vnav-close']
+         ['title' => Yii::t('models/jury', 'plural'), 'class' => 'nav-link vnav-link px-0 vnav-close']
      ));
  }
 ?>
