@@ -472,7 +472,7 @@ class Contests extends ActiveRecord
     
     public function isHelper(): bool
     {
-        return in_array($this->category->code, ['AYP', 'AYS', 'GFD']);
+        return in_array($this->category->code, ['AYP', 'AYS', 'GFD', 'JTP']);
     }
 
     public function hasPendingPostulations() : bool
