@@ -34,9 +34,13 @@ class ContestJuriesQuery extends \yii\db\ActiveQuery
 
     public function getByContestAndUser(int $userId, string $contestId)
     {
-        return $this->where(['=', 'contest.code', $contestId])
-                    ->where(['=', 'user_id', $userId])
-                    ->with(['user','contest'])
-                    ->one();
+        return $this->joinWith([
+            'user' => function($query) use ($userId){
+                    $query->andWhere(['users.id' => $userId]);
+            },
+            'contest' => function($query) use ($contestId){
+                    $query->andWhere(['contests.code' => $contestId]);
+            }])
+            ->one();
     }
 }
