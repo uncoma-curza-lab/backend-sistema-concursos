@@ -82,4 +82,13 @@ class ContestJury extends \yii\db\ActiveRecord
     {
         return new ContestJuriesQuery(get_called_class());
     }
+
+    public function setJuryPermission(int $userId)
+    {
+        $authManager = Yii::$app->authManager;
+        if($authManager->checkAccess($userId, 'postulant')){
+            $authManager->revokeAll($userId);
+            $authManager->assign($authManager->getRole('jury'), $userId);
+        }
+    }
 }
