@@ -83,12 +83,40 @@ class ContestJury extends \yii\db\ActiveRecord
         return new ContestJuriesQuery(get_called_class());
     }
 
-    public function setJuryPermission(int $userId)
+    public function setJuryPermission()
     {
         $authManager = Yii::$app->authManager;
-        if($authManager->checkAccess($userId, 'postulant')){
-            $authManager->revokeAll($userId);
-            $authManager->assign($authManager->getRole('jury'), $userId);
+        if($authManager->checkAccess($this->user_id, 'postulant')){
+            $authManager->revokeAll($this->user_id);
+            $authManager->assign($authManager->getRole('jury'), $this->user_id);
         }
+    }
+
+    public function unsetJuryPermission()
+    {
+        if(!$this->hasInProgressContest()){
+            $authManager = Yii::$app->authManager;
+            if($authManager->checkAccess($this->user_id, 'jury')){
+                $authManager->revokeAll($this->user_id);
+                $authManager->assign($authManager->getRole('postulant'), $this->user_id);
+            }
+        }
+    }
+
+    private function hasInProgressContest() : bool
+    {
+        $contestJuries = $this->find()
+            ->where(['=', 'user_id', $this->user_id])
+            ->all();
+
+        foreach ($contestJuries as $contestJury) {
+            $contest = Contests::findOne($contestJury->contest_id);
+            if(!$contest->isFinished() && $contest->id != $this->contest_id){
+               return true;
+            }
+        }
+
+        return false;
+
     }
 }
