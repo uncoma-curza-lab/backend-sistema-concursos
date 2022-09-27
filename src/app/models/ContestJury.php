@@ -105,18 +105,13 @@ class ContestJury extends \yii\db\ActiveRecord
 
     private function hasInProgressContest() : bool
     {
-        $contestJuries = $this->find()
-            ->where(['=', 'user_id', $this->user_id])
-            ->all();
-
-        foreach ($contestJuries as $contestJury) {
-            $contest = Contests::findOne($contestJury->contest_id);
-            if(!$contest->isFinished() && $contest->id != $this->contest_id){
+        $juryOfNotFinishedContests = $this->find()->getNotFinishedContest($this->user_id);
+        foreach ($juryOfNotFinishedContests as $contestJury) {
+            if($contestJury->contest_id != $this->contest_id){
                return true;
             }
         }
 
         return false;
-
     }
 }
