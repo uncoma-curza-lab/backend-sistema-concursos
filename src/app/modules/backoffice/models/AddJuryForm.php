@@ -50,7 +50,7 @@ class AddJuryForm extends Model
         $contestJury->user_id = $this->userId;
         $contestJury->is_president = $this->isPresident;
 
-        $contestJury->setJuryPermission($this->userId);
+        $contestJury->setJuryPermission();
 
         $contestJury->save();
         return $contestJury;
