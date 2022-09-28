@@ -123,8 +123,6 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                     'set-status' => function($url, $model, $key) use ($adminRol, $teacher_departmentRol){
                         if (
                             $adminRol
-                            ||
-                            $teacher_departmentRol
                         ) {
                             return Html::a(
                                 '<span class="bi bi-ui-radios" aria-hidden="true"></span>',

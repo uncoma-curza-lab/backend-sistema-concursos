@@ -54,7 +54,7 @@ class ContestController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'roles' => ['teach_departament', 'admin'],
+                            'roles' => ['admin'],
                         ],
                         [
                             'allow' => true,
@@ -63,7 +63,7 @@ class ContestController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['publish-resolution'],
+                            'actions' => ['create', 'update', 'delete', 'publish-contest', 'download-resolution', 'upload-resolution', 'publish-resolution'],
                             'roles' => ['teach_departament'],
                         ],
                         [
