@@ -209,6 +209,9 @@ class ContestController extends Controller
         $model = $this->findModel($slug);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            if($model->isFinished()){
+                $model->cleanJuriesPermisions();
+            }
             return $this->redirect(['index']);
         }
         $statuses = ContestStatus::find()->all();
