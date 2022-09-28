@@ -13,6 +13,10 @@ $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
 
 $this->title = Yii::t('backoffice', 'contests');
 $this->params['breadcrumbs'][] = $this->title;
+
+$adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
+$teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament');
+
 ?>
 <div class="contests-index">
 
@@ -65,13 +69,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => ' {view} {update} {delete} {postulations} {files} {juries} {set-status} {upload-resolution} {download-resolution} {publish-resolution}',
                 'buttons' => [
-                    'postulations' =>  function($url, $model, $key) {
+                    'postulations' =>  function($url, $model, $key) use ($adminRol, $teacher_departmentRol){
                         if (
+                            $adminRol
+                            ||
+                            $teacher_departmentRol
+                            ||
                             \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'viewImplicatedPostulations', ['contestSlug' => $model->code])
-                            ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
-                            ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
                         ) {
                             //Notify when have postulations on pending status
                             $notify = $model->hasPendingPostulations() ? 'style="color: #E58B16;"' : '';
@@ -84,13 +88,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
-                    'files' => function($url, $model, $key){
+                    'files' => function($url, $model, $key) use ($adminRol, $teacher_departmentRol){
                         if (
+                            $adminRol
+                            ||
+                            $teacher_departmentRol
+                            ||
                             \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'viewImplicatedPostulations', ['contestSlug' => $model->code])
-                            ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
-                            ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
                         ) {
                             return Html::a(
                                 '<span class="bi bi-folder-fill" aria-hidden="true"></span>',
@@ -99,13 +103,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
-                    'juries' => function($url, $model, $key) {
+                    'juries' => function($url, $model, $key) use ($adminRol, $teacher_departmentRol){
                         if (
+                            $adminRol
+                            ||
+                            $teacher_departmentRol
+                            ||
                             \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'viewImplicatedPostulations', ['contestSlug' => $model->code])
-                            ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
-                            ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
                         ) {
                             return Html::a(
                                 '<span class="bi bi-people-fill" aria-hidden="true"></span>',
@@ -116,11 +120,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
-                    'set-status' => function($url, $model, $key) {
+                    'set-status' => function($url, $model, $key) use ($adminRol, $teacher_departmentRol){
                         if (
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            $adminRol
                             ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                            $teacher_departmentRol
                         ) {
                             return Html::a(
                                 '<span class="bi bi-ui-radios" aria-hidden="true"></span>',
@@ -131,14 +135,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
-                    'upload-resolution' => function($url, $model, $key) {
+                    'upload-resolution' => function($url, $model, $key) use ($adminRol, $teacher_departmentRol){
                         
                         if (
                             $model->canUploadResolution()
                             &&
-                            (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            ($teacher_departmentRol
                             ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                            $adminRol
                             ||
                             \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $model->code]))
                         ) {
@@ -162,14 +166,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
-                    'publish-resolution' => function($url, $model, $key) {
+                    'publish-resolution' => function($url, $model, $key) use ($adminRol, $teacher_departmentRol) {
                         if ($model->isDownloadeableResolution() 
                             &&
                             !$model->isResolutionPublished()
                             &&
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            ($teacher_departmentRol
                             ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                            $adminRol)
                         ) {
                             return Html::a(
                                 '<span class="bi bi-file-earmark-check" aria-hidden="true"></span>',
@@ -185,11 +189,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
-                    'delete' => function($url, $model, $key) {
+                    'delete' => function($url, $model, $key) use ($teacher_departmentRol, $adminRol){
                         if (
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
+                            $teacher_departmentRol
                             ||
-                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin')
+                            $adminRol
                         ) {
 
                             return Html::a(
@@ -209,10 +213,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
-                    'update' => function($url, $model, $key) {
-                        $loggedUser = Yii::$app->user;
-                        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
-                        if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
+                    'update' => function($url, $model, $key) use ($teacher_departmentRol, $adminRol){
+                        if (
+                            $teacher_departmentRol
+                            ||
+                            $adminRol
+                        ) {
 
                             return Html::a(
                                 '<span class="bi bi-pencil" aria-hidden="true"></span>',
@@ -226,10 +232,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         }
                     },
-                    'view' => function($url, $model, $key) {
-                        $loggedUser = Yii::$app->user;
-                        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
-                        if (in_array('admin', $roles) || in_array('teach_departament', $roles)) {
+                    'view' => function($url, $model, $key) use ($teacher_departmentRol, $adminRol){
+                        if (
+                            $teacher_departmentRol
+                            ||
+                            $adminRol
+                        ) {
 
                             return Html::a(
                                 '<span class="bi bi-eye-fill" aria-hidden="true"></span>',
