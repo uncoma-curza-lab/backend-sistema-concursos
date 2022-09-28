@@ -285,6 +285,7 @@ class ContestController extends Controller
         $model = $this->findModel($slug);
         if ($model->publishResolution()) {
             $model->save();
+            $model->cleanJuriesPermisions();
         }
 
         return $this->redirect(['index']);
