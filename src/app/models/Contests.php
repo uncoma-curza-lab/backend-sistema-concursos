@@ -484,4 +484,16 @@ class Contests extends ActiveRecord
         }
         return false;
     }
+
+       public function isFinished() : bool
+    {
+        return $this->contestStatus->id === ContestStatus::FINISHED;
+    }
+
+    public function cleanJuriesPermisions() 
+    {
+        foreach ($this->contestJuriesRelationship as $jury) {
+            $jury->unsetJuryPermission();
+        }
+    }
 }
