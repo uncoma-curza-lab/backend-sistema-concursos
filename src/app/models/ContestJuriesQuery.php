@@ -34,9 +34,27 @@ class ContestJuriesQuery extends \yii\db\ActiveQuery
 
     public function getByContestAndUser(int $userId, string $contestId)
     {
-        return $this->where(['=', 'contest.code', $contestId])
-                    ->where(['=', 'user_id', $userId])
-                    ->with(['user','contest'])
-                    ->one();
+        return $this->joinWith([
+            'user' => function($query) use ($userId){
+                    $query->andWhere(['users.id' => $userId]);
+            },
+            'contest' => function($query) use ($contestId){
+                    $query->andWhere(['contests.code' => $contestId]);
+            }])
+            ->one();
+    }
+
+    public function getNotFinishedContest(int $userId)
+    {
+        return $this->select('contest_id')
+                    ->joinWith([
+                      'user' => function($query) use ($userId){
+                              $query->andWhere('users.id = :id', ['id' => $userId]);
+                      },
+                      'contest' => function($query){
+                              $query->andWhere('contests.contest_status_id != :status', [':status' => ContestStatus::FINISHED]);
+                      }])
+                      ->all();
+
     }
 }

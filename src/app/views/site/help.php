@@ -29,6 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <ul>
         <li>
+            <a href="<?= url::to(['@web/documents/regulations/resol_0177_2022.pdf']) ?>" target="_blank">Resolución Nº 177/2022 - Reglamento de Llamados a Concurso Para Cargos Interinos y Suplentes</a>
+        </li>
+        <li>
             <a href="<?= Url::to(['@web/documents/regulations/ord_813_2021_52.pdf']) ?>" target="_blank">Ordenanza N.º 813/2021 - Reglamento de Concursos para Profesores Regulares</a>
         </li>
         <li>

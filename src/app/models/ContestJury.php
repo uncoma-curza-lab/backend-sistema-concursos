@@ -82,4 +82,36 @@ class ContestJury extends \yii\db\ActiveRecord
     {
         return new ContestJuriesQuery(get_called_class());
     }
+
+    public function setJuryPermission()
+    {
+        $authManager = Yii::$app->authManager;
+        if($authManager->checkAccess($this->user_id, 'postulant')){
+            $authManager->revokeAll($this->user_id);
+            $authManager->assign($authManager->getRole('jury'), $this->user_id);
+        }
+    }
+
+    public function unsetJuryPermission()
+    {
+        if(!$this->hasInProgressContest()){
+            $authManager = Yii::$app->authManager;
+            if($authManager->checkAccess($this->user_id, 'jury')){
+                $authManager->revokeAll($this->user_id);
+                $authManager->assign($authManager->getRole('postulant'), $this->user_id);
+            }
+        }
+    }
+
+    private function hasInProgressContest() : bool
+    {
+        $juryOfNotFinishedContests = $this->find()->getNotFinishedContest($this->user_id);
+        foreach ($juryOfNotFinishedContests as $contestJury) {
+            if($contestJury->contest_id != $this->contest_id){
+               return true;
+            }
+        }
+
+        return false;
+    }
 }
