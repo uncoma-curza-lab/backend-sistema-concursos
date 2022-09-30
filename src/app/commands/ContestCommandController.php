@@ -15,11 +15,9 @@ class ContestCommandController extends Controller
             ->all();
 
         foreach ($enrollmentDateEndContests as $contest) {
-            if($contest->setToInProgress()){
-                $messege = $contest->code . "Cambiado a IN_PROCESS \n";
-            }else{
-                $messege = $contest->code . "No Cambiado a IN_PROCESS \n";
-            }
+
+            $messege = $contest->setToInProgress() ? $contest->code . " Cambiado a IN_PROCESS \n" : $contest->code . " No Cambiado a IN_PROCESS \n";
+
             echo $messege;
             Yii::info($messege, 'Set-Contest-In-Progress');
         }
