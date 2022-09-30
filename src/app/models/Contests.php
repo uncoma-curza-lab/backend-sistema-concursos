@@ -448,6 +448,25 @@ class Contests extends ActiveRecord
         $this->save();
     }
 
+    public function setToInProgress(): bool
+    {
+        if (!$this->canSetInProgress()) {
+          return false;
+        }
+
+        $this->contest_status_id = ContestStatus::IN_PROCESS;
+        return $this->save();
+    }
+
+    public function canSetInProgress(): bool
+    {
+        $today = date_create();
+        $isEnrollmentDateEnd = $today >= date_create($this->enrollment_date_end);
+        $isPublished = $this->contest_status_id === ContestStatus::PUBLISHED;
+
+        return $isPublished && $isEnrollmentDateEnd;
+    }
+
     public function canPublish(): bool
     {
         return $this->contest_status_id === ContestStatus::DRAFT;
