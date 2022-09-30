@@ -448,14 +448,14 @@ class Contests extends ActiveRecord
         $this->save();
     }
 
-    public function setToInProgress(): void
+    public function setToInProgress(): bool
     {
         if (!$this->canSetInProgress()) {
-          return;
+          return false;
         }
 
         $this->contest_status_id = ContestStatus::IN_PROCESS;
-        $this->save();
+        return $this->save();
     }
 
     public function canSetInProgress(): bool

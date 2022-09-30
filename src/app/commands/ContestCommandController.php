@@ -2,6 +2,7 @@
 namespace app\commands;
 
 use app\models\Contests;
+use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
@@ -14,8 +15,13 @@ class ContestCommandController extends Controller
             ->all();
 
         foreach ($enrollmentDateEndContests as $contest) {
-            $contest->setToInProgress();
-            echo $contest->code . "Cambiado a IN_PROCESS \n";
+            if($contest->setToInProgress()){
+                $messege = $contest->code . "Cambiado a IN_PROCESS \n";
+            }else{
+                $messege = $contest->code . "No Cambiado a IN_PROCESS \n";
+            }
+            echo $messege;
+            Yii::info($messege, 'Set-Contest-In-Progress');
         }
 
         return ExitCode::OK;
