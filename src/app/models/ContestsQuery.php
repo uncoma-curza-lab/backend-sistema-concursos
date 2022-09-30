@@ -53,6 +53,12 @@ class ContestsQuery extends \yii\db\ActiveQuery
                     ->andWhere(['<=', 'init_date', date('Y-m-d H:i:s')]);
     }
 
+    public function onlyPublishedAndEnrollmentDateEnd() : self
+    {
+        return $this->andWhere(['=', 'contest_status_id', ContestStatus::PUBLISHED])
+                    ->andWhere(['<=', 'enrollment_date_end', date('Y-m-d H:i:s')]);
+    }
+
     public function sortBy(array $columns) : self
     {
         return $this->orderBy($columns);
