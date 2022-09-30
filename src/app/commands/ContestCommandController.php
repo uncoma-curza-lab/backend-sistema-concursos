@@ -11,12 +11,12 @@ class ContestCommandController extends Controller
     public function actionSetInProgress()
     {
         $enrollmentDateEndContests = Contests::find()
-            ->onlyPublicAndEnrollmentDateEnd()
+            ->onlyPublishedAndEnrollmentDateEnd()
             ->all();
 
         foreach ($enrollmentDateEndContests as $contest) {
 
-            $messege = $contest->setToInProgress() ? $contest->code . " Cambiado a IN_PROCESS \n" : $contest->code . " No Cambiado a IN_PROCESS \n";
+            $messege = $contest->setToInProgress() ? $contest->code . " Cambiado a IN_PROCESS \n" : $contest->code . " No Cambiado \n";
 
             echo $messege;
             Yii::info($messege, 'Set-Contest-In-Progress');
