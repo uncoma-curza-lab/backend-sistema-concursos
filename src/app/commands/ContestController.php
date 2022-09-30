@@ -6,7 +6,7 @@ use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
-class ContestCommandController extends Controller
+class ContestController extends Controller
 {
     public function actionSetInProgress()
     {
