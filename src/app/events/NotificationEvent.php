@@ -11,7 +11,7 @@ class NotificationEvent extends Event
 
     public function __construct($userReceiver){
         $this->userReceiver = $userReceiver;
-        $message = "";
+        $this->message = "";
         parent::__construct();
     }
 
