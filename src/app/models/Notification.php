@@ -32,10 +32,10 @@ class Notification extends \yii\db\ActiveRecord
     {
         return [
             [['user_to'], 'required'],
-            [['user_to'], 'default', 'value' => null],
             [['user_to'], 'integer'],
             [['message'], 'string'],
             [['read'], 'boolean'],
+            [['read'], 'default', 'value' => false],
             [['timestamp'], 'safe'],
             [['user_to'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_to' => 'id']],
         ];
