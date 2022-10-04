@@ -29,7 +29,7 @@ class NotificationEvent extends Event
     protected function saveNotification()
     {
         $notification = new Notification();
-        $notification->userTo = $this->userReceiver;
+        $notification->user_to = $this->userReceiver;
         $notification->message = $this->message;
         $notification->timestamp = date('Y-m-d h:m:s');
 

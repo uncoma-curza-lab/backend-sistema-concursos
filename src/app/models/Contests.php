@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\NotifiactionComponent;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -316,6 +317,9 @@ class Contests extends ActiveRecord
 
     public function publishResolution() : bool
     {
+        $notifiaction = new NotifiactionComponent();
+        $notifiaction->publishResolution($this->postulations);
+        return true;
         if (!$this->resolution_file_path) {
             return false;
         }
