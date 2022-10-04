@@ -16,4 +16,3 @@ class NotificationComponent extends Component
     }
 
 }
-?>
