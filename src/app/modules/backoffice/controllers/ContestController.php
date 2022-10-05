@@ -287,8 +287,7 @@ class ContestController extends Controller
     {
         $model = $this->findModel($slug);
         if ($model->publishResolution()) {
-            $model->save();
-            $model->cleanJuriesPermisions();
+            // TODO yii flash ->  ALERT success
         }
 
         return $this->redirect(['index']);

@@ -64,4 +64,15 @@ class Notification extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_to']);
     }
+
+
+    public static function create(User $user, string $message) : bool
+    {
+        $notification = new self();
+        $notification->user_to = $user->id;
+        $notification->message = $message;
+        $notification->timestamp = date('Y-m-d h:m:s');
+
+        return $notification->save();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\events\UploadResolutionEvent;
 use app\helpers\Sluggable;
 use Yii;
 use yii\base\Model;
@@ -108,6 +109,8 @@ class ContestsUploadResolutionForm extends Model
             $model = $this->findModel($this->slug);
             $model->resolution_file_path = $name;
             $model->save();
+
+            $this->trigger('notify', new UploadResolutionEvent($model));
             return true;
         } else {
             return false;

@@ -3,12 +3,16 @@
 namespace app\models;
 
 use app\components\NotificationComponent;
+use app\events\LogEvent;
+use app\events\NotificationEvent;
+use app\events\PublishResolutionEvent;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use app\services\NextcloudService;
 use app\services\SPCService;
 use DateTime;
+use Exception;
 
 /**
  * This is the model class for table "contests".
@@ -317,14 +321,27 @@ class Contests extends ActiveRecord
 
     public function publishResolution() : bool
     {
-        $notifiaction = new NotificationComponent();
-        $notifiaction->publishResolution($this->postulations);
-        return true;
-        if (!$this->resolution_file_path) {
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
+            if (!$this->resolution_file_path) {
+                return false;
+            }
+            $this->contest_status_id = ContestStatus::FINISHED;
+            $this->resolution_published = true;
+            $this->cleanJuriesPermisions();
+            if (!$this->save()) {
+                throw new Exception('no save');
+            }
+            $transaction->commit();
+
+            $this->trigger('notify', new PublishResolutionEvent($this));
+
+            return true;
+
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
             return false;
         }
-        $this->contest_status_id = ContestStatus::FINISHED;
-        return $this->resolution_published = true;
     }
 
     public function isPostulateAvailable() : bool
