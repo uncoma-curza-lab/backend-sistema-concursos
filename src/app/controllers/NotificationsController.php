@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\search\MyNotificationsSearch;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -28,6 +30,17 @@ class NotificationsController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('notifications', []);
+        $searchModel = new MyNotificationsSearch();
+        $dataProvider = $searchModel->search(array_merge(
+            [
+                'user_to' => Yii::$app->user->id
+            ],
+            $this->request->queryParams
+        ));
+
+        return $this->render('notifications', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }
