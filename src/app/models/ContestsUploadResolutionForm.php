@@ -108,10 +108,13 @@ class ContestsUploadResolutionForm extends Model
             $this->resolution_file_path->saveAs($name);
             $model = $this->findModel($this->slug);
             $model->resolution_file_path = $name;
-            $model->save();
+            if (!$model->save()) {
+                return false;
+            }
 
             $this->trigger('notify', new UploadResolutionEvent($model));
             return true;
+
         } else {
             return false;
         }
