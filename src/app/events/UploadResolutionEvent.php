@@ -20,8 +20,8 @@ class UploadResolutionEvent extends Event implements EventInterface
 
     public function handle()
     {
-        // TODO: add query Role: Depto docente, quitar el jurado
-        foreach ($this->contest->juries as $user) {
+        $users = User::find()->getAllByRol('teach_departament');
+        foreach ($users as $user) {
             Notification::create($user, $this->message);
         }
     }
