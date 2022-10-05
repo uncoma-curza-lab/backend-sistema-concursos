@@ -41,4 +41,11 @@ class UsersQuery extends \yii\db\ActiveQuery
     {
         return $this->where(['=', 'uid', $username]);
     }
+
+    public function getAllByRol(string $rol)
+    {
+         $userIds = \Yii::$app->authManager->getUserIdsByRole($rol);
+         return $this->where(['in', 'id', $userIds])
+                    ->all();
+    }
 }
