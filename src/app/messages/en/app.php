@@ -49,4 +49,5 @@ return [
     'change_pass_new_password' => 'New password',
     'change_password_title' => 'Change Password',
     'view_regulations' => 'View regulations', 
+    'notifications' => 'Notifications', 
 ];
