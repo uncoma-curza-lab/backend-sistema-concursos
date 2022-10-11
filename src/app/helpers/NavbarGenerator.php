@@ -72,8 +72,11 @@ class NavbarGenerator
             ],
                 'options' => ['class' => 'd-flex align-items-center']
         ];
+        $notificationsCount = Notification::find()->countMyNew();
+        $showCount = $notificationsCount ? Html::tag('span', $notificationsCount,['class' => 'badge badge-info']) : '';
+
          $navbarUser[] = [
-                'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-bell']) . Html::tag('span',Notification::find()->countMyNew() ,['class' => 'badge badge-info']),
+             'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-bell']) . $showCount,
                 'url' => ['/notifications'],
                 'options' => ['class' => 'd-flex align-items-center']
             ];
