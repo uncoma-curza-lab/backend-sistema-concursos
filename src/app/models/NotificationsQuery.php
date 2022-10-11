@@ -30,11 +30,21 @@ class NotificationsQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function myUnread()
+    {
+        return $this->andWhere(['=', 'read', 'false'])
+                    ->andWhere(['=', 'user_to', \Yii::$app->user->id]);
+
+    }
     
     public function countMyNew()
     {
-        return $this->andWhere(['=', 'read', 'false'])
-                    ->andWhere(['=', 'user_to', \Yii::$app->user->id])
-                    ->count();
+        return $this->myUnread()->count();
+    }
+
+    public function allMyUnread()
+    {
+        return $this->myUnread()->all();
     }
 }

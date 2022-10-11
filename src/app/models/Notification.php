@@ -79,4 +79,42 @@ class Notification extends \yii\db\ActiveRecord
 
         return $notification->save();
     }
+
+    public function markAsRead() : bool
+    {
+        if(!$this->canMarkAsRead()){
+            return false;
+        }
+        $this->read = true;
+        return $this->save();
+    }
+
+    public function canMarkAsRead() : bool
+    {
+        return $this->isMyNotification() && !$this->read;
+    }
+
+    public function isMyNotification() : bool
+    {
+        return \Yii::$app->user->id == $this->user_to;
+    }
+
+    public static function markAllAsRead() : bool
+    {
+        $transaction = \Yii::$app->db->beginTransaction();
+
+        try {
+            $notifications = self::find()->allMyUnread();
+            foreach ($notifications as $notification) {
+                if(!$notification->markAsRead()){
+                    $transaction->rollBack();
+                    return false;
+                }
+            }
+            $transaction->commit();
+            return true;
+        } catch (\Throwable $th) {
+            $transaction->rollBack();
+        }
+    }
 }
