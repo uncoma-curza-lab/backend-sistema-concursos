@@ -62,8 +62,7 @@ class MyNotificationsSearch extends Notification
             'user_to' => \Yii::$app->user->id,
         ]);
 
-        //$query->andFilterWhere(['ilike', 'name', $this->name])
-        //    ->andFilterWhere(['ilike', 'code', $this->code]);
+        $query->orderBy(["read" => SORT_ASC]);
 
         return $dataProvider;
     }

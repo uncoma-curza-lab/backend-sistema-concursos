@@ -3,10 +3,10 @@ use yii\helpers\Url;
 ?>
 <div class="container list-group">
     <?php
-        $count = 0;
         foreach ($models as $model): 
+            $readBackground = $model->read ? 'list-group-item-secondary' : '';
     ?>
-        <div class="list-group-item">
+        <div class="list-group-item <?= $readBackground ?>">
             <div class="row">
                 <div class="col">
                   <div class="d-flex w-100 justify-content-between">
@@ -21,7 +21,6 @@ use yii\helpers\Url;
         </div>
         
     <?php 
-        $count++;
         endforeach;
     ?>
 </div>
