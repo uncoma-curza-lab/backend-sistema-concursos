@@ -2,6 +2,7 @@
 
 namespace app\helpers;
 
+use app\models\Notification;
 use app\rbac\helpers\BackofficeRolesAccess;
 use Yii;
 use yii\bootstrap4\Html;

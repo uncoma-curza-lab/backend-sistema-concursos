@@ -65,6 +65,10 @@ class Notification extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_to']);
     }
 
+    public static function find()
+    {
+        return new NotificationsQuery(get_called_class());
+    }
 
     public static function create(User $user, string $message) : bool
     {
