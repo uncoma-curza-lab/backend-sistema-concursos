@@ -42,6 +42,7 @@ AppAsset::register($this);
         ],
     ]);
     echo Nav::widget([
+        'encodeLabels' => false,
         'options' => ['class' => 'navbar-nav ml-auto nav-pills red'],
         'items' => NavbarGenerator::getItems(),
     ]);

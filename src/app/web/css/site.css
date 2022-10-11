@@ -87,6 +87,10 @@ a > span.bi{
     font-size: 1.7em;
 }
 
+a > i.nav-icon{
+    font-size: 1.5em;
+}
+
 .vnav-link{
     font-size: 1.4em;
     transition: transform .2s;
