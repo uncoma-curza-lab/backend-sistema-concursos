@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Notification;
 use app\models\search\MyNotificationsSearch;
 use Yii;
 use yii\filters\AccessControl;
@@ -20,7 +21,7 @@ class NotificationsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index'],
+                        'actions' => ['index', 'all-read'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -42,5 +43,12 @@ class NotificationsController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionAllRead()
+    {
+        Notification::markAllAsRead();
+
+       return $this->redirect(['index']);
     }
 }
