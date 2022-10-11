@@ -45,6 +45,8 @@ AppAsset::register($this);
     $items = [
         //['label' => Yii::t('menu', 'home'), 'url' => ['/backoffice/index']],
         ['label' => 'Concursos', 'url' => ['/backoffice/contest']],
+        ['label' => Yii::t('app', 'notifications'), 'url' => ['/notifications']],
+
     ];
     if ($roles && in_array('admin', $roles)) {
         $items[] = [

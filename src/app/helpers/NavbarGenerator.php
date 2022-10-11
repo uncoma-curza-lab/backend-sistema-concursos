@@ -43,6 +43,10 @@ class NavbarGenerator
                 'label' => Yii::t('menu', 'my_postulations'),
                 'url' => ['/postulations/my-postulations'],
             ],
+            [
+                'label' => Yii::t('app', 'notifications'),
+                'url' => ['/notifications'],
+            ],
         ];
         if (BackofficeRolesAccess::canAccess()) {
             $navbarUser[] = [
