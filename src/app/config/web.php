@@ -107,6 +107,11 @@ $config = [
                     'route' => 'postulations/download-pdf',
                 ],
                 [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'notifications/unread/<notificationId:[\d]+>',
+                    'route' => 'notifications/unread',
+                ],
+                [
                     'pattern' => 'contests',
                     'route' => 'public-contest/index',
                 ],

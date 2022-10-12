@@ -15,7 +15,7 @@ use yii\helpers\Url;
                   </div>
                </div>
                <div class="col-md-auto">
-                   <button class="btn btn-info"><i class="bi bi-envelope-open"></i></button>
+               <a href="<?= Url::to("/notifications/unread/$model->id") ?>" class="btn btn-info"><i class="bi bi-envelope-open"></i></a>
                </div>
             </div>
         </div>

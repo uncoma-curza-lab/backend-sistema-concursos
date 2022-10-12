@@ -21,7 +21,7 @@ class NotificationsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'all-read'],
+                        'actions' => ['index', 'all-read', 'unread'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -50,5 +50,13 @@ class NotificationsController extends Controller
         Notification::markAllAsRead();
 
        return $this->redirect(['index']);
+    }
+
+    public function actionUnread(int $notificationId)
+    {
+        $notification = Notification::findOne($notificationId);
+
+        $notification->markAsRead();
+        return $this->redirect(['index']);
     }
 }

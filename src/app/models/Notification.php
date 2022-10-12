@@ -101,20 +101,10 @@ class Notification extends \yii\db\ActiveRecord
 
     public static function markAllAsRead() : bool
     {
-        $transaction = \Yii::$app->db->beginTransaction();
-
-        try {
-            $notifications = self::find()->allMyUnread();
-            foreach ($notifications as $notification) {
-                if(!$notification->markAsRead()){
-                    $transaction->rollBack();
-                    return false;
-                }
-            }
-            $transaction->commit();
-            return true;
-        } catch (\Throwable $th) {
-            $transaction->rollBack();
-        }
+        return self::updateAll(['read' => true],
+            ['and',
+                ['=', 'read', 'false'],
+                ['=', 'user_to', \Yii::$app->user->id]
+            ]);
     }
 }
