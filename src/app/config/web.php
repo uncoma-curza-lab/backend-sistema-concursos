@@ -112,6 +112,11 @@ $config = [
                     'route' => 'notifications/unread',
                 ],
                 [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'notifications/read/<notificationId:[\d]+>',
+                    'route' => 'notifications/read',
+                ],
+                [
                     'pattern' => 'contests',
                     'route' => 'public-contest/index',
                 ],

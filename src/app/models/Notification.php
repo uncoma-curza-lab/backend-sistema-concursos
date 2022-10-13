@@ -89,6 +89,20 @@ class Notification extends \yii\db\ActiveRecord
         return $this->save();
     }
 
+    public function markAsUnread() : bool
+    {
+        if(!$this->canMarkAsUnread()){
+            return false;
+        }
+        $this->read = false;
+        return $this->save();
+    }
+
+    public function canMarkAsUnread() : bool
+    {
+        return $this->isMyNotification() && $this->read;
+    }
+
     public function canMarkAsRead() : bool
     {
         return $this->isMyNotification() && !$this->read;
