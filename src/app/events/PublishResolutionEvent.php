@@ -14,7 +14,7 @@ class PublishResolutionEvent extends Event implements EventInterface
 
     public function __construct(Contest $contest){
         $this->message = "El concurso $contest->name a finalizado y publicado el dictamen.";
-        $this->url = "/public-contest/details/$contest->code";
+        $this->url = "/postulations/download-resolution/$contest->code";
         $this->contest = $contest;
         parent::__construct();
     }

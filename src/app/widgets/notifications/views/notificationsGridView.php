@@ -17,11 +17,13 @@ $disabled = !Notification::find()->countMyNew() ? 'disabled' : '';
                 $readBackground = '';
                 $icon = 'bi-envelope-open';
                 $btn = 'btn-info';
+                $markAs = 'Marcar como leida';
 
                 if($model->read){
                     $readBackground = 'list-group-item-secondary';
                     $icon = 'bi-envelope';
                     $btn = 'btn-secondary';
+                    $markAs = 'Marcar como no leida';
                 }
         ?>
             <div class="list-group-item <?= $readBackground ?>">
@@ -33,7 +35,8 @@ $disabled = !Notification::find()->countMyNew() ? 'disabled' : '';
                       </div>
                    </div>
                    <div class="col-md-auto">
-                   <a href="<?= Url::to("/notifications/read/$model->id") ?>" class="btn <?= $btn ?>"><i class="bi <?= $icon ?>"></i></a>
+                       <a href="<?= Url::to("/notifications/read/$model->id") ?>" class="btn <?= $btn ?>" title="<?= $markAs ?>"><i class="bi <?= $icon ?>"></i></a>
+                       <a href="<?= Url::to($model->url) ?>" class="btn btn-warning" title="Ver"><i class="bi bi-eye"></i></a>
                    </div>
                 </div>
             </div>
