@@ -4,7 +4,6 @@ use app\widgets\notifications\NotificationsGrid;
 use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'notifications');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="notifications-index">
 

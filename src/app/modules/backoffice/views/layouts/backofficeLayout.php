@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\models\Notification;
 use app\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
@@ -44,9 +45,7 @@ AppAsset::register($this);
     if (in_array('admin', $roles) || in_array('jury', $roles) || in_array('teach_departament', $roles))
     $items = [
         //['label' => Yii::t('menu', 'home'), 'url' => ['/backoffice/index']],
-        ['label' => 'Concursos', 'url' => ['/backoffice/contest']],
-        ['label' => Yii::t('app', 'notifications'), 'url' => ['/notifications']],
-
+        ['label' => 'Concursos', 'url' => ['/backoffice/contest'], 'options' => ['class' => 'd-flex align-items-center']],
     ];
     if ($roles && in_array('admin', $roles)) {
         $items[] = [
@@ -58,6 +57,7 @@ AppAsset::register($this);
                  ['label' => 'Ciudades', 'url' => '/backoffice/cities'],
                  ['label' => 'Usuarios', 'url' => '/backoffice/user'],
             ],
+            'options' => ['class' => 'd-flex align-items-center']
         ];
     }
     $items[]= [
@@ -73,11 +73,21 @@ AppAsset::register($this);
                 'linkOptions' =>  [ 'data-method' => 'post']
             ],
         ],
+        'options' => ['class' => 'd-flex align-items-center']
     ];
-    $items[] = '<a class="btn btn-link nav-link" href="/site/index"><i class="bi bi-house-door-fill"></i> Volver al inicio</a>';
+    $items[] = '<a class="btn btn-link nav-link d-flex align-items-center" href="/site/index"><i class="bi bi-house-door-fill"></i> Volver al inicio</a>';
+    $notificationsCount = Notification::find()->countMyNew();
+    $showCount = $notificationsCount ? Html::tag('span', $notificationsCount,['class' => 'badge badge-info']) : '';
+    $items[] = [
+         'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-bell']) . $showCount,
+            'url' => ['/notifications'],
+            'options' => ['class' => 'd-flex align-items-center']
+        ];
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => $items,
+        'encodeLabels' => false,
     ]);
     NavBar::end();
     ?>
