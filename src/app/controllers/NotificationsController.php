@@ -52,19 +52,11 @@ class NotificationsController extends Controller
        return $this->redirect(['index']);
     }
 
-    public function actionUnread(int $notificationId)
-    {
-        $notification = Notification::findOne($notificationId);
-
-        $notification->markAsRead();
-        return $this->redirect(['index']);
-    }
-
     public function actionRead(int $notificationId)
     {
         $notification = Notification::findOne($notificationId);
 
-        $notification->markAsUnread();
+        $notification->changeReadStatus();
         return $this->redirect(['index']);
     }
 

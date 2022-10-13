@@ -15,13 +15,11 @@ $disabled = !Notification::find()->countMyNew() ? 'disabled' : '';
         <?php
             foreach ($models as $model): 
                 $readBackground = '';
-                $read = 'unread';
                 $icon = 'bi-envelope-open';
                 $btn = 'btn-info';
 
                 if($model->read){
                     $readBackground = 'list-group-item-secondary';
-                    $read = 'read';
                     $icon = 'bi-envelope';
                     $btn = 'btn-secondary';
                 }
@@ -35,7 +33,7 @@ $disabled = !Notification::find()->countMyNew() ? 'disabled' : '';
                       </div>
                    </div>
                    <div class="col-md-auto">
-                   <a href="<?= Url::to("/notifications/$read/$model->id") ?>" class="btn <?= $btn ?>"><i class="bi <?= $icon ?>"></i></a>
+                   <a href="<?= Url::to("/notifications/read/$model->id") ?>" class="btn <?= $btn ?>"><i class="bi <?= $icon ?>"></i></a>
                    </div>
                 </div>
             </div>
