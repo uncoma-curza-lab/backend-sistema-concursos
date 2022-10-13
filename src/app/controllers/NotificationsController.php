@@ -21,7 +21,7 @@ class NotificationsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'all-read', 'unread', 'read'],
+                        'actions' => ['index', 'all-read', 'read'],
                         'roles' => ['@'],
                     ],
                 ],
