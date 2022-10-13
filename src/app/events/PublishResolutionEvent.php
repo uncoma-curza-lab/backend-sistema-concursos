@@ -10,9 +10,11 @@ class PublishResolutionEvent extends Event implements EventInterface
 {
     protected Contest $contest;
     protected string $message;
+    protected string $url;
 
     public function __construct(Contest $contest){
         $this->message = "El concurso $contest->name a finalizado y publicado el dictamen.";
+        $this->url = "/public-contest/details/$contest->code";
         $this->contest = $contest;
         parent::__construct();
     }
@@ -20,7 +22,7 @@ class PublishResolutionEvent extends Event implements EventInterface
     public function handle()
     {
         foreach ($this->contest->postulations as $postulation) {
-            Notification::create($postulation->person->user, $this->message);
+            Notification::create($postulation->person->user, $this->message, $this->url);
         }
     }
 }

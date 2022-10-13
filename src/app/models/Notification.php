@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $message
  * @property bool|null $read
  * @property string|null $timestamp
+ * @property string|null $url
  *
  * @property User $userTo
  */
@@ -33,7 +34,7 @@ class Notification extends \yii\db\ActiveRecord
         return [
             [['user_to'], 'required'],
             [['user_to'], 'integer'],
-            [['message'], 'string'],
+            [['message', 'url'], 'string'],
             [['read'], 'boolean'],
             [['read'], 'default', 'value' => false],
             [['timestamp'], 'safe'],
@@ -52,6 +53,7 @@ class Notification extends \yii\db\ActiveRecord
             'message' => 'Message',
             'read' => 'Read',
             'timestamp' => 'Timestamp',
+            'url' => 'URL',
         ];
     }
 
@@ -70,11 +72,12 @@ class Notification extends \yii\db\ActiveRecord
         return new NotificationsQuery(get_called_class());
     }
 
-    public static function create(User $user, string $message) : bool
+    public static function create(User $user, string $message, string $url) : bool
     {
         $notification = new self();
         $notification->user_to = $user->id;
         $notification->message = $message;
+        $notification->url = $url;
         $notification->timestamp = date('Y-m-d h:m:s');
 
         return $notification->save();

@@ -11,9 +11,11 @@ class NewPostulationEvent extends Event implements EventInterface
 {
     protected Contest $contest;
     protected string $message;
+    protected string $url;
 
     public function __construct(Contest $contest){
         $this->message = "El concurso $contest->name tiene nuevas postulaciones.";
+        $this->url = "/backoffice/postulation/contest/$contest->code";
         $this->contest = $contest;
         parent::__construct();
     }
@@ -22,7 +24,7 @@ class NewPostulationEvent extends Event implements EventInterface
     {
         $users = User::find()->getAllByRol('teach_departament');
         foreach ($users as $user) {
-            Notification::create($user, $this->message);
+            Notification::create($user, $this->message, $this->url);
         }
     }
 }
