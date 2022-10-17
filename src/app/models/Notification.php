@@ -86,24 +86,22 @@ class Notification extends \yii\db\ActiveRecord
     public static function batchCreate(array $users, string $message, string $url) : int
     {
         $columnsNames = ['user_to', 'message', 'url', 'timestamp'];
-        $notifications = array_map(
-            function($user) use ($message, $url){
-                $notification = new self();
-                $notification->user_to = $user->id;
-                $notification->message = $message;
-                $notification->url = $url;
-                $notification->timestamp = date('Y-m-d h:m:s');
-
-                if($notification->validate()){
-                    return [
-                        $notification->user_to,
-                        $notification->message,
-                        $notification->url,
-                        $notification->timestamp,
-                    ];
-                }
-            }, $users);
-
+        $notifications = [];
+        foreach($users as $user){
+            $notification = new self();
+            $notification->user_to = $user->id;
+            $notification->message = $message;
+            $notification->url = $url;
+            $notification->timestamp = date('Y-m-d h:m:s');
+            if($notification->validate()){
+                array_push($notifications, [
+                    $notification->user_to,
+                    $notification->message,
+                    $notification->url,
+                    $notification->timestamp,
+                ]);
+            }
+        }
         return \Yii::$app->db->createCommand()
                              ->batchInsert('notifications', $columnsNames, $notifications)->execute();
     }

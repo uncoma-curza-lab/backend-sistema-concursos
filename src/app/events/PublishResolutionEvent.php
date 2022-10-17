@@ -21,15 +21,24 @@ class PublishResolutionEvent extends Event implements EventInterface
 
     public function handle()
     {
+        $users = [];
+        $juries = [];
+        $postulats = [];
+
         foreach ($this->contest->postulations as $postulation) {
             if($postulation->status == 'accepted'){
-                Notification::create($postulation->person->user, $this->message, $this->url);
+                array_push($postulats, $postulation->person->user);
             }
         }
+        
         foreach ($this->contest->contestJuriesRelationship as $jury) {
             if($jury->is_president){
-                Notification::create($jury->user, $this->message, $this->url);
+                array_push($juries, $jury->user);
             }
         }
+
+        $users = array_merge($postulats, $juries);
+
+        Notification::batchCreate($users, $this->message, $this->url);
     }
 }

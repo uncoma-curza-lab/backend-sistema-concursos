@@ -23,9 +23,7 @@ class UploadResolutionEvent extends Event implements EventInterface
     public function handle()
     {
         $users = User::find()->getAllByRol('teach_departament');
-        foreach ($users as $user) {
-            Notification::create($user, $this->message, $this->url);
-        }
+        Notification::batchCreate($users, $this->message, $this->url);
     }
 
 }
