@@ -287,7 +287,9 @@ class ContestController extends Controller
     {
         $model = $this->findModel($slug);
         if ($model->publishResolution()) {
-            // TODO yii flash ->  ALERT success
+            \Yii::$app->session->setFlash('success', [
+                'message' => "Resolución publicada y concurso $model->name finalizado",
+            ]);
         }
 
         return $this->redirect(['index']);

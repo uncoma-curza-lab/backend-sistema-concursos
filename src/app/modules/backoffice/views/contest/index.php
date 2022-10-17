@@ -19,7 +19,9 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
 
 ?>
 <div class="contests-index">
-
+    <?php
+      Yii::$app->session->getAllFlashes();
+    ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
