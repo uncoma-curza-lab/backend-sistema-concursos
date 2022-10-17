@@ -72,7 +72,7 @@ class NavbarGenerator
             ],
                 'options' => ['class' => 'd-flex align-items-center']
         ];
-        $notificationsCount = Notification::find()->countMyNew();
+        $notificationsCount = Notification::find()->countUnreadSessionUser();
         $showCount = $notificationsCount ? Html::tag('span', $notificationsCount,['class' => 'badge badge-info']) : '';
 
          $navbarUser[] = [

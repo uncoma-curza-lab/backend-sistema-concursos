@@ -76,7 +76,7 @@ AppAsset::register($this);
         'options' => ['class' => 'd-flex align-items-center']
     ];
     $items[] = '<a class="btn btn-link nav-link d-flex align-items-center" href="/site/index"><i class="bi bi-house-door-fill"></i> Volver al inicio</a>';
-    $notificationsCount = Notification::find()->countMyNew();
+    $notificationsCount = Notification::find()->countUnreadSessionUser();
     $showCount = $notificationsCount ? Html::tag('span', $notificationsCount,['class' => 'badge badge-info']) : '';
     $items[] = [
          'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-bell']) . $showCount,

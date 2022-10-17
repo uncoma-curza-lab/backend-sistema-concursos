@@ -4,7 +4,7 @@ use app\models\Notification;
 use yii\helpers\Url;
 use yii\helpers\Html;
 
-$disabled = !Notification::find()->countMyNew() ? 'disabled' : '';
+$disabled = !Notification::find()->countUnreadSessionUser() ? 'disabled' : '';
 ?>
 <div class="container list-group">
     <div class="p-2">
