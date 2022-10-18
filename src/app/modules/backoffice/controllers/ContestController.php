@@ -287,8 +287,9 @@ class ContestController extends Controller
     {
         $model = $this->findModel($slug);
         if ($model->publishResolution()) {
-            $model->save();
-            $model->cleanJuriesPermisions();
+            \Yii::$app->session->setFlash('success', [
+                'message' => "Resolución publicada y concurso $model->name finalizado",
+            ]);
         }
 
         return $this->redirect(['index']);

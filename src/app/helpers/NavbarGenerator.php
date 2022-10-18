@@ -2,9 +2,10 @@
 
 namespace app\helpers;
 
+use app\models\Notification;
 use app\rbac\helpers\BackofficeRolesAccess;
 use Yii;
-use yii\bootstrap4\Html;
+use yii\helpers\Html;
 
 class NavbarGenerator
 {
@@ -13,11 +14,13 @@ class NavbarGenerator
         return [
             [
                 'label' => Yii::t('menu', 'home'),
-                'url' => ['/site/index']
+                'url' => ['/site/index'],
+                'options' => ['class' => 'd-flex align-items-center']
             ],
             [
                 'label' => Yii::t('menu', 'help'),
-                'url' => ['/site/help']
+                'url' => ['/site/help'],
+                'options' => ['class' => 'd-flex align-items-center']
             ],
         ];
     }
@@ -27,11 +30,13 @@ class NavbarGenerator
         return [
             [
                 'label' => Yii::t('menu', 'login'),
-                'url' => ['/login']
+                'url' => ['/login'],
+                'options' => ['class' => 'd-flex align-items-center']
             ],
             [
                 'label' => Yii::t('menu', 'signup'),
-                'url' => ['/signup']
+                'url' => ['/signup'],
+                'options' => ['class' => 'd-flex align-items-center']
             ],
         ];
     }
@@ -42,12 +47,14 @@ class NavbarGenerator
             [
                 'label' => Yii::t('menu', 'my_postulations'),
                 'url' => ['/postulations/my-postulations'],
+                'options' => ['class' => 'd-flex align-items-center']
             ],
-        ];
+         ];
         if (BackofficeRolesAccess::canAccess()) {
             $navbarUser[] = [
                 'label' => 'Backoffice',
-                'url' =>['/backoffice/index']
+                'url' =>['/backoffice/index'],
+                'options' => ['class' => 'd-flex align-items-center']
             ];
         }
         $navbarUser[] = [
@@ -63,7 +70,16 @@ class NavbarGenerator
                 ],
                 self::getLogout(),
             ],
+                'options' => ['class' => 'd-flex align-items-center']
         ];
+        $notificationsCount = Notification::find()->countUnreadSessionUser();
+        $showCount = $notificationsCount ? Html::tag('span', $notificationsCount,['class' => 'badge badge-info']) : '';
+
+         $navbarUser[] = [
+             'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-bell']) . $showCount,
+                'url' => ['/notifications'],
+                'options' => ['class' => 'd-flex align-items-center']
+            ];
 
         return $navbarUser;
 

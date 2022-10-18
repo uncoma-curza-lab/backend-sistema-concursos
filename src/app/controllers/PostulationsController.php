@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\events\NewPostulationEvent;
 use app\models\Contests;
 use app\models\InscriptionForm;
 use app\models\Postulations;
@@ -111,6 +112,7 @@ class PostulationsController extends Controller
 
         if ($inscriptionForm->load(Yii::$app->request->post())) {
             if ($inscriptionForm->save()) {
+                $inscriptionForm->trigger('notify', new NewPostulationEvent($inscriptionForm->contest));
                 $this->redirect(Url::toRoute('postulations/my-postulations'));
             }
         }

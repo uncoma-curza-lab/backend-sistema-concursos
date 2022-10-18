@@ -1,8 +1,11 @@
 <?php
 
+use app\events\EventInterface;
 use app\helpers\Sluggable;
 use app\modules\api\ApiModule;
 use app\modules\backoffice\Backoffice;
+use yii\base\Component;
+use yii\base\Event;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -15,6 +18,12 @@ $config = [
         'log',
         'backoffice',
         'api',
+        function() {
+            Event::on(Component::class, 'notify', function (EventInterface $event) {
+                $event->handle();
+            });
+        }
+
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -96,6 +105,16 @@ $config = [
                     'class' => 'yii\web\UrlRule',
                     'pattern' => 'postulations/downloadPdf/<postulationId:[\d]+>',
                     'route' => 'postulations/download-pdf',
+                ],
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'notifications/unread/<notificationId:[\d]+>',
+                    'route' => 'notifications/unread',
+                ],
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'notifications/read/<notificationId:[\d]+>',
+                    'route' => 'notifications/read',
                 ],
                 [
                     'pattern' => 'contests',
