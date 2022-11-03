@@ -33,6 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </li>
         <li>
             <a href="<?= Url::to(['@web/documents/regulations/ord_813_2021_52.pdf']) ?>" target="_blank">Ordenanza N.º 813/2021 - Reglamento de Concursos para Profesores Regulares</a>
+            <ul>
+                <li>
+                    <a href="<?= Url::to(['@web/documents/regulations/orientacion_sobre_incripcion-cat_profesor.pdf']) ?>" target="_blank">Orientaciones sobre inscripción y documentación a Concursos Regulares - Categoria Profesor</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="<?= Url::to(['@web/documents/regulations/resol_0234_2018.pdf']) ?>" target="_blank">Resolución N.º 234/2018 – Reglamento de Concurso para Auxiliares de Departamento y Coordinación de Carrera</a>
