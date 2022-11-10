@@ -4,6 +4,7 @@ namespace app\modules\backoffice\searchs;
 
 use app\models\Contests;
 use app\models\Postulations;
+use app\models\PostulationStatus;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -66,6 +67,9 @@ class PostulationsByContestSearch extends Postulations
         ])->joinWith(['person']);
 
         // add conditions that should always apply here
+        if(\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'jury')){
+            $query->andWhere(['=', 'postulations.status', PostulationStatus::ACCEPTED]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
