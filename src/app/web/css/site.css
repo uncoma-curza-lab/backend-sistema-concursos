@@ -83,6 +83,39 @@ a.desc:after {
     outline: none;
 }
 
+/*Nav label*/
+.header-navbar{
+    background-color: #10396d;
+    height: 120px;
+}
+.logo {
+    position: absolute;
+    top: 10px;
+    height: 90px;
+    width:400px;
+}
+
+.logo img {
+    height: 100%;
+    width:auto;
+    float:left;
+    margin-right: 10px;
+}
+
+.logo .logo-text {
+    color: #fff;
+    position: relative;
+    top: 10px;
+}
+.logo .logo-text .unco{
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: -8px;
+}
+.logo .logo-text .titulo{
+    font-size: 0.9em;
+    margin-top: -8px;
+}
 a > span.bi{
     font-size: 1.7em;
 }
