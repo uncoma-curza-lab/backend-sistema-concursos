@@ -36,8 +36,8 @@ AppAsset::register($this);
                         $logo
                         <div class='logo-text'>
                             <div class='unco'>Universidad Nacional del Comahue</div>
-                            <div class='descripcion'>Centro Universitario Regional Zona Atlántica</div>
-                            <div class='titulo'>" . Yii::$app->name . "</div>
+                            <div class='description'>Centro Universitario Regional Zona Atlántica</div>
+                            <div class='app-name'>" . Yii::$app->name . "</div>
                         </div>
                     </div>";
     NavBar::begin([
