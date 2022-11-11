@@ -41,7 +41,6 @@ AppAsset::register($this);
                         </div>
                     </div>";
     NavBar::begin([
-        //'brandImage' => '@web/images/TituloSistemasCocursos.png',
         'brandLabel' => $brandLabel,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
