@@ -31,14 +31,20 @@ AppAsset::register($this);
 
 <header>
     <?php
-    $logo = Html::img('@web/images/logo_blanco100x100.png', ['alt'=>'Logo_curza', 'width'=>70]) . ' ';
+    $logo = Html::img('@web/images/logo_blanco100x100.png', ['alt'=>'Logo_curza']) . ' ';
+    $brandLabel = "<div class='logo'>
+                        $logo
+                        <div class='logo-text'>
+                            <div class='unco'>Universidad Nacional del Comahue</div>
+                            <div class='description'>Centro Universitario Regional Zona Atlántica</div>
+                            <div class='app-name'>" . Yii::$app->name . "</div>
+                        </div>
+                    </div>";
     NavBar::begin([
-        'brandImage' => '@web/images/TituloSistemasCocursos.png',
-        'brandLabel' => $logo . Yii::$app->name,
+        'brandLabel' => $brandLabel,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg navbar-dark',
-            'style' => "background-color: #10396d;",
+            'class' => 'navbar navbar-expand-lg navbar-dark header-navbar',
         ],
     ]);
     echo Nav::widget([
