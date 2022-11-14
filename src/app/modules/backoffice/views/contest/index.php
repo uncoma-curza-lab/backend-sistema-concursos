@@ -2,7 +2,7 @@
 
 use app\models\ContestStatus;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -42,7 +42,7 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
             'class' => 'table table-responsive table-bordered table-striped',
         ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
             'name',
             [
                 'attribute' => 'course_id',
@@ -61,7 +61,13 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
             'init_date:date',
             'enrollment_date_end:date',
             [
-                'class' => 'yii\grid\ActionColumn',
+                'class' => 'kartik\grid\ActionColumn',
+                'dropdown' => true,
+                'dropdownMenu' => ['class' => 'dropdown-menu p-3', 'style' => 'heigth: 100px;'],
+                'dropdownButton' => [
+                    'label' => '<span class="bi bi-pencil-square"></span>', 
+                    'title' => 'Acctiones',
+                ],
                 'template' => ' {view} {update} {delete} {postulations} {files} {juries} {set-status} {upload-resolution} {download-resolution} {publish-resolution}',
                 'buttons' => [
                     'postulations' =>  function($url, $model, $key) use ($adminRol, $teacher_departmentRol){
@@ -78,7 +84,8 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                 '<span class="bi bi-person-lines-fill" ' . $notify . ' aria-hidden="true"></span>',
                                 Url::to(['postulation/contest', 'slug' => $model->code]),
                                 [
-                                    'title' => 'Postulaciones'
+                                    'title' => 'Postulaciones',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
@@ -94,7 +101,7 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                             return Html::a(
                                 '<span class="bi bi-folder-fill" aria-hidden="true"></span>',
                                 ['contest/contest-files', 'contestId' => $model->id],
-                                ['title' => 'Archivos']
+                                ['title' => 'Archivos', 'class' => 'p-2']
                             );
                         }
                     },
@@ -110,7 +117,8 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                 '<span class="bi bi-people-fill" aria-hidden="true"></span>',
                                 Url::to(['juries/contest', 'slug' => $model->code]),
                                 [
-                                    'title' => 'Jurados'
+                                    'title' => 'Jurados',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
@@ -123,7 +131,8 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                 '<span class="bi bi-ui-radios" aria-hidden="true"></span>',
                                 Url::to(['contest/set-status', 'slug' => $model->code]),
                                 [
-                                    'title' => 'Cambiar estado'
+                                    'title' => 'Cambiar estado',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
@@ -143,7 +152,8 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                 '<span class="bi bi-file-earmark-arrow-up" aria-hidden="true"></span>',
                                 Url::to(['contest/upload-resolution', 'slug' => $model->code]),
                                 [
-                                    'title' => 'Subir dictamen'
+                                    'title' => 'Subir dictamen',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
@@ -154,7 +164,8 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                 '<span class="bi bi-download" aria-hidden="true"></span>',
                                 Url::to(['contest/download-resolution', 'slug' => $model->code]),
                                 [
-                                    'title' => 'Descargar dictamen'
+                                    'title' => 'Descargar dictamen',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
@@ -178,6 +189,7 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                         'method' => 'post',
                                     ],
                                     'title' => 'Publicar dictamen',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
@@ -202,6 +214,7 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                         'method' => 'post',
                                     ],
                                     'title' => 'Eliminar concurso',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
@@ -221,6 +234,7 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                 ]),
                                 [
                                     'title' => 'Actualizar concurso',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
@@ -240,6 +254,7 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                                 ]),
                                 [
                                     'title' => 'Ver Concurso',
+                                    'class' => 'p-2',
                                 ]
                             );
                         }
