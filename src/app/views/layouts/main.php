@@ -66,10 +66,23 @@ AppAsset::register($this);
     </div>
 </main>
 
-<footer class="footer mt-auto py-3 text-muted">
+<footer class="bg-dark text-white mt-auto py-3">
     <div class="container">
-        <p class="float-left">&copy; CURZA - UNCOMA <?= date('Y') ?></p>
-        <p class="float-right">Lab. IT</p>
+      <div class="row">
+        <div class="col">
+            <p>&copy; CURZA - UNCOMA <?= date('Y') ?></p>
+        </div>
+        <div class="col-6 text-center mb-3">
+            <h3>Contacto</h3>
+            <h4>Centro Universitario Regional Zona Atlántica</h4>
+            <h5>Departamento Docente</h5>
+            <p class="m-1"><i class="bi bi-telephone"></i> (02920) 423198/422921 Int. 109</p>
+            <i class="bi bi-envelope"></i><a class="text-light" href="mailto:departamento.docente@curza.uncoma.edu.ar" target="_blank"> departamento.docente@curza.uncoma.edu.ar</a>
+        </div>
+        <div class="col text-right">
+            <p>Lab. IT</p>
+        </div>
+      </div>
     </div>
 </footer>
 
