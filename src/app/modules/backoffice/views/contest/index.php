@@ -45,12 +45,6 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
             ['class' => 'yii\grid\SerialColumn'],
             'name',
             [
-                'attribute' => 'qty',
-                'contentOptions' => [
-                    'style' => 'width: 5%;',
-                ] 
-            ],
-            [
                 'attribute' => 'course_id',
                 'value' => fn($data) => $data->getCourseName(),
             ],
@@ -66,7 +60,6 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
             ],
             'init_date:date',
             'enrollment_date_end:date',
-            'end_date:date',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => ' {view} {update} {delete} {postulations} {files} {juries} {set-status} {upload-resolution} {download-resolution} {publish-resolution}',
