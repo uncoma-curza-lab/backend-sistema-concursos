@@ -87,17 +87,6 @@ if ($contest!=null):
      <div>
         <?= $contest->description;  ?>
         <div>
-            <?php if (count($contest->juries) > 0): ?>
-            <h5> Jurado </h5>
-                <?php foreach($contest->juries as $jury): ?>
-                <ul>
-                    <li><?= $jury->person->getFullName(); ?></li>
-                </ul>
-                    
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-        <div>
             <?php if ($contest->isHelper() && $contest->hasCourseName()): 
               $programUrl = $contest->getProgramUrl();
             ?>
