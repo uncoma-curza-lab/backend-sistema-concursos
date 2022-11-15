@@ -84,15 +84,12 @@ a.desc:after {
 }
 
 /*Nav label*/
-.header-navbar{
+.bg-curza{
     background-color: #10396d;
-    height: 120px;
 }
 .logo {
-    position: absolute;
-    top: 10px;
     height: 90px;
-    width:400px;
+    width: auto;
 }
 
 .logo img {
@@ -104,7 +101,7 @@ a.desc:after {
 
 .logo .logo-text {
     color: #fff;
-    position: relative;
+    font-size: 1.1rem;
     top: 10px;
 }
 .logo .logo-text .unco{
@@ -114,8 +111,27 @@ a.desc:after {
 }
 .logo .logo-text .app-name{
     font-size: 0.9em;
-    margin-top: -8px;
+    margin-top: -6px;
 }
+
+@media(max-width:650px) {
+    .logo-text {
+        display:none;
+    }
+    .app-name-movil {
+        display:block;
+        font-size: 0.9em;
+    }
+    .logo img {
+        height: 80%
+    }
+}
+@media(min-width:651px) {
+    .app-name-movil {
+        display:none;
+    }
+}
+
 a > span.bi{
     font-size: 1.7em;
 }

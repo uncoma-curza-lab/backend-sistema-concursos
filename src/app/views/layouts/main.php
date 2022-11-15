@@ -32,24 +32,25 @@ AppAsset::register($this);
 <header>
     <?php
     $logo = Html::img('@web/images/logo_blanco100x100.png', ['alt'=>'Logo_curza']) . ' ';
-    $brandLabel = "<div class='logo'>
+    $brandLabel = "<div class='logo d-flex align-items-center'>
                         $logo
                         <div class='logo-text'>
                             <div class='unco'>Universidad Nacional del Comahue</div>
                             <div class='description'>Centro Universitario Regional Zona Atlántica</div>
                             <div class='app-name'>" . Yii::$app->name . "</div>
                         </div>
+                        <div class='app-name-movil'>" . Yii::$app->name . "</div>
                     </div>";
     NavBar::begin([
         'brandLabel' => $brandLabel,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg navbar-dark header-navbar',
+            'class' => 'navbar navbar-expand-lg navbar-dark bg-curza',
         ],
     ]);
     echo Nav::widget([
         'encodeLabels' => false,
-        'options' => ['class' => 'navbar-nav ml-auto nav-pills red'],
+        'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => NavbarGenerator::getItems(),
     ]);
     NavBar::end();
