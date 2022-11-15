@@ -22,6 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'contest.init_date'
             ],
             [
+                'attribute' => 'contest.course_id',
+                'value' => fn($model) => $model->contest->getCourseName()
+            ],
+            [
                 'attribute' => 'contest.enrollment_date_end',
             ],
             [
