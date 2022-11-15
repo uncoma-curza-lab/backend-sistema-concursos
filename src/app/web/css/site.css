@@ -84,9 +84,8 @@ a.desc:after {
 }
 
 /*Nav label*/
-.header-navbar{
+.bg-curza{
     background-color: #10396d;
-    height: 120px;
 }
 .logo {
     height: 90px;
@@ -115,7 +114,7 @@ a.desc:after {
     margin-top: -6px;
 }
 
-@media(max-width:991px) {
+@media(max-width:650px) {
     .logo-text {
         display:none;
     }
@@ -127,7 +126,7 @@ a.desc:after {
         height: 80%
     }
 }
-@media(min-width:991px) {
+@media(min-width:651px) {
     .app-name-movil {
         display:none;
     }

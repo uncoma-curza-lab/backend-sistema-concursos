@@ -45,12 +45,12 @@ AppAsset::register($this);
         'brandLabel' => $brandLabel,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-lg navbar-dark header-navbar',
+            'class' => 'navbar navbar-expand-lg navbar-dark bg-curza',
         ],
     ]);
     echo Nav::widget([
         'encodeLabels' => false,
-        'options' => ['class' => 'navbar-nav ml-auto nav-pills red'],
+        'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => NavbarGenerator::getItems(),
     ]);
     NavBar::end();
