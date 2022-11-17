@@ -7,8 +7,18 @@ $models = $dataProvider->getModels();
 $disabled = !Notification::find()->countUnreadSessionUser() ? 'disabled' : '';
 ?>
 <div class="container list-group">
-    <div class="p-2">
+    <div class="d-flex p-2">
         <?= Html::a('<i class="bi bi-envelope-open"></i> Marcar todas como leídas', ['all-read'], ['class' => "btn btn-info $disabled"]) ?>
+        <form action="" method="get" class="ml-3">
+            <select name="pagination" onchange="this.form.submit()" class="form-control">
+              <option disabled selected hidden>Notificaciones por página</option>
+              <option value="5">Mostrar hasta 5 elementos</option>
+              <option value="10">Mostrar hasta 10 elementos</option>
+              <option value="25">Mostrar hasta 25 elementos</option>
+              <option value="50">Mostrar hasta 50 elementos</option>
+              <option value="100">Mostrar hasta 100 elementos</option>
+            </select>
+        </form>
     </div>
     <div class="p-2">
     
