@@ -10,13 +10,13 @@ class NotificationsGrid extends Widget
 
     public function init() {
         parent::init();
-        $this->dataProvider = $this->dataProvider->getModels();
+        $this->dataProvider = $this->dataProvider;
         $this->columns = $this->columns;
     }
     
     public function run(){
         return $this->render('notificationsGridView', [
-            'models' => $this->dataProvider,
+            'dataProvider' => $this->dataProvider,
         ]);
     }
 }

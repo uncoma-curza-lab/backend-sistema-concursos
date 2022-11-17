@@ -3,7 +3,7 @@
 use app\models\Notification;
 use yii\helpers\Url;
 use yii\helpers\Html;
-
+$models = $dataProvider->getModels();
 $disabled = !Notification::find()->countUnreadSessionUser() ? 'disabled' : '';
 ?>
 <div class="container list-group">
@@ -43,6 +43,14 @@ $disabled = !Notification::find()->countUnreadSessionUser() ? 'disabled' : '';
             
         <?php 
             endforeach;
+        ?>
+
+    </div>
+    <div class="p-2">
+        <?php 
+            echo \yii\widgets\LinkPager::widget([
+                'pagination' => $dataProvider->pagination,
+            ]);
         ?>
     </div>
 </div>
