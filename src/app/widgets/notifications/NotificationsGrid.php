@@ -7,12 +7,15 @@ class NotificationsGrid extends Widget
 {
     public $dataProvider;
     public $columns;
-    public $selectPaginationSize;
+    public $options;
 
     public function init() {
         parent::init();
-        if ( $this->selectPaginationSize == null ) {
-            $this->selectPaginationSize = false;
+        if ( !isset($this->options['selectPaginationSize']) ) {
+            $this->options['selectPaginationSize'] = false;
+        }
+        if ( !isset($this->options['markAllAsRead']) ) {
+            $this->options['markAllAsRead'] = true;
         }
     }
     
@@ -20,7 +23,7 @@ class NotificationsGrid extends Widget
         return $this->render('notificationsGridView', [
             'dataProvider' => $this->dataProvider,
             'columns' => $this->columns,
-            'selectPaginationSize' => $this->selectPaginationSize,
+            'options' => $this->options,
         ]);
     }
 }

@@ -8,9 +8,11 @@ $disabled = !Notification::find()->countUnreadSessionUser() ? 'disabled' : '';
 ?>
 <div class="container list-group">
     <div class="d-flex p-2">
-        <?= Html::a('<i class="bi bi-envelope-open"></i> Marcar todas como leídas', ['all-read'], ['class' => "btn btn-info $disabled"]) ?>
-        <?php if ($selectPaginationSize): ?>
-        <form action="" method="get" class="ml-3">
+        <?php if ($options['markAllAsRead']): ?>
+        <?= Html::a('<i class="bi bi-envelope-open"></i> Marcar todas como leídas', ['all-read'], ['class' => "btn btn-info mr-3 $disabled"]) ?>
+        <?php endif; ?>
+        <?php if ($options['selectPaginationSize']): ?>
+        <form action="" method="get">
             <select name="pagination" onchange="this.form.submit()" class="form-control">
               <option disabled selected hidden>Notificaciones por página</option>
               <option value="5">Mostrar hasta 5 elementos</option>
@@ -43,13 +45,17 @@ $disabled = !Notification::find()->countUnreadSessionUser() ? 'disabled' : '';
                     <div class="col">
                       <div class="d-flex w-100 justify-content-between">
                           <?= $model->message ?>
+                          <?php if (in_array('timestamp', $columns)): ?>
                           <small><?= $model->timestamp ?></small>
+                          <?php endif; ?>
                       </div>
                    </div>
+                   <?php if (in_array('actions', $columns)): ?>
                    <div class="col-md-auto">
                        <a href="<?= Url::to("/notifications/read/$model->id") ?>" class="btn <?= $btn ?>" title="<?= $markAs ?>"><i class="bi <?= $icon ?>"></i></a>
                        <a href="<?= Url::to($model->url) ?>" class="btn btn-warning" title="Ver"><i class="bi bi-eye"></i></a>
                    </div>
+                   <?php endif; ?>
                 </div>
             </div>
             
