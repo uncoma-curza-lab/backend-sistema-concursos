@@ -10,9 +10,10 @@ $this->title = Yii::t('app', 'notifications');
     <h1><?= Html::encode($this->title) ?></h1>
     <?= NotificationsGrid::widget([
         'dataProvider' => $dataProvider,
+        'selectPaginationSize' => true,
         'columns' => [
             'message',
-            'timestamp',
+            //'timestamp',
         ],
     ]); ?>
 

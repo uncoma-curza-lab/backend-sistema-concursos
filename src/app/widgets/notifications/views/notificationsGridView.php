@@ -9,6 +9,7 @@ $disabled = !Notification::find()->countUnreadSessionUser() ? 'disabled' : '';
 <div class="container list-group">
     <div class="d-flex p-2">
         <?= Html::a('<i class="bi bi-envelope-open"></i> Marcar todas como leídas', ['all-read'], ['class' => "btn btn-info $disabled"]) ?>
+        <?php if ($selectPaginationSize): ?>
         <form action="" method="get" class="ml-3">
             <select name="pagination" onchange="this.form.submit()" class="form-control">
               <option disabled selected hidden>Notificaciones por página</option>
@@ -19,6 +20,7 @@ $disabled = !Notification::find()->countUnreadSessionUser() ? 'disabled' : '';
               <option value="100">Mostrar hasta 100 elementos</option>
             </select>
         </form>
+        <?php endif; ?>
     </div>
     <div class="p-2">
     
