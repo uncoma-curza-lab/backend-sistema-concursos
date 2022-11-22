@@ -39,6 +39,9 @@ class NotificationsController extends Controller
             $this->request->queryParams
         ));
 
+        $pagination = isset($this->request->queryParams['pagination']) ? $this->request->queryParams['pagination'] : 25;
+        $dataProvider->setPagination(['pageSize' => $pagination]);
+
         return $this->render('notifications', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
