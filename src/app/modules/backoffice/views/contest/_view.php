@@ -43,6 +43,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         <?php endif; ?>
+        <?= Html::a(Yii::t('backoffice', 'set-highlight'), ['change-highlight-status', 'slug' => $model->code], [
+            'class' => 'btn btn-info',
+            'data' => [
+                'confirm' => Yii::t('backoffice', 'Está seguro de que desea destacar el concurso?'),
+                'method' => 'post',
+            ],
+        ]) ?>
+
     </p>
 
     <?= DetailView::widget([

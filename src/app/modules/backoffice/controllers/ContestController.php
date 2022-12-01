@@ -231,6 +231,14 @@ class ContestController extends Controller
         return $this->redirect(['view', 'slug' => $model->code]);
     }
 
+    public function actionChangeHighlightStatus($slug)
+    {
+        $model = $this->findModel($slug);
+        $model->changeHighlightStatus();
+
+        return $this->redirect(['view', 'slug' => $model->code]);
+    }
+
     public function actionUploadResolution($slug)
     {
         $model = $this->findModel($slug);
