@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
         <?php endif; ?>
         <?= Html::a(
-                $model->highlighted ? Yii::t('backoffice', 'unset-highlight') : Yii::t('backoffice', 'set-highlight'),
+                $model->highlighted ? Yii::t('backoffice', 'unset_highlight') : Yii::t('backoffice', 'set_highlight'),
                 ['change-highlight-status', 'slug' => $model->code],
                     [
                         'class' => 'btn btn-warning',

@@ -57,7 +57,7 @@ $listViewHighlighteds = ListView::begin([
 
         <div class="public-contest container">
 
-            <h2>Concursos</h2>
+            <h2 class="m-4">Concursos</h2>
             <div class ="d-flex flex-row flex-wrap justify-content-center">
                 <?= $listView->renderItems(); ?>
             </div>
@@ -67,7 +67,7 @@ $listViewHighlighteds = ListView::begin([
         </div>
 
         <div class="public-contest-highlight container bg-secondary p-3 m-3">
-            <h2>Publicacion de Jurados</h2>
+            <h2 class="text-light m-4">Publicacion de Jurados</h2>
             <div class ="d-flex flex-row flex-wrap justify-content-center">
                 <?= $listViewHighlighteds->renderItems(); ?>
             </div>

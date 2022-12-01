@@ -15,4 +15,6 @@ return [
     'add_jury_to_contest_button' => 'Agregar nuevo',
     'save_button' => 'Guardar',
     'cancel_button' => 'Cancelar',
+    'set_highlight' => 'Set Highlight',
+    'unset_highlight' => 'Unset Highlight',
 ];
