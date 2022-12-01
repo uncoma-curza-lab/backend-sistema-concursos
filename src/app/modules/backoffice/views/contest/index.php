@@ -61,6 +61,14 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
             'init_date:date',
             'enrollment_date_end:date',
             [
+                'class' => '\kartik\grid\BooleanColumn',
+                'attribute'=>'highlighted',
+                'value' => fn($data) => $data->isHighlighted(),
+                'falseIcon' => '',
+                'trueIcon' => '<span class="bi bi-exclamation-circle-fill text-success"></span>',
+                'vAlign'=>'middle',
+            ],
+            [
                 'class' => 'kartik\grid\ActionColumn',
                 'dropdown' => true,
                 'dropdownMenu' => ['class' => 'dropdown-menu p-3', 'style' => 'heigth: 100px;'],
