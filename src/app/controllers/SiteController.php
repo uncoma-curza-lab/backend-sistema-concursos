@@ -77,12 +77,13 @@ class SiteController extends SCController
 
         $highlighteds = Contests::find()->with('workingDayType')
                                        ->onlyPublicAndHighlighted()
-                                       ->sortBy(['updated_at' => SORT_DESC])
-                                       ->limit(8);
+                                       ->sortBy(['updated_at' => SORT_DESC]);
 
         $dataProviderHighlighteds = new ActiveDataProvider([
             'query' => $highlighteds,
-            'pagination' => false,
+            'pagination' => [
+                'pageSize' => 8,
+            ],
         ]);
 
 
