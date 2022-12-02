@@ -54,9 +54,7 @@ $listViewHighlighteds = ListView::begin([
         <h1 class="display-4"><?= \Yii::t('app', 'welcome'); ?></h1>
         <p class="mt-5">
 
-
         <div class="public-contest container">
-
             <h2 class="m-4">Concursos</h2>
             <div class ="d-flex flex-row flex-wrap justify-content-center">
                 <?= $listView->renderItems(); ?>
@@ -66,6 +64,7 @@ $listViewHighlighteds = ListView::begin([
             </div>
         </div>
 
+    <?php if($listViewHighlighteds->renderItems()): ?>
         <div class="public-contest-highlight container bg-secondary p-3 m-3">
             <h2 class="text-light m-4">Publicacion de Jurados</h2>
             <div class ="d-flex flex-row flex-wrap justify-content-center">
@@ -74,8 +73,8 @@ $listViewHighlighteds = ListView::begin([
             <div class="mt-5">
                 <?= $listViewHighlighteds->renderPager() ?>
             </div>
-
         </div>
+    <?php endif; ?>
 
         <?= Html::tag('a', \Yii::t('app', 'view_contests'), [
             'class' => 'btn btn-lg btn-info',
