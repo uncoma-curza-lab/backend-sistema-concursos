@@ -132,7 +132,7 @@ a.desc:after {
     }
 }
 
-a > span.bi{
+.dropdown-menu > a > span.bi{
     font-size: 1.7em;
 }
 

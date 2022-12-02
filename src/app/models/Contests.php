@@ -32,6 +32,7 @@ use Exception;
  * @property int $area_id
  * @property int $orientation_id
  * @property int $share_id
+ * @property bool $highlighted
  *
  * @property Areas $area
  * @property CategoryTypes $categoryType
@@ -98,7 +99,7 @@ class Contests extends ActiveRecord
             [['init_date', 'end_date', 'enrollment_date_end'], 'validateDates'],
             [[ 'created_at', 'updated_at', 'init_date', 'end_date', 'enrollment_date_end', 'course_id', 'share_id'], 'safe'],
             [['activity', 'description', 'resolution_file_path'], 'string'],
-            [['resolution_published'], 'boolean'],
+            [['resolution_published', 'highlighted'], 'boolean'],
             [['name', 'course_id', 'departament_id', 'evaluation_departament_id', 'career_id'], 'string', 'max' => 255],
             [['code'], 'string', 'max' => 100],
             [['activity'], 'in', 'range' => [
@@ -145,6 +146,7 @@ class Contests extends ActiveRecord
             'contest_status_id' => Yii::t('models/contest', 'contest_status'),
             'activity' => Yii::t('models/contest', 'activity'),
             'share_id' => Yii::t('models/contest', 'share_id'),
+            'highlighted' => Yii::t('models/contest', 'highlighted'),
         ];
     }
 
@@ -319,6 +321,11 @@ class Contests extends ActiveRecord
         return $this->resolution_published;
     }
 
+    public function isHighlighted() : bool
+    {
+        return $this->highlighted;
+    }
+
     public function publishResolution() : bool
     {
         $transaction = \Yii::$app->db->beginTransaction();
@@ -468,6 +475,13 @@ class Contests extends ActiveRecord
         $this->contest_status_id = ContestStatus::PUBLISHED;
         $this->save();
     }
+
+    public function changeHighlightStatus(): void
+    {
+        $this->highlighted = !$this->highlighted;
+        $this->save();
+    }
+
 
     public function setToInProgress(): bool
     {

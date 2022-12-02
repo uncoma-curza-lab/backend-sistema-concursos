@@ -65,7 +65,9 @@ class SiteController extends SCController
     {
         $buildQuery = Contests::find()->with('workingDayType')
                                        ->onlyPublicAndInitiated()
-                                       ->sortBy(['init_date' => SORT_DESC])
+                                       ->sortBy([
+                                           'init_date' => SORT_DESC,
+                                       ])
                                        ->limit(8);
 
         $dataProvider = new ActiveDataProvider([
@@ -73,8 +75,21 @@ class SiteController extends SCController
             'pagination' => false,
         ]);
 
+        $highlighteds = Contests::find()->with('workingDayType')
+                                       ->onlyPublicAndHighlighted()
+                                       ->sortBy(['updated_at' => SORT_DESC]);
+
+        $dataProviderHighlighteds = new ActiveDataProvider([
+            'query' => $highlighteds,
+            'pagination' => [
+                'pageSize' => 8,
+            ],
+        ]);
+
+
         return $this->render('index', [
-            'dataProvider' =>$dataProvider
+            'dataProvider' =>$dataProvider,
+            'dataProviderHighlighteds' =>$dataProviderHighlighteds
         ]);
     }
 

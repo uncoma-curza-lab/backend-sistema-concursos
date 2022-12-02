@@ -27,4 +27,5 @@ return [
     'activity' => 'Actividad',
     'enrollment_active' => 'Inscripciones abiertas hasta ',
     'enrollment_close' => 'Inscripciones cerradas el ',
+    'highlighted' => 'Destacado',
 ];
