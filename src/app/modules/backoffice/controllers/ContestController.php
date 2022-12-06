@@ -63,7 +63,7 @@ class ContestController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'update', 'delete', 'publish-contest', 'download-resolution', 'upload-resolution', 'publish-resolution'],
+                            'actions' => ['create', 'update', 'delete', 'publish-contest', 'download-resolution', 'upload-resolution', 'publish-resolution', 'change-highlight-status'],
                             'roles' => ['teach_departament'],
                         ],
                         [
