@@ -62,7 +62,7 @@ class MyNotificationsSearch extends Notification
             'user_to' => \Yii::$app->user->id,
         ]);
 
-        $query->orderBy(["read" => SORT_ASC]);
+        $query->orderBy(["read" => SORT_ASC, "timestamp" => SORT_DESC]);
 
         return $dataProvider;
     }
