@@ -1,2 +1,2 @@
 <?php 
-echo "Test Attached files";
+echo "Test Attached files $slug";

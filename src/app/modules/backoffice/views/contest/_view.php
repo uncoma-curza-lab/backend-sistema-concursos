@@ -2,6 +2,7 @@
 
 use app\models\ContestStatus;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -52,6 +53,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'method' => 'post',
                     ],
         ]) ?>
+        <?= Html::a(
+                Yii::t('backoffice', 'attach_file'),
+                ['/backoffice/contest-attached-files/attach-file', 'slug' => $model->id ],
+                    [
+                        'class' => 'btn btn-success',
+        ]) ?>
+
     </p>
 
     <?= DetailView::widget([

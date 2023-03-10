@@ -4,9 +4,9 @@ namespace app\modules\backoffice\controllers;
 
 class ContestAttachedFilesController extends \yii\web\Controller
 {
-    public function actionIndex()
+    public function actionAttachFile($slug)
     {
-        return $this->render('index');
+        return $this->render('index', ['slug' => $slug]);
     }
 
 }
