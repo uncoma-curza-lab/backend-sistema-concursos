@@ -44,13 +44,6 @@ class m230310_175526_create_contest_attached_files_table extends Migration
             'CASCADE'
         );
 
-        // creates index for column `document_type_id`
-        $this->createIndex(
-            '{{%idx-contest_attached_files-document_type_id}}',
-            '{{%contest_attached_files}}',
-            'document_type_id'
-        );
-
         // add foreign key for table `{{%documents_types}}`
         $this->addForeignKey(
             '{{%fk-contest_attached_files-document_type_id}}',
@@ -59,13 +52,6 @@ class m230310_175526_create_contest_attached_files_table extends Migration
             '{{%documents_types}}',
             'id',
             'CASCADE'
-        );
-
-        // creates index for column `responsible_id`
-        $this->createIndex(
-            '{{%idx-contest_attached_files-responsible_id}}',
-            '{{%contest_attached_files}}',
-            'responsible_id'
         );
 
         // add foreign key for table `{{%documents_responsibles}}`
@@ -102,21 +88,9 @@ class m230310_175526_create_contest_attached_files_table extends Migration
             '{{%contest_attached_files}}'
         );
 
-        // drops index for column `document_type_id`
-        $this->dropIndex(
-            '{{%idx-contest_attached_files-document_type_id}}',
-            '{{%contest_attached_files}}'
-        );
-
         // drops foreign key for table `{{%documents_responsibles}}`
         $this->dropForeignKey(
             '{{%fk-contest_attached_files-responsible_id}}',
-            '{{%contest_attached_files}}'
-        );
-
-        // drops index for column `responsible_id`
-        $this->dropIndex(
-            '{{%idx-contest_attached_files-responsible_id}}',
             '{{%contest_attached_files}}'
         );
 

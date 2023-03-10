@@ -15,7 +15,7 @@ class m230310_175357_create_documents_types_table extends Migration
         $this->createTable('{{%documents_types}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
-            'code' => $this->string(),
+            'code' => $this->string()->unique(),
         ]);
     }
 
