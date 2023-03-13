@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\events\UploadResolutionEvent;
 use Yii;
 
 /**
@@ -21,6 +22,7 @@ use Yii;
  */
 class ContestAttachedFile extends \yii\db\ActiveRecord
 {
+    public $resolution_file;
     /**
      * {@inheritdoc}
      */
@@ -35,14 +37,16 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['resolution_file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'pdf'],
+            [['resolution_file'], 'required'],
             [['contest_id', 'name', 'document_type_id'], 'required'],
             [['contest_id', 'document_type_id', 'responsible_id'], 'default', 'value' => null],
             [['contest_id', 'document_type_id', 'responsible_id'], 'integer'],
             [['published'], 'boolean'],
             [['name', 'path'], 'string', 'max' => 255],
-            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contest::className(), 'targetAttribute' => ['contest_id' => 'id']],
-            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentsResponsible::className(), 'targetAttribute' => ['responsible_id' => 'id']],
-            [['document_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentsType::className(), 'targetAttribute' => ['document_type_id' => 'id']],
+            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contests::class, 'targetAttribute' => ['contest_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentResponsible::class, 'targetAttribute' => ['responsible_id' => 'id']],
+            [['document_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentType::class, 'targetAttribute' => ['document_type_id' => 'id']],
         ];
     }
 
@@ -69,7 +73,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
      */
     public function getContest()
     {
-        return $this->hasOne(Contest::className(), ['id' => 'contest_id']);
+        return $this->hasOne(Contests::class, ['id' => 'contest_id']);
     }
 
     /**
@@ -79,7 +83,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
      */
     public function getDocumentType()
     {
-        return $this->hasOne(DocumentsType::className(), ['id' => 'document_type_id']);
+        return $this->hasOne(DocumentType::class, ['id' => 'document_type_id']);
     }
 
     /**
@@ -89,7 +93,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
      */
     public function getResponsible()
     {
-        return $this->hasOne(DocumentsResponsible::className(), ['id' => 'responsible_id']);
+        return $this->hasOne(DocumentResponsible::class, ['id' => 'responsible_id']);
     }
 
     /**
@@ -100,4 +104,18 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
     {
         return new ContestAttachedFileQuery(get_called_class());
     }
+
+    public function upload()
+    {
+        $name = 'resolutions/'
+            . Yii::$app->slug->format($this->resolution_file->baseName . ' ' . date('Y-m-d H:i:s'))
+            . '.'
+            . $this->resolution_file->extension;
+        $this->resolution_file->saveAs($name);
+        $this->path = $name;
+
+        return $this->save(false);
+
+    }
+
 }
