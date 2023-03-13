@@ -109,6 +109,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->getOrientationName()
             ],
         ],
-    ]) ?>
-
+    ]) 
+?>
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Attached Files</h5>
+              <div class="list-group">
+                  <?php 
+                  foreach ($model->attachedFiles as $file): 
+                  ?>
+                      <a class="list-group-item list-group-item-action" href="<?= url::to(['@web/' . $file->path]) ?>" target="_blank">
+                          <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i>
+                          <?= $file->name ?>
+                      </a>
+                  <?php 
+                  endforeach;
+                  ?>
+              </div>
+            </div>
+        </div>
+    </div>
 </div>

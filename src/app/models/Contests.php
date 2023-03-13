@@ -279,6 +279,11 @@ class Contests extends ActiveRecord
         return $this->hasMany(User::class, ['id' => 'user_id'])->via('contestJuriesRelationship');
     }
 
+    public function getAttachedFiles()
+    {
+        return $this->hasMany(ContestAttachedFile::class, ['contest_id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      * @return ContestsQuery the active query used by this AR class.
