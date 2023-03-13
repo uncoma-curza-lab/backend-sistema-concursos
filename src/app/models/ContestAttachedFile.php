@@ -107,14 +107,19 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
     public function upload()
     {
-        $name = 'resolutions/'
-            . Yii::$app->slug->format($this->resolution_file->baseName . ' ' . date('Y-m-d H:i:s'))
-            . '.'
-            . $this->resolution_file->extension;
-        $this->resolution_file->saveAs($name);
-        $this->path = $name;
+        if($this->validate()){
+            $name = 'resolutions/'
+                . Yii::$app->slug->format($this->resolution_file->baseName . ' ' . date('Y-m-d H:i:s'))
+                . '.'
+                . $this->resolution_file->extension;
+            $this->resolution_file->saveAs($name);
+            $this->path = $name;
+    
+            return $this->save(false);
 
-        return $this->save(false);
+        }
+
+        return false;
 
     }
 

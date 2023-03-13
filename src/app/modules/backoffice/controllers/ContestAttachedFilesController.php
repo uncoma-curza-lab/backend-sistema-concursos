@@ -19,7 +19,6 @@ class ContestAttachedFilesController extends \yii\web\Controller
             $modelForm->contest_id = $contest->id;
             $modelForm->resolution_file = UploadedFile::getInstance($modelForm, 'resolution_file');
             if ($modelForm->upload()) {
-                // file is uploaded successfully
                 return $this->redirect(['/backoffice/contest/view/'.$slug]);
             }
         }
