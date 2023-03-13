@@ -57,12 +57,12 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'contest_id' => 'Contest ID',
-            'name' => 'Name',
-            'document_type_id' => 'Document Type ID',
-            'path' => 'Path',
-            'responsible_id' => 'Responsible ID',
-            'published' => 'Published',
+            'contest_id' => Yii::t('models/contest-attached-files', 'contest'),
+            'name' => Yii::t('models/contest-attached-files', 'name'),
+            'document_type_id' => Yii::t('models/contest-attached-files', 'document_type'),
+            'path' => Yii::t('models/contest-attached-files', 'path'),
+            'responsible_id' => Yii::t('models/contest-attached-files', 'responsible'),
+            'published' => Yii::t('models/contest-attached-files', 'published'),
         ];
     }
 
@@ -108,7 +108,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
     public function upload()
     {
         if($this->validate()){
-            $name = 'resolutions/'
+            $name = 'contest_attached_files/'
                 . Yii::$app->slug->format($this->resolution_file->baseName . ' ' . date('Y-m-d H:i:s'))
                 . '.'
                 . $this->resolution_file->extension;

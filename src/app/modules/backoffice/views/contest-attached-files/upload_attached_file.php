@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($modelForm, 'resolution_file')->fileInput(['class'=>"form-control"])->label('File:', ['class'=>'form-label']) ?>
 </div>
-    <button class="btn btn-success">Enviar</button>
+    <button class="btn btn-success">Cargar</button>
 
 <?php ActiveForm::end() ?>
 

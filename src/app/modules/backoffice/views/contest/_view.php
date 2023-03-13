@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
         <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Attached Files</h5>
+            <h5 class="card-title"><?= Yii::t('backoffice', 'attached_files') ?></h5>
               <div class="list-group">
                   <?php 
                   foreach ($model->attachedFiles as $file): 
