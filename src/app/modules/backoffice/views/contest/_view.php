@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
         <?= Html::a(
                 Yii::t('backoffice', 'attach_file'),
-                ['/backoffice/contest-attached-files/attach-file', 'slug' => $model->id ],
+                ['/backoffice/contest-attached-files/attach-file', 'slug' => $model->code ],
                     [
                         'class' => 'btn btn-success',
         ]) ?>
