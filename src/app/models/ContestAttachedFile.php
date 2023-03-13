@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\events\UploadResolutionEvent;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "contest_attached_files".
@@ -40,6 +41,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             [['resolution_file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'pdf'],
             [['resolution_file'], 'required'],
             [['contest_id', 'name', 'document_type_id'], 'required'],
+            [['document_type_id'], 'documentTypeUnque'],
             [['contest_id', 'document_type_id', 'responsible_id'], 'default', 'value' => null],
             [['contest_id', 'document_type_id', 'responsible_id'], 'integer'],
             [['published'], 'boolean'],
@@ -50,6 +52,16 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         ];
     }
 
+    public function documentTypeUnque()
+    {
+        $documentsTypes = $this->find()->allInSameContest($this->contest_id);
+        $documentTypeIds = array_map(function($attachedFile){
+            return $attachedFile->document_type_id;
+        }, $documentsTypes);
+        if(in_array($this->document_type_id, $documentTypeIds)){
+            $this->addError('document_type_id', 'El Concuros ya posee un documento de este tipo');
+        }
+    }
     /**
      * {@inheritdoc}
      */

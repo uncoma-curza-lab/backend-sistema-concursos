@@ -120,6 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   ?>
                       <a class="list-group-item list-group-item-action" href="<?= url::to(['@web/' . $file->path]) ?>" target="_blank">
                           <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i>
+                          <?= $file->documentType->name ?> - 
                           <?= $file->name ?>
                       </a>
                   <?php 
