@@ -5,6 +5,7 @@ namespace app\models;
 use app\events\UploadResolutionEvent;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 
 /**
  * This is the model class for table "contest_attached_files".
@@ -120,7 +121,8 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
     public function upload() : bool
     {
         if($this->validate()){
-            $name = 'contest_attached_files/'
+            FileHelper::createDirectory('contest_attached_files/' . $this->contest->code);
+            $name = 'contest_attached_files/' . $this->contest->code . '/'
                 . Yii::$app->slug->format($this->resolution_file->baseName . ' ' . date('Y-m-d H:i:s'))
                 . '.'
                 . $this->resolution_file->extension;
