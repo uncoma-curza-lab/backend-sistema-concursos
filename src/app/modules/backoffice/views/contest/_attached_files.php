@@ -1,9 +1,20 @@
-<?php 
+<?php
+
+use yii\bootstrap4\Html;
 use yii\helpers\Url;
 ?>
 <div id="attached_files" class="card">
     <div class="card-body">
-    <h5 class="card-title"><?= Yii::t('backoffice', 'attached_files') ?></h5>
+    <h3 class="card-title"><?= Yii::t('backoffice', 'attached_files') ?></h3>
+    <p>
+        <?= Html::a(
+                Yii::t('backoffice', 'attach_file'),
+                ['/backoffice/contest-attached-files/attach-file', 'slug' => $contest->code ],
+                    [
+                        'class' => 'btn btn-success',
+        ]) ?>
+    </p>
+
       <div class="list-group">
           <?php
             foreach ($attachedFiles as $file): 
