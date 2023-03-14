@@ -40,7 +40,6 @@ class ContestAttachedFilesController extends \yii\web\Controller
 
     public function actionDelete(int $fileId, string $slug)
     {
-        //TODO - Remove file
         $model = $this->findModel($fileId);
         $model->delete();
         return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');

@@ -143,4 +143,12 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         return $this->save(false);
     }
 
+    public function afterDelete()
+    {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+
+        FileHelper::unlink($this->path);
+    }
 }
