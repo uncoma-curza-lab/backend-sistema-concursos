@@ -117,7 +117,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         return new ContestAttachedFileQuery(get_called_class());
     }
 
-    public function upload()
+    public function upload() : bool
     {
         if($this->validate()){
             $name = 'contest_attached_files/'
@@ -133,6 +133,12 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
         return false;
 
+    }
+
+    public function changePublishedStatus() : bool
+    {
+        $this->published = !$this->published;
+        return $this->save(false);
     }
 
 }

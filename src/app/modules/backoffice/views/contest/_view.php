@@ -111,6 +111,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) 
 ?>
-    <?= $this->render('_attached_files', ['attachedFiles' => $model->attachedFiles]) ?>
+    <?= $this->render('_attached_files', ['attachedFiles' => $model->attachedFiles, 'contest' => $model]) ?>
     </div>
 </div>

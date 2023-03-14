@@ -7,6 +7,7 @@ use app\models\Contests;
 use app\models\DocumentResponsible;
 use app\models\DocumentType;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class ContestAttachedFilesController extends \yii\web\Controller
@@ -30,6 +31,22 @@ class ContestAttachedFilesController extends \yii\web\Controller
 
     }
 
+    public function actionPublish(int $fileId, string $slug)
+    {
+        $model = $this->findModel($fileId);
+        $model->changePublishedStatus();
+        return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');
+    }
+
+    public function actionDelete(int $fileId, string $slug)
+    {
+        //TODO - Remove file
+        $model = $this->findModel($fileId);
+        $model->delete();
+        return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');
+    }
+
+
     private function getProps()
     {
         $documentsTypeList = ArrayHelper::map(DocumentType::find()->all(), 'id', 'name');
@@ -38,6 +55,15 @@ class ContestAttachedFilesController extends \yii\web\Controller
             'documentsTypeList' => $documentsTypeList,
             'responsiblesList' => $responsiblesList
         ];
+    }
+
+    protected function findModel(int $id)
+    {
+        if (($model = ContestAttachedFile::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(\Yii::t('backoffice', 'The requested page does not exist.'));
     }
 
 }

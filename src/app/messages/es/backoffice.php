@@ -18,4 +18,5 @@ return [
     'unset_highlight' => 'Quitar destacado',
     'attached_files' => 'Archivos Adjuntos',
     'attach_file' => 'Adjuntar Archivo',
+    'question_delete' => '¿Está seguro que desea el eliminar el Archivo?',
 ];
