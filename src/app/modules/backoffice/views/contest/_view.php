@@ -111,35 +111,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) 
 ?>
-        <div class="card">
-            <div class="card-body">
-            <h5 class="card-title"><?= Yii::t('backoffice', 'attached_files') ?></h5>
-              <div class="list-group">
-                  <?php 
-                  foreach ($model->attachedFiles as $file): 
-                      //TODO - Delete method
-                  ?>
-                        <div class="list-group-item">
-                            <div class="row">
-                                <div class="col">
-                                  <div class="d-flex w-100 justify-content-start">
-                                    <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i>
-                                    <?= $file->documentType->name ?> - 
-                                    <?= $file->name ?>
-            
-                                  </div>
-                               </div>
-                               <div class="col-md-auto">
-                                  <a class="btn btn-success" href="<?= url::to(['@web/' . $file->path]) ?>" target="_blank" title="Ver"><i class="bi bi-eye"></i></a>
-                                  <a class="btn btn-danger" href="<?= url::to(['@web/' . $file->path]) ?>" title="Borrar"><i class="bi bi-trash"></i></a>
-                               </div>
-                            </div>
-                        </div>
-                  <?php 
-                  endforeach;
-                  ?>
-              </div>
-            </div>
-        </div>
+    <?= $this->render('_attached_files', ['attachedFiles' => $model->attachedFiles]) ?>
     </div>
 </div>
