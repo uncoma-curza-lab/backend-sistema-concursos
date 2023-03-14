@@ -52,6 +52,16 @@ class DocumentType extends \yii\db\ActiveRecord
      */
     public function getContestAttachedFiles()
     {
-        return $this->hasMany(ContestAttachedFile::className(), ['document_type_id' => 'id']);
+        return $this->hasMany(ContestAttachedFile::class, ['document_type_id' => 'id']);
     }
+
+    /**
+     * {@inheritdoc}
+     * @return DocumentsTypeQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new DocumentsTypeQuery(get_called_class());
+    }
+
 }

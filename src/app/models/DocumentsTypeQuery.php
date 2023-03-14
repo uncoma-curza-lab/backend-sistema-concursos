@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[DocumentResponsible]].
+ * This is the ActiveQuery class for [[DocuementType]].
  *
- * @see DocumentResponsible
+ * @see DocuementType
  */
-class DocumentsResponsibleQuery extends \yii\db\ActiveQuery
+class DocumentsTypeQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class DocumentsResponsibleQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return DocumentResponsible[]|array
+     * @return DocuementType[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class DocumentsResponsibleQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return DocumentResponsible|array|null
+     * @return DocuementType|array|null
      */
     public function one($db = null)
     {
@@ -34,6 +34,6 @@ class DocumentsResponsibleQuery extends \yii\db\ActiveQuery
 
     public function forPresident()
     {
-        return $this->where(['=', 'code', 'departamento'])->all();
+        return $this->where(['=', 'code', 'dictamen'])->all();
     }
 }

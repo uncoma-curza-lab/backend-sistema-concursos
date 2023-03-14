@@ -27,7 +27,7 @@ class ContestAttachedFilesController extends \yii\web\Controller
         return $this->render('upload_attached_file', array_merge([
             'contest' => $contest,
             'modelForm' => $modelForm,
-        ], $this->getProps()));
+        ], $this->getProps($contest)));
 
     }
 
@@ -47,10 +47,24 @@ class ContestAttachedFilesController extends \yii\web\Controller
     }
 
 
-    private function getProps()
+    private function getProps(Contests $contest)
     {
-        $documentsTypeList = ArrayHelper::map(DocumentType::find()->all(), 'id', 'name');
-        $responsiblesList = ArrayHelper::map(DocumentResponsible::find()->all(), 'id', 'name');
+        $documentsTypes = [];
+        $responsibles = [];
+        $adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
+        $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament');
+        $presidentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code]);
+
+        if($adminRol || $teacher_departmentRol){
+            $documentsTypes = DocumentType::find()->all(); 
+            $responsibles = DocumentResponsible::find()->all();
+        }else if ($presidentRol) {
+            $documentsTypes = DocumentType::find()->forPresident(); 
+            $responsibles = DocumentResponsible::find()->forPresident();
+        }
+
+        $documentsTypeList = ArrayHelper::map($documentsTypes, 'id', 'name');
+        $responsiblesList = ArrayHelper::map($responsibles, 'id', 'name');
         return [
             'documentsTypeList' => $documentsTypeList,
             'responsiblesList' => $responsiblesList
