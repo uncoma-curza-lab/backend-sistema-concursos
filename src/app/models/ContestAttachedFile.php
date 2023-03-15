@@ -156,7 +156,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         try {
             return FileHelper::unlink($this->path);
         } catch (\Throwable $e) {
-            Yii::warning($e->getMessage(), 'contest_attached_files-upload');
+            Yii::warning($e->getMessage(), 'contest_attached_files-afterDelete');
             return false;
         }
     }
