@@ -46,6 +46,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             [['contest_id', 'document_type_id', 'responsible_id'], 'default', 'value' => null],
             [['contest_id', 'document_type_id', 'responsible_id'], 'integer'],
             [['published'], 'boolean'],
+            [['created_at', 'published_at'], 'safe'],
             [['name', 'path'], 'string', 'max' => 255],
             [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contests::class, 'targetAttribute' => ['contest_id' => 'id']],
             [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentResponsible::class, 'targetAttribute' => ['responsible_id' => 'id']],
@@ -76,6 +77,8 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             'path' => Yii::t('models/contest-attached-files', 'path'),
             'responsible_id' => Yii::t('models/contest-attached-files', 'responsible'),
             'published' => Yii::t('models/contest-attached-files', 'published'),
+            'created_at' => Yii::t('models/contest-attached-files', 'created_at'),
+            'published_at' => Yii::t('models/contest-attached-files', 'published_at'),
         ];
     }
 
@@ -145,6 +148,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
     public function changePublishedStatus() : bool
     {
         $this->published = !$this->published;
+        $this->published_at = date('Y-m-d H:i:s');
         return $this->save(false);
     }
 
