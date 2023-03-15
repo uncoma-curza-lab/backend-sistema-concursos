@@ -121,16 +121,21 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
     public function upload() : bool
     {
         if($this->validate()){
-            FileHelper::createDirectory('contest_attached_files/' . $this->contest->code);
-            $name = 'contest_attached_files/' . $this->contest->code . '/'
-                . Yii::$app->slug->format($this->resolution_file->baseName . ' ' . date('Y-m-d H:i:s'))
-                . '.'
-                . $this->resolution_file->extension;
-            $this->resolution_file->saveAs($name);
-            $this->path = $name;
-    
-            return $this->save(false);
+            try {
+                FileHelper::createDirectory('contest_attached_files/' . $this->contest->code);
+                $name = 'contest_attached_files/' . $this->contest->code . '/'
+                    . Yii::$app->slug->format($this->resolution_file->baseName . ' ' . date('Y-m-d H:i:s'))
+                    . '.'
+                    . $this->resolution_file->extension;
+                $this->resolution_file->saveAs($name);
+                $this->path = $name;
+        
+                return $this->save(false);
 
+            } catch (\Throwable $e) {
+                Yii::warning($e->getMessage(), 'contest_attached_files-upload');
+                return false;
+            }
         }
 
         return false;
@@ -148,7 +153,11 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         if (!parent::beforeDelete()) {
             return false;
         }
-
-        FileHelper::unlink($this->path);
+        try {
+            return FileHelper::unlink($this->path);
+        } catch (\Throwable $e) {
+            Yii::warning($e->getMessage(), 'contest_attached_files-upload');
+            return false;
+        }
     }
 }
