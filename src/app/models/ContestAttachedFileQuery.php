@@ -34,11 +34,11 @@ class ContestAttachedFileQuery extends \yii\db\ActiveQuery
 
     public function inSameContest($contestId)
     {
-        return $this->where(['=', 'contest_id', $contestId]);
+        return $this->andWhere(['=', 'contest_id', $contestId]);
     }
 
     public function onlyPublished()
     {
-        return $this->where(['=', 'published', true]);
+        return $this->andWhere(['=', 'published', true]);
     }
 }

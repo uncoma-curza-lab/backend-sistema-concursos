@@ -58,7 +58,7 @@ class PublicContestController extends Controller
     public function actionDetails($slug)
     {
         $contest = $this->findModel($slug);
-        $attachedFiles = ContestAttachedFile::find()->inSameContest($slug)->onlyPublished()->all();
+        $attachedFiles = ContestAttachedFile::find()->inSameContest($contest->id)->onlyPublished()->all();
 
         return $this->render('/contests/details', [
             'contest' => $contest,
