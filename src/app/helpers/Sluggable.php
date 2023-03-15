@@ -25,6 +25,13 @@ class Sluggable extends Component
 
         $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', strtolower($title));
 
+        $title = str_replace('á', 'a', $title);
+        $title = str_replace('é', 'e', $title);
+        $title = str_replace('í', 'i', $title);
+        $title = str_replace('ó', 'o', $title);
+        $title = str_replace('ú', 'u', $title);
+        $title = str_replace('ñ', 'n', $title);
+
         $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
 
         return trim($title, $separator);
