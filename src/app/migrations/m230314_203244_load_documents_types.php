@@ -8,14 +8,14 @@ use yii\db\Migration;
 class m230314_203244_load_documents_types extends Migration
 {
     const DOCUMENTS_TYPES = [
-        'Nota',
-        'Nomina de Inscriptos',
-        'Dictamen',
-        'Resolución Aprobatoria del Concurso y Comisión Evaluadora',
-        'Resolución Aprobatoria del Concurso',
-        'Resolución Aprobatoria del Jurado Docente',
-        'Resolución Aprobatoria del Jurado Estudiantil',
-        'Resolución Ad-Referendum',
+        'note' => 'Nota',
+        'inscribed-postulations' => 'Nomina de Inscritos',
+        'veredict' => 'Dictamen',
+        'approval-resolution-contest-evaluation-commission' => 'Resolución Aprobatoria del Concurso y Comisión Evaluadora',
+        'approval-resolution-contest' => 'Resolución Aprobatoria del Concurso',
+        'approval-resolution-teaching-jury' => 'Resolución Aprobatoria del Jurado Docente',
+        'approval-resolution-student-jury' => 'Resolución Aprobatoria del Jurado Estudiantil',
+        'ad-referendum-resolution' => 'Resolución Ad-Referendum',    
     ];
 
     /**
@@ -24,10 +24,10 @@ class m230314_203244_load_documents_types extends Migration
     public function safeUp()
     {
         echo "Loading Documents types...\n";
-        foreach (self::DOCUMENTS_TYPES as $type) {
+        foreach (self::DOCUMENTS_TYPES as $code => $type) {
                 $this->insert('{{%documents_types}}', [
                     'name' => $type,
-                    'code' => \Yii::$app->slug->format($type, '-'),
+                    'code' => $code,
                 ]);
         }
     }
@@ -38,9 +38,9 @@ class m230314_203244_load_documents_types extends Migration
     public function safeDown()
     {
         echo "Start delete rows from Document types.\n";
-        foreach(self::DOCUMENTS_TYPES as $type) {
+        foreach(self::DOCUMENTS_TYPES as $code => $type) {
             $this->delete('{{%documents_types}}', [
-                'code' => \Yii::$app->slug->format($type),
+                'code' => $code,
             ]);
         }
 

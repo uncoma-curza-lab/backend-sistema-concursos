@@ -5,13 +5,13 @@ use yii\db\Migration;
 /**
  * Class m230315_184329_add_load_documents_responsibles
  */
-class m230315_184329_add_load_documents_responsibles extends Migration
+class m230315_184329_load_documents_responsibles extends Migration
 {
     const DOCUMENTS_RESPONSIBLES = [
-        'Comisión Evaluadora',
-        'Departamento Docente',
-        'Consejo Directivo',
-        'Decanato',
+        'evaluation-commission' => 'Comisión Evaluadora',
+        'teacher-department' => 'Departamento Docente',
+        'board' => 'Consejo Directivo',
+        'daenery' => 'Decanato',
     ];
 
     /**
@@ -20,10 +20,10 @@ class m230315_184329_add_load_documents_responsibles extends Migration
     public function safeUp()
     {
         echo "Loading Documents Responsibles...\n";
-        foreach (self::DOCUMENTS_RESPONSIBLES as $type) {
+        foreach (self::DOCUMENTS_RESPONSIBLES as $key => $type) {
                 $this->insert('{{%documents_responsibles}}', [
                     'name' => $type,
-                    'code' => \Yii::$app->slug->format($type, '-'),
+                    'code' => $key,
                 ]);
         }
 
@@ -35,9 +35,9 @@ class m230315_184329_add_load_documents_responsibles extends Migration
     public function safeDown()
     {
         echo "Start delete rows from Document types.\n";
-        foreach(self::DOCUMENTS_RESPONSIBLES as $type) {
+        foreach(self::DOCUMENTS_RESPONSIBLES as $key => $type) {
             $this->delete('{{%documents_responsibles}}', [
-                'code' => \Yii::$app->slug->format($type),
+                'code' => $key,
             ]);
         }
 
