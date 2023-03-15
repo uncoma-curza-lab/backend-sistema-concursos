@@ -2,9 +2,9 @@
 
 namespace app\models;
 
-use app\events\UploadResolutionEvent;
 use Yii;
-use yii\helpers\ArrayHelper;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\helpers\FileHelper;
 
 /**
@@ -33,6 +33,23 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         return 'contest_attached_files';
     }
 
+    public function behaviors() {
+        return [
+              [
+                  'class' => TimestampBehavior::class,
+                  'attributes' => [
+                      ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                  ],
+              ],
+            'FormatDate' => [
+                'class' => 'app\behaviors\FormatDate',
+                  'attributes' => [
+                      'created_at', 'published_at',
+                  ],
+              ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -56,7 +73,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
     public function documentTypeUnque()
     {
-        $documentsTypes = $this->find()->allInSameContest($this->contest_id);
+        $documentsTypes = $this->find()->inSameContest($this->contest_id)->all();
         $documentTypeIds = array_map(function($attachedFile){
             return $attachedFile->document_type_id;
         }, $documentsTypes);
