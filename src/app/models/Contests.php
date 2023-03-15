@@ -331,6 +331,11 @@ class Contests extends ActiveRecord
         return $this->highlighted;
     }
 
+    public function isRegular() : bool
+    {
+        return $this->categoryType->code === CategoryTypes::REGULARES_CODE;
+    }
+
     public function publishResolution() : bool
     {
         $transaction = \Yii::$app->db->beginTransaction();

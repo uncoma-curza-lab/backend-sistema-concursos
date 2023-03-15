@@ -34,12 +34,22 @@ class DocumentsTypeQuery extends \yii\db\ActiveQuery
 
     public function forPresident()
     {
-        return $this->where(['=', 'code', 'dictamen']);
+        return $this->where(['=', 'code', DocumentType::VEREDICT]);
     }
 
     public function forRegularContest()
     {
-        return $this->where(['<>', 'code', 'resolución-aprobatoria-del-concurso-y-comisión-evaluadora']);
+        return $this->where(['<>', 'code', DocumentType::APPROVAL_RESOLUTION_CONTEST_EVALUATION_COMMISSION]);
+    }
+
+    public function forNotRegularContest()
+    {
+        $resolutions = [
+            DocumentType::APPROVAL_RESOLUTION_CONTEST,
+            DocumentType::APPROVAL_RESOLUTION_STUDENT_JURY,
+            DocumentType::APPROVAL_RESOLUTION_TEACHING_JURY,
+        ];
+        return $this->where(['NOT IN', 'code', $resolutions]);
     }
 
 }

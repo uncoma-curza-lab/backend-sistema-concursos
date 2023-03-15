@@ -56,7 +56,11 @@ class ContestAttachedFilesController extends \yii\web\Controller
         $presidentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code]);
 
         if($adminRol || $teacher_departmentRol){
-            $documentsTypes = DocumentType::find()->all(); 
+            if($contest->isRegular()){
+                $documentsTypes = DocumentType::find()->forRegularContest()->all(); 
+            }else{
+                $documentsTypes = DocumentType::find()->forNotRegularContest()->all(); 
+            }
             $responsibles = DocumentResponsible::find()->all();
         }else if ($presidentRol) {
             $documentsTypes = DocumentType::find()->forPresident()->all(); 
