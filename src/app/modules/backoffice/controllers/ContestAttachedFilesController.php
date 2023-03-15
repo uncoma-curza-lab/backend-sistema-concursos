@@ -59,8 +59,8 @@ class ContestAttachedFilesController extends \yii\web\Controller
             $documentsTypes = DocumentType::find()->all(); 
             $responsibles = DocumentResponsible::find()->all();
         }else if ($presidentRol) {
-            $documentsTypes = DocumentType::find()->forPresident(); 
-            $responsibles = DocumentResponsible::find()->forPresident();
+            $documentsTypes = DocumentType::find()->forPresident()->all(); 
+            $responsibles = DocumentResponsible::find()->forPresident()->all();
         }
 
         $documentsTypeList = ArrayHelper::map($documentsTypes, 'id', 'name');

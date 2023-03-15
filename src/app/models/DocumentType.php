@@ -15,6 +15,14 @@ use Yii;
  */
 class DocumentType extends \yii\db\ActiveRecord
 {
+    const NOTE = 'note';
+    const INSCRIBED_POSTULATIONS = 'inscribed-postulations';
+    const VEREDICT = 'veredict';
+    const APPROVAL_RESOLUTION_CONTEST_EVALUATION_COMMISSION = 'approval-resolution-contest-evaluation-commission';
+    const APPROVAL_RESOLUTION_CONTEST = 'approval-resolution-contest';
+    const APPROVAL_RESOLUTION_TEACHING_JURY = 'approval-resolution-teaching-jury';
+    const APPROVAL_RESOLUTION_STUDENT_JURY = 'approval-resolution-student-jury';
+    const AD_REFERENDUM_RESOLUTION = 'ad-referendum-resolution';
     /**
      * {@inheritdoc}
      */

@@ -34,6 +34,12 @@ class DocumentsTypeQuery extends \yii\db\ActiveQuery
 
     public function forPresident()
     {
-        return $this->where(['=', 'code', 'dictamen'])->all();
+        return $this->where(['=', 'code', 'dictamen']);
     }
+
+    public function forRegularContest()
+    {
+        return $this->where(['<>', 'code', 'resolución-aprobatoria-del-concurso-y-comisión-evaluadora']);
+    }
+
 }

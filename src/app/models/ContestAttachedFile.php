@@ -73,11 +73,10 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
     public function documentTypeUnque()
     {
-        $documentsTypes = $this->find()->inSameContest($this->contest_id)->all();
-        $documentTypeIds = array_map(function($attachedFile){
-            return $attachedFile->document_type_id;
-        }, $documentsTypes);
-        if(in_array($this->document_type_id, $documentTypeIds)){
+        $documentsTypes = $this->find()->inSameContest($this->contest_id)
+                                       ->andWhere(['=', 'document_type_id', $this->document_type_id])
+                                       ->count();
+        if($documentsTypes){
             $this->addError('document_type_id', 'El Concuros ya posee un documento de este tipo');
         }
     }

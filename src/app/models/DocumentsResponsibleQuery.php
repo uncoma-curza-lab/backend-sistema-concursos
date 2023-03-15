@@ -34,6 +34,6 @@ class DocumentsResponsibleQuery extends \yii\db\ActiveQuery
 
     public function forPresident()
     {
-        return $this->where(['=', 'code', 'departamento'])->all();
+        return $this->where(['=', 'code', 'departamento']);
     }
 }

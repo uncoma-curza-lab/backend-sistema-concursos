@@ -15,6 +15,11 @@ use Yii;
  */
 class DocumentResponsible extends \yii\db\ActiveRecord
 {
+    const EVALUATION_COMMISSION = 'evaluation-commission';
+    const TEACHER_DEPARTMENT = 'teacher-department';
+    const BOARD = 'board';
+    const DAENERY = 'daenery';
+
     /**
      * {@inheritdoc}
      */
