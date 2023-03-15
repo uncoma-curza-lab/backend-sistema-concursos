@@ -12,7 +12,8 @@ class m230314_203117_add_timestamp_column_to_contest_attached_files_table extend
      */
     public function safeUp()
     {
-        $this->addColumn('{{%contest_attached_files}}', 'timestamp', $this->dateTime());
+        $this->addColumn('{{%contest_attached_files}}', 'created_at', $this->dateTime());
+        $this->addColumn('{{%contest_attached_files}}', 'published_at', $this->dateTime());
     }
 
     /**
@@ -20,6 +21,7 @@ class m230314_203117_add_timestamp_column_to_contest_attached_files_table extend
      */
     public function safeDown()
     {
-        $this->dropColumn('{{%contest_attached_files}}', 'timestamp');
+        $this->dropColumn('{{%contest_attached_files}}', 'created_at');
+        $this->dropColumn('{{%contest_attached_files}}', 'published_at');
     }
 }

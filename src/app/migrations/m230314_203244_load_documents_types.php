@@ -8,9 +8,14 @@ use yii\db\Migration;
 class m230314_203244_load_documents_types extends Migration
 {
     const DOCUMENTS_TYPES = [
-        'Resolución Aprobatoria del Concurso',
-        'Resolución Aprobatoria del Jurado',
+        'Nota',
+        'Nomina de Inscriptos',
         'Dictamen',
+        'Resolución Aprobatoria del Concurso y Comisión Evaluadora',
+        'Resolución Aprobatoria del Concurso',
+        'Resolución Aprobatoria del Jurado Docente',
+        'Resolución Aprobatoria del Jurado Estudiantil',
+        'Resolución Ad-Referendum',
     ];
 
     /**
@@ -32,7 +37,7 @@ class m230314_203244_load_documents_types extends Migration
      */
     public function safeDown()
     {
-         echo "Start delete rows from Document types.\n";
+        echo "Start delete rows from Document types.\n";
         foreach(self::DOCUMENTS_TYPES as $type) {
             $this->delete('{{%documents_types}}', [
                 'code' => \Yii::$app->slug->format($type),
