@@ -21,11 +21,14 @@ use yii\helpers\Url;
                   $icon = 'bi-eye';
                   $btn = 'btn-success';
                   $toPublish = 'Publicar';
+                  $publishDisable = '';
+                  $deleteDisable = !$file->canDelete() ? 'disabled' : '';
   
                   if($file->published){
                       $icon = 'bi-eye-slash';
                       $btn = 'btn-warning';
                       $toPublish = 'Marcar como Borrador';
+                      $publishDisable = !$file->canUnPublish() ? 'disabled' : '';
                   }
                   ?>
                 <div class="list-group-item">
@@ -39,8 +42,8 @@ use yii\helpers\Url;
                        </div>
                        <div class="col-md-auto">
                           <a class="btn btn-info" href="<?= Url::to(['@web/' . $file->path]) ?>" target="_blank" title="Ver"><i class="bi bi-file-earmark-arrow-down"></i></a>
-                          <a class="btn <?= $btn ?>" href="<?= url::to(['contest-attached-files/publish', 'fileId' => $file->id, 'slug' => $contest->code]) ?>" title="<?= $toPublish ?>"><i class="bi <?= $icon ?>"></i></a>
-                          <a class="btn btn-danger" data-confirm="<?= Yii::t('backoffice', 'question_delete') ?>" href="<?= url::to(['contest-attached-files/delete', 'fileId' => $file->id, 'slug' => $contest->code]) ?>" title="Borrar"><i class="bi bi-trash"></i></a>
+                          <a class="btn <?= $btn . ' ' . $publishDisable ?>" href="<?= url::to(['contest-attached-files/publish', 'fileId' => $file->id, 'slug' => $contest->code]) ?>" title="<?= $toPublish ?>"><i class="bi <?= $icon ?>"></i></a>
+                          <a class="btn btn-danger <?= $deleteDisable ?>" data-confirm="<?= Yii::t('backoffice', 'question_delete') ?>" href="<?= url::to(['contest-attached-files/delete', 'fileId' => $file->id, 'slug' => $contest->code]) ?>" title="Borrar"><i class="bi bi-trash"></i></a>
                        </div>
                     </div>
                 </div>
