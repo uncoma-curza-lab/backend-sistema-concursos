@@ -50,7 +50,9 @@ class ContestAttachedFilesController extends \yii\web\Controller
     public function actionDelete(int $fileId, string $slug)
     {
         $model = $this->findModel($fileId);
-        $model->delete();
+        if (!$model->delete()) {
+            \Yii::$app->session->setFlash('error', 'No se pudo borrar del Archivo');
+        }
         return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');
     }
 

@@ -184,9 +184,9 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
     public function changePublishedStatus() : bool
     {
-        if($this->published && $this->canUnPublish()){
+        if($this->isPublished() && $this->canUnPublish()){
             $this->published = !$this->published;
-        }else if(!$this->published) {
+        }else if(!$this->isPublished()) {
             $this->published = !$this->published;
             $this->published_at = date('Y-m-d H:i:s');
         } else {
@@ -195,9 +195,17 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         return $this->save(false);
     }
 
+    public function beforeDelete()
+    {
+         if (!parent::beforeDelete()) {
+            return false;
+        }
+        return $this->canDelete();
+    }
+
     public function afterDelete()
     {
-        if (!parent::beforeDelete()) {
+        if (!parent::afterDelete()) {
             return false;
         }
         try {
@@ -206,6 +214,16 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             Yii::warning($e->getMessage(), 'contest_attached_files-afterDelete');
             return false;
         }
+    }
+
+    public function isPublished() : bool
+    {
+        return !!$this->published;
+    }
+
+    public function canDelete() : bool
+    {
+        return !$this->contest->isFinished() && !$this->isPublished();
     }
 
     public function canUnPublish() : bool
