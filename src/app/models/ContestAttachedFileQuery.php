@@ -41,4 +41,10 @@ class ContestAttachedFileQuery extends \yii\db\ActiveQuery
     {
         return $this->andWhere(['=', 'published', true]);
     }
+
+    public function onlyVeredict()
+    {
+        $veredictId = DocumentType::find()->oneVeredictId();
+        return $this->andWhere(['=', 'document_type_id', $veredictId]);
+    }
 }

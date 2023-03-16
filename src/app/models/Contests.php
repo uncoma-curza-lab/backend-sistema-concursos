@@ -345,6 +345,7 @@ class Contests extends ActiveRecord
             }
             $this->contest_status_id = ContestStatus::FINISHED;
             $this->resolution_published = true;
+            $this->setVeredictPublished();
             $this->cleanJuriesPermisions();
             if (!$this->save()) {
                 throw new Exception('no save');
@@ -559,5 +560,12 @@ class Contests extends ActiveRecord
         foreach ($this->contestJuriesRelationship as $jury) {
             $jury->unsetJuryPermission();
         }
+    }
+
+    private function setVeredictPublished()
+    {
+        $veredict = ContestAttachedFile::find()->inSameContest($this->id)
+                                               ->onlyVeredict()->one();
+        return $veredict->changePublishedStatus();      
     }
 }
