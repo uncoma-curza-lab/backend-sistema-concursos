@@ -41,7 +41,9 @@ class ContestAttachedFilesController extends \yii\web\Controller
     public function actionPublish(int $fileId, string $slug)
     {
         $model = $this->findModel($fileId);
-        $model->changePublishedStatus();
+        if (!$model->changePublishedStatus()){
+            \Yii::$app->session->setFlash('error', 'No se pudo cambiar el estado del Archivo');
+        }
         return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');
     }
 

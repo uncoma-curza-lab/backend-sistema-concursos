@@ -184,8 +184,14 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
     public function changePublishedStatus() : bool
     {
-        $this->published = !$this->published;
-        $this->published_at = date('Y-m-d H:i:s');
+        if($this->published && $this->canUnPublish()){
+            $this->published = !$this->published;
+        }else if(!$this->published) {
+            $this->published = !$this->published;
+            $this->published_at = date('Y-m-d H:i:s');
+        } else {
+            return false;
+        }
         return $this->save(false);
     }
 
@@ -200,6 +206,12 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             Yii::warning($e->getMessage(), 'contest_attached_files-afterDelete');
             return false;
         }
+    }
+
+    public function canUnPublish() : bool
+    {
+        //TODO - Cuando se puede despublicar??
+        return !$this->contest->isFinished();
     }
 
     public function isVeredict() : bool
