@@ -20,6 +20,8 @@ use yii\helpers\Url;
             foreach ($attachedFiles as $file): 
                   $icon = 'bi-eye';
                   $btn = 'btn-success';
+                  $badge = 'warning';
+                  $status = 'Borrador';
                   $toPublish = 'Publicar';
                   $publishDisable = '';
                   $deleteDisable = !$file->canDelete() ? 'disabled' : '';
@@ -28,16 +30,26 @@ use yii\helpers\Url;
                       $icon = 'bi-eye-slash';
                       $btn = 'btn-warning';
                       $toPublish = 'Marcar como Borrador';
+                      $badge = 'success';
+                      $status = 'Publicado';
                       $publishDisable = !$file->canUnPublish() ? 'disabled' : '';
                   }
                   ?>
                 <div class="list-group-item">
                     <div class="row">
                         <div class="col">
-                          <div class="d-flex w-100 justify-content-start">
-                            <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i> 
-                            <?= $file->documentType->name ?> - 
-                            <?= $file->name ?>
+                          <div class="d-flex w-100 justify-content-between">
+                            <div>
+                              <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i> 
+                              <?= $file->documentType->name ?> - 
+                              <?= $file->name ?>
+                            </div>
+                            <div>
+                                <span class="badge badge-<?= $badge ?>">
+                                    <?= $status ?>
+                                </span>
+                                <small><?= $file->published_at ?></small>
+                            </div>
                           </div>
                        </div>
                        <div class="col-md-auto">
