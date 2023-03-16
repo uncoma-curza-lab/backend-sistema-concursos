@@ -18,7 +18,8 @@ class CategoryTypes extends \yii\db\ActiveRecord
 
     const REGULARES_CODE = 'regulares';
     const INTERINOS_CODE = 'interinos';
-    const SUPLENTES_CODE = 'supolente';
+    const SUPLENTES_CODE = 'suplente';
+    const AD_HONOREM_CODE = 'ad-honorem';
 
     /**
      * {@inheritdoc}
