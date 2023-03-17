@@ -44,7 +44,7 @@ class ContestAttachedFileQuery extends \yii\db\ActiveQuery
 
     public function onlyVeredict()
     {
-        $veredictId = DocumentType::find()->oneVeredictId();
-        return $this->andWhere(['=', 'document_type_id', $veredictId]);
+        return $this->andWhere(['documents_types.code' => DocumentType::VEREDICT])
+                    ->joinWith(['documentType']);
     }
 }

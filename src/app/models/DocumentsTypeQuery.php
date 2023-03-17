@@ -52,7 +52,7 @@ class DocumentsTypeQuery extends \yii\db\ActiveQuery
         return $this->where(['NOT IN', 'code', $resolutions]);
     }
 
-    public function oneVeredictId()
+    public function getVeredictId()
     {
         return $this->where(['=', 'code', DocumentType::VEREDICT])->one()->id;
     }
