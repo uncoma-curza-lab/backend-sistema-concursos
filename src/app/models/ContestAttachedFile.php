@@ -138,6 +138,11 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         return new ContestAttachedFileQuery(get_called_class());
     }
 
+    public static function instantiate($attr)
+    {
+       return $attr['document_type_id'] === 23 ? new VeredictContestAttachedFile() : new static();
+    }
+
     public function upload() : bool
     {
         if($this->validate()){
