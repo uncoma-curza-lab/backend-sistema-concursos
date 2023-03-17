@@ -338,28 +338,23 @@ class Contests extends ActiveRecord
 
     public function publishResolution() : bool
     {
-        $transaction = \Yii::$app->db->beginTransaction();
-        try {
-            if (!$this->resolution_file_path) {
-                return false;
-            }
-            $this->contest_status_id = ContestStatus::FINISHED;
-            $this->resolution_published = true;
-            $this->setVeredictToPublished();
-            $this->cleanJuriesPermisions();
-            if (!$this->save()) {
-                throw new Exception('no save');
-            }
-            $transaction->commit();
-
-            $this->trigger('notify', new PublishResolutionEvent($this));
-
-            return true;
-
-        } catch (\Throwable $e) {
-            $transaction->rollBack();
+        if (!$this->resolution_file_path) {
             return false;
         }
+        $this->contest_status_id = ContestStatus::FINISHED;
+        $this->resolution_published = true;
+        $this->cleanJuriesPermisions();
+        if (!$this->save()) {
+            throw new Exception('no save');
+        }
+
+        return true;
+
+    }
+
+    public function notifyPublishResolution()
+    {
+        $this->trigger('notify', new PublishResolutionEvent($this));
     }
 
     public function isPostulateAvailable() : bool
@@ -562,7 +557,7 @@ class Contests extends ActiveRecord
         }
     }
 
-    private function setVeredictToPublished()
+    public function setVeredictToPublished()
     {
         $veredict = ContestAttachedFile::find()->inSameContest($this->id)
                                                ->onlyVeredict()->one();

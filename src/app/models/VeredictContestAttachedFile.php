@@ -21,4 +21,33 @@ use app\models\ContestAttachedFile as ModelsContestAttachedFile;
  */
 class VeredictContestAttachedFile extends ModelsContestAttachedFile
 {
+
+    public function changePublishedStatus() : bool
+    {
+        if($this->isPublished()) {
+            return false;
+        }
+
+        $transaction = \Yii::$app->db->beginTransaction();
+        $contest = $this->contest;
+        try {
+            $this->published = !$this->published;
+            $this->published_at = date('Y-m-d H:i:s');
+
+            if (!$this->save(false) || !$contest->publishResolution()) {
+                $transaction->rollBack();
+                return false;
+            }
+
+            $contest->notifyPublishResolution();
+            $transaction->commit();
+            return true;
+
+        } catch (\Throwable $e) {
+           $transaction->rollBack();
+           return false;
+        }
+
+    }
+
 }
