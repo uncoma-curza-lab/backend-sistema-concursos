@@ -20,11 +20,6 @@ class ContestAttachedFilesController extends \yii\web\Controller
             $modelForm->contest_id = $contest->id;
             $modelForm->created_at = date('Y-m-d H:i:s');
             $modelForm->resolution_file = UploadedFile::getInstance($modelForm, 'resolution_file');
-            if($modelForm->isVeredict()){
-                if ($modelForm->uploadVeredict()){
-                    return $this->redirect(['/backoffice/contest/index']);
-                }
-            }
 
             if ($modelForm->upload()) {
                 return $this->redirect(['/backoffice/contest/view/'.$slug]);

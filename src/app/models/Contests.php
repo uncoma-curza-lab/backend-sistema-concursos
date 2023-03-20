@@ -336,7 +336,7 @@ class Contests extends ActiveRecord
         return $this->categoryType->code === CategoryTypes::REGULARES_CODE;
     }
 
-    public function publishResolution() : bool
+    public function finish() : bool
     {
         if (!$this->resolution_file_path) {
             return false;
@@ -344,17 +344,9 @@ class Contests extends ActiveRecord
         $this->contest_status_id = ContestStatus::FINISHED;
         $this->resolution_published = true;
         $this->cleanJuriesPermisions();
-        if (!$this->save()) {
-            throw new Exception('no save');
-        }
 
-        return true;
+        return $this->save();
 
-    }
-
-    public function notifyPublishResolution()
-    {
-        $this->trigger('notify', new PublishResolutionEvent($this));
     }
 
     public function isPostulateAvailable() : bool

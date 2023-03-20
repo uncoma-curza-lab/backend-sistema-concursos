@@ -166,26 +166,6 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         return false;
 
     }
-    
-    public function uploadVeredict() : bool
-    {
-        $transaction = \Yii::$app->db->beginTransaction();
-        if(!$this->upload()){
-            $transaction->rollBack();
-            return false;
-        }
-        $contest = $this->contest;
-        $contest->resolution_file_path = $this->path;
-        if (!$contest->save()) {
-            $transaction->rollBack();
-            return false;
-        }
-
-        $this->trigger('notify', new UploadResolutionEvent($contest));
-        $transaction->commit();
-        return true;
-
-    }
 
     public function changePublishedStatus() : bool
     {

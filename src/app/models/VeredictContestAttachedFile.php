@@ -34,19 +34,40 @@ class VeredictContestAttachedFile extends ModelsContestAttachedFile
             $this->published = !$this->published;
             $this->published_at = date('Y-m-d H:i:s');
 
-            if (!$this->save(false) || !$contest->publishResolution()) {
+            if (!$this->save(false) || !$contest->finish()) {
                 $transaction->rollBack();
                 return false;
             }
 
-            $contest->notifyPublishResolution();
             $transaction->commit();
+            $this->trigger('notify', new PublishResolutionEvent($contest));
+
             return true;
 
         } catch (\Throwable $e) {
            $transaction->rollBack();
            return false;
         }
+
+    }
+    
+    public function upload() : bool
+    {
+        $transaction = \Yii::$app->db->beginTransaction();
+        if(!parent::upload()){
+            $transaction->rollBack();
+            return false;
+        }
+        $contest = $this->contest;
+        $contest->resolution_file_path = $this->path;
+        if (!$contest->save()) {
+            $transaction->rollBack();
+            return false;
+        }
+
+        $this->trigger('notify', new UploadResolutionEvent($contest));
+        $transaction->commit();
+        return true;
 
     }
 
