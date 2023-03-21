@@ -3,6 +3,9 @@
 namespace app\models;
 
 use app\models\ContestAttachedFile as ModelsContestAttachedFile;
+use kartik\mpdf\Pdf;
+use Yii;
+use yii\helpers\FileHelper;
 
 /**
  * This is the model class for table "contest_attached_files".
@@ -22,10 +25,18 @@ use app\models\ContestAttachedFile as ModelsContestAttachedFile;
 class InscribedContestAttachedFile extends ModelsContestAttachedFile
 {
 
-    public function generate()
+    public function generate(string $content)
     {
-        var_dump('generate');
-        exit;
+        FileHelper::createDirectory('contest_attached_files/' . $this->contest->code);
+        $name = 'contest_attached_files/' . $this->contest->code . '/'
+            . Yii::$app->slug->format('inscribed_postulations' . ' ' . date('Y-m-d H:i:s'))
+            . '.pdf';
+
+        $pdf = new Pdf();
+        $mpdf = $pdf->api;
+        $mpdf->SetHeader('Universidad Nacional Del Comahue');
+        $mpdf->WriteHtml($content);
+        $mpdf->Output($name, 'F');
     }
 
 }

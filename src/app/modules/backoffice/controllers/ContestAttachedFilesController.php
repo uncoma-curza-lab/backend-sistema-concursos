@@ -7,6 +7,7 @@ use app\models\ContestAttachedFile;
 use app\models\Contests;
 use app\models\DocumentResponsible;
 use app\models\DocumentType;
+use app\models\InscribedContestAttachedFile;
 use app\models\InscribedContestAttachedFileForm;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
@@ -58,11 +59,20 @@ class ContestAttachedFilesController extends \yii\web\Controller
         $contest = Contests::find()->findBySlug($slug);
         $modelForm = new InscribedContestAttachedFileForm();
         if ($this->request->isPost && $modelForm->load($this->request->post())) {
-                return $this->redirect(['/backoffice/contest/view/'.$slug]);
+            $model = new InscribedContestAttachedFile();
+            $model->contest_id = $contest->id;
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->generate($modelForm->text);
+            return $this->redirect(['/backoffice/contest/view/'.$slug]);
         }
+
+        $content = $this->renderPartial('inscribed_file_pdf',[
+            'contest' => $contest
+        ]);
 
         return $this->render('generate_inscribed_file', [
             'contest' => $contest,
+            'content' => $content,
             'modelForm' => $modelForm,
         ]);
     }

@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
                 'class' => 'form-group col-md-12',
             ]
         ])->widget(TinyMce::class, [
-          'options' => ['rows' => 20],
+          'options' => ['rows' => 20, 'value' => $content],
           'language' => 'es',
           'clientOptions' => [
             'plugins' => [
