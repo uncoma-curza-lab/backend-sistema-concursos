@@ -64,7 +64,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             [['contest_id', 'document_type_id', 'responsible_id'], 'default', 'value' => null],
             [['contest_id', 'document_type_id', 'responsible_id'], 'integer'],
             [['published'], 'boolean'],
-            [['created_at', 'published_at'], 'safe'],
+            [['created_at', 'published_at', 'resolution_file'], 'safe'],
             [['name', 'path'], 'string', 'max' => 255],
             [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contests::class, 'targetAttribute' => ['contest_id' => 'id']],
             [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentResponsible::class, 'targetAttribute' => ['responsible_id' => 'id']],

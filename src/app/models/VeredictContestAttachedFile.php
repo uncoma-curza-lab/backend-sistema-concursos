@@ -65,8 +65,8 @@ class VeredictContestAttachedFile extends ModelsContestAttachedFile
             return false;
         }
 
-        $this->trigger('notify', new UploadResolutionEvent($contest));
         $transaction->commit();
+        $this->trigger('notify', new UploadResolutionEvent($contest));
         return true;
 
     }

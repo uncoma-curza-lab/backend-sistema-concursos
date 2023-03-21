@@ -2,6 +2,7 @@
 
 namespace app\modules\backoffice\controllers;
 
+use app\components\ContestAttachedFilesFactory;
 use app\models\ContestAttachedFile;
 use app\models\Contests;
 use app\models\DocumentResponsible;
@@ -17,11 +18,18 @@ class ContestAttachedFilesController extends \yii\web\Controller
         $contest = Contests::find()->findBySlug($slug);
         $modelForm = new ContestAttachedFile();
         if ($this->request->isPost && $modelForm->load($this->request->post())) {
-            $modelForm->contest_id = $contest->id;
-            $modelForm->created_at = date('Y-m-d H:i:s');
-            $modelForm->resolution_file = UploadedFile::getInstance($modelForm, 'resolution_file');
+            $model = ContestAttachedFilesFactory::instantiate($this->request->post());
+            $model->contest_id = $contest->id;
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->resolution_file = UploadedFile::getInstance($model, 'resolution_file');
 
-            if ($modelForm->upload()) {
+        var_dump(get_class($model));
+        var_dump($model->attributes);
+        var_dump($model->resolution_file);
+        exit;
+
+
+            if ($model->upload()) {
                 return $this->redirect(['/backoffice/contest/view/'.$slug]);
             }
         }
