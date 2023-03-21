@@ -48,7 +48,7 @@ use yii\helpers\Url;
                                 <span class="badge badge-<?= $badge ?>">
                                     <?= $status ?>
                                 </span>
-                                <small><?= $file->published_at ?></small>
+                                <small><?= $file->published_at ? $file->published_at : $file->created_at ?></small>
                             </div>
                           </div>
                        </div>
