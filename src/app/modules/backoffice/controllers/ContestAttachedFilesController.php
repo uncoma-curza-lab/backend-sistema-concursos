@@ -2,7 +2,7 @@
 
 namespace app\modules\backoffice\controllers;
 
-use app\components\ContestAttachedFilesFactory;
+use app\helpers\ContestAttachedFilesFactory;
 use app\models\ContestAttachedFile;
 use app\models\Contests;
 use app\models\DocumentResponsible;

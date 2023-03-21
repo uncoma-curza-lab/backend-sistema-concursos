@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\events\UploadResolutionEvent;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;

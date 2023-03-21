@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components;
+namespace app\helpers;
 
 use app\models\ContestAttachedFile;
 use app\models\VeredictContestAttachedFile;
