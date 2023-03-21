@@ -21,17 +21,12 @@ class ContestAttachedFilesController extends \yii\web\Controller
             $model = ContestAttachedFilesFactory::instantiate($this->request->post());
             $model->contest_id = $contest->id;
             $model->created_at = date('Y-m-d H:i:s');
-            $model->resolution_file = UploadedFile::getInstance($model, 'resolution_file');
-
-        var_dump(get_class($model));
-        var_dump($model->attributes);
-        var_dump($model->resolution_file);
-        exit;
-
+            $model->resolution_file = UploadedFile::getInstance($modelForm, 'resolution_file');
 
             if ($model->upload()) {
                 return $this->redirect(['/backoffice/contest/view/'.$slug]);
             }
+            $modelForm = $model;
         }
 
         return $this->render('upload_attached_file', array_merge([

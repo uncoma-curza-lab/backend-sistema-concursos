@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\events\PublishResolutionEvent;
+use app\events\UploadResolutionEvent;
 use app\models\ContestAttachedFile as ModelsContestAttachedFile;
 
 /**
@@ -15,7 +17,7 @@ use app\models\ContestAttachedFile as ModelsContestAttachedFile;
  * @property int|null $responsible_id
  * @property bool|null $published
  *
- * @property Contest $contest
+ * @property Contests $contest
  * @property DocumentsType $documentType
  * @property DocumentsResponsible $responsible
  */
