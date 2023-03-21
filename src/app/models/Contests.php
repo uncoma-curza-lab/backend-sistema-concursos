@@ -2,17 +2,12 @@
 
 namespace app\models;
 
-use app\components\NotificationComponent;
-use app\events\LogEvent;
-use app\events\NotificationEvent;
-use app\events\PublishResolutionEvent;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use app\services\NextcloudService;
 use app\services\SPCService;
 use DateTime;
-use Exception;
 
 /**
  * This is the model class for table "contests".

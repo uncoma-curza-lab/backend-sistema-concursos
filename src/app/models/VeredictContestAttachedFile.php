@@ -73,4 +73,14 @@ class VeredictContestAttachedFile extends ModelsContestAttachedFile
 
     }
 
+    public function beforeDelete()
+    {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+        $contest = $this->contest;
+        $contest->resolution_file_path = null;
+        return $contest->save();
+    }
+
 }
