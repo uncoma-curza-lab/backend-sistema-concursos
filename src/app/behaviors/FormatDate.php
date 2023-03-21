@@ -15,7 +15,7 @@ use yii\db\ActiveRecord;
 class FormatDate extends Behavior {
 
 	public $attributes;
-	public $viewformat = 'dd-MM-yyyy HH:mm:ss';
+	public $viewformat = 'dd-MM-yyyy HH:mm';
 	public $saveformat = 'Y-m-d H:i:s';
 	public $saveAsMySql = TRUE;
 
@@ -45,7 +45,7 @@ class FormatDate extends Behavior {
         	if (isset($this->owner->$attribute) && !empty($this->owner->$attribute) && $this->owner->$attribute != null) {
             	$this->owner->$attribute = \Yii::$app->formatter->asDatetime($this->owner->$attribute, $this->viewformat);
         	} else {
-            	$this->owner->$attribute = 'Not Set';
+            	$this->owner->$attribute = null;
         	}
     	}
 	}
