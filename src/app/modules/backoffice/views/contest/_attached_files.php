@@ -13,6 +13,13 @@ use yii\helpers\Url;
                     [
                         'class' => 'btn btn-success',
         ]) ?>
+        <?= Html::a(
+                Yii::t('backoffice', 'generate_inscribed_file'),
+                ['/backoffice/contest-attached-files/generate-inscribed-file', 'slug' => $contest->code ],
+                    [
+                        'class' => 'btn btn-success',
+        ]) ?>
+
     </p>
 
       <div class="list-group">
