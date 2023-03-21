@@ -35,6 +35,7 @@ use DateTime;
  * @property Postulations[] $postulations
  * @property RemunerationType $remunerationType
  * @property WorkingDayTypes $workingDayType
+ * @property ContestAttachedFile[] $attachedFiles
  */
 class Contests extends ActiveRecord
 {
@@ -544,10 +545,24 @@ class Contests extends ActiveRecord
         }
     }
 
-    public function setVeredictToPublished()
+    public function setVeredictToPublished() : bool
     {
-        $veredict = ContestAttachedFile::find()->inSameContest($this->id)
-                                               ->onlyVeredict()->one();
+        $veredict = $this->getVeredict(); 
+        if (!$veredict){
+            return false;
+        }
         return $veredict->changePublishedStatus();      
+    }
+
+    protected function getVeredict() : ?VeredictContestAttachedFile
+    {
+        $veredictClassName = get_class(new VeredictContestAttachedFile());
+        foreach ($this->attachedFiles as $file) {
+            if(get_class($file) === $veredictClassName){
+                return $file;
+            }
+        }
+
+        return null;
     }
 }

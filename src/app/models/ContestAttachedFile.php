@@ -59,11 +59,11 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             [['resolution_file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'pdf'],
             [['resolution_file'], 'required'],
             [['contest_id', 'name', 'document_type_id'], 'required'],
-            [['document_type_id'], 'documentTypeUnque'],
+            [['document_type_id'], 'documentTypeUnique'],
             [['contest_id', 'document_type_id', 'responsible_id'], 'default', 'value' => null],
             [['contest_id', 'document_type_id', 'responsible_id'], 'integer'],
             [['published'], 'boolean'],
-            [['created_at', 'published_at', 'resolution_file'], 'safe'],
+            [['created_at', 'published_at'], 'safe'],
             [['name', 'path'], 'string', 'max' => 255],
             [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contests::class, 'targetAttribute' => ['contest_id' => 'id']],
             [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentResponsible::class, 'targetAttribute' => ['responsible_id' => 'id']],
@@ -71,7 +71,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         ];
     }
 
-    public function documentTypeUnque()
+    public function documentTypeUnique()
     {
         $documentsTypes = $this->find()->inSameContest($this->contest_id)
                                        ->andWhere(['=', 'document_type_id', $this->document_type_id])
