@@ -17,7 +17,7 @@ class ContestAttachedFilesController extends \yii\web\Controller
     {
         $contest = Contests::find()->findBySlug($slug);
         $modelForm = new ContestAttachedFile();
-        if ($this->request->isPost && $modelForm->load($this->request->post())) {
+        if ($this->request->isPost) {
             $model = ContestAttachedFilesFactory::instantiate($this->request->post());
             $model->contest_id = $contest->id;
             $model->created_at = date('Y-m-d H:i:s');
