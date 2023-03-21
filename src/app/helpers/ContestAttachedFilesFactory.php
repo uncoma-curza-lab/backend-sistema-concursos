@@ -10,13 +10,11 @@ class ContestAttachedFilesFactory
 
     public static function instantiate(array $data) : ContestAttachedFile
     {        
-        if (!isset($data['ContestAttachedFile'])){
-            throw new \Throwable("Error: ContestAttachedFile not set");
+        if (!$data){
+            return new ContestAttachedFile();
         }
-        $data['VeredictContestAttachedFile'] = $data['ContestAttachedFile'];
         $documentTypeId = (int) $data['ContestAttachedFile']['document_type_id'];
         $file = self::getInstance($documentTypeId);
-        $file->load($data);
         
         return $file;
     }

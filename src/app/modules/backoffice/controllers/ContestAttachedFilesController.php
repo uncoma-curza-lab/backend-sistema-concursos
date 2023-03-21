@@ -16,22 +16,20 @@ class ContestAttachedFilesController extends \yii\web\Controller
     public function actionAttachFile($slug)
     {
         $contest = Contests::find()->findBySlug($slug);
-        $modelForm = new ContestAttachedFile();
-        if ($this->request->isPost) {
-            $model = ContestAttachedFilesFactory::instantiate($this->request->post());
+        $model = ContestAttachedFilesFactory::instantiate($this->request->post());
+        if ($this->request->isPost && $model->load($this->request->post())) {
             $model->contest_id = $contest->id;
             $model->created_at = date('Y-m-d H:i:s');
-            $model->resolution_file = UploadedFile::getInstance($modelForm, 'resolution_file');
+            $model->resolution_file = UploadedFile::getInstance($model, 'resolution_file');
 
             if ($model->upload()) {
                 return $this->redirect(['/backoffice/contest/view/'.$slug]);
             }
-            $modelForm = $model;
         }
 
         return $this->render('upload_attached_file', array_merge([
             'contest' => $contest,
-            'modelForm' => $modelForm,
+            'modelForm' => $model,
         ], $this->getProps($contest)));
 
     }

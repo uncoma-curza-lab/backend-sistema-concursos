@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use ReflectionClass;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -96,6 +97,11 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             'created_at' => Yii::t('models/contest-attached-files', 'created_at'),
             'published_at' => Yii::t('models/contest-attached-files', 'published_at'),
         ];
+    }
+
+    public function formName()
+    {
+        return 'ContestAttachedFile';
     }
 
     /**
