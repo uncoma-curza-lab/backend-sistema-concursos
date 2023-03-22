@@ -25,6 +25,7 @@ class InscribedContestAttachedFileForm extends Model
     public static function getDate()
     {
         $date = '';
+        //TODO - date create now
         $today = date_create('2023-03-02');
         $date .= self::getDayNumberName((int) $today->format('d'));
         $date .= ' ';
@@ -39,6 +40,7 @@ class InscribedContestAttachedFileForm extends Model
 
     private static function getDayNumberName(int $dayNumber)
     {
+        //TODO - Todos los dias
         $dayNumberNames = [
             null, 'primero', 'dos', 'tres', 'cuatro'
         ];
@@ -48,6 +50,7 @@ class InscribedContestAttachedFileForm extends Model
 
     private static function getMonthName(int $monthNumber)
     {
+        //TODO - Todos los meses
         $monthNames = [
             null, 'Enero', 'Febrero', 'Marzo', 'Abril'
         ];
