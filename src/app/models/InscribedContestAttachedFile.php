@@ -25,7 +25,7 @@ use yii\helpers\FileHelper;
 class InscribedContestAttachedFile extends ModelsContestAttachedFile
 {
 
-    public function generate(string $content)
+    public function generateAndSave(string $content) : bool
     {
         FileHelper::createDirectory('contest_attached_files/' . $this->contest->code);
         $name = 'contest_attached_files/' . $this->contest->code . '/'
@@ -37,6 +37,17 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
         $mpdf->SetHeader('Universidad Nacional Del Comahue');
         $mpdf->WriteHtml($content);
         $mpdf->Output($name, 'F');
+
+        if (in_array($name, FileHelper::findFiles('contest_attached_files/' . $this->contest->code . '/'))){
+            $this->name = 'Acta Fin de inscripciones';
+            $this->document_type_id = DocumentType::find()->where(['=', 'code', DocumentType::INSCRIBED_POSTULATIONS])->one()->id;
+            $this->responsible_id = DocumentResponsible::find()->where(['=', 'code', DocumentResponsible::TEACHER_DEPARTMENT])->one()->id;
+            $this->path = $name;
+            return $this->save(false);
+        }
+
+        return false;
+
     }
 
 }

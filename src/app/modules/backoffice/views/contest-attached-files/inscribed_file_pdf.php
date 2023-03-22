@@ -1,5 +1,9 @@
-<?php 
-    use app\models\PostulationStatus;
+<?php
+
+use app\models\InscribedContestAttachedFileForm;
+use app\models\PostulationStatus;
+
+$date = InscribedContestAttachedFileForm::getDate();
 $workingDyaType = $contest->workingDayType->name;
 $category = $contest->category->name;
 $department = $contest->departament ? $contest->departament->name : $contest->evaluationDepartament->name;
@@ -12,7 +16,7 @@ $orientation = $contest->orientation ? $contest->orientation->name : '';
     <h2>CIERRE DE INSCRIPCIÓN</h2>
     
     <p>
-    ------------En la ciudad de Viedma, siendo las 23:55 hs del día nueve (09) de septiembre del año 2022, en el Centro Universitario Regional Zona Atlántica de la Universidad Nacional del Comahue, se produce el cierre de la inscripción del llamado a concurso de ingreso, antecedentes y oposición, aprobado por Resolución del Consejo Directivo del CURZA N.º 071/2022, para un cargo de Profesor Adjunto <?= $category ?>, con dedicación <?= $workingDyaType ?>, (PAD-3) para el Área: <?= $area ?>, Orientación: <?= $orientation ?> correspondiente al Departamento de <?= $department ?>.----------------------------------------------------------------------------------------
+    ------------En la ciudad de Viedma, siendo las 23:55 hs del día <?= $date ?>, en el Centro Universitario Regional Zona Atlántica de la Universidad Nacional del Comahue, se produce el cierre de la inscripción del llamado a concurso de ingreso, antecedentes y oposición, aprobado por Resolución del Consejo Directivo del CURZA N.º 071/2022, para un cargo de Profesor Adjunto <?= $category ?>, con dedicación <?= $workingDyaType ?>, (PAD-3) para el Área: <?= $area ?>, Orientación: <?= $orientation ?> correspondiente al Departamento de <?= $department ?>.----------------------------------------------------------------------------------------
     </p>
     
     <p>

@@ -62,7 +62,7 @@ class ContestAttachedFilesController extends \yii\web\Controller
             $model = new InscribedContestAttachedFile();
             $model->contest_id = $contest->id;
             $model->created_at = date('Y-m-d H:i:s');
-            $model->generate($modelForm->text);
+            $model->generateAndSave($modelForm->text);
             return $this->redirect(['/backoffice/contest/view/'.$slug]);
         }
 
