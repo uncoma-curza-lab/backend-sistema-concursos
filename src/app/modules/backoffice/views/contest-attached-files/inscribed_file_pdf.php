@@ -1,9 +1,9 @@
 <?php
 
-use app\models\InscribedContestAttachedFileForm;
+use app\models\InscribedContestAttachedFile;
 use app\models\PostulationStatus;
 
-$date = InscribedContestAttachedFileForm::getDate();
+$date = InscribedContestAttachedFile::getParcedDateToNoteFormat();
 $workingDyaType = $contest->workingDayType->name;
 $category = $contest->category->name;
 $department = $contest->departament ? $contest->departament->name : $contest->evaluationDepartament->name;
