@@ -79,23 +79,25 @@ class ContestAttachedFilesController extends \yii\web\Controller
 
     private function getProps(Contests $contest)
     {
-        $documentsTypes = [];
-        $responsibles = [];
+        $documentsTypesQuery = DocumentType::find();
+        $responsiblesQuery = DocumentResponsible::find();
         $adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
         $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament');
         $presidentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code]);
 
         if($adminRol || $teacher_departmentRol){
             if($contest->isRegular()){
-                $documentsTypes = DocumentType::find()->forRegularContest()->all(); 
+                $documentsTypesQuery->forRegularContest(); 
             }else{
-                $documentsTypes = DocumentType::find()->forNotRegularContest()->all(); 
+                $documentsTypesQuery->forNotRegularContest(); 
             }
-            $responsibles = DocumentResponsible::find()->all();
         }else if ($presidentRol) {
-            $documentsTypes = DocumentType::find()->forPresident()->all(); 
-            $responsibles = DocumentResponsible::find()->forPresident()->all();
+            $documentsTypesQuery->forPresident(); 
+            $responsiblesQuery->forPresident();
         }
+
+        $documentsTypes = $documentsTypesQuery->all();
+        $responsibles = $responsiblesQuery->all();
 
         $documentsTypeList = ArrayHelper::map($documentsTypes, 'id', 'name');
         $responsiblesList = ArrayHelper::map($responsibles, 'id', 'name');
