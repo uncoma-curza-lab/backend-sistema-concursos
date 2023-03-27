@@ -31,11 +31,12 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
         $name = 'contest_attached_files/' . $this->contest->code . '/'
             . Yii::$app->slug->format('inscribed_postulations' . ' ' . date('Y-m-d H:i:s'))
             . '.pdf';
-
+        $stylesheet = file_get_contents(\Yii::getAlias('@webroot') . '/css/inscribed_postulations.css');
         $pdf = new Pdf();
         $mpdf = $pdf->api;
         $mpdf->SetHeader('Universidad Nacional Del Comahue');
-        $mpdf->WriteHtml($content);
+        $mpdf->WriteHtml($stylesheet, 1);
+        $mpdf->WriteHtml($content, 2);
         $mpdf->Output($name, 'F');
 
         if (in_array($name, FileHelper::findFiles('contest_attached_files/' . $this->contest->code . '/'))){
