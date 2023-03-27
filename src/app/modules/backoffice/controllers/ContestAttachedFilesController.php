@@ -59,10 +59,7 @@ class ContestAttachedFilesController extends \yii\web\Controller
         $contest = Contests::find()->findBySlug($slug);
         $modelForm = new InscribedContestAttachedFileForm();
         if ($this->request->isPost && $modelForm->load($this->request->post())) {
-            $model = new InscribedContestAttachedFile();
-            $model->contest_id = $contest->id;
-            $model->created_at = date('Y-m-d H:i:s');
-            $model->generateAndSave($modelForm->text);
+            $modelForm->save($contest->id);
             return $this->redirect(['/backoffice/contest/view/'.$slug]);
         }
 

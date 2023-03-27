@@ -22,4 +22,12 @@ class InscribedContestAttachedFileForm extends Model
         ];
     }
 
+    public function save(int $contestId) : bool
+    {
+        $inscAttFile = new InscribedContestAttachedFile();
+        $inscAttFile->contest_id = $contestId;
+        $inscAttFile->created_at = date('Y-m-d H:i:s');
+        return $inscAttFile->generateAndSave($this->text);
+    }
+
 }
