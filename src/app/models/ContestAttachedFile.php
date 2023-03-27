@@ -26,6 +26,7 @@ use yii\helpers\FileHelper;
 class ContestAttachedFile extends \yii\db\ActiveRecord
 {
     public $resolution_file;
+    const SCENARIO_SAVE_ONLY = 'save_only';
     /**
      * {@inheritdoc}
      */
@@ -51,15 +52,22 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         ];
     }
 
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_SAVE_ONLY] = ['contest_id', 'name', 'document_type_id', 'responsible_id', 'path'];
+        return $scenarios;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['resolution_file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'pdf'],
-            [['resolution_file'], 'required'],
-            [['contest_id', 'name', 'document_type_id'], 'required'],
+            [['resolution_file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'pdf', 'on' => self::SCENARIO_DEFAULT],
+            [['resolution_file'], 'required', 'on' => self::SCENARIO_DEFAULT],
+            [['contest_id', 'name', 'document_type_id', 'responsible_id'], 'required'],
             [['document_type_id'], 'documentTypeUnique'],
             [['contest_id', 'document_type_id', 'responsible_id'], 'default', 'value' => null],
             [['contest_id', 'document_type_id', 'responsible_id'], 'integer'],
@@ -148,6 +156,11 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         return $attr['document_type_id'] === \Yii::$app->veredictDocumentTypeSingleton->getDocumentType()->id ? new VeredictContestAttachedFile() : new static();
     }
 
+    public function setSaveOnlyScenario()
+    {
+        $this->scenario = self::SCENARIO_SAVE_ONLY;
+    }
+
     public function upload() : bool
     {
         if($this->validate()){
@@ -159,8 +172,9 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
                     . $this->resolution_file->extension;
                 $this->resolution_file->saveAs($name);
                 $this->path = $name;
+                $this->setSaveOnlyScenario();
         
-                return $this->save(false);
+                return $this->save();
 
             } catch (\Throwable $e) {
                 Yii::warning($e->getMessage(), 'contest_attached_files-upload');
