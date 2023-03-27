@@ -7,6 +7,7 @@ use app\models\ContestAttachedFile;
 use app\models\Contests;
 use app\models\DocumentResponsible;
 use app\models\DocumentType;
+use app\models\InscribedContestAttachedFile;
 use app\models\InscribedContestAttachedFileForm;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
@@ -73,6 +74,21 @@ class ContestAttachedFilesController extends \yii\web\Controller
         ]);
     }
 
+    public function actionInscribedPreview()
+    {
+        header('Content-type: application/pdf');
+        $data = \Yii::$app->request->post();
+        $pdf = InscribedContestAttachedFile::writePdf($data['text']);
+
+        return $pdf->Output();
+    }
+/*
+    public function beforeAction($action) 
+    { 
+        $this->enableCsrfValidation = false; 
+        return parent::beforeAction($action); 
+    }
+ */   
     private function getProps(Contests $contest)
     {
         $documentsTypesQuery = DocumentType::find();
