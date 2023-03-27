@@ -54,8 +54,7 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
     public static function getParcedDateToNoteFormat()
     {
         $date = '';
-        //TODO - date create now
-        $today = date_create('2023-03-02');
+        $today = date_create();
         $date .= self::getDayNumberName((int) $today->format('d'));
         $date .= ' ';
         $date .= '(' . $today->format('d') . ')';
@@ -69,9 +68,11 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
 
     private static function getDayNumberName(int $dayNumber)
     {
-        //TODO - Todos los dias
         $dayNumberNames = [
-            null, 'primero', 'dos', 'tres', 'cuatro'
+            null, 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez',
+            'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve', 'veinte',
+            'veintiuno', 'veintidós', 'veintitrés', 'veinticuatro', 'veinticinco', 'veintiséis', 'veintisiete', 
+            'veintiocho', 'veintinueve', 'treinta', 'treinta y uno'
         ];
 
         return $dayNumberNames[$dayNumber];
@@ -79,9 +80,8 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
 
     private static function getMonthName(int $monthNumber)
     {
-        //TODO - Todos los meses
         $monthNames = [
-            null, 'Enero', 'Febrero', 'Marzo', 'Abril'
+            null, 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
         ];
 
         return $monthNames[$monthNumber];
