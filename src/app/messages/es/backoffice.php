@@ -19,4 +19,5 @@ return [
     'attached_files' => 'Archivos Adjuntos',
     'attach_file' => 'Adjuntar Archivo',
     'question_delete' => '¿Está seguro que desea el eliminar el Archivo?',
+    'generate_inscribed_file' => 'Generar Nomina de Inscriptos',
 ];

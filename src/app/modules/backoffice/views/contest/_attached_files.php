@@ -11,7 +11,7 @@ use yii\helpers\Url;
                 Yii::t('backoffice', 'attach_file'),
                 ['/backoffice/contest-attached-files/attach-file', 'slug' => $contest->code ],
                     [
-                        'class' => 'btn btn-success',
+                        'class' => 'btn btn-primary',
         ]) ?>
         <?= Html::a(
                 Yii::t('backoffice', 'generate_inscribed_file'),

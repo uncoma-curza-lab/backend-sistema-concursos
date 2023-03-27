@@ -18,7 +18,7 @@ class InscribedContestAttachedFileForm extends Model
     public function attributeLabels()
     {
         return [
-            'text' => Yii::t('models/InscribedContestAttachedFileForm', 'text'),
+            'text' => Yii::t('models/inscribed-contest-attached-file-form', 'text'),
         ];
     }
 
