@@ -40,8 +40,8 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
 
         if (in_array($name, FileHelper::findFiles('contest_attached_files/' . $this->contest->code . '/'))){
             $this->name = 'Acta Fin de inscripciones';
-            $this->document_type_id = DocumentType::find()->where(['=', 'code', DocumentType::INSCRIBED_POSTULATIONS])->one()->id;
-            $this->responsible_id = DocumentResponsible::find()->where(['=', 'code', DocumentResponsible::TEACHER_DEPARTMENT])->one()->id;
+            $this->document_type_id = DocumentType::getByCode(DocumentType::INSCRIBED_POSTULATIONS)->id;
+            $this->responsible_id = DocumentResponsible::getByCode(DocumentResponsible::TEACHER_DEPARTMENT)->id;
             $this->path = $name;
             return $this->save(false);
         }

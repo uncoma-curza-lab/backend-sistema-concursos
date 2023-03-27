@@ -72,4 +72,9 @@ class DocumentType extends \yii\db\ActiveRecord
         return new DocumentsTypeQuery(get_called_class());
     }
 
+    public static function getByCode(string $code) : ?self
+    {
+        return self::find()->getByCode($code);
+    }
+
 }

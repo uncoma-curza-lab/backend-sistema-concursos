@@ -36,4 +36,9 @@ class DocumentsResponsibleQuery extends \yii\db\ActiveQuery
     {
         return $this->where(['=', 'code', DocumentResponsible::EVALUATION_COMMISSION]);
     }
+
+    public function getByCode(string $code)
+    {
+        return $this->where(['=', 'code', $code])->one();
+    }
 }

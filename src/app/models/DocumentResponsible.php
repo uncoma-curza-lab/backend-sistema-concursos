@@ -68,4 +68,9 @@ class DocumentResponsible extends \yii\db\ActiveRecord
     {
         return new DocumentsResponsibleQuery(get_called_class());
     }
+
+    public static function getByCode(string $code) : ?self
+    {
+        return self::find()->getByCode($code);
+    }
 }

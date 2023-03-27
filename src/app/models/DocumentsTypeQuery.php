@@ -57,4 +57,9 @@ class DocumentsTypeQuery extends \yii\db\ActiveQuery
         return $this->where(['=', 'code', DocumentType::VEREDICT])->one()->id;
     }
 
+    public function getByCode(string $code)
+    {
+        return $this->where(['=', 'code', $code])->one();
+    }
+
 }
