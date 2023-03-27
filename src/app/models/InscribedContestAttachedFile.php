@@ -43,7 +43,8 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
             $this->document_type_id = DocumentType::getByCode(DocumentType::INSCRIBED_POSTULATIONS)->id;
             $this->responsible_id = DocumentResponsible::getByCode(DocumentResponsible::TEACHER_DEPARTMENT)->id;
             $this->path = $name;
-            return $this->save(false);
+            $this->setSaveOnlyScenario();
+            return $this->save();
         }
 
         return false;

@@ -7,7 +7,6 @@ use app\models\ContestAttachedFile;
 use app\models\Contests;
 use app\models\DocumentResponsible;
 use app\models\DocumentType;
-use app\models\InscribedContestAttachedFile;
 use app\models\InscribedContestAttachedFileForm;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;

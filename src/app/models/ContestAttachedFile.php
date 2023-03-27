@@ -196,7 +196,8 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         } else {
             return false;
         }
-        return $this->save(false);
+        $this->setSaveOnlyScenario();
+        return $this->save();
     }
 
     public function beforeDelete()

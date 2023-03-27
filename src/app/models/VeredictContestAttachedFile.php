@@ -35,8 +35,9 @@ class VeredictContestAttachedFile extends ModelsContestAttachedFile
         try {
             $this->published = !$this->published;
             $this->published_at = date('Y-m-d H:i:s');
+            $this->setSaveOnlyScenario();
 
-            if (!$this->save(false) || !$contest->finish()) {
+            if (!$this->save() || !$contest->finish()) {
                 $transaction->rollBack();
                 return false;
             }
