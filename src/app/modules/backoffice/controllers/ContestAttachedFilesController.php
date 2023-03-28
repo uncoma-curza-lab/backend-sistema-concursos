@@ -9,12 +9,43 @@ use app\models\DocumentResponsible;
 use app\models\DocumentType;
 use app\models\InscribedContestAttachedFile;
 use app\models\InscribedContestAttachedFileForm;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class ContestAttachedFilesController extends \yii\web\Controller
 {
+    public function behaviors()
+    {
+        return array_merge(
+            parent::behaviors(),
+            [
+                'verbs' => [
+                    'class' => VerbFilter::class,
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                        [
+                            'allow' => true,
+                            'roles' => ['teach_departament', 'admin'],
+                            'actions' => ['attach-file', 'publish', 'delete', 'generate-inscribed-file', 'inscribed-preview'],
+                        ],
+                     ],
+                ],
+            ],
+        );
+    }
+
     public function actionAttachFile($slug)
     {
         $contest = Contests::find()->findBySlug($slug);

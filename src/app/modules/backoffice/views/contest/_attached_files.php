@@ -2,11 +2,18 @@
 
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
+
+$teachDepartmenRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament');
+$adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
 ?>
 <div id="attached_files" class="card">
     <div class="card-body">
     <h3 class="card-title"><?= Yii::t('backoffice', 'attached_files') ?></h3>
     <p>
+        <?php 
+                if ($teachDepartmenRol || $adminRol):
+        ?>
+
         <?= Html::a(
                 Yii::t('backoffice', 'attach_file'),
                 ['/backoffice/contest-attached-files/attach-file', 'slug' => $contest->code ],
@@ -18,8 +25,9 @@ use yii\helpers\Url;
                 ['/backoffice/contest-attached-files/generate-inscribed-file', 'slug' => $contest->code ],
                     [
                         'class' => 'btn btn-success',
-        ]) ?>
-
+                    ]); 
+        endif;
+        ?>
     </p>
 
       <div class="list-group">
@@ -61,8 +69,23 @@ use yii\helpers\Url;
                        </div>
                        <div class="col-md-auto">
                           <a class="btn btn-info" href="<?= Url::to(['@web/' . $file->path]) ?>" target="_blank" title="Ver"><i class="bi bi-file-earmark-arrow-down"></i></a>
-                          <a class="btn <?= $btn . ' ' . $publishDisable ?>" href="<?= url::to(['contest-attached-files/publish', 'fileId' => $file->id, 'slug' => $contest->code]) ?>" title="<?= $toPublish ?>"><i class="bi <?= $icon ?>"></i></a>
-                          <a class="btn btn-danger <?= $deleteDisable ?>" data-confirm="<?= Yii::t('backoffice', 'question_delete') ?>" href="<?= url::to(['contest-attached-files/delete', 'fileId' => $file->id, 'slug' => $contest->code]) ?>" title="Borrar"><i class="bi bi-trash"></i></a>
+                      <?php 
+                              if ($teachDepartmenRol || $adminRol):
+                      ?>
+                              <?= Html::a("<i class='bi $icon'></i>", ['contest-attached-files/publish', 'fileId' => $file->id, 'slug' => $contest->code],[
+                                'class' => "btn $btn $publishDisable",
+                                'title' => $toPublish,
+                              ]) ?>
+                              <?= Html::a('<i class="bi bi-trash"></i>', ['contest-attached-files/delete', 'fileId' => $file->id, 'slug' => $contest->code], [
+                                'class' => "btn btn-danger $deleteDisable",
+                                'title' => Yii::t('backoffice', 'Eliminar'),
+                                  'data' => [
+                                      'confirm' => Yii::t('backoffice', 'question_delete'),
+                                      'method' => 'post',
+                                  ],
+                              ]);
+                              endif;
+                      ?>
                        </div>
                     </div>
                 </div>
