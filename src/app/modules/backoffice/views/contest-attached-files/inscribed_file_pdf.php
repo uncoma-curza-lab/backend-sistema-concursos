@@ -1,7 +1,9 @@
 <?php
 
+use app\models\CategoryTypes;
 use app\models\InscribedContestAttachedFile;
 use app\models\PostulationStatus;
+use app\models\WorkingDayTypes;
 
 $date = InscribedContestAttachedFile::getParcedDateToNoteFormat();
 $workingDayType = $contest->workingDayType->name;
@@ -9,9 +11,9 @@ $workingDayTypeCode = $contest->workingDayType->code;
 $category = $contest->category->name;
 $categoryCode = $contest->category->code;
 $categoryNumber = 1;
-if ($workingDayTypeCode === 'parcial'){
+if ($workingDayTypeCode === WorkingDayTypes::PARTIAL_CODE){
     $categoryNumber = 2;
-} else if ($workingDayTypeCode === 'simple'){
+} else if ($workingDayTypeCode === WorkingDayTypes::SIMPLE_CODE){
     $categoryNumber = 3;
 }
 $department = $contest->departament ? $contest->departament->name : $contest->evaluationDepartament->name;
@@ -23,11 +25,12 @@ if($area){
 }
 $categoryTypeCode = $contest->categoryType->code;
 $contestTypeText = 'de ingreso, antecedentes y oposición';
-if($categoryTypeCode === 'interinos' || $categoryTypeCode === 'suplente'){
+if($categoryTypeCode === CategoryTypes::INTERINOS_CODE || $categoryTypeCode === CategoryTypes::SUPLENTES_CODE){
     $contestTypeText = 'para cargos interinos y suplentes';
-} else if ($categoryTypeCode === 'ad-honorem') {
+} else if ($categoryTypeCode === CategoryTypes::AD_HONOREM_CODE) {
     $contestTypeText = 'para cargos AD HONOREM';
 }
+$approvalResolution = $contest->getApprovalResolution();
 ?>
 <html>
 <body>
@@ -35,7 +38,7 @@ if($categoryTypeCode === 'interinos' || $categoryTypeCode === 'suplente'){
     <h2 style="text-align: center;">CIERRE DE INSCRIPCIÓN</h2>
     
     <p>
-    ------------En la ciudad de Viedma, siendo las 23:55 hs del día <?= $date ?>, en el Centro Universitario Regional Zona Atlántica de la Universidad Nacional del Comahue, se produce el cierre de la inscripción del llamado a concurso <?= $contestTypeText ?>, aprobado por Resolución del Consejo Directivo del CURZA N.º 071/2022, para un cargo de <?= $category ?>, con dedicación <?= $workingDayType ?>, (<?= $categoryCode ?>-<?= $categoryNumber ?>) <?= $areaText ?> correspondiente al Departamento de <?= $department ?>.----------------------------------------------------------------------------------------
+    ------------En la ciudad de Viedma, siendo las 23:55 hs del día <?= $date ?>, en el Centro Universitario Regional Zona Atlántica de la Universidad Nacional del Comahue, se produce el cierre de la inscripción del llamado a concurso <?= $contestTypeText ?>, aprobado por Resolución del <?= $approvalResolution->responsible->name ?> del CURZA N.º <?= $approvalResolution->name ?>, para un cargo de <?= $category ?>, con dedicación <?= $workingDayType ?>, (<?= $categoryCode ?>-<?= $categoryNumber ?>) <?= $areaText ?> correspondiente al Departamento de <?= $department ?>.----------------------------------------------------------------------------------------
     </p>
     
     <p>
