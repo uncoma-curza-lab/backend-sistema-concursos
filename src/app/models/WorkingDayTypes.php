@@ -15,6 +15,9 @@ use Yii;
  */
 class WorkingDayTypes extends \yii\db\ActiveRecord
 {
+    const PARTIAL_CODE = 'parcial';
+    const EXLUSIVE_CODE = 'exlusiva';
+    const SIMPLE_CODE = 'simple';
     /**
      * {@inheritdoc}
      */
