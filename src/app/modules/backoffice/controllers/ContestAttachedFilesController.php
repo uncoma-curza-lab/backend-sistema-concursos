@@ -9,6 +9,7 @@ use app\models\DocumentResponsible;
 use app\models\DocumentType;
 use app\models\InscribedContestAttachedFile;
 use app\models\InscribedContestAttachedFileForm;
+use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -39,6 +40,16 @@ class ContestAttachedFilesController extends \yii\web\Controller
                             'allow' => true,
                             'roles' => ['teach_departament', 'admin'],
                             'actions' => ['attach-file', 'publish', 'delete', 'generate-inscribed-file', 'inscribed-preview'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['attach-file'],
+                            'roles' => ['uploadResolution'],
+                            'roleParams' => function() {
+                                return [
+                                    'contestSlug' => Yii::$app->request->get('slug'),
+                                ];
+                            },
                         ],
                      ],
                 ],
