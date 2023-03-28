@@ -5,6 +5,11 @@ use yii\helpers\Url;
 
 $teachDepartmenRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament');
 $adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
+
+$today = date_create();
+$enrollment_date_end = date_create($contest->enrollment_date_end);
+$hasResolution = !!$contest->getApprovalResolution();
+$disableInscibedFile = ($today < $enrollment_date_end || !$hasResolution) ? 'disabled' : '';
 ?>
 <div id="attached_files" class="card">
     <div class="card-body">
@@ -24,7 +29,7 @@ $adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
                 Yii::t('backoffice', 'generate_inscribed_file'),
                 ['/backoffice/contest-attached-files/generate-inscribed-file', 'slug' => $contest->code ],
                     [
-                        'class' => 'btn btn-success',
+                        'class' => "btn btn-success $disableInscibedFile",
                     ]); 
         endif;
         ?>
