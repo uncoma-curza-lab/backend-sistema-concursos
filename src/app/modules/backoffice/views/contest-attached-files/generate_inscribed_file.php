@@ -45,6 +45,11 @@ use yii\widgets\ActiveForm;
     'title' => 'Vista Previa Nomina de incriptos',
   ]);
 ?>
+  <div class="d-flex justify-content-center">
+    <div id="loading" class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
   <embed id="embed" src="" width="100%" height="600">
 
   <div class="modal-footer">
@@ -55,10 +60,10 @@ use yii\widgets\ActiveForm;
   Modal::end();
 ?>
 </div>
-
 <?php 
 $preview = <<< 'JS'
 $('#previewBtn').click(() => {
+  $('#previewModal').modal('show');
   const text = $('#text-content_ifr')[0].contentDocument.body.innerHTML;
   const csrfParam = document.querySelector('meta[name="csrf-param"]').content;
   const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
@@ -82,6 +87,7 @@ $('#previewBtn').click(() => {
         const data = window.URL.createObjectURL(newBlob);
         let embed = document.getElementById('embed');
         embed.src = data;
+        $("#loading").hide(); 
         $('#previewModal').modal('show');
       })
   })
