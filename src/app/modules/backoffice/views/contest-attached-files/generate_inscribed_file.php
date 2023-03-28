@@ -1,7 +1,6 @@
 <?php
 
 use dosamigos\tinymce\TinyMce;
-use PHPUnit\Util\Log\JSON;
 use yii\bootstrap4\Modal;
 use yii\web\View;
 use yii\widgets\ActiveForm;
@@ -16,6 +15,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($modelForm, 'text', [
             'options' => [
                 'class' => 'form-group col-md-12',
+                'id' => 'form-text',
             ]
         ])->widget(TinyMce::class, [
           'options' => ['rows' => 20, 'value' => $content, 'id' => 'text-content',],
@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
 <?php 
 $preview = <<< 'JS'
 $('#previewBtn').click(() => {
-  const text = $('#text-content')[0].value;
+  const text = $('#text-content_ifr')[0].contentDocument.body.innerHTML;
   const csrfParam = document.querySelector('meta[name="csrf-param"]').content;
   const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
   fetch('/backoffice/contest-attached-files/inscribed-preview', {
