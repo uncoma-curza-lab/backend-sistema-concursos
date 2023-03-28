@@ -80,7 +80,7 @@ $('#previewBtn').click(() => {
       .then( (blobResponse) => {
         let newBlob = new Blob([blobResponse], {type: "application/pdf"})
         const data = window.URL.createObjectURL(newBlob);
-        var embed = document.getElementById('embed');
+        let embed = document.getElementById('embed');
         embed.src = data;
         $('#previewModal').modal('show');
       })
