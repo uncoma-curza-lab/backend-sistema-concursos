@@ -52,7 +52,6 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
         $stylesheet = file_get_contents(\Yii::getAlias('@webroot') . '/css/inscribed_postulations.css');
         $pdf = new Pdf();
         $mpdf = $pdf->api;
-        $mpdf->SetHeader('Universidad Nacional Del Comahue');
         $mpdf->WriteHtml($stylesheet, 1);
         $mpdf->WriteHtml($content, 2);
         return $mpdf;
