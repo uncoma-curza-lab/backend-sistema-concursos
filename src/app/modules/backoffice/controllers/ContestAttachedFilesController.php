@@ -82,13 +82,7 @@ class ContestAttachedFilesController extends \yii\web\Controller
 
         return $pdf->Output();
     }
-/*
-    public function beforeAction($action) 
-    { 
-        $this->enableCsrfValidation = false; 
-        return parent::beforeAction($action); 
-    }
- */   
+
     private function getProps(Contests $contest)
     {
         $documentsTypesQuery = DocumentType::find();

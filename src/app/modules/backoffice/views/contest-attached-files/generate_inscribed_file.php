@@ -1,7 +1,9 @@
 <?php
 
 use dosamigos\tinymce\TinyMce;
+use PHPUnit\Util\Log\JSON;
 use yii\bootstrap4\Modal;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 ?>
 
@@ -31,8 +33,8 @@ use yii\widgets\ActiveForm;
 </div>
 
 <?php ActiveForm::end() ?>
-<button class="btn btn-success" onclick="sendForm()">Generar</button>
-<button class="btn btn-info" onclick="preview()">Vista Previa</button>
+<button class="btn btn-success submit">Generar</button>
+<button class="btn btn-info" id="previewBtn">Vista Previa</button>
 
 
 <?php
@@ -40,28 +42,33 @@ use yii\widgets\ActiveForm;
     'id'=>'previewModal',
     'class' =>'modal',
     'size' => 'modal-xl',
-    'title' => 'Preview Nomina de incriptos',
+    'title' => 'Vista Previa Nomina de incriptos',
   ]);
 ?>
   <embed id="embed" src="" width="100%" height="600">
 
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-    <button type="button" class="btn btn-success" onclick="sendForm()">Generar</button>
+    <button type="button" class="btn btn-success submit">Generar</button>
   </div>
 <?php
   Modal::end();
 ?>
-<script>
-function preview() {
+</div>
+
+<?php 
+$preview = <<< 'JS'
+$('#previewBtn').click(() => {
   const text = $('#text-content')[0].value;
+  const csrfParam = document.querySelector('meta[name="csrf-param"]').content;
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
   fetch('/backoffice/contest-attached-files/inscribed-preview', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      '<?=Yii::$app->request->csrfParam?>': '<?=Yii::$app->request->getCsrfToken()?>',
+      [csrfParam]: csrfToken,
       text: text 
     })
   })
@@ -70,21 +77,24 @@ function preview() {
       throw new Error('Error en la petición');
     }
     response.blob()
-      .then(
-        showFile
-      )
+      .then( (blobResponse) => {
+        let newBlob = new Blob([blobResponse], {type: "application/pdf"})
+        const data = window.URL.createObjectURL(newBlob);
+        var embed = document.getElementById('embed');
+        embed.src = data;
+        $('#previewModal').modal('show');
+      })
   })
-}
-function showFile(blobResponse){
-  let newBlob = new Blob([blobResponse], {type: "application/pdf"})
-  const data = window.URL.createObjectURL(newBlob);
-  var embed = document.getElementById('embed');
-  embed.src = data;
-  $('#previewModal').modal('show');
-}
+})
+JS;
 
-function sendForm(){
-  $('#inscribedForm').submit();
-}
-</script>
-</div>
+$sendForm = <<< 'JS'
+  $('.submit').click(() => {
+    $('#inscribedForm').submit();
+  })
+JS;
+
+$this->registerJs($preview, View::POS_READY);
+$this->registerJs($sendForm, View::POS_READY);
+
+?>
