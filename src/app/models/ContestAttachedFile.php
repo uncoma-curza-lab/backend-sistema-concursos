@@ -68,7 +68,7 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             [['resolution_file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'pdf', 'on' => self::SCENARIO_DEFAULT],
             [['resolution_file'], 'required', 'on' => self::SCENARIO_DEFAULT],
             [['contest_id', 'name', 'document_type_id', 'responsible_id'], 'required'],
-            [['document_type_id'], 'documentTypeUnique'],
+            [['document_type_id'], 'documentTypeUnique', 'on' => self::SCENARIO_DEFAULT],
             [['contest_id', 'document_type_id', 'responsible_id'], 'default', 'value' => null],
             [['contest_id', 'document_type_id', 'responsible_id'], 'integer'],
             [['published'], 'boolean'],
