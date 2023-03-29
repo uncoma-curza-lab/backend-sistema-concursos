@@ -34,7 +34,6 @@ $approvalResolution = $contest->getApprovalResolution();
 ?>
 <html>
 <body>
-<img src="<?= \Yii::getAlias('@webroot') . '/images/inscribed_note/header.png' ?>" alt="header" width="500">
     <h2 style="text-align: center;">ACTA</h2>
     <h2 style="text-align: center;">CIERRE DE INSCRIPCIÓN</h2>
     

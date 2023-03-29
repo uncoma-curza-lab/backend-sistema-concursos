@@ -50,8 +50,17 @@ class InscribedContestAttachedFile extends ModelsContestAttachedFile
     public static function writePdf(string $content)
     {
         $stylesheet = file_get_contents(\Yii::getAlias('@webroot') . '/css/inscribed_postulations.css');
-        $pdf = new Pdf();
+        $pdf = new Pdf([
+          'mode' => '', // leaner size using standard fonts
+          'format' => Pdf::FORMAT_A4,
+          'orientation' => Pdf::ORIENT_PORTRAIT,
+          'marginTop' => 40,
+          'marginBottom' => 30,
+          'marginLeft' => 20,
+          'marginRight' => 10,
+        ]);
         $mpdf = $pdf->api;
+        $mpdf->SetHeader("<img src=" . \Yii::getAlias('@webroot') . "/images/inscribed_note/header.png alt='header' width='500'>||");
         $mpdf->WriteHtml($stylesheet, 1);
         $mpdf->WriteHtml($content, 2);
         return $mpdf;
