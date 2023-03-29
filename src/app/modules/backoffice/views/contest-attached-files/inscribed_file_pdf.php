@@ -60,9 +60,5 @@ $approvalResolution = $contest->getApprovalResolution();
     <p>
     ---No siendo para mas se da por finalizado el correspondiente acto.-------
     </p>
-<div>
-        <img src="<?= \Yii::getAlias('@webroot') . '/images/inscribed_note/stamp.png' ?>" alt="stmp" width="100" style="float: left; margin-left:200">
-        <img src="<?= \Yii::getAlias('@webroot') . '/images/inscribed_note/signature.png' ?>" alt="signature" width="200" style="float: right; margin-right:50">
-</div>
 </body>
 </html>
