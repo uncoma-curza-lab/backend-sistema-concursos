@@ -1,6 +1,7 @@
 <?php
 
 use yii\db\Migration;
+use yii\helpers\FileHelper;
 
 /**
  * Handles the creation of table `{{%contest_attached_files}}`.
@@ -63,6 +64,10 @@ class m230310_175526_create_contest_attached_files_table extends Migration
             'id',
             'CASCADE'
         );
+
+        echo "    > Create contest_attached_files folder\n";
+        FileHelper::createDirectory('web/contest_attached_files/');
+        FileHelper::changeOwnership('web/contest_attached_files/', ':33');
     }
 
     /**
@@ -95,5 +100,8 @@ class m230310_175526_create_contest_attached_files_table extends Migration
         );
 
         $this->dropTable('{{%contest_attached_files}}');
+
+        echo "    > Remove contest_attached_files folder\n";
+        FileHelper::removeDirectory('web/contest_attached_files/');
     }
 }
