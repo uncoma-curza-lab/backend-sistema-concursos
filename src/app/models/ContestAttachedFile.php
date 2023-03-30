@@ -232,7 +232,6 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
     public function canUnPublish() : bool
     {
-        //TODO - Cuando se puede despublicar??
         return !$this->contest->isFinished() && !$this->contest->postulations;
     }
 
