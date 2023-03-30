@@ -227,13 +227,13 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
     public function canDelete() : bool
     {
-        return !$this->contest->isFinished() && !$this->isPublished();
+        return !$this->isPublished();
     }
 
     public function canUnPublish() : bool
     {
         //TODO - Cuando se puede despublicar??
-        return !$this->contest->isFinished();
+        return !$this->contest->isFinished() && !$this->contest->postulations;
     }
 
     public function isVeredict() : bool
