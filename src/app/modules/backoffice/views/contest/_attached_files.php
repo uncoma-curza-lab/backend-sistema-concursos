@@ -10,7 +10,7 @@ $today = date_create();
 $enrollment_date_end = date_create($contest->enrollment_date_end);
 $approvalResolution = $contest->getApprovalResolution();
 $approvalResolutionIsPublished = $approvalResolution ? $approvalResolution->isPublished() : false;
-$disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsPublished) ? 'disabled' : '';
+$disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsPublished || $contest->getInscribedPostualtion()) ? 'disabled' : '';
 ?>
 <div id="attached_files" class="card">
     <div class="card-body">

@@ -571,4 +571,9 @@ class Contests extends ActiveRecord
         return $this->getAttachedFiles()->approvalResolution()->one();
     }
 
+    public function getInscribedPostualtion() : ?ContestAttachedFile
+    {
+        return $this->getAttachedFiles()->onlyInscirbedPostualtions()->one();
+    }
+
 }

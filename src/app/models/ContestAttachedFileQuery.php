@@ -48,6 +48,12 @@ class ContestAttachedFileQuery extends \yii\db\ActiveQuery
                     ->joinWith(['documentType']);
     }
 
+    public function onlyInscirbedPostualtions()
+    {
+        return $this->andWhere(['documents_types.code' => DocumentType::INSCRIBED_POSTULATIONS])
+                    ->joinWith(['documentType']);
+    }
+
     public function approvalResolution()
     {
         return $this->andWhere(['IN', 'documents_types.code', [

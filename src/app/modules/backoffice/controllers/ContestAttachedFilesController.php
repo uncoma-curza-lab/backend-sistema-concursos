@@ -99,6 +99,10 @@ class ContestAttachedFilesController extends \yii\web\Controller
     public function actionGenerateInscribedFile(string $slug)
     {
         $contest = Contests::find()->findBySlug($slug);
+        if($contest->getInscribedPostualtion()){
+            \Yii::$app->session->setFlash('error', 'Ya existe una Nomina de inscriptos');
+            return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');
+        }
         $modelForm = new InscribedContestAttachedFileForm();
         if ($this->request->isPost && $modelForm->load($this->request->post())) {
             $modelForm->save($contest->id);
