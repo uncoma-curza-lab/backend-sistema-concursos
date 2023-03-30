@@ -8,8 +8,9 @@ $adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
 
 $today = date_create();
 $enrollment_date_end = date_create($contest->enrollment_date_end);
-$hasResolution = !!$contest->getApprovalResolution();
-$disableInscibedFile = ($today < $enrollment_date_end || !$hasResolution) ? 'disabled' : '';
+$approvalResolution = $contest->getApprovalResolution();
+$approvalResolutionIsPublished = $approvalResolution ? $approvalResolution->isPublished() : false;
+$disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsPublished) ? 'disabled' : '';
 ?>
 <div id="attached_files" class="card">
     <div class="card-body">
