@@ -47,4 +47,13 @@ class ContestAttachedFileQuery extends \yii\db\ActiveQuery
         return $this->andWhere(['documents_types.code' => DocumentType::VEREDICT])
                     ->joinWith(['documentType']);
     }
+
+    public function approvalResolution()
+    {
+        return $this->andWhere(['IN', 'documents_types.code', [
+            DocumentType::APPROVAL_RESOLUTION_CONTEST,
+            DocumentType::APPROVAL_RESOLUTION_CONTEST_EVALUATION_COMMISSION
+        ]])->joinWith(['documentType']);
+    }
+
 }

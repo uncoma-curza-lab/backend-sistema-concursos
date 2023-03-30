@@ -568,14 +568,7 @@ class Contests extends ActiveRecord
 
     public function getApprovalResolution() : ?ContestAttachedFile
     {
-        foreach ($this->attachedFiles as $file) {
-            if($file->documentType->code === DocumentType::APPROVAL_RESOLUTION_CONTEST
-                ||
-                $file->documentType->code === DocumentType::APPROVAL_RESOLUTION_CONTEST_EVALUATION_COMMISSION){
-                    return $file;
-            }
-        }
-        return null;
+        return $this->getAttachedFiles()->approvalResolution()->one();
     }
 
 }
