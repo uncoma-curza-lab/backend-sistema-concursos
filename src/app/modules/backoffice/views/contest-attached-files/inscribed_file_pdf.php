@@ -38,7 +38,7 @@ $approvalResolution = $contest->getApprovalResolution();
     <h2 style="text-align: center;">CIERRE DE INSCRIPCIÓN</h2>
     
     <p>
-    ------------En la ciudad de Viedma, siendo las 23:55 hs del día <?= $date ?>, en el Centro Universitario Regional Zona Atlántica de la Universidad Nacional del Comahue, se produce el cierre de la inscripción del llamado a concurso <?= $contestTypeText ?>, aprobado por Resolución del <?= $approvalResolution->responsible->name ?> del CURZA N.º <?= $approvalResolution->name ?>, para un cargo de <?= $category ?>, con dedicación <?= $workingDayType ?>, (<?= $categoryCode ?>-<?= $categoryNumber ?>) <?= $areaText ?> correspondiente al Departamento de <?= $department ?>.----------------------------------------------------------------------------------------
+    ------------En la ciudad de Viedma, siendo las 23:55 hs del día <?= $date ?>, en el Centro Universitario Regional Zona Atlántica de la Universidad Nacional del Comahue, se produce el cierre de la inscripción del llamado a concurso <?= $contestTypeText ?>, aprobado por Resolución del <?= $approvalResolution->responsible->name ?> del <?= $approvalResolution->getResolutionName() ?>, para un cargo de <?= $category ?>, con dedicación <?= $workingDayType ?>, (<?= $categoryCode ?>-<?= $categoryNumber ?>) <?= $areaText ?> correspondiente al Departamento de <?= $department ?>.----------------------------------------------------------------------------------------
     </p>
     
     <p>

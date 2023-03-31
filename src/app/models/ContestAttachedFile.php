@@ -141,6 +141,11 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
         return $this->hasOne(DocumentResponsible::class, ['id' => 'responsible_id']);
     }
 
+    public function getResolutionName()
+    {
+        return 'CURZA N.º ' . $this->name;
+    }
+
     /**
      * {@inheritdoc}
      * @return ContestAttachedFileQuery the active query used by this AR class.
