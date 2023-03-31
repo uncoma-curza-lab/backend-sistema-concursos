@@ -41,12 +41,12 @@ class PublicContestController extends Controller
 
         $buildQuery = Contests::find()->with([ 'workingDayType', 'juries' ])
                                        ->onlyPublic()
-                                       ->sortBy(['init_date' => SORT_DESC]);
+                                       ->sortBy(['init_date' => SORT_DESC, 'id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $buildQuery,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 20,
             ],
         ]);
         return $this->render('/contests/public_list', [
