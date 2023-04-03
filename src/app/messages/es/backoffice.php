@@ -16,4 +16,8 @@ return [
     'cancel_button' => 'Cancelar',
     'set_highlight' => 'Destacar',
     'unset_highlight' => 'Quitar destacado',
+    'attached_files' => 'Archivos Adjuntos',
+    'attach_file' => 'Adjuntar Archivo',
+    'question_delete' => '¿Está seguro que desea el eliminar el Archivo?',
+    'generate_inscribed_file' => 'Generar Nomina de Inscriptos',
 ];

@@ -158,7 +158,7 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                         ) {
                             return Html::a(
                                 '<span class="bi bi-file-earmark-arrow-up" aria-hidden="true"></span>',
-                                Url::to(['contest/upload-resolution', 'slug' => $model->code]),
+                                Url::to(['contest-attached-files/attach-file', 'slug' => $model->code]),
                                 [
                                     'title' => 'Subir dictamen',
                                     'class' => 'p-2',

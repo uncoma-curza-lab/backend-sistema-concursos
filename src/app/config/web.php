@@ -2,6 +2,7 @@
 
 use app\events\EventInterface;
 use app\helpers\Sluggable;
+use app\models\DocumentType;
 use app\modules\api\ApiModule;
 use app\modules\backoffice\Backoffice;
 use yii\base\Component;
@@ -154,6 +155,13 @@ $config = [
         ],
         'slug' => [
             'class' => Sluggable::class,
+        ],
+        'veredictDocumentTypeSingleton' => [
+            'class' => 'app\components\VeredictDocumentTypeSingleton',
+            'documentType' => function() {
+                return DocumentType::findOne(['code' => DocumentType::VEREDICT]);
+            },
+            'singleton' => true,
         ],
     ],
     'modules' => [

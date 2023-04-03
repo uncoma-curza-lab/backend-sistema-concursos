@@ -87,6 +87,18 @@ if ($contest!=null):
      <div>
         <?= $contest->description;  ?>
         <div>
+          <h4>Doucumentos</h4>
+          <ul>
+          <?php foreach($attachedFiles as $file): ?>
+          <li>
+            Siendo la fecha <?= $file->published_at ?> se publica <?= $file->documentType->name . ' - ' . $file->name ?> 
+            <a href="<?= Url::to(['@web/' . $file->path]) ?>" class="btn btn-primary" target="_blank">Descargar</a>
+          </li>
+          <?php endforeach; ?>
+
+          </ul>
+        </div>
+        <div>
             <?php if ($contest->isHelper() && $contest->hasCourseName()): 
               $programUrl = $contest->getProgramUrl();
             ?>

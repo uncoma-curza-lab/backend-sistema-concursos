@@ -11,3 +11,4 @@ src/basic/vendor/*
 .env
 docker-compose.override.yml
 src/app/web/resolutions/*
+src/app/web/contest_attached_files/*

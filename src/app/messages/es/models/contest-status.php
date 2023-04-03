@@ -3,6 +3,6 @@
 return [
     'draft' => 'Borrador',
     'published' => 'Publicado',
-    'in_process' => 'En proceso',
+    'in-process' => 'En proceso',
     'finished' => 'Finalizado',
 ];

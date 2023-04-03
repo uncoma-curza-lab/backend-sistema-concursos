@@ -31,15 +31,15 @@ trait GuzzleTrait
             return ($response);
 
         } catch (\GuzzleHttp\Exception\ServerException $e) {
-            \Yii::error('Server Exception: ' . $e->getResponse()->getBody()->getContents(), ['user' => \Yii::$app->user]);
+            \Yii::error('Server Exception: ' . $e->getResponse()->getBody()->getContents());
             return $e->getResponse();
         } catch (\GuzzleHttp\Exception\ClientException $e) {
-            \Yii::error('Client Exception: ' . $e->getResponse()->getBody()->getContents(), ['user' => \Yii::$app->user]);
+            \Yii::error('Client Exception: ' . $e->getResponse()->getBody()->getContents());
             return $e->getResponse();
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             throw $e;
         } catch (\Exception $e) {
-            \Yii::error($e->getMessage(), ['user' => \Yii::$app->user]);
+            \Yii::error($e->getMessage());
             throw $e;
         }
     }

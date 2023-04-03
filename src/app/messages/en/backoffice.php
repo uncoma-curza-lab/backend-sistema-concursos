@@ -17,4 +17,7 @@ return [
     'cancel_button' => 'Cancelar',
     'set_highlight' => 'Set Highlight',
     'unset_highlight' => 'Unset Highlight',
+    'attached_files' => 'Attached Files',
+    'attach_file' => 'attach file',
+    'question_delete' => 'Are you sure to delete the file?',
 ];

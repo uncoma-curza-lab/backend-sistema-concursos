@@ -2,17 +2,12 @@
 
 namespace app\models;
 
-use app\components\NotificationComponent;
-use app\events\LogEvent;
-use app\events\NotificationEvent;
-use app\events\PublishResolutionEvent;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use app\services\NextcloudService;
 use app\services\SPCService;
 use DateTime;
-use Exception;
 
 /**
  * This is the model class for table "contests".
@@ -40,6 +35,7 @@ use Exception;
  * @property Postulations[] $postulations
  * @property RemunerationType $remunerationType
  * @property WorkingDayTypes $workingDayType
+ * @property ContestAttachedFile[] $attachedFiles
  */
 class Contests extends ActiveRecord
 {
@@ -279,6 +275,11 @@ class Contests extends ActiveRecord
         return $this->hasMany(User::class, ['id' => 'user_id'])->via('contestJuriesRelationship');
     }
 
+    public function getAttachedFiles()
+    {
+        return $this->hasMany(ContestAttachedFile::class, ['contest_id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      * @return ContestsQuery the active query used by this AR class.
@@ -326,29 +327,22 @@ class Contests extends ActiveRecord
         return $this->highlighted;
     }
 
-    public function publishResolution() : bool
+    public function isRegular() : bool
     {
-        $transaction = \Yii::$app->db->beginTransaction();
-        try {
-            if (!$this->resolution_file_path) {
-                return false;
-            }
-            $this->contest_status_id = ContestStatus::FINISHED;
-            $this->resolution_published = true;
-            $this->cleanJuriesPermisions();
-            if (!$this->save()) {
-                throw new Exception('no save');
-            }
-            $transaction->commit();
+        return $this->categoryType->code === CategoryTypes::REGULARES_CODE;
+    }
 
-            $this->trigger('notify', new PublishResolutionEvent($this));
-
-            return true;
-
-        } catch (\Throwable $e) {
-            $transaction->rollBack();
+    public function finish() : bool
+    {
+        if (!$this->resolution_file_path) {
             return false;
         }
+        $this->contest_status_id = ContestStatus::FINISHED;
+        $this->resolution_published = true;
+        $this->cleanJuriesPermisions();
+
+        return $this->save();
+
     }
 
     public function isPostulateAvailable() : bool
@@ -550,4 +544,36 @@ class Contests extends ActiveRecord
             $jury->unsetJuryPermission();
         }
     }
+
+    public function setVeredictToPublished() : bool
+    {
+        $veredict = $this->getVeredict(); 
+        if (!$veredict){
+            return false;
+        }
+        return $veredict->changePublishedStatus();      
+    }
+
+    protected function getVeredict() : ?VeredictContestAttachedFile
+    {
+        $veredictClassName = get_class(new VeredictContestAttachedFile());
+        foreach ($this->attachedFiles as $file) {
+            if(get_class($file) === $veredictClassName){
+                return $file;
+            }
+        }
+
+        return null;
+    }
+
+    public function getApprovalResolution() : ?ContestAttachedFile
+    {
+        return $this->getAttachedFiles()->approvalResolution()->one();
+    }
+
+    public function getInscribedPostualtion() : ?ContestAttachedFile
+    {
+        return $this->getAttachedFiles()->onlyInscirbedPostualtions()->one();
+    }
+
 }

@@ -294,7 +294,7 @@ class ContestController extends Controller
     public function actionPublishResolution($slug)
     {
         $model = $this->findModel($slug);
-        if ($model->publishResolution()) {
+        if ($model->setVeredictToPublished()) {
             \Yii::$app->session->setFlash('success', [
                 'message' => "Resolución publicada y concurso $model->name finalizado",
             ]);

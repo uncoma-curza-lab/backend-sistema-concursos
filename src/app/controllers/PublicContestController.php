@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\ContestAttachedFile;
 use app\models\Contests;
 use app\models\ContestsQuery;
 use yii\data\ActiveDataProvider;
@@ -57,9 +58,11 @@ class PublicContestController extends Controller
     public function actionDetails($slug)
     {
         $contest = $this->findModel($slug);
+        $attachedFiles = ContestAttachedFile::find()->inSameContest($contest->id)->onlyPublished()->all();
 
         return $this->render('/contests/details', [
             'contest' => $contest,
+            'attachedFiles' => $attachedFiles,
         ]);    
     }
 
