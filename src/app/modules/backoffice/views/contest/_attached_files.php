@@ -82,7 +82,17 @@ $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsP
                                 'class' => "btn $btn $publishDisable",
                                 'title' => $toPublish,
                               ]) ?>
+                      <?php 
+                              endif;
+                              if(
+                                  $teachDepartmenRol || $adminRol
+                                  ||
+                                  (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code])
+                                  &&
+                                  $file->isVeredict())
+                              ):
 
+                      ?>
                               <?= Html::a('<i class="bi bi-trash"></i>', ['contest-attached-files/delete', 'fileId' => $file->id, 'slug' => $contest->code], [
                                 'class' => "btn btn-danger $deleteDisable",
                                 'title' => Yii::t('backoffice', 'Eliminar'),
@@ -93,25 +103,6 @@ $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsP
                               ]);
                               endif;
                       ?>
-                      <?php 
-                              if(
-                                  \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code])
-                                  &&
-                                  $file->isVeredict()
-                              ):
-
-
-                              ?>
-                                <?= Html::a('<i class="bi bi-trash"></i>', ['contest-attached-files/delete-veredict', 'fileId' => $file->id, 'slug' => $contest->code], [
-                                              'class' => "btn btn-danger $deleteDisable",
-                                              'title' => Yii::t('backoffice', 'Eliminar'),
-                                                'data' => [
-                                                    'confirm' => Yii::t('backoffice', 'question_delete'),
-                                                    'method' => 'post',
-                                                ],
-                                            ]);
-                               endif;
-                       ?>
 
                        </div>
                     </div>
