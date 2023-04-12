@@ -5,6 +5,7 @@ use yii\helpers\Url;
 
 $teachDepartmenRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament');
 $adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
+$presidentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code]);
 
 $today = date_create();
 $enrollment_date_end = date_create($contest->enrollment_date_end);
@@ -17,15 +18,22 @@ $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsP
     <h3 class="card-title"><?= Yii::t('backoffice', 'attached_files') ?></h3>
     <p>
         <?php 
-                if ($teachDepartmenRol || $adminRol):
+                if ($teachDepartmenRol || $adminRol || $presidentRol):
         ?>
 
         <?= Html::a(
-                Yii::t('backoffice', 'attach_file'),
+                !$presidentRol ? Yii::t('backoffice', 'attach_file') : Yii::t('backoffice', 'attach_veredict_file'),
                 ['/backoffice/contest-attached-files/attach-file', 'slug' => $contest->code ],
                     [
                         'class' => 'btn btn-primary',
-        ]) ?>
+                    ]);
+          endif;
+        ?>
+
+        <?php 
+                if ($teachDepartmenRol || $adminRol):
+        ?>
+
         <?= Html::a(
                 Yii::t('backoffice', 'generate_inscribed_file'),
                 ['/backoffice/contest-attached-files/generate-inscribed-file', 'slug' => $contest->code ],
@@ -85,11 +93,15 @@ $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsP
                       <?php 
                               endif;
                               if(
-                                  $teachDepartmenRol || $adminRol
+                                  $teachDepartmenRol
                                   ||
-                                  (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code])
-                                  &&
-                                  $file->isVeredict())
+                                  $adminRol
+                                  ||
+                                  (
+                                    $presidentRol
+                                    &&
+                                    $file->isVeredict()
+                                  )
                               ):
 
                       ?>
