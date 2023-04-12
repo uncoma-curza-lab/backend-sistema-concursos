@@ -12,6 +12,7 @@ $enrollment_date_end = date_create($contest->enrollment_date_end);
 $approvalResolution = $contest->getApprovalResolution();
 $approvalResolutionIsPublished = $approvalResolution ? $approvalResolution->isPublished() : false;
 $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsPublished || $contest->getInscribedPostualtion()) ? 'disabled' : '';
+$showAttachBtn = true;
 ?>
 <div id="attached_files" class="card">
     <div class="card-body">
@@ -19,6 +20,10 @@ $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsP
     <p>
         <?php 
                 if ($teachDepartmenRol || $adminRol || $presidentRol):
+                  if($presidentRol && $contest->isFinished()){
+                    $showAttachBtn = false;
+                  }
+                  if($showAttachBtn):
         ?>
 
         <?= Html::a(
@@ -27,6 +32,7 @@ $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsP
                     [
                         'class' => 'btn btn-primary',
                     ]);
+            endif;
           endif;
         ?>
 
