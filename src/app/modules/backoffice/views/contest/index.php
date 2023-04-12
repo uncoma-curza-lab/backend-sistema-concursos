@@ -252,6 +252,8 @@ $teacher_departmentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->
                             $teacher_departmentRol
                             ||
                             $adminRol
+                            ||
+                            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'viewImplicatedPostulations', ['contestSlug' => $model->code])
                         ) {
 
                             return Html::a(
