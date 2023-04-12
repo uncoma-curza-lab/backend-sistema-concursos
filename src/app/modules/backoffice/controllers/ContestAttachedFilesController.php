@@ -43,7 +43,7 @@ class ContestAttachedFilesController extends \yii\web\Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['attach-file'],
+                            'actions' => ['attach-file', 'delete'],
                             'roles' => ['uploadResolution'],
                             'roleParams' => function() {
                                 return [
@@ -90,7 +90,18 @@ class ContestAttachedFilesController extends \yii\web\Controller
     public function actionDelete(int $fileId, string $slug)
     {
         $model = $this->findModel($fileId);
-        if (!$model->delete()) {
+        $contest = Contests::find()->findBySlug($slug);
+        $canDelete = false;
+
+        if(\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code])){
+            if($model->isVeredict()){
+               $canDelete = true; 
+            }
+        }else{
+            $canDelete = true;
+        }
+
+        if ($canDelete && !$model->delete()) {
             \Yii::$app->session->setFlash('error', 'No se pudo borrar del Archivo');
         }
         return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');
