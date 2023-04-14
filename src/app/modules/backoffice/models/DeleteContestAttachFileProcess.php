@@ -18,13 +18,11 @@ class DeleteContestAttachFileProcess {
         $slug = $this->attachFile->contest->code;
         if(\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $slug])){
             if(!$this->attachFile->isVeredict()){
-                \Yii::$app->session->setFlash('error', 'No tiene permisos para eliminar este archivo');
                 return false;
             }
         }
 
         if (!$this->attachFile->delete()) {
-            \Yii::$app->session->setFlash('error', 'No se pudo borrar del Archivo');
             return false;
         }
 
