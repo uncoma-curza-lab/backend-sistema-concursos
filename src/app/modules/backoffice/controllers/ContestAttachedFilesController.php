@@ -9,6 +9,7 @@ use app\models\DocumentResponsible;
 use app\models\DocumentType;
 use app\models\InscribedContestAttachedFile;
 use app\models\InscribedContestAttachedFileForm;
+use app\modules\backoffice\models\DeleteContestAttachFileProcess;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -91,19 +92,8 @@ class ContestAttachedFilesController extends \yii\web\Controller
     {
         $model = $this->findModel($fileId);
         $contest = Contests::find()->findBySlug($slug);
-        $canDelete = false;
-
-        if(\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code])){
-            if($model->isVeredict()){
-               $canDelete = true; 
-            }
-        }else{
-            $canDelete = true;
-        }
-
-        if ($canDelete && !$model->delete()) {
-            \Yii::$app->session->setFlash('error', 'No se pudo borrar del Archivo');
-        }
+        $deleteProcess = new DeleteContestAttachFileProcess($model, $contest);
+        $deleteProcess->handle();
         return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');
     }
 
