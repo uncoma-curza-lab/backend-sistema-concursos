@@ -22,10 +22,7 @@ class DeleteContestAttachFileProcess {
             }
         }
 
-        if (!$this->attachFile->delete()) {
-            return false;
-        }
+        return $this->attachFile->delete();
 
-        return true;
     }
 }
