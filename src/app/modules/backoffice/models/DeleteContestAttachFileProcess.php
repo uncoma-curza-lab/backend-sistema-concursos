@@ -3,22 +3,20 @@
 namespace app\modules\backoffice\models;
 
 use app\models\ContestAttachedFile;
-use app\models\Contests;
 
 class DeleteContestAttachFileProcess {
 
     private $attachFile;
-    private $contest;
 
-    public function __construct(ContestAttachedFile $attachFile, Contests $contest)
+    public function __construct(ContestAttachedFile $attachFile)
     {
         $this->attachFile = $attachFile;
-        $this->contest = $contest;
     }
 
     public function handle() : bool
     {
-        if(\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $this->contest->code])){
+        $slug = $this->attachFile->contest->code;
+        if(\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $slug])){
             if(!$this->attachFile->isVeredict()){
                 \Yii::$app->session->setFlash('error', 'No tiene permisos para eliminar este archivo');
                 return false;

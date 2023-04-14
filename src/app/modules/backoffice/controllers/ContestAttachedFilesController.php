@@ -91,8 +91,7 @@ class ContestAttachedFilesController extends \yii\web\Controller
     public function actionDelete(int $fileId, string $slug)
     {
         $model = $this->findModel($fileId);
-        $contest = Contests::find()->findBySlug($slug);
-        $deleteProcess = new DeleteContestAttachFileProcess($model, $contest);
+        $deleteProcess = new DeleteContestAttachFileProcess($model);
         $deleteProcess->handle();
         return $this->redirect('/backoffice/contest/view/' . $slug . '#attached_files');
     }
