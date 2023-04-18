@@ -5,27 +5,41 @@ use yii\helpers\Url;
 
 $teachDepartmenRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament');
 $adminRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin');
+$presidentRol = \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'uploadResolution', ['contestSlug' => $contest->code]);
 
 $today = date_create();
 $enrollment_date_end = date_create($contest->enrollment_date_end);
 $approvalResolution = $contest->getApprovalResolution();
 $approvalResolutionIsPublished = $approvalResolution ? $approvalResolution->isPublished() : false;
 $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsPublished || $contest->getInscribedPostualtion()) ? 'disabled' : '';
+$showAttachBtn = true;
 ?>
 <div id="attached_files" class="card">
     <div class="card-body">
     <h3 class="card-title"><?= Yii::t('backoffice', 'attached_files') ?></h3>
     <p>
         <?php 
-                if ($teachDepartmenRol || $adminRol):
+                if ($teachDepartmenRol || $adminRol || $presidentRol):
+                  if($presidentRol && $contest->isFinished()){
+                    $showAttachBtn = false;
+                  }
+                  if($showAttachBtn):
         ?>
 
         <?= Html::a(
-                Yii::t('backoffice', 'attach_file'),
+                !$presidentRol ? Yii::t('backoffice', 'attach_file') : Yii::t('backoffice', 'attach_veredict_file'),
                 ['/backoffice/contest-attached-files/attach-file', 'slug' => $contest->code ],
                     [
                         'class' => 'btn btn-primary',
-        ]) ?>
+                    ]);
+            endif;
+          endif;
+        ?>
+
+        <?php 
+                if ($teachDepartmenRol || $adminRol):
+        ?>
+
         <?= Html::a(
                 Yii::t('backoffice', 'generate_inscribed_file'),
                 ['/backoffice/contest-attached-files/generate-inscribed-file', 'slug' => $contest->code ],
@@ -82,6 +96,21 @@ $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsP
                                 'class' => "btn $btn $publishDisable",
                                 'title' => $toPublish,
                               ]) ?>
+                      <?php 
+                              endif;
+                              if(
+                                  $teachDepartmenRol
+                                  ||
+                                  $adminRol
+                                  ||
+                                  (
+                                    $presidentRol
+                                    &&
+                                    $file->isVeredict()
+                                  )
+                              ):
+
+                      ?>
                               <?= Html::a('<i class="bi bi-trash"></i>', ['contest-attached-files/delete', 'fileId' => $file->id, 'slug' => $contest->code], [
                                 'class' => "btn btn-danger $deleteDisable",
                                 'title' => Yii::t('backoffice', 'Eliminar'),
@@ -92,6 +121,7 @@ $disableInscibedFile = ($today < $enrollment_date_end || !$approvalResolutionIsP
                               ]);
                               endif;
                       ?>
+
                        </div>
                     </div>
                 </div>

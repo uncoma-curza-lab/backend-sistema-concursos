@@ -242,6 +242,6 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
 
     public function isVeredict() : bool
     {
-        return $this->documentType->code === DocumentType::VEREDICT;
+        return static::class === VeredictContestAttachedFile::class;
     }
 }

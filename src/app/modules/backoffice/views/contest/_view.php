@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]);
-        endif;
 ?>
         <?php if ($model->contestStatus->is(ContestStatus::DRAFT)) : ?>
         <?= Html::a(Yii::t('backoffice', 'Publicar concurso'), ['publish-contest', 'slug' => $model->code], [
@@ -50,7 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'data' => [
                             'method' => 'post',
                     ],
-        ]) ?>
+                ]);
+        endif;
+    ?>
 
     </p>
 <div class="card m-2">
