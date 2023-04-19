@@ -85,10 +85,10 @@ class Contests extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id', 'evaluation_departament_id', 'init_date', 'end_date', 'enrollment_date_end'], 'required'],
-            [['remuneration_type_id', 'working_day_type_id', 'category_type_id'], 'required', 'on' => self::SCENARIO_ASSISTANT_DEPARTMENT],
-            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'], 'required', 'on' => self::SCENARIO_REGULAR],
-            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'], 'required', 'on' => self::SCENARIO_OTHERS],
+            [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id', 'init_date', 'end_date', 'enrollment_date_end'], 'required'],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_ASSISTANT_DEPARTMENT],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_REGULAR],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_OTHERS],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'category_id', 'area_id', 'orientation_id'], 'integer'],
             [['qty'], 'compare', 'compareValue' => 0, 'operator' => '>'],
@@ -101,6 +101,7 @@ class Contests extends ActiveRecord
             [['activity'], 'in', 'range' => [
               Activity::DEPARTMENT_ASSISTANT_CODE, 
               Activity::TEACHER_CODE, 
+              Activity::INSTITUTIONAL_PROYECT_CODE, 
             ]],
             [['code'], 'unique'],
             [['area_id'], 'exist', 'skipOnError' => true, 'targetClass' => Areas::className(), 'targetAttribute' => ['area_id' => 'id']],
