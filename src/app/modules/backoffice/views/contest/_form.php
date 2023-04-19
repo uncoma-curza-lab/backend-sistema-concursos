@@ -40,18 +40,25 @@ const targetFields = {
   orientation_id: $('#contests-orientation_id'),
 };
 
+const hideTeacherFields = () => {
+  targetFields.course_id.parent().hide();
+  targetFields.departament_id.parent().hide();
+  targetFields.career_id.parent().hide();
+  targetFields.orientation_id.parent().hide();
+  targetFields.orientation_id.val('');
+  targetFields.orientation_id.trigger('change');
+  targetFields.area_id.parent().hide();
+  targetFields.area_id.val('');
+  targetFields.area_id.trigger('change');
+}
 const fieldsRequired = () => {
   switch(activity.val()) {
     case 'DEPARTMENT_ASSISTANT':
-      targetFields.course_id.parent().hide();
-      targetFields.departament_id.parent().hide();
-      targetFields.career_id.parent().hide();
-      targetFields.orientation_id.parent().hide();
-      targetFields.orientation_id.val('');
-      targetFields.orientation_id.trigger('change');
-      targetFields.area_id.parent().hide();
-      targetFields.area_id.val('');
-      targetFields.area_id.trigger('change');
+      hideTeacherFields();
+      break;
+    case 'INSTITUTIONAL_PROYECT':
+      hideTeacherFields();
+      console.log('INSTITUTIONAL_PROYECT')
       break;
     default:
       if(Number(categoryType.val()) === 3) {
