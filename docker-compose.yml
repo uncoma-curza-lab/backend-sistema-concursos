@@ -6,6 +6,7 @@ services:
     env_file: .env
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
+    restart: always
 
         #  dbCloud:
         #    image: postgres:14.2-alpine
@@ -16,6 +17,7 @@ services:
 
   app:
     image: yiisoftware/yii2-php:8.0-apache
+    restart: always
     volumes:
       - ./src/composer/cache:/root/.composer/cache:delegated
       - ./src/app:/app:delegated
