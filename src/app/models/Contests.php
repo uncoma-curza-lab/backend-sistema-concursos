@@ -28,6 +28,7 @@ use DateTime;
  * @property int $orientation_id
  * @property int $share_id
  * @property bool $highlighted
+ * @property int $institutional_proyect_id
  *
  * @property Areas $area
  * @property CategoryTypes $categoryType
@@ -75,7 +76,7 @@ class Contests extends ActiveRecord
     {
         $scenarios = parent::scenarios();
         $scenarios[self::SCENARIO_ASSISTANT_DEPARTMENT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id'];
-        $scenarios[self::SCENARIO_INSTITUTIONAL_PROYECT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id'];
+        $scenarios[self::SCENARIO_INSTITUTIONAL_PROYECT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'institutional_proyect_id'];
         $scenarios[self::SCENARIO_REGULAR] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'];
         $scenarios[self::SCENARIO_OTHERS] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'];
         return $scenarios;
@@ -89,7 +90,7 @@ class Contests extends ActiveRecord
         return [
             [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id', 'init_date', 'end_date', 'enrollment_date_end'], 'required'],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_ASSISTANT_DEPARTMENT],
-            [['remuneration_type_id', 'working_day_type_id', 'category_type_id'], 'required', 'on' => self::SCENARIO_INSTITUTIONAL_PROYECT],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'institutional_proyect_id'], 'required', 'on' => self::SCENARIO_INSTITUTIONAL_PROYECT],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_REGULAR],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_OTHERS],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
@@ -147,6 +148,7 @@ class Contests extends ActiveRecord
             'activity' => Yii::t('models/contest', 'activity'),
             'share_id' => Yii::t('models/contest', 'share_id'),
             'highlighted' => Yii::t('models/contest', 'highlighted'),
+            'institutional_proyect_id' => Yii::t('models/contest', 'institutional_proyect_id'),
         ];
     }
 
@@ -266,6 +268,11 @@ class Contests extends ActiveRecord
     public function getWorkingDayType()
     {
         return $this->hasOne(WorkingDayTypes::className(), ['id' => 'working_day_type_id']);
+    }
+
+    public function getInstitutionalProyect()
+    {
+        return $this->hasOne(InstitutionalProyect::class, ['id' => 'institutional_proyect_id']);
     }
 
     public function getContestJuriesRelationship()
