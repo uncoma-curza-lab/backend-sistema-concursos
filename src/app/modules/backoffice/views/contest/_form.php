@@ -58,7 +58,6 @@ const fieldsRequired = () => {
       break;
     case 'INSTITUTIONAL_PROYECT':
       hideTeacherFields();
-      console.log('INSTITUTIONAL_PROYECT')
       break;
     default:
       if(Number(categoryType.val()) === 3) {
