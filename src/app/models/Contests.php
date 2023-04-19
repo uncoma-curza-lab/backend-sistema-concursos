@@ -526,6 +526,11 @@ class Contests extends ActiveRecord
         return $this->activity == Activity::TEACHER_CODE;
     }
 
+    public function isInstitutionalProyect(): bool
+    {
+        return $this->activity == Activity::INSTITUTIONAL_PROYECT_CODE;
+    }
+
     public function getProgramUrl(): ?string
     {
         $service = new SPCService();
