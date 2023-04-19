@@ -38,6 +38,7 @@ const targetFields = {
   career_id: $('#contests-career_id'),
   area_id: $('#contests-area_id'),
   orientation_id: $('#contests-orientation_id'),
+  institutional_proyect_id: $('#contests-institutional_proyect_id'),
 };
 
 const hideTeacherFields = () => {
@@ -55,9 +56,13 @@ const fieldsRequired = () => {
   switch(activity.val()) {
     case 'DEPARTMENT_ASSISTANT':
       hideTeacherFields();
+      targetFields.institutional_proyect_id.parent().hide();
+      targetFields.institutional_proyect_id.val('');
+      targetFields.institutional_proyect_id.trigger('change');
       break;
     case 'INSTITUTIONAL_PROYECT':
       hideTeacherFields();
+      targetFields.institutional_proyect_id.parent().show();
       break;
     default:
       if(Number(categoryType.val()) === 3) {
@@ -77,6 +82,9 @@ const fieldsRequired = () => {
         targetFields.orientation_id.parent().show();
         targetFields.area_id.parent().show();
       }
+      targetFields.institutional_proyect_id.parent().hide();
+      targetFields.institutional_proyect_id.val('');
+      targetFields.institutional_proyect_id.trigger('change');
 
       break;
 
@@ -290,6 +298,15 @@ $form = ActiveForm::begin([]); ?>
             'templateSelection' => new JsExpression('function(depto) {return depto.name || depto.text;}')//new JsExpression('formatRepoSelection'),
         ],
     ]) ?>
+
+    <?= $form->field($model, 'institutional_proyect_id')->widget(Select2::class, [
+        'initValueText' => null,
+        'data' => $institutionalProyectList,
+        'options' => ['placeholder' => 'Seleccione el proyecto institucional', 'autocomplete' => 'off'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ])  ?>
 
     <?= $form->field($model, 'area_id')->widget(Select2::class, [
         'initValueText' => null,

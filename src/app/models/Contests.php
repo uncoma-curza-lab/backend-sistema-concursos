@@ -115,6 +115,7 @@ class Contests extends ActiveRecord
             [['remuneration_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => RemunerationType::className(), 'targetAttribute' => ['remuneration_type_id' => 'id']],
             [['contest_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => ContestStatus::className(), 'targetAttribute' => ['contest_status_id' => 'id']],
             [['working_day_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkingDayTypes::className(), 'targetAttribute' => ['working_day_type_id' => 'id']],
+            [['institutional_proyect_id'], 'exist', 'skipOnError' => true, 'targetClass' => InstitutionalProyect::class, 'targetAttribute' => ['institutional_proyect_id' => 'id']],
         ];
     }
 

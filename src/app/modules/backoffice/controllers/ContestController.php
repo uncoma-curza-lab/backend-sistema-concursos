@@ -12,6 +12,7 @@ use app\models\ContestStatus;
 use app\models\ContestsUploadResolutionForm;
 use app\models\Course;
 use app\models\Departament;
+use app\models\InstitutionalProyect;
 use app\models\Orientations;
 use app\models\RemunerationType;
 use app\models\search\ContestSearch;
@@ -152,6 +153,8 @@ class ContestController extends Controller
                         $transaction->commit();
                         return $this->redirect(['view', 'slug' => $model->code]);
                     }
+                    var_dump($model->getErrors(), $model->scenario, $model->institutional_proyect_id);
+                    exit;
                 }
                 $transaction->rollBack();
             } catch (\Throwable $e){
@@ -323,6 +326,7 @@ class ContestController extends Controller
     {
         $departaments = Departament::all();
         $workingDayTypeList = ArrayHelper::map(WorkingDayTypes::find()->all(), 'id', 'name');
+        $institutionalProyectList = ArrayHelper::map(InstitutionalProyect::find()->all(), 'id', 'name');
         $remunerationTypeList = ArrayHelper::map(RemunerationType::find()->all(), 'id', 'name');
         $categoryTypeList = ArrayHelper::map(CategoryTypes::find()->all(), 'id', 'name');
         $categoryList = ArrayHelper::map(Categories::find()->all(), 'id', 'name');
@@ -341,6 +345,7 @@ class ContestController extends Controller
             'careerList' => $contest->departament_id ? ArrayHelper::map(Career::findByDepartament($contest->departament_id), 'code', 'name') : [],
             'courseList' => $contest->career_id ? ArrayHelper::map(Course::findByCareer($contest->career_id), 'code', 'name') : [],
             'activityList' => $activities,
+            'institutionalProyectList' => $institutionalProyectList,
         ];
     }
 
