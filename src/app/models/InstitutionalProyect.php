@@ -27,6 +27,7 @@ class InstitutionalProyect extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'code'], 'required'],
             [['name', 'code'], 'string', 'max' => 255],
             [['code'], 'unique'],
         ];

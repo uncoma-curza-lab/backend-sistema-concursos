@@ -40,16 +40,9 @@ class InstitutionalProyectController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => InstitutionalProyect::find(),
-            /*
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => 20
             ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
         ]);
 
         return $this->render('index', [
@@ -80,8 +73,11 @@ class InstitutionalProyectController extends Controller
         $model = new InstitutionalProyect();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $model->code = \Yii::$app->slug->format($model->name);
+                if($model->save()){
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();
