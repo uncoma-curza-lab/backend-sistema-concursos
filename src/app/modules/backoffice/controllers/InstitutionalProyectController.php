@@ -4,6 +4,7 @@ namespace app\modules\backoffice\controllers;
 
 use app\models\InstitutionalProyect;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +26,15 @@ class InstitutionalProyectController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['teach_departament', 'admin'],
+                        ],
                     ],
                 ],
             ]
