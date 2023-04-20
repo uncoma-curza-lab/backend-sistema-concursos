@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Institutional Proyects';
+$this->title = Yii::t('models/institutional-projects', 'Institutional Project');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="institutional-proyect-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Institutional Proyect', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('backoffice', 'Create') . " " . $this->title = Yii::t('models/institutional-projects', 'Institutional Project'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 

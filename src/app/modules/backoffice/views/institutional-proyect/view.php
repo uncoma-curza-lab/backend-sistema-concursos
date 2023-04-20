@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\InstitutionalProyect */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Institutional Proyects', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('models/institutional-projects', 'Institutional Project'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a(ucfirst(Yii::t('backoffice', 'update')), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(ucfirst(Yii::t('backoffice', 'delete')), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => Yii::t('backoffice', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
