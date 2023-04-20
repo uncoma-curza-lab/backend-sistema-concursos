@@ -17,6 +17,7 @@ use app\models\Orientations;
 use app\models\RemunerationType;
 use app\models\search\ContestSearch;
 use app\models\WorkingDayTypes;
+use Exception;
 use Yii;
 use yii\db\Connection;
 use yii\filters\AccessControl;
@@ -153,9 +154,9 @@ class ContestController extends Controller
                         $transaction->commit();
                         return $this->redirect(['view', 'slug' => $model->code]);
                     }
-                    var_dump($model->getErrors(), $model->scenario, $model->institutional_proyect_id);
-                    exit;
+                    throw new HttpException(500, 'Hubo un problema al intentar crear el concurso');
                 }
+                Yii::$app->session->setFlash('error', 'Hubo un error al crear el repositorio del concurso');
                 $transaction->rollBack();
             } catch (\Throwable $e){
                 $transaction->rollBack();

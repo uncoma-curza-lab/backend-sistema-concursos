@@ -7,6 +7,7 @@ use yii\web\JsExpression;
 use yii\web\View;
 
 use dosamigos\tinymce\TinyMce;
+use yii\bootstrap4\Alert;
 
 $spcBase = Yii::$app->params['spc']['local'];
 $apiUrls = <<< 'JS'
@@ -131,7 +132,6 @@ JS;
 ?>
 
 <div class="contests-form">
-
 <?php
 
 $form = ActiveForm::begin([]); ?>
