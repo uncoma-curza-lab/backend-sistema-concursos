@@ -28,4 +28,5 @@ return [
     'enrollment_active' => 'Inscripciones abiertas hasta ',
     'enrollment_close' => 'Inscripciones cerradas el ',
     'highlighted' => 'Destacado',
+    'institutional_proyect_id' => 'Proyecto Institucional',
 ];
