@@ -2,5 +2,5 @@
 
 return [
     'Institutional Project' => 'Proyecto institutional',
-    'Institutional Projects' => 'Proyectos institutional',
+    'Institutional Projects' => 'Proyectos institutionales',
 ];
