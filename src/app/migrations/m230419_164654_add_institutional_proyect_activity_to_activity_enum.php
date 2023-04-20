@@ -24,11 +24,7 @@ class m230419_164654_add_institutional_proyect_activity_to_activity_enum extends
      */
     public function safeDown()
     {
-        echo "Drop INSTITUTIONAL_PROYECT to Activities";
-        $deleteAtribute = <<<SQL
-            ALTER TYPE activities DROP ATTRIBUTE INSTITUTIONAL_PROYECT;
-        SQL;
-        $this->execute($deleteAtribute);
+        echo "Drop INSTITUTIONAL_PROYECT to Activities is not posible";
 
         return true;
     }
