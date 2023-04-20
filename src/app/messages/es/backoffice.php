@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Create' => 'Crear',
     'Areas' => 'Areas',
     'Create Areas' => 'Crear area',
     'menu' => 'Menú',

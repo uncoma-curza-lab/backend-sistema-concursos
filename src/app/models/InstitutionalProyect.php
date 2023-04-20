@@ -40,8 +40,8 @@ class InstitutionalProyect extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'code' => 'Code',
+            'name' => ucfirst(Yii::t('models', 'name')),
+            'code' => ucfirst(Yii::t('models', 'code')),
         ];
     }
 }

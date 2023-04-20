@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\InstitutionalProyect */
 
-$this->title = 'Create Institutional Proyect';
-$this->params['breadcrumbs'][] = ['label' => 'Institutional Proyects', 'url' => ['index']];
+$this->title = Yii::t('backoffice', 'Create') . " " . $this->title = Yii::t('models/institutional-projects', 'Institutional Project');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('models/institutional-projects', 'Institutional Project'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="institutional-proyect-create">
