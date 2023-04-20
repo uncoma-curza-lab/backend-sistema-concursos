@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('backoffice', 'Create') . " " . $this->title = Yii::t('models/institutional-projects', 'Institutional Project'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(ucfirst(Yii::t('backoffice', 'create')) . " " . $this->title = Yii::t('models/institutional-projects', 'Institutional Project'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
