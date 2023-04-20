@@ -55,6 +55,7 @@ AppAsset::register($this);
                  ['label' => 'Orientaciones', 'url' => '/backoffice/orientation'],
                  ['label' => 'Provincias', 'url' => '/backoffice/provinces'],
                  ['label' => 'Ciudades', 'url' => '/backoffice/cities'],
+                 ['label' => 'Proyectos Institucionales', 'url' => '/backoffice/institutional-proyect'],
                  ['label' => 'Usuarios', 'url' => '/backoffice/user'],
             ],
             'options' => ['class' => 'd-flex align-items-center']
