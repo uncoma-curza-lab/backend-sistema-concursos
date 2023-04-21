@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 
 /**
  * This is the model class for table "public.institutional_proyects".
@@ -11,7 +10,7 @@ use Yii;
  * @property string|null $name
  * @property string|null $code
  */
-class InstitutionalProyect extends \yii\db\ActiveRecord
+class InstitutionalProject extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
