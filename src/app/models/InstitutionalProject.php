@@ -4,7 +4,7 @@ namespace app\models;
 
 
 /**
- * This is the model class for table "public.institutional_proyects".
+ * This is the model class for table "public.institutional_projects".
  *
  * @property int $id
  * @property string|null $name
@@ -17,7 +17,7 @@ class InstitutionalProject extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'public.institutional_proyects';
+        return 'public.institutional_projects';
     }
 
     /**

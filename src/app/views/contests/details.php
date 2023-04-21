@@ -26,9 +26,9 @@ if ($contest!=null):
   if($contest->isTeacher()){
     $th .= '<th scope="col">Área</th><th scope="col">Orientación</th>';
     $td .= "<td name='area'>{$contest->getAreaName()}</td><td name='orientacion'>{$contest->getOrientationName()}</td>";
-  } else if ($contest->isInstitutionalProyect()){
+  } else if ($contest->isInstitutionalProject()){
     $th .= '<th scope="col">Proyecto Institucional</th>';
-    $td .= '<td name="proyecto_institucional">' . $contest->institutionalProyect->name . '</td>';
+    $td .= '<td name="proyecto_institucional">' . $contest->institutionalProject->name . '</td>';
   }
   if($contest->hasCourseName()){
     $th .= '<th scope="col">Asignatura</th>';
