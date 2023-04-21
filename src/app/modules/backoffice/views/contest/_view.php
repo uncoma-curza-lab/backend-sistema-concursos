@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
         <?php if ($model->contestStatus->is(ContestStatus::DRAFT)) : ?>
         <?= Html::a(Yii::t('backoffice', 'Publicar concurso'), ['publish-contest', 'slug' => $model->code], [
-            'class' => 'btn btn-info',
+            'class' => 'btn btn-success',
             'data' => [
                 'confirm' => Yii::t('backoffice', 'Está seguro de que desea publciar el concurso?'),
                 'method' => 'post',
@@ -52,6 +52,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
         endif;
     ?>
+        <?= Html::a(
+                'Ver Publicación',
+                ['/public-contest/details/' . $model->code],
+                    [
+                        'class' => 'btn btn-info',
+                        'target' => '_blank',
+                ]) ?>
 
     </p>
 <div class="card m-2">

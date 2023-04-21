@@ -282,6 +282,15 @@ $form = ActiveForm::begin([]); ?>
     </div>
 
     <div class="form-row justify-content-between">
+    <?= $form->field($model, 'institutional_proyect_id')->widget(Select2::class, [
+        'initValueText' => null,
+        'data' => $institutionalProyectList,
+        'options' => ['placeholder' => 'Seleccione el proyecto institucional', 'autocomplete' => 'off'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ])  ?>
+
     <?= $form->field($model, 'evaluation_departament_id')->widget(Select2::class, [
         'initValueText' => $departamentList[$model->evaluation_departament_id] ?? null,
         'options' => ['placeholder' => 'Seleccione el departamento evaluador...'],
@@ -298,15 +307,6 @@ $form = ActiveForm::begin([]); ?>
             'templateSelection' => new JsExpression('function(depto) {return depto.name || depto.text;}')//new JsExpression('formatRepoSelection'),
         ],
     ]) ?>
-
-    <?= $form->field($model, 'institutional_proyect_id')->widget(Select2::class, [
-        'initValueText' => null,
-        'data' => $institutionalProyectList,
-        'options' => ['placeholder' => 'Seleccione el proyecto institucional', 'autocomplete' => 'off'],
-        'pluginOptions' => [
-            'allowClear' => true,
-        ],
-    ])  ?>
 
     <?= $form->field($model, 'area_id')->widget(Select2::class, [
         'initValueText' => null,
