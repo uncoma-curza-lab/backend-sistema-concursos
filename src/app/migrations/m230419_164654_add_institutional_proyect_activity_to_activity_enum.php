@@ -14,7 +14,7 @@ class m230419_164654_add_institutional_proyect_activity_to_activity_enum extends
     {
         echo "Add INSTITUTIONAL_PROYECT to Activities";
         $addActivity = <<<SQL
-            ALTER TYPE activities ADD VALUE 'INSTITUTIONAL_PROYECT';
+            ALTER TYPE activities ADD VALUE IF NOT EXISTS  'INSTITUTIONAL_PROYECT';
         SQL;
         $this->execute($addActivity);
     }
