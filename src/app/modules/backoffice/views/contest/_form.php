@@ -38,7 +38,7 @@ const targetFields = {
   career_id: $('#contests-career_id'),
   area_id: $('#contests-area_id'),
   orientation_id: $('#contests-orientation_id'),
-  institutional_proyect_id: $('#contests-institutional_proyect_id'),
+  institutional_project_id: $('#contests-institutional_project_id'),
 };
 
 const hideTeacherFields = () => {
@@ -56,13 +56,13 @@ const fieldsRequired = () => {
   switch(activity.val()) {
     case 'DEPARTMENT_ASSISTANT':
       hideTeacherFields();
-      targetFields.institutional_proyect_id.parent().hide();
-      targetFields.institutional_proyect_id.val('');
-      targetFields.institutional_proyect_id.trigger('change');
+      targetFields.institutional_project_id.parent().hide();
+      targetFields.institutional_project_id.val('');
+      targetFields.institutional_project_id.trigger('change');
       break;
-    case 'INSTITUTIONAL_PROYECT':
+    case 'INSTITUTIONAL_PROJECT':
       hideTeacherFields();
-      targetFields.institutional_proyect_id.parent().show();
+      targetFields.institutional_project_id.parent().show();
       break;
     default:
       if(Number(categoryType.val()) === 3) {
@@ -82,9 +82,9 @@ const fieldsRequired = () => {
         targetFields.orientation_id.parent().show();
         targetFields.area_id.parent().show();
       }
-      targetFields.institutional_proyect_id.parent().hide();
-      targetFields.institutional_proyect_id.val('');
-      targetFields.institutional_proyect_id.trigger('change');
+      targetFields.institutional_project_id.parent().hide();
+      targetFields.institutional_project_id.val('');
+      targetFields.institutional_project_id.trigger('change');
 
       break;
 
@@ -282,9 +282,9 @@ $form = ActiveForm::begin([]); ?>
     </div>
 
     <div class="form-row justify-content-between">
-    <?= $form->field($model, 'institutional_proyect_id')->widget(Select2::class, [
+    <?= $form->field($model, 'institutional_project_id')->widget(Select2::class, [
         'initValueText' => null,
-        'data' => $institutionalProyectList,
+        'data' => $institutionalProjectList,
         'options' => ['placeholder' => 'Seleccione el proyecto institucional', 'autocomplete' => 'off'],
         'pluginOptions' => [
             'allowClear' => true,
