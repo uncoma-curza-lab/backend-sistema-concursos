@@ -24,7 +24,7 @@ class m230419_164654_add_institutional_project_activity_to_activity_enum extends
      */
     public function safeDown()
     {
-        echo "Drop INSTITUTIONAL_PROYECT to Activities is not posible";
+        echo "Drop INSTITUTIONAL_PROJECT to Activities is not posible";
 
         return true;
     }
