@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 
 /**
  * This is the model class for table "public.institutional_projects".
@@ -39,8 +40,8 @@ class InstitutionalProject extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'code' => 'Code',
+            'name' => ucfirst(Yii::t('models', 'name')),
+            'code' => ucfirst(Yii::t('models', 'code')),
         ];
     }
 }

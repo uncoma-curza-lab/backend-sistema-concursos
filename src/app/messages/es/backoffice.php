@@ -1,18 +1,22 @@
 <?php
 
 return [
+    'create' => 'crear',
     'Areas' => 'Areas',
     'Create Areas' => 'Crear area',
     'menu' => 'Menú',
     'contests' => 'Concursos',
     'update_contest_title' => 'Editando - {name}',
     'create_contest' => 'Creando concurso',
-    'update' => 'edición',
+    'update' => 'actualizar',
+    'delete' => 'eliminar',
+    'show' => 'ver',
     'create_contest_button' => 'Crear concurso',
     'postulations_by_contest_title' => 'Postulaciones',
     'juries_by_contest_title' => 'Jurados',
     'add_jury_to_contest_button' => 'Agregar nuevo',
     'save_button' => 'Guardar',
+    'save' => 'guardar',
     'cancel_button' => 'Cancelar',
     'set_highlight' => 'Destacar',
     'unset_highlight' => 'Quitar destacado',
@@ -21,4 +25,5 @@ return [
     'attach_veredict_file' => 'Subir Dictamen',
     'question_delete' => '¿Está seguro que desea el eliminar el Archivo?',
     'generate_inscribed_file' => 'Generar Nomina de Inscriptos',
+    'Are you sure you want to delete this item?' => 'Está seguro de eliminar?',
 ];

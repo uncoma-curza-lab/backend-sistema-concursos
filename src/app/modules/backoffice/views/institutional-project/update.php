@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\InstitutionalProject */
 
-$this->title = 'Update Institutional Project: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Institutional Projects', 'url' => ['index']];
+$this->title = ucfirst(Yii::t('backoffice', 'update')) . " " . Yii::t('models/institutional-projects', 'Institutional Project'). " " . $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('models/institutional-projects', 'Institutional Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ucfirst(Yii::t('backoffice', 'update'));
 ?>
 <div class="institutional-project-update">
 

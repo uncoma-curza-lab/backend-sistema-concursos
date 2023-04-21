@@ -28,13 +28,12 @@ AppAsset::register($this);
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<header>
     <?php
     NavBar::begin([
         'brandLabel' => 'Backoffice del ' . Yii::$app->name,
         'brandUrl' => '/backoffice/index',
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-secondary fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-dark bg-secondary sticky-top',
         ],
     ]);
     $loggedUser = Yii::$app->user;
@@ -92,17 +91,14 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-</header>
 
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</main>
+<div class="container mt-5 flex-shrink-0">
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <?= Alert::widget() ?>
+    <?= $content ?>
+</div>
 
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
