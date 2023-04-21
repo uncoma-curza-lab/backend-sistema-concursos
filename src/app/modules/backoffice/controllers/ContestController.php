@@ -12,14 +12,13 @@ use app\models\ContestStatus;
 use app\models\ContestsUploadResolutionForm;
 use app\models\Course;
 use app\models\Departament;
-use app\models\InstitutionalProyect;
+use app\models\InstitutionalProject;
 use app\models\Orientations;
 use app\models\RemunerationType;
 use app\models\search\ContestSearch;
 use app\models\WorkingDayTypes;
 use Exception;
 use Yii;
-use yii\db\Connection;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -327,7 +326,7 @@ class ContestController extends Controller
     {
         $departaments = Departament::all();
         $workingDayTypeList = ArrayHelper::map(WorkingDayTypes::find()->all(), 'id', 'name');
-        $institutionalProyectList = ArrayHelper::map(InstitutionalProyect::find()->all(), 'id', 'name');
+        $institutionalProjectList = ArrayHelper::map(InstitutionalProject::find()->all(), 'id', 'name');
         $remunerationTypeList = ArrayHelper::map(RemunerationType::find()->all(), 'id', 'name');
         $categoryTypeList = ArrayHelper::map(CategoryTypes::find()->all(), 'id', 'name');
         $categoryList = ArrayHelper::map(Categories::find()->all(), 'id', 'name');
@@ -346,7 +345,7 @@ class ContestController extends Controller
             'careerList' => $contest->departament_id ? ArrayHelper::map(Career::findByDepartament($contest->departament_id), 'code', 'name') : [],
             'courseList' => $contest->career_id ? ArrayHelper::map(Course::findByCareer($contest->career_id), 'code', 'name') : [],
             'activityList' => $activities,
-            'institutionalProyectList' => $institutionalProyectList,
+            'institutionalProjectList' => $institutionalProjectList,
         ];
     }
 

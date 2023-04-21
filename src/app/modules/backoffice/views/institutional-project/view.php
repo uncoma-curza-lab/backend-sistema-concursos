@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\InstitutionalProyect */
+/* @var $model app\models\InstitutionalProject */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('models/institutional-projects', 'Institutional Project'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="institutional-proyect-view">
+<div class="institutional-project-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

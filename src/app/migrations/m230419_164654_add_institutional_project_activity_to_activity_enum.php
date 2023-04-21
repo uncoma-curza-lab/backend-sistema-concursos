@@ -3,18 +3,18 @@
 use yii\db\Migration;
 
 /**
- * Class m230419_164654_add_institutional_proyect_activity_to_activity_enum
+ * Class m230419_164654_add_institutional_project_activity_to_activity_enum
  */
-class m230419_164654_add_institutional_proyect_activity_to_activity_enum extends Migration
+class m230419_164654_add_institutional_project_activity_to_activity_enum extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        echo "Add INSTITUTIONAL_PROYECT to Activities";
+        echo "Add INSTITUTIONAL_PROJECT to Activities";
         $addActivity = <<<SQL
-            ALTER TYPE activities ADD VALUE 'INSTITUTIONAL_PROYECT';
+            ALTER TYPE activities ADD VALUE IF NOT EXISTS  'INSTITUTIONAL_PROJECT';
         SQL;
         $this->execute($addActivity);
     }
@@ -24,7 +24,7 @@ class m230419_164654_add_institutional_proyect_activity_to_activity_enum extends
      */
     public function safeDown()
     {
-        echo "Drop INSTITUTIONAL_PROYECT to Activities is not posible";
+        echo "Drop INSTITUTIONAL_PROJECT to Activities is not posible";
 
         return true;
     }
@@ -38,7 +38,7 @@ class m230419_164654_add_institutional_proyect_activity_to_activity_enum extends
 
     public function down()
     {
-        echo "m230419_164654_add_institutional_proyect_activity_to_activity_enum cannot be reverted.\n";
+        echo "m230419_164654_add_institutional_project_activity_to_activity_enum cannot be reverted.\n";
 
         return false;
     }

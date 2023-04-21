@@ -1,6 +1,6 @@
 <?php
 
-use app\models\InstitutionalProyect;
+use app\models\InstitutionalProject;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -12,7 +12,7 @@ use yii\grid\GridView;
 $this->title = Yii::t('models/institutional-projects', 'Institutional Projects');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="institutional-proyect-index">
+<div class="institutional-project-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'code',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, InstitutionalProyect $model, $key, $index, $column) {
+                'urlCreator' => function ($action, InstitutionalProject $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

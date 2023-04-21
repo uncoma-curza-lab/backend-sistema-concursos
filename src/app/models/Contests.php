@@ -28,7 +28,7 @@ use DateTime;
  * @property int $orientation_id
  * @property int $share_id
  * @property bool $highlighted
- * @property int $institutional_proyect_id
+ * @property int $institutional_project_id
  *
  * @property Areas $area
  * @property CategoryTypes $categoryType
@@ -42,7 +42,7 @@ class Contests extends ActiveRecord
 {
     const SCENARIO_REGULAR = 'regular';
     const SCENARIO_ASSISTANT_DEPARTMENT = 'assistant_department';
-    const SCENARIO_INSTITUTIONAL_PROYECT = 'institutional_proyect';
+    const SCENARIO_INSTITUTIONAL_PROJECT = 'institutional_project';
     const SCENARIO_OTHERS = 'others';
 
     /**
@@ -76,7 +76,7 @@ class Contests extends ActiveRecord
     {
         $scenarios = parent::scenarios();
         $scenarios[self::SCENARIO_ASSISTANT_DEPARTMENT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id'];
-        $scenarios[self::SCENARIO_INSTITUTIONAL_PROYECT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'institutional_proyect_id'];
+        $scenarios[self::SCENARIO_INSTITUTIONAL_PROJECT] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'institutional_project_id'];
         $scenarios[self::SCENARIO_REGULAR] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id'];
         $scenarios[self::SCENARIO_OTHERS] = ['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id'];
         return $scenarios;
@@ -90,7 +90,7 @@ class Contests extends ActiveRecord
         return [
             [['name', 'remuneration_type_id', 'working_day_type_id', 'category_id', 'category_type_id', 'init_date', 'end_date', 'enrollment_date_end'], 'required'],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_ASSISTANT_DEPARTMENT],
-            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'institutional_proyect_id'], 'required', 'on' => self::SCENARIO_INSTITUTIONAL_PROYECT],
+            [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'institutional_project_id'], 'required', 'on' => self::SCENARIO_INSTITUTIONAL_PROJECT],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_REGULAR],
             [['remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'orientation_id', 'course_id', 'evaluation_departament_id'], 'required', 'on' => self::SCENARIO_OTHERS],
             [['qty', 'remuneration_type_id', 'working_day_type_id', 'category_type_id', 'area_id', 'category_id', 'orientation_id'], 'default', 'value' => null],
@@ -105,7 +105,7 @@ class Contests extends ActiveRecord
             [['activity'], 'in', 'range' => [
               Activity::DEPARTMENT_ASSISTANT_CODE, 
               Activity::TEACHER_CODE, 
-              Activity::INSTITUTIONAL_PROYECT_CODE, 
+              Activity::INSTITUTIONAL_PROJECT_CODE, 
             ]],
             [['code'], 'unique'],
             [['area_id'], 'exist', 'skipOnError' => true, 'targetClass' => Areas::className(), 'targetAttribute' => ['area_id' => 'id']],
@@ -115,7 +115,7 @@ class Contests extends ActiveRecord
             [['remuneration_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => RemunerationType::className(), 'targetAttribute' => ['remuneration_type_id' => 'id']],
             [['contest_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => ContestStatus::className(), 'targetAttribute' => ['contest_status_id' => 'id']],
             [['working_day_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkingDayTypes::className(), 'targetAttribute' => ['working_day_type_id' => 'id']],
-            [['institutional_proyect_id'], 'exist', 'skipOnError' => true, 'targetClass' => InstitutionalProyect::class, 'targetAttribute' => ['institutional_proyect_id' => 'id']],
+            [['institutional_project_id'], 'exist', 'skipOnError' => true, 'targetClass' => InstitutionalProject::class, 'targetAttribute' => ['institutional_project_id' => 'id']],
         ];
     }
 
@@ -149,7 +149,7 @@ class Contests extends ActiveRecord
             'activity' => Yii::t('models/contest', 'activity'),
             'share_id' => Yii::t('models/contest', 'share_id'),
             'highlighted' => Yii::t('models/contest', 'highlighted'),
-            'institutional_proyect_id' => Yii::t('models/contest', 'institutional_proyect_id'),
+            'institutional_project_id' => Yii::t('models/contest', 'institutional_project_id'),
         ];
     }
 
@@ -271,9 +271,9 @@ class Contests extends ActiveRecord
         return $this->hasOne(WorkingDayTypes::className(), ['id' => 'working_day_type_id']);
     }
 
-    public function getInstitutionalProyect()
+    public function getInstitutionalProject()
     {
-        return $this->hasOne(InstitutionalProyect::class, ['id' => 'institutional_proyect_id']);
+        return $this->hasOne(InstitutionalProject::class, ['id' => 'institutional_project_id']);
     }
 
     public function getContestJuriesRelationship()
@@ -446,8 +446,8 @@ class Contests extends ActiveRecord
             case Activity::DEPARTMENT_ASSISTANT_CODE:
                 $this->scenario = self::SCENARIO_ASSISTANT_DEPARTMENT;
                 break;
-            case Activity::INSTITUTIONAL_PROYECT_CODE:
-                $this->scenario = self::SCENARIO_INSTITUTIONAL_PROYECT;
+            case Activity::INSTITUTIONAL_PROJECT_CODE:
+                $this->scenario = self::SCENARIO_INSTITUTIONAL_PROJECT;
                 break;
             default:
                 if ($this->categoryType) {
@@ -526,9 +526,9 @@ class Contests extends ActiveRecord
         return $this->activity == Activity::TEACHER_CODE;
     }
 
-    public function isInstitutionalProyect(): bool
+    public function isInstitutionalProject(): bool
     {
-        return $this->activity == Activity::INSTITUTIONAL_PROYECT_CODE;
+        return $this->activity == Activity::INSTITUTIONAL_PROJECT_CODE;
     }
 
     public function getProgramUrl(): ?string

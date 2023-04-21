@@ -5,20 +5,20 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "public.institutional_proyects".
+ * This is the model class for table "public.institutional_projects".
  *
  * @property int $id
  * @property string|null $name
  * @property string|null $code
  */
-class InstitutionalProyect extends \yii\db\ActiveRecord
+class InstitutionalProject extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'public.institutional_proyects';
+        return 'public.institutional_projects';
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace app\modules\backoffice\controllers;
 
-use app\models\InstitutionalProyect;
+use app\models\InstitutionalProject;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * InstitutionalProyectController implements the CRUD actions for InstitutionalProyect model.
+ * InstitutionalProjectController implements the CRUD actions for InstitutionalProject model.
  */
-class InstitutionalProyectController extends Controller
+class InstitutionalProjectController extends Controller
 {
     /**
      * @inheritDoc
@@ -23,7 +23,7 @@ class InstitutionalProyectController extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -42,14 +42,14 @@ class InstitutionalProyectController extends Controller
     }
 
     /**
-     * Lists all InstitutionalProyect models.
+     * Lists all InstitutionalProject models.
      *
      * @return string
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => InstitutionalProyect::find(),
+            'query' => InstitutionalProject::find(),
             'pagination' => [
                 'pageSize' => 20
             ],
@@ -61,7 +61,7 @@ class InstitutionalProyectController extends Controller
     }
 
     /**
-     * Displays a single InstitutionalProyect model.
+     * Displays a single InstitutionalProject model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -74,13 +74,13 @@ class InstitutionalProyectController extends Controller
     }
 
     /**
-     * Creates a new InstitutionalProyect model.
+     * Creates a new InstitutionalProject model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new InstitutionalProyect();
+        $model = new InstitutionalProject();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -99,7 +99,7 @@ class InstitutionalProyectController extends Controller
     }
 
     /**
-     * Updates an existing InstitutionalProyect model.
+     * Updates an existing InstitutionalProject model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -119,7 +119,7 @@ class InstitutionalProyectController extends Controller
     }
 
     /**
-     * Deletes an existing InstitutionalProyect model.
+     * Deletes an existing InstitutionalProject model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -133,15 +133,15 @@ class InstitutionalProyectController extends Controller
     }
 
     /**
-     * Finds the InstitutionalProyect model based on its primary key value.
+     * Finds the InstitutionalProject model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return InstitutionalProyect the loaded model
+     * @return InstitutionalProject the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = InstitutionalProyect::findOne(['id' => $id])) !== null) {
+        if (($model = InstitutionalProject::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

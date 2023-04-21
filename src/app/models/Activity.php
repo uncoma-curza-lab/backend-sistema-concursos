@@ -15,7 +15,7 @@ class Activity extends Model
 
     const TEACHER_CODE = 'TEACHER';
     const DEPARTMENT_ASSISTANT_CODE = 'DEPARTMENT_ASSISTANT';
-    const INSTITUTIONAL_PROYECT_CODE = 'INSTITUTIONAL_PROYECT';
+    const INSTITUTIONAL_PROJECT_CODE = 'INSTITUTIONAL_PROJECT';
 
     public $code;
     public $name;
@@ -50,7 +50,7 @@ class Activity extends Model
         return [
             self::TEACHER_CODE => 'Docente',
             self::DEPARTMENT_ASSISTANT_CODE => 'Auxiliar de departamento', 
-            self::INSTITUTIONAL_PROYECT_CODE => 'Proyecto Institucional', 
+            self::INSTITUTIONAL_PROJECT_CODE => 'Proyecto Institucional', 
         ];
     }
 
