@@ -7,6 +7,7 @@ use yii\web\JsExpression;
 use yii\web\View;
 
 use dosamigos\tinymce\TinyMce;
+use yii\bootstrap4\Alert;
 
 $spcBase = Yii::$app->params['spc']['local'];
 $apiUrls = <<< 'JS'
@@ -38,20 +39,31 @@ const targetFields = {
   career_id: $('#contests-career_id'),
   area_id: $('#contests-area_id'),
   orientation_id: $('#contests-orientation_id'),
+  institutional_project_id: $('#contests-institutional_project_id'),
 };
 
+const hideTeacherFields = () => {
+  targetFields.course_id.parent().hide();
+  targetFields.departament_id.parent().hide();
+  targetFields.career_id.parent().hide();
+  targetFields.orientation_id.parent().hide();
+  targetFields.orientation_id.val('');
+  targetFields.orientation_id.trigger('change');
+  targetFields.area_id.parent().hide();
+  targetFields.area_id.val('');
+  targetFields.area_id.trigger('change');
+}
 const fieldsRequired = () => {
   switch(activity.val()) {
     case 'DEPARTMENT_ASSISTANT':
-      targetFields.course_id.parent().hide();
-      targetFields.departament_id.parent().hide();
-      targetFields.career_id.parent().hide();
-      targetFields.orientation_id.parent().hide();
-      targetFields.orientation_id.val('');
-      targetFields.orientation_id.trigger('change');
-      targetFields.area_id.parent().hide();
-      targetFields.area_id.val('');
-      targetFields.area_id.trigger('change');
+      hideTeacherFields();
+      targetFields.institutional_project_id.parent().hide();
+      targetFields.institutional_project_id.val('');
+      targetFields.institutional_project_id.trigger('change');
+      break;
+    case 'INSTITUTIONAL_PROJECT':
+      hideTeacherFields();
+      targetFields.institutional_project_id.parent().show();
       break;
     default:
       if(Number(categoryType.val()) === 3) {
@@ -71,6 +83,9 @@ const fieldsRequired = () => {
         targetFields.orientation_id.parent().show();
         targetFields.area_id.parent().show();
       }
+      targetFields.institutional_project_id.parent().hide();
+      targetFields.institutional_project_id.val('');
+      targetFields.institutional_project_id.trigger('change');
 
       break;
 
@@ -117,7 +132,6 @@ JS;
 ?>
 
 <div class="contests-form">
-
 <?php
 
 $form = ActiveForm::begin([]); ?>
@@ -268,6 +282,15 @@ $form = ActiveForm::begin([]); ?>
     </div>
 
     <div class="form-row justify-content-between">
+    <?= $form->field($model, 'institutional_project_id')->widget(Select2::class, [
+        'initValueText' => null,
+        'data' => $institutionalProjectList,
+        'options' => ['placeholder' => 'Seleccione el proyecto institucional', 'autocomplete' => 'off'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ])  ?>
+
     <?= $form->field($model, 'evaluation_departament_id')->widget(Select2::class, [
         'initValueText' => $departamentList[$model->evaluation_departament_id] ?? null,
         'options' => ['placeholder' => 'Seleccione el departamento evaluador...'],

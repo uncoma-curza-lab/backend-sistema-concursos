@@ -18,11 +18,17 @@ if(\Yii::$app->user->isGuest){
 }
 
 if ($contest!=null):
+  $department = $contest->getEvaluationDepartament()->name ?? null;
   $th = '';
   $td = '';
+  $th .= $department ? '<th scope="col">Departamento</th>' : '';
+  $td .= $department ? "<td name='departamento'>$department</td>" : '';
   if($contest->isTeacher()){
-    $th = '<th scope="col">Área</th><th scope="col">Orientación</th>';
-    $td = "<td name='area'>{$contest->getAreaName()}</td><td name='orientacion'>{$contest->getOrientationName()}</td>";
+    $th .= '<th scope="col">Área</th><th scope="col">Orientación</th>';
+    $td .= "<td name='area'>{$contest->getAreaName()}</td><td name='orientacion'>{$contest->getOrientationName()}</td>";
+  } else if ($contest->isInstitutionalProject()){
+    $th .= '<th scope="col">Proyecto Institucional</th>';
+    $td .= '<td name="proyecto_institucional">' . $contest->institutionalProject->name . '</td>';
   }
   if($contest->hasCourseName()){
     $th .= '<th scope="col">Asignatura</th>';
@@ -51,7 +57,6 @@ if ($contest!=null):
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Departamento</th>
           <?= $th ?>          
           <th scope="col">Cargos</th>
           <th scope="col">Categoría</th>
@@ -61,7 +66,6 @@ if ($contest!=null):
       </thead>
       <tbody>
         <tr>      
-        <td name="departamento"><?= $contest->getEvaluationDepartament()->name ?? 'unavailable' ?></td>
           <?= $td ?>
           <td name="cargos"><?= $contest->qty ?></td>
           <td name="categoria"><?= $contest->category->code ?></td>
