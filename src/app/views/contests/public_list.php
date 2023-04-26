@@ -25,10 +25,16 @@ $listView = ListView::begin([
         'nextPageLabel' => '<span class="bi bi-caret-right-fill"></span>',
     ],
 ]);
+
+if ($listView->renderItems()){
+    $title = Yii::t('app', $type . '_contests');
+}else{
+    $title = Yii::t('app', 'not_' . $type . '_contests');;
+}
 ?>
 
 <div class="public-contest container">
-    <h2> <?= Yii::t('models/contest', 'plural'); ?></h2>
+    <h2> <?= $title ?></h2>
 
     <div class ="d-flex flex-row flex-wrap justify-content-start ">
         <?= $listView->renderItems(); ?>
