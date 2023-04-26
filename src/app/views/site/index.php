@@ -57,7 +57,7 @@ $listViewHighlighteds = ListView::begin([
         <div class="public-contest container">
 
     <?php if($listView->renderItems()): ?>
-            <h2 class="m-4">Concursos Activos</h2>
+            <h2 class="m-4"><?= \Yii::t('app', 'active_contests') ?></h2>
             <div class ="d-flex flex-row flex-wrap justify-content-center">
                 <?= $listView->renderItems(); ?>
             </div>
@@ -65,7 +65,7 @@ $listViewHighlighteds = ListView::begin([
                 <?= $listView->renderPager() ?>
             </div>
     <?php else: ?>
-            <h2 class="m-4">No hay concuroso activos en este momento</h2>
+        <h2 class="m-4"><?= \Yii::t('app', 'not_active_contests') ?></h2>
     <?php endif; ?>
 
         </div>
@@ -82,15 +82,15 @@ $listViewHighlighteds = ListView::begin([
         </div>
     <?php endif; ?>
 
-        <?= Html::tag('a', \Yii::t('app', 'view_active_contests'), [
+        <?= Html::tag('a', \Yii::t('app', 'active_contests'), [
             'class' => 'btn btn-lg btn-success',
             'href' => Url::to('/public-contest/list/active'),
         ]); ?>
-        <?= Html::tag('a', \Yii::t('app', 'view_future_contests'), [
+        <?= Html::tag('a', \Yii::t('app', 'future_contests'), [
             'class' => 'btn btn-lg btn-warning',
             'href' => Url::to('/public-contest/list/future'),
         ]); ?>
-        <?= Html::tag('a', \Yii::t('app', 'view_all_contests'), [
+        <?= Html::tag('a', \Yii::t('app', 'all_contests'), [
             'class' => 'btn btn-lg btn-info',
             'href' => Url::to('/public-contest/list/all'),
         ]); ?>
