@@ -55,6 +55,8 @@ $listViewHighlighteds = ListView::begin([
         <p class="mt-5">
 
         <div class="public-contest container">
+
+    <?php if($listView->renderItems()): ?>
             <h2 class="m-4">Concursos Activos</h2>
             <div class ="d-flex flex-row flex-wrap justify-content-center">
                 <?= $listView->renderItems(); ?>
@@ -62,6 +64,10 @@ $listViewHighlighteds = ListView::begin([
             <div class="mt-5">
                 <?= $listView->renderPager() ?>
             </div>
+    <?php else: ?>
+            <h2 class="m-4">No hay concuroso activos en este momento</h2>
+    <?php endif; ?>
+
         </div>
 
     <?php if($listViewHighlighteds->renderItems()): ?>
@@ -80,6 +86,11 @@ $listViewHighlighteds = ListView::begin([
             'class' => 'btn btn-lg btn-info',
             'href' => Url::to('/contests'),
         ]); ?>
+        <?= Html::tag('a', \Yii::t('app', 'view_future_contests'), [
+            'class' => 'btn btn-lg btn-primary',
+            'href' => Url::to('/future-contests'),
+        ]); ?>
+
         </p>
     </div>
 
