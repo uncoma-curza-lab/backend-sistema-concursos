@@ -64,7 +64,8 @@ class PublicContestController extends Controller
             ],
         ]);
         return $this->render('/contests/public_list', [
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'type' => $slug
         ]);
     }
 
