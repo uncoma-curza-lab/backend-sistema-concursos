@@ -82,13 +82,17 @@ $listViewHighlighteds = ListView::begin([
         </div>
     <?php endif; ?>
 
-        <?= Html::tag('a', \Yii::t('app', 'view_contests'), [
+        <?= Html::tag('a', \Yii::t('app', 'view_all_contests'), [
             'class' => 'btn btn-lg btn-info',
-            'href' => Url::to('/contests'),
+            'href' => Url::to('/public-contest/list/all'),
+        ]); ?>
+        <?= Html::tag('a', \Yii::t('app', 'view_active_contests'), [
+            'class' => 'btn btn-lg btn-success',
+            'href' => Url::to('/public-contest/list/active'),
         ]); ?>
         <?= Html::tag('a', \Yii::t('app', 'view_future_contests'), [
-            'class' => 'btn btn-lg btn-primary',
-            'href' => Url::to('/future-contests'),
+            'class' => 'btn btn-lg btn-warning',
+            'href' => Url::to('/public-contest/list/future'),
         ]); ?>
 
         </p>
