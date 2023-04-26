@@ -3,6 +3,7 @@
 return [
     'singular' => 'Concurso',
     'plural' => 'Concursos',
+    'all' => 'Todos los Concuros',
     'code' => 'Codigo',
     'name' => 'Nombre',
     'init_date' => 'Fecha de inicio',

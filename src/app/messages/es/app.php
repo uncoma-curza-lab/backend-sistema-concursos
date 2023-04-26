@@ -18,9 +18,12 @@
  */
 return [
     'view_contests' => 'Ver más concursos',
-    'view_all_contests' => 'Todos los concursos',
-    'view_active_contests' => 'Concursos activos',
-    'view_future_contests' => 'Proximos concursos',
+    'all_contests' => 'Todos los concursos',
+    'active_contests' => 'Concursos activos',
+    'future_contests' => 'Proximos concursos',
+    'not_all_contests' => 'No hay concursos en este momento',
+    'not_active_contests' => 'No hay concursos activos en este momento',
+    'not_future_contests' => 'No hay proximos concursos en este momento',
     'welcome' => 'Sistema de Concursos',
     'sign_password' => 'Clave',
     'signup_first_name' => 'Nombres',
