@@ -18,9 +18,9 @@
  */
 return [
     'view_contests' => 'Ver más concursos',
-    'view_all_contests' => 'Ver todos los concursos',
-    'view_active_contests' => 'Ver concursos en curso',
-    'view_future_contests' => 'Ver proximos concursos',
+    'view_all_contests' => 'Todos los concursos',
+    'view_active_contests' => 'Concursos activos',
+    'view_future_contests' => 'Proximos concursos',
     'welcome' => 'Sistema de Concursos',
     'sign_password' => 'Clave',
     'signup_first_name' => 'Nombres',
