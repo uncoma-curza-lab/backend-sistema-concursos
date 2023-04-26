@@ -60,6 +60,13 @@ class ContestsQuery extends \yii\db\ActiveQuery
                     ->andWhere(['>=', 'enrollment_date_end', date('Y-m-d H:i:s')]);
     }
 
+    public function onlyPublicAndNotInitiatedAndNotFinished() : self
+    {
+        return $this->onlyPublic()
+                    ->andWhere(['>=', 'init_date', date('Y-m-d H:i:s')])
+                    ->andWhere(['>=', 'enrollment_date_end', date('Y-m-d H:i:s')]);
+    }
+
     public function onlyPublicAndHighlighted() : self
     {
         return $this->onlyPublic()

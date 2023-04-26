@@ -37,12 +37,19 @@ class PublicContestController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionList($slug)
     {
 
-        $buildQuery = Contests::find()->with([ 'workingDayType', 'juries' ])
-                                       ->onlyPublic()
-                                       ->sortBy(['init_date' => SORT_DESC, 'id' => SORT_DESC]);
+        $buildQuery = Contests::find()->with([ 'workingDayType', 'juries' ]);
+        if($slug === 'future'){
+            $buildQuery->onlyPublicAndNotInitiatedAndNotFinished();
+        } else if ($slug === 'active') {
+            $buildQuery->onlyPublicAndInitiatedAndNotFinished();
+        }else{
+            $buildQuery->onlyPublic();
+        }
+
+        $buildQuery->sortBy(['init_date' => SORT_DESC, 'id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $buildQuery,
