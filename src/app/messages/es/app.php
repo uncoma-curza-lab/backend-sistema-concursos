@@ -17,7 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'view_contests' => 'Ver más concursos',
+    'view_contests' => 'Ver todos los concursos',
+    'view_future_contests' => 'Ver proximos concursos',
     'welcome' => 'Sistema de Concursos',
     'sign_password' => 'Clave',
     'signup_first_name' => 'Nombres',
