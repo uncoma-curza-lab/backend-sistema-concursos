@@ -44,10 +44,14 @@ class PublicContestController extends Controller
 
         switch ($slug) {
             case 'future':
-                $buildQuery->onlyPublicAndNotInitiatedAndNotFinished();
+                $buildQuery->onlyPublic()
+                           ->initiated(false)
+                           ->finished(false);
                 break;
              case 'active':
-                $buildQuery->onlyPublicAndInitiatedAndNotFinished();
+                 $buildQuery->onlyPublic()
+                            ->initiated()
+                            ->finished(false);
                 break;
            
             default:

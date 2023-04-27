@@ -53,18 +53,26 @@ class ContestsQuery extends \yii\db\ActiveQuery
                     ->andWhere(['<=', 'init_date', date('Y-m-d H:i:s')]);
     }
 
-    public function onlyPublicAndInitiatedAndNotFinished() : self
+    public function finished(bool $finished = true) : self
     {
-        return $this->onlyPublic()
-                    ->andWhere(['<=', 'init_date', date('Y-m-d H:i:s')])
-                    ->andWhere(['>=', 'enrollment_date_end', date('Y-m-d H:i:s')]);
+        $condition = '<=';
+        if (!$finished){
+            $condition = '>=';
+        }
+
+        return $this->andWhere([$condition, 'enrollment_date_end', date('Y-m-d H:i:s')]);
+
     }
 
-    public function onlyPublicAndNotInitiatedAndNotFinished() : self
+    public function initiated(bool $initiated = true) : self
     {
-        return $this->onlyPublic()
-                    ->andWhere(['>=', 'init_date', date('Y-m-d H:i:s')])
-                    ->andWhere(['>=', 'enrollment_date_end', date('Y-m-d H:i:s')]);
+        $condition = '<=';
+        if (!$initiated){
+            $condition = '>=';
+        }
+
+        return $this->andWhere([$condition, 'init_date', date('Y-m-d H:i:s')]);
+
     }
 
     public function onlyPublicAndHighlighted() : self
