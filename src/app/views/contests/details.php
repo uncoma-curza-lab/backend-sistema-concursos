@@ -90,8 +90,9 @@ if ($contest!=null):
       </div>  
      <div>
         <?= $contest->description;  ?>
+        <?php if($attachedFiles): ?>
         <div>
-          <h4>Doucumentos</h4>
+          <h4>Documentos</h4>
           <ul>
           <?php foreach($attachedFiles as $file): ?>
           <li>
@@ -102,6 +103,7 @@ if ($contest!=null):
 
           </ul>
         </div>
+        <?php endif; ?>
         <div>
             <?php if ($contest->isHelper() && $contest->hasCourseName()): 
               $programUrl = $contest->getProgramUrl();

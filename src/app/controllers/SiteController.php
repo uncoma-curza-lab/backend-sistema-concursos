@@ -64,11 +64,13 @@ class SiteController extends SCController
     public function actionIndex()
     {
         $buildQuery = Contests::find()->with('workingDayType')
-                                       ->onlyPublicAndInitiated()
-                                       ->sortBy([
-                                           'init_date' => SORT_DESC,
-                                       ])
-                                       ->limit(8);
+                                      ->onlyPublic()
+                                      ->initiated()
+                                      ->finished(false)
+                                      ->sortBy([
+                                          'init_date' => SORT_DESC,
+                                      ])
+                                      ->limit(8);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $buildQuery,
