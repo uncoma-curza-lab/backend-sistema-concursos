@@ -23,13 +23,16 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title)  . ' - CURZA' ?></title>
     <?php $this->head() ?>
 <?php 
+$image = "https://admin.curza.uncoma.edu.ar/concursos/wp-content/uploads/sites/12/2023/04/CURZA-Portada-WEB-y-YT-CONCURSO-NODOS.png";
 
-$description = "Sitio de la sede atlántica de la Universidad Nacional del Comahue";
-$image = "https://admin.curza.uncoma.edu.ar/wp-content/uploads/2019/11/fondo_ingreso-2-560x292.jpg";
-      /* google */
-      echo '<meta itemprop="name" content="' . $this->title . '">';
-      echo '<meta itemprop="description" content="'.$description.'">';
-      echo '<meta itemprop="image" content="'.$image.'">';
+    \Yii::$app->view->registerMetaTag([
+        'itemprop' => 'name',
+        'content' => $this->title,
+    ]);
+    \Yii::$app->view->registerMetaTag([
+        'itemprop' => 'image',
+        'content' => $image,
+    ]);
 
 ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
