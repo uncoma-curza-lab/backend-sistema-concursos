@@ -22,7 +22,16 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title)  . ' - CURZA' ?></title>
     <?php $this->head() ?>
+<?php 
 
+$description = "Sitio de la sede atlántica de la Universidad Nacional del Comahue";
+$image = "https://admin.curza.uncoma.edu.ar/wp-content/uploads/2019/11/fondo_ingreso-2-560x292.jpg";
+      /* google */
+      echo '<meta itemprop="name" content="' . $this->title . '">';
+      echo '<meta itemprop="description" content="'.$description.'">';
+      echo '<meta itemprop="image" content="'.$image.'">';
+
+?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
