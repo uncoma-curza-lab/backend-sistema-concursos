@@ -7,10 +7,7 @@ use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 $this->title = $contest->name;
-    \Yii::$app->view->registerMetaTag([
-        'itemprop' => 'description',
-        'content' => $contest->getIntroDetails(),
-    ]);
+\Yii::$app->params['metadata']['description'] = $contest->getIntroDetails();
 
 $alertText = '';
 if(\Yii::$app->user->isGuest){

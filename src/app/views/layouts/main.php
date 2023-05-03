@@ -23,15 +23,18 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title)  . ' - CURZA' ?></title>
     <?php $this->head() ?>
 <?php 
-$image = "https://admin.curza.uncoma.edu.ar/concursos/wp-content/uploads/sites/12/2023/04/CURZA-Portada-WEB-y-YT-CONCURSO-NODOS.png";
 
     \Yii::$app->view->registerMetaTag([
         'itemprop' => 'name',
         'content' => $this->title,
     ]);
     \Yii::$app->view->registerMetaTag([
+        'itemprop' => 'description',
+        'content' => \Yii::$app->params['metadata']['description'],
+    ]);
+    \Yii::$app->view->registerMetaTag([
         'itemprop' => 'image',
-        'content' => $image,
+        'content' =>  \Yii::$app->params['metadata']['image'],
     ]);
 
 ?>
