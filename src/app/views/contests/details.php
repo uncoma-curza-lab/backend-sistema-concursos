@@ -8,6 +8,7 @@ use yii\web\View;
 use yii\widgets\ActiveForm;
 $this->title = $contest->name;
 \Yii::$app->params['metadata']['description'] = $contest->getIntroDetails();
+\Yii::$app->params['metadata']['image'] = $_ENV['CONTEST_META_IMAGE'];
 
 $alertText = '';
 if(\Yii::$app->user->isGuest){
