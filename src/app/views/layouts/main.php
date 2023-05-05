@@ -29,7 +29,7 @@ AppAsset::register($this);
         'content' => \Yii::$app->params['metadata']['name'],
     ]);
     \Yii::$app->view->registerMetaTag([
-        'itemprop' => 'og:title',
+        'itemprop' => 'name',
         'content' => \Yii::$app->params['metadata']['name'],
     ]);
     \Yii::$app->view->registerMetaTag([
