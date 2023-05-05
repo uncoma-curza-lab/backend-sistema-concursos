@@ -25,7 +25,7 @@ AppAsset::register($this);
 <?php 
 
     \Yii::$app->view->registerMetaTag([
-        'itemprop' => 'name',
+        'itemprop' => 'title',
         'content' => \Yii::$app->params['metadata']['name'],
     ]);
     \Yii::$app->view->registerMetaTag([
