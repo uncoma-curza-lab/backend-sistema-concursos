@@ -6,6 +6,13 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
+$this->title = $contest->name;
+$metatagName = "Concurso - " . $contest->name . " - ";
+$metatagName .= $contest->hasCourseName() ? $contest->getCourseName() . " - " : '';
+$metatagName .= "CURZA";
+\Yii::$app->params['metadata']['name'] = $metatagName;
+\Yii::$app->params['metadata']['description'] = $contest->getIntroDetails();
+\Yii::$app->params['metadata']['image'] = $_ENV['CONTEST_META_IMAGE'];
 
 $alertText = '';
 if(\Yii::$app->user->isGuest){

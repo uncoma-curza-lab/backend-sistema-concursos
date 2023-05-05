@@ -22,7 +22,26 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title)  . ' - CURZA' ?></title>
     <?php $this->head() ?>
+<?php 
 
+    \Yii::$app->view->registerMetaTag([
+        'itemprop' => 'title',
+        'content' => \Yii::$app->params['metadata']['name'],
+    ]);
+    \Yii::$app->view->registerMetaTag([
+        'itemprop' => 'name',
+        'content' => \Yii::$app->params['metadata']['name'],
+    ]);
+    \Yii::$app->view->registerMetaTag([
+        'itemprop' => 'description',
+        'content' => \Yii::$app->params['metadata']['description'],
+    ]);
+    \Yii::$app->view->registerMetaTag([
+        'itemprop' => 'image',
+        'content' =>  \Yii::$app->params['metadata']['image'],
+    ]);
+
+?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
