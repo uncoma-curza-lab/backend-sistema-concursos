@@ -75,11 +75,20 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
+                    'logVars' => ['_POST', '_GET'],
                     'levels' =>
                       YII_DEBUG ? 
                         ['error', 'warning', 'info', 'trace']
                         :
-                        ['error', 'warning', 'info']
+                        ['error', 'warning']
+                ],
+                'info' => [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile' => "@runtime/logs/info.log",
+                    'except' => ['yii\db\*'],
+                    'logVars' => ['_POST', '_GET'],
+                    'levels' =>
+                        ['info']
                 ],
             ],
         ],

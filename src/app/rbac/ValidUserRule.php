@@ -17,7 +17,7 @@ class ValidUserRule extends Rule
      */
     public function execute($user, $item, $params)
     {
-        $user = User::find($user)->one();
+        $user = User::findOne($user);
         if (!$user) {
             return false;
         }
