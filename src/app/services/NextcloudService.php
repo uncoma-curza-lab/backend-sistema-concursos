@@ -89,6 +89,9 @@ class NextcloudService
 
             $shareId = (int) $xml->data->id;
             $shareUrl = $xml->data->url;
+            if(!$shareId || $response->getStatusCode() > 300){
+                Yii::error(json_encode($xml), 'NextcloudService-createFolderShareError');
+            }
             return [
                 'code' => $response->getStatusCode(),
                 'status' => true,
