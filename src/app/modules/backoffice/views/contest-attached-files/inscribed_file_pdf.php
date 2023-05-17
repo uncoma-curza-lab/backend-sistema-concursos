@@ -16,7 +16,10 @@ if ($workingDayTypeCode === WorkingDayTypes::PARTIAL_CODE){
 } else if ($workingDayTypeCode === WorkingDayTypes::SIMPLE_CODE){
     $categoryNumber = 3;
 }
-$department = $contest->departament ? $contest->departament->name : $contest->evaluationDepartament->name;
+$department = '';
+if($contest->departament || $contest->evaluationDepartament){
+    $department = $contest->departament ? $contest->departament->name : $contest->evaluationDepartament->name;
+}
 $area = $contest->area ? $contest->area->name : '';
 $orientation = $contest->orientation ? $contest->orientation->name : '';
 $areaText = '';
@@ -38,7 +41,7 @@ $approvalResolution = $contest->getApprovalResolution();
     <h2 style="text-align: center;">CIERRE DE INSCRIPCIÓN</h2>
     
     <p>
-    ------------En la ciudad de Viedma, siendo las 23:55 hs del día <?= $date ?>, en el Centro Universitario Regional Zona Atlántica de la Universidad Nacional del Comahue, se produce el cierre de la inscripción del llamado a concurso <?= $contestTypeText ?>, aprobado por Resolución del <?= $approvalResolution->responsible->name ?> del <?= $approvalResolution->getResolutionName() ?>, para un cargo de <?= $category ?>, con dedicación <?= $workingDayType ?>, (<?= $categoryCode ?>-<?= $categoryNumber ?>) <?= $areaText ?> correspondiente al Departamento de <?= $department ?>.----------------------------------------------------------------------------------------
+    ------------En la ciudad de Viedma, siendo las 23:55 hs del día <?= $date ?>, en el Centro Universitario Regional Zona Atlántica de la Universidad Nacional del Comahue, se produce el cierre de la inscripción del llamado a concurso <?= $contestTypeText ?>, aprobado por Resolución del <?= $approvalResolution->responsible->name ?> del <?= $approvalResolution->getResolutionName() ?>, para un cargo de <?= $category ?>, con dedicación <?= $workingDayType ?>, (<?= $categoryCode ?>-<?= $categoryNumber ?>) <?= $areaText ?> <?= $department ? 'correspondiente al Departamento de' : '' ?> <?= $department ?>.----------------------------------------------------------------------------------------
     </p>
     
     <p>
