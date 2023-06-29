@@ -48,6 +48,7 @@ class DocumentsTypeQuery extends \yii\db\ActiveQuery
             DocumentType::APPROVAL_RESOLUTION_CONTEST,
             DocumentType::APPROVAL_RESOLUTION_STUDENT_JURY,
             DocumentType::APPROVAL_RESOLUTION_TEACHING_JURY,
+            DocumentType::DRAW_RECORD
         ];
         return $this->where(['NOT IN', 'code', $resolutions]);
     }
