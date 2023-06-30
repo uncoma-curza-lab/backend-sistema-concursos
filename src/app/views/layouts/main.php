@@ -96,6 +96,7 @@ AppAsset::register($this);
             <h3>Contacto</h3>
             <h4>Centro Universitario Regional Zona Atlántica</h4>
             <h5>Departamento Docente</h5>
+            <p class="m-1"><i class="bi bi-clock"></i> 08:00 a 15:00 hs</p>
             <p class="m-1"><i class="bi bi-telephone"></i> (02920) 423198/422921 Int. 109</p>
             <i class="bi bi-envelope"></i><a class="text-light" href="mailto:departamento.docente@curza.uncoma.edu.ar" target="_blank"> departamento.docente@curza.uncoma.edu.ar</a>
         </div>
