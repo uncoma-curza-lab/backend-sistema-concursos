@@ -8,13 +8,6 @@ services:
       - ./postgresdata:/var/lib/postgresql/data
     restart: always
 
-        #  dbCloud:
-        #    image: postgres:14.2-alpine
-        #    env_file: .envcloud
-        #    volumes:
-        #      - ./postgresdatacloud:/var/lib/postgresql/data
-        #
-
   app:
     image: yiisoftware/yii2-php:8.0-apache
     restart: always
@@ -27,13 +20,3 @@ services:
     ports:
       - $EXPOSE_PORT:80
 
-  cloud:
-    image: nextcloud
-      #     restart: always
-    ports:
-      - 8080:80
-    links:
-      - db
-    volumes:
-      - ./nextcloud:/var/www/html
-    env_file: .envcloud 
