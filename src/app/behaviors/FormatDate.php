@@ -27,26 +27,48 @@ class FormatDate extends Behavior {
     	];
 	}
 
-	public function beforeSave($event) {
+  private function formatDateToUtc($attribute)
+  {
+        if (isset($this->owner->$attribute) && !empty($this->owner->$attribute) && $this->owner->$attribute != null) {
+            $dateTime = is_string($this->owner->$attribute) ? strtotime($this->owner->$attribute) : $this->owner->$attribute;
+            $this->owner->$attribute = (!$this->saveAsMySql) ? 
+                date($this->saveformat, $dateTime)
+                :
+                gmdate('Y-m-d H:i:s', $dateTime);
+        }
+  }
 
-    	foreach ($this->attributes as $attribute) {
-            if (isset($this->owner->$attribute) && !empty($this->owner->$attribute) && $this->owner->$attribute != null) {
-                $dateTime = is_string($this->owner->$attribute) ? strtotime($this->owner->$attribute) : $this->owner->$attribute;
-                $this->owner->$attribute = (!$this->saveAsMySql) ? 
-                    date($this->saveformat, $dateTime)
-                    :
-                    gmdate('Y-m-d H:i:s', $dateTime);
-            }
+  private function formatDateToView($attribute)
+  {
+      if (isset($this->owner->$attribute) && !empty($this->owner->$attribute) && $this->owner->$attribute != null) {
+         	$this->owner->$attribute = \Yii::$app->formatter->asDatetime($this->owner->$attribute, $this->viewformat);
+      } else {
+         	$this->owner->$attribute = null;
+      }
+  }
+  
+	public function beforeSave($event) {
+      foreach ($this->attributes as $key => $attribute) {
+          if(is_string($attribute)){
+              $this->formatDateToUtc($attribute);
+          }elseif((in_array($key, $this->events()) && $key == $event->name)){
+              foreach ($attribute as $value) {
+                  $this->formatDateToUtc($value);
+              }
+          }
     	}
 	}
 
 	public function afterFind($event) {
-    	foreach ($this->attributes as $attribute) {
-        	if (isset($this->owner->$attribute) && !empty($this->owner->$attribute) && $this->owner->$attribute != null) {
-            	$this->owner->$attribute = \Yii::$app->formatter->asDatetime($this->owner->$attribute, $this->viewformat);
-        	} else {
-            	$this->owner->$attribute = null;
-        	}
+    	foreach ($this->attributes as $key => $attribute) {
+          if(is_string($attribute)){
+              $this->formatDateToView($attribute);
+          }elseif((in_array($key, $this->events()) && $key == $event->name)){
+              foreach ($attribute as $value) {
+                  $this->formatDateToView($value);
+              }
+          }
+
     	}
 	}
 
