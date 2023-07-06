@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\helpers\FileHelper;
 
 /**
@@ -41,11 +42,13 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
                   'attributes' => [
                       ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
                   ],
+                  'value' => fn() => gmdate('Y-m-d H:i:s')            
               ],
             'FormatDate' => [
                 'class' => 'app\behaviors\FormatDate',
                   'attributes' => [
-                      'created_at', 'published_at',
+                    ActiveRecord::EVENT_AFTER_FIND => ['created_at'],
+                    'published_at',
                   ],
               ],
         ];

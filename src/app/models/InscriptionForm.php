@@ -61,7 +61,7 @@ class InscriptionForm extends Model
                     $share = $postulations->createPostulationFolderShare();
                     if($share['status']){
                         $postulations->share_id = $share['shareId'];
-                        $postulations->save();
+                        $postulations->update();
                     }
                 } catch (\Throwable $e){
                     Yii::warning($e->getMessage(), 'CreateShareFolder');
