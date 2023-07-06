@@ -8,6 +8,7 @@ use yii\db\ActiveRecord;
 use app\services\NextcloudService;
 use app\services\SPCService;
 use DateTime;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "contests".
@@ -61,11 +62,12 @@ class Contests extends ActiveRecord
                       ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                       ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                   ],
+                  'value' => fn() => gmdate('Y-m-d H:i:s')            
               ],
             'FormatDate' => [
                 'class' => 'app\behaviors\FormatDate',
                   'attributes' => [
-                      'created_at', 'updated_at',
+                      ActiveRecord::EVENT_AFTER_FIND => ['created_at', 'updated_at'],
                       'init_date', 'end_date', 'enrollment_date_end'
                   ],
               ],
