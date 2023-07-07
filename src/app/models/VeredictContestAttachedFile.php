@@ -63,7 +63,7 @@ class VeredictContestAttachedFile extends ModelsContestAttachedFile
         }
         $contest = $this->contest;
         $contest->resolution_file_path = $this->path;
-        if (!$contest->save()) {
+        if (!$contest->update()) {
             $transaction->rollBack();
             return false;
         }

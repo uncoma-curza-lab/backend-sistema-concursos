@@ -43,12 +43,6 @@ class Postulations extends \yii\db\ActiveRecord
                 ],
                 'value' => fn() => gmdate('Y-m-d H:i:s')            
             ],
-        	'FormatDate' => [
-            	'class' => 'app\behaviors\FormatDate',
-              'attributes' => [
-                    ActiveRecord::EVENT_AFTER_FIND => ['created_at', 'updated_at'],
-              ],
-            ],
         ];
     }
 
