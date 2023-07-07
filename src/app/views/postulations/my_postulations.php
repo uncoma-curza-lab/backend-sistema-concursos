@@ -32,7 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => fn($model) => $model->getStatusDescription()
             ],
-                'created_at',
+            [
+                'attribute' => 'created_at',
+                'value' => fn($model) => \Yii::$app->formatter->asDatetime($model->created_at, 'dd-MM-yyyy HH:mm')
+            ],
             [
                'class' => 'yii\grid\ActionColumn',
                'template' => ' {download} {download-resolution} {files}',
