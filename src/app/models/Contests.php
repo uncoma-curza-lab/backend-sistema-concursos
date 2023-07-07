@@ -67,7 +67,6 @@ class Contests extends ActiveRecord
             'FormatDate' => [
                 'class' => 'app\behaviors\FormatDate',
                   'attributes' => [
-                      ActiveRecord::EVENT_AFTER_FIND => ['created_at', 'updated_at'],
                       'init_date', 'end_date', 'enrollment_date_end'
                   ],
               ],
@@ -355,7 +354,7 @@ class Contests extends ActiveRecord
         $this->resolution_published = true;
         $this->cleanJuriesPermisions();
 
-        return $this->save();
+        return $this->update();
 
     }
 

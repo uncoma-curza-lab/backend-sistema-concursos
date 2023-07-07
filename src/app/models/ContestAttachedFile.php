@@ -47,7 +47,6 @@ class ContestAttachedFile extends \yii\db\ActiveRecord
             'FormatDate' => [
                 'class' => 'app\behaviors\FormatDate',
                   'attributes' => [
-                    ActiveRecord::EVENT_AFTER_FIND => ['created_at'],
                     'published_at',
                   ],
               ],
