@@ -71,7 +71,7 @@ class PersonalFile extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|DocumentsTypeQuery
      */
-    public function getDocumentTypeCode()
+    public function getDocumentType()
     {
         return $this->hasOne(DocumentType::class, ['code' => 'document_type_code']);
     }
