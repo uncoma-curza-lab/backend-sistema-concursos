@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string|null $name
  * @property string|null $code
+ * @property string|null $category
  *
  * @property ContestAttachedFile[] $contestAttachedFiles
  */
@@ -38,7 +39,7 @@ class DocumentType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'code'], 'string', 'max' => 255],
+            [['name', 'code', 'category'], 'string', 'max' => 255],
         ];
     }
 
@@ -51,6 +52,7 @@ class DocumentType extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'code' => 'Code',
+            'category' => 'Category',
         ];
     }
 
@@ -62,6 +64,11 @@ class DocumentType extends \yii\db\ActiveRecord
     public function getContestAttachedFiles()
     {
         return $this->hasMany(ContestAttachedFile::class, ['document_type_id' => 'id']);
+    }
+
+    public function getPersonalFiles()
+    {
+        return $this->hasMany(PersonalFile::class, ['document_type_code' => 'code']);
     }
 
     /**

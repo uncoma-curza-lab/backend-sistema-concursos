@@ -2,8 +2,11 @@
 
 namespace app\controllers;
 
-class PersonalFileController extends \yii\web\Controller
+use \yii\web\Controller;
+
+class PersonalFileController extends Controller
 {
+
     public function actionIndex()
     {
         return $this->render('index');
