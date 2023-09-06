@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the ActiveQuery class for [[PersonalFile]].
  *
@@ -30,5 +32,10 @@ class PersonalFileQuery extends \yii\db\ActiveQuery
     public function one($db = null)
     {
         return parent::one($db);
+    }
+
+    public function loggedUser()
+    {
+        return $this->where(['=', 'person_id', Yii::$app->user->identity->person->id]);
     }
 }

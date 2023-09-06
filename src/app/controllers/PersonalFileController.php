@@ -3,9 +3,7 @@
 namespace app\controllers;
 
 use app\models\PersonalFile;
-use Yii;
 use \yii\web\Controller;
-use app\models\search\PersonalFileSearch;
 
 class PersonalFileController extends Controller
 {
@@ -17,19 +15,10 @@ class PersonalFileController extends Controller
 
     public function actionMyFiles()
     {
-        $searchModel = new PersonalFileSearch();
-        $dataProvider = $searchModel->search(array_merge(
-            [
-                'person_id' => Yii::$app->user->identity->person->id
-            ],
-            $this->request->queryParams
-        ));
 
-        $files = PersonalFile::find()->all();
+        $files = PersonalFile::find()->loggedUser()->all();
 
         return $this->render('my_files', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'files' => $files,
         ]);
 
