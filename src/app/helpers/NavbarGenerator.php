@@ -68,6 +68,10 @@ class NavbarGenerator
                     'label' => Yii::t('menu', 'change_password') ,
                     'url' =>['user/change-password']
                 ],
+                [
+                    'label' => Yii::t('menu', 'my_files') ,
+                    'url' =>['personal-file/my-files']
+                ],
                 self::getLogout(),
             ],
                 'options' => ['class' => 'd-flex align-items-center']
