@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use app\helpers\Sluggable;
 use Yii;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "personal_files".
@@ -39,7 +42,7 @@ class PersonalFile extends \yii\db\ActiveRecord
         return [
             [['person_id', 'postulation_id', 'is_valid'], 'default', 'value' => null],
             [['person_id', 'postulation_id', 'is_valid'], 'integer'],
-            [['document_type_code', 'path'], 'required'],
+            [['document_type_code'], 'required'],
             [['valid_until', 'created_at', 'validated_at'], 'safe'],
             [['document_type_code', 'path'], 'string', 'max' => 255],
             [['document_type_code'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentType::class, 'targetAttribute' => ['document_type_code' => 'code']],
@@ -104,4 +107,34 @@ class PersonalFile extends \yii\db\ActiveRecord
     {
         return new PersonalFileQuery(get_called_class());
     }
+
+    public function upload(UploadedFile $file) : bool
+    {
+
+        if($this->validate()){
+            try {
+                $person = $this->person;
+                $personLastName = Yii::$app->slug->format($person->last_name, '_');
+                $personFirstName = Yii::$app->slug->format($person->first_name, '_');
+                $masterPath = 'personal_files/' . $person->uid . '-' . $personLastName . '-' . $personFirstName;
+
+                FileHelper::createDirectory($masterPath);
+                $name = $masterPath . '/'
+                    . Yii::$app->slug->format($file->baseName . ' ' . date('Y-m-d H:i:s'))
+                    . '.'
+                    . $file->extension;
+                $file->saveAs($name);
+                $this->path = $name;
+        
+                return $this->save();
+
+            } catch (\Throwable $e) {
+                Yii::warning($e->getMessage(), 'personal_files-upload');
+                return false;
+            }
+        }
+
+        return false;
+    }
+
 }

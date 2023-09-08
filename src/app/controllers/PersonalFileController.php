@@ -2,8 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\DocumentType;
 use app\models\PersonalFile;
+use app\models\User;
+use Yii;
+use yii\helpers\ArrayHelper;
 use \yii\web\Controller;
+use yii\web\UploadedFile;
 
 class PersonalFileController extends Controller
 {
@@ -20,6 +25,25 @@ class PersonalFileController extends Controller
 
         return $this->render('user_files', [
             'files' => $files,
+        ]);
+
+    }
+
+    public function actionUploadFile()
+    {
+        $model = new PersonalFile();
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->person_id = Yii::$app->user->identity->person->id;
+            $model->created_at = date('Y-m-d H:i:s');
+
+            if ($model->upload(UploadedFile::getInstanceByName('file'))) {
+                return $this->redirect(['my-files']);
+            }
+        }
+
+        return $this->render('upload_file', [
+            'modelForm' => $model,
+            'documentsTypeList' => ArrayHelper::map(DocumentType::find()->all(), 'code', 'name')
         ]);
 
     }
