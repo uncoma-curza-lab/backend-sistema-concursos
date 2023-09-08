@@ -18,7 +18,7 @@ class PersonalFileController extends Controller
 
         $files = PersonalFile::find()->loggedUser()->all();
 
-        return $this->render('my_files', [
+        return $this->render('user_files', [
             'files' => $files,
         ]);
 
