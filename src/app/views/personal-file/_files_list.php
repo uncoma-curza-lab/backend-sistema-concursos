@@ -4,7 +4,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 <div class="list-group">
-      <?php
+    <?php
+      if($files):
         foreach ($files as $file): 
               $icon = 'bi-eye';
               $btn = 'btn-success';
@@ -53,8 +54,15 @@ use yii\helpers\Url;
                    </div>
                 </div>
             </div>
-      <?php 
+  <?php 
       endforeach;
-      ?>
+    else:
+  ?>
+      <div class="alert alert-warning" role="alert">
+          No se encontraron archivos.
+      </div>
+  <?php 
+    endif;
+  ?>
   </div>
 
