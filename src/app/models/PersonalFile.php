@@ -137,4 +137,30 @@ class PersonalFile extends \yii\db\ActiveRecord
         return false;
     }
 
+    public function beforeDelete()
+    {
+         if (!parent::beforeDelete()) {
+            return false;
+        }
+        return $this->canDelete();
+    }
+
+    public function afterDelete()
+    {
+        try {
+            return FileHelper::unlink($this->path);
+        } catch (\Throwable $e) {
+            Yii::warning($e->getMessage(), 'personal_files-afterDelete');
+            return false;
+        }
+    }
+
+    public function canDelete() : bool
+    {
+        //TODO - Cuando puedo eliminar??
+        //El archivo debe pertenecerle al usuario?
+        //Cuando esté verificado con un concurso activo??
+        return true;
+    }
+
 }

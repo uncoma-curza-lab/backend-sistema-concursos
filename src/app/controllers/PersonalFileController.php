@@ -8,6 +8,7 @@ use app\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
 use \yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class PersonalFileController extends Controller
@@ -51,6 +52,22 @@ class PersonalFileController extends Controller
     public function actionPostulationFiles(int $postulationId)
     {
         return $this->render('index');
+    }
+
+    public function actionDelete(int $fileId)
+    {
+        if(!$this->findModel($fileId)->delete()){
+            \Yii::$app->session->setFlash('error', 'No se pudo borrar del Archivo');
+        }
+        $this->redirect('my-files');
+    }
+
+    protected function findModel(int $id)
+    {
+        if (($model = PersonalFile::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException(\Yii::t('backoffice', 'The requested page does not exist.'));
     }
 
 }
