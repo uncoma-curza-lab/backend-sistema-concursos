@@ -51,7 +51,11 @@ class PersonalFileController extends Controller
 
     public function actionPostulationFiles(int $postulationId)
     {
-        return $this->render('index');
+        $files = PersonalFile::find()->postulation_files($postulationId)->all();
+
+        return $this->render('/postulations/postulation_files', [
+            'files' => $files,
+        ]);
     }
 
     public function actionDelete(int $fileId)

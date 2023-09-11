@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'files' => function($url, $model, $key){
                         return Html::a(
                             '<span class="bi bi-folder-fill" aria-hidden="true"></span>',
-                            ['postulations/postulation-files', 'postulationId' => $model->id],
+                            ['personal-file/postulation-files', 'postulationId' => $model->id],
                             ['title' => 'Cargar Archivos']
                         );
                     },

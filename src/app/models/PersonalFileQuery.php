@@ -38,4 +38,10 @@ class PersonalFileQuery extends \yii\db\ActiveQuery
     {
         return $this->where(['=', 'person_id', Yii::$app->user->identity->person->id]);
     }
+
+    public function postulation_files(int $postulationId)
+    {
+        return $this->where(['=', 'postulation_id', $postulationId]);
+    }
+
 }
