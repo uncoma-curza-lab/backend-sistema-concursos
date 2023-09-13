@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\DocumentType;
 use app\models\PersonalFile;
+use app\models\PostulationFile;
 use app\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -30,11 +31,14 @@ class PersonalFileController extends Controller
 
     }
 
-    public function actionUploadFile()
+    public function actionUploadFile(int $postulationId = null)
     {
+        //TODO: Diferenciar personal file o postulation file
+        //¿Armar un Factory?
         $model = new PersonalFile();
         if ($this->request->isPost && $model->load($this->request->post())) {
             $model->person_id = Yii::$app->user->identity->person->id;
+            $model->postulation_id = $postulationId;
             $model->created_at = date('Y-m-d H:i:s');
 
             if ($model->upload(UploadedFile::getInstanceByName('file'))) {
@@ -51,7 +55,7 @@ class PersonalFileController extends Controller
 
     public function actionPostulationFiles(int $postulationId)
     {
-        $files = PersonalFile::find()->postulation_files($postulationId)->all();
+        $files = PostulationFile::find()->postulation_files($postulationId)->all();
 
         return $this->render('/postulations/postulation_files', [
             'files' => $files,
