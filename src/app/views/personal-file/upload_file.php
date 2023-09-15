@@ -2,11 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
+$this->title = 'Cargar Archivos';
 ?>
 
 <div class="file-form">
 
-<h3>Cargar Documento</h3>
+<h3><?= $this->title ?></h3>
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 <div class="mb-3">
     
