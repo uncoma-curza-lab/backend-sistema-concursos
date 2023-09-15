@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helpers\PersonalFilesFactory;
 use app\models\DocumentType;
 use app\models\PersonalFile;
 use app\models\PostulationFile;
@@ -31,11 +32,11 @@ class PersonalFileController extends Controller
 
     }
 
-    public function actionUploadFile(int $postulationId = null)
+    public function actionUploadFile(int | null $postulationId = null)
     {
         //TODO: Diferenciar personal file o postulation file
         //¿Armar un Factory?
-        $model = new PersonalFile();
+        $model = PersonalFilesFactory::instantiate($postulationId);
         if ($this->request->isPost && $model->load($this->request->post())) {
             $model->person_id = Yii::$app->user->identity->person->id;
             $model->postulation_id = $postulationId;
