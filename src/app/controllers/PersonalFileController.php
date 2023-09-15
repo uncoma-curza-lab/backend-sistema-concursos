@@ -6,7 +6,6 @@ use app\helpers\PersonalFilesFactory;
 use app\models\DocumentType;
 use app\models\PersonalFile;
 use app\models\PostulationFile;
-use app\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
 use \yii\web\Controller;
@@ -43,6 +42,9 @@ class PersonalFileController extends Controller
             $model->created_at = date('Y-m-d H:i:s');
 
             if ($model->upload(UploadedFile::getInstanceByName('file'))) {
+                if($model instanceof PostulationFile){
+                    return $this->redirect(['postulation-files', 'postulationId' => $postulationId]);
+                }
                 return $this->redirect(['my-files']);
             }
         }
@@ -60,6 +62,7 @@ class PersonalFileController extends Controller
 
         return $this->render('/postulations/postulation_files', [
             'files' => $files,
+            'postulationId' => $postulationId
         ]);
     }
 
