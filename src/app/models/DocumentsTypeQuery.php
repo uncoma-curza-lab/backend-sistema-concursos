@@ -55,6 +55,16 @@ class DocumentsTypeQuery extends \yii\db\ActiveQuery
             ->where(['=', 'category', DocumentType::CONTEST_FILE_CATEGORY]);
     }
 
+    public function forPersonalFiles()
+    {
+        return $this->where(['=', 'category', DocumentType::PERSONAL_FILE_CATEGORY]);
+    }
+
+    public function forPostulationFiles()
+    {
+        return $this->where(['=', 'category', DocumentType::POSTULATION_FILE_CATEGORY]);
+    }
+
     public function getVeredictId()
     {
         return $this->where(['=', 'code', DocumentType::VEREDICT])->one()->id;

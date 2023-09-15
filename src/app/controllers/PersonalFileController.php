@@ -49,10 +49,10 @@ class PersonalFileController extends Controller
             }
         }
 
-        return $this->render('upload_file', [
-            'modelForm' => $model,
-            'documentsTypeList' => ArrayHelper::map(DocumentType::find()->all(), 'code', 'name')
-        ]);
+        return $this->render('upload_file', array_merge([
+                'modelForm' => $model,
+            ], $this->getProps($model))
+        );
 
     }
 
@@ -72,6 +72,20 @@ class PersonalFileController extends Controller
             \Yii::$app->session->setFlash('error', 'No se pudo borrar del Archivo');
         }
         $this->redirect('my-files');
+    }
+
+    protected function getProps(PersonalFile $file)
+    {
+        $documentsTypeList = [];
+        if($file instanceof PostulationFile){
+            $documentsTypeList = ArrayHelper::map(DocumentType::find()->forPostulationFiles()->all(), 'code', 'name');
+        } else {
+            $documentsTypeList = ArrayHelper::map(DocumentType::find()->forPersonalFiles()->all(), 'code', 'name');
+        }
+
+        return [
+            'documentsTypeList' => $documentsTypeList
+        ];
     }
 
     protected function findModel(int $id)
