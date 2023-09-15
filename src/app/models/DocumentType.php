@@ -25,6 +25,10 @@ class DocumentType extends \yii\db\ActiveRecord
     const APPROVAL_RESOLUTION_STUDENT_JURY = 'approval-resolution-student-jury';
     const AD_REFERENDUM_RESOLUTION = 'ad-referendum-resolution';
     const DRAW_RECORD = 'draw-record';
+
+    const CONTEST_FILE_CATEGORY = 'contest-file';
+    const PERSONAL_FILE_CATEGORY = 'personal-file';
+    const POSTULATION_FILE_CATEGORY = 'postulation-file';
     /**
      * {@inheritdoc}
      */
