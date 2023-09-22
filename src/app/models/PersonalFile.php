@@ -25,6 +25,18 @@ use yii\web\UploadedFile;
  */
 class PersonalFile extends \yii\db\ActiveRecord
 {
+    const UNVALIDATED = 0;
+    const VALID_INDEFINITELY = 1;
+    const VALID_WITH_UNTIL_DATE = 2;
+    const INVALID = 3;
+
+    const VALIDATION_STATUES = [
+        self::UNVALIDATED => 'unvalidated',
+        self::VALID_INDEFINITELY => 'valid_indefinitely',
+        self::VALID_WITH_UNTIL_DATE => 'valid_with_until_date',
+        self::INVALID => 'invalid'
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -164,6 +176,30 @@ class PersonalFile extends \yii\db\ActiveRecord
         //El archivo debe pertenecerle al usuario?
         //Cuando esté verificado con un concurso activo??
         return true;
+    }
+
+    public function isValid() : bool
+    {
+        if(!$this->is_valid || $this->is_valid === self::INVALID){
+            return false;
+        }
+
+        if($this->is_valid === self::VALID_WITH_UNTIL_DATE){
+            $valid_until = date_create($this->valid_until);
+            return $valid_until > date_create();
+        }
+
+        return $this->is_valid === self::VALID_INDEFINITELY;
+
+    }
+
+    public function validationStatus() : string
+    {
+        if(!$this->is_valid){
+            return self::VALIDATION_STATUES[self::UNVALIDATED];
+        }
+        return self::VALIDATION_STATUES[$this->is_valid];
+
     }
 
 }
