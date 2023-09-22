@@ -1,5 +1,6 @@
 <?php
 
+use app\models\PersonalFile;
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
@@ -7,16 +8,20 @@ use yii\helpers\Url;
     <?php
       if($files):
         foreach ($files as $file): 
-              $icon = 'bi-eye';
-              $btn = 'btn-success';
-              $badge = 'warning';
+              $badge = 'info';
               $status = 'Sin Validar';
-              $publishDisable = '';
-              if($file->is_valid){
-                  $icon = 'bi-eye-slash';
-                  $btn = 'btn-warning';
+              $validEndDate = '';
+              if($file->isValid()){
                   $badge = 'success';
                   $status = 'Valido';
+              }
+              if($file->validationStatus() === PersonalFile::VALIDATION_STATUES[PersonalFile::UNVALIDATED]){
+                $badge = 'danger';
+                $status = 'Invalido';
+              }
+              if($file->isExpired()){
+                $badge = 'warning';
+                $status = 'Vencido';
               }
               ?>
             <div class="list-group-item">
@@ -35,7 +40,7 @@ use yii\helpers\Url;
                                 <span class="badge badge-<?= $badge ?>">
                                     <?= $status ?>
                                 </span>
-                                <small><?= $file->valid_until ? 'Valido Hasta: ' . $file->valid_until : '' ?></small>
+                                <small><?= $file->valid_until ? 'Fecha de Expiración: ' . $file->valid_until : '' ?></small>
                             </div>
                         </div>
                       </div>
