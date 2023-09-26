@@ -32,5 +32,11 @@ class PostulationFile extends PersonalFile
         $personFirstName = Yii::$app->slug->format($person->first_name, '_');
         return 'personal_files/' . $person->uid . '-' . $personLastName . '-' . $personFirstName . '/' . $contestCode;
     }
+
+    public function getDocumentsTypes()
+    {
+        return DocumentType::find()->forPostulationFiles()->all();
+    }
+
 }
 

@@ -211,4 +211,9 @@ class PersonalFile extends \yii\db\ActiveRecord
         return false;
     }
 
+    public function getDocumentsTypes()
+    {
+        return DocumentType::find()->forPersonalFiles()->all();
+    }
+
 }

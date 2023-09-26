@@ -76,12 +76,7 @@ class PersonalFileController extends Controller
 
     protected function getProps(PersonalFile $file)
     {
-        $documentsTypeList = [];
-        if($file instanceof PostulationFile){
-            $documentsTypeList = ArrayHelper::map(DocumentType::find()->forPostulationFiles()->all(), 'code', 'name');
-        } else {
-            $documentsTypeList = ArrayHelper::map(DocumentType::find()->forPersonalFiles()->all(), 'code', 'name');
-        }
+        $documentsTypeList = ArrayHelper::map($file->getDocumentsTypes(), 'code', 'name');
 
         return [
             'documentsTypeList' => $documentsTypeList
