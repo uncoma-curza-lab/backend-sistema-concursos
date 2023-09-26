@@ -42,10 +42,7 @@ class PersonalFileController extends Controller
             $model->created_at = date('Y-m-d H:i:s');
 
             if ($model->upload(UploadedFile::getInstanceByName('file'))) {
-                if($model instanceof PostulationFile){
-                    return $this->redirect(['postulation-files', 'postulationId' => $postulationId]);
-                }
-                return $this->redirect(['my-files']);
+                return $this->redirect($model->getFilesUrl());
             }
         }
 

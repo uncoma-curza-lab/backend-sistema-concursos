@@ -38,5 +38,10 @@ class PostulationFile extends PersonalFile
         return DocumentType::find()->forPostulationFiles()->all();
     }
 
+    public function getFilesUrl() : array
+    {
+        return ['postulation-files', 'postulationId' => $this->postulation_id];
+    }
+
 }
 

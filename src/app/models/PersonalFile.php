@@ -216,4 +216,9 @@ class PersonalFile extends \yii\db\ActiveRecord
         return DocumentType::find()->forPersonalFiles()->all();
     }
 
+    public function getFilesUrl() : array
+    {
+        return ['my-files'];
+    }
+
 }
