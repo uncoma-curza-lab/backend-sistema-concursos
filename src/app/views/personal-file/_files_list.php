@@ -15,7 +15,7 @@ use yii\helpers\Url;
                   $badge = 'success';
                   $status = 'Valido';
               }
-              if($file->validationStatus() === PersonalFile::VALIDATION_STATUES[PersonalFile::UNVALIDATED]){
+              if($file->validationStatus() === PersonalFile::VALIDATION_STATUSES[PersonalFile::UNVALIDATED]){
                 $badge = 'danger';
                 $status = 'Invalido';
               }
