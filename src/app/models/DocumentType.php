@@ -16,6 +16,7 @@ use Yii;
  */
 class DocumentType extends \yii\db\ActiveRecord
 {
+    // Documents Types Codes:
     const NOTE = 'note';
     const INSCRIBED_POSTULATIONS = 'inscribed-postulations';
     const VEREDICT = 'veredict';
@@ -25,10 +26,24 @@ class DocumentType extends \yii\db\ActiveRecord
     const APPROVAL_RESOLUTION_STUDENT_JURY = 'approval-resolution-student-jury';
     const AD_REFERENDUM_RESOLUTION = 'ad-referendum-resolution';
     const DRAW_RECORD = 'draw-record';
+    const DNI = 'dni';
+    const CVAR = 'cvar';
+    const OTHER_PERSONAL = 'other-personal';
+    const CERTIFICATES = 'certificates';
+    const ACADEMIC_PERFORMANCE = 'academic-performance';
+    const UNIVERSITY_DEGREE = 'university-degree';
+    const COLLEGE_DEGREE = 'college-degree';
+    const NOTE_POSTULATION = 'note-postulation';
+    const PRACTICAL_WORK_PROPOSAL = 'practical-work-proposal';
+    const PROGRAM_PROPOSAL = 'program-proposal';
+    const REGULAR_INSCRIPTION = 'regular-inscription';
+    const OTHER_POSTULATION = 'other-postulation';
 
+    // Documents Types Categories:
     const CONTEST_FILE_CATEGORY = 'contest-file';
     const PERSONAL_FILE_CATEGORY = 'personal-file';
     const POSTULATION_FILE_CATEGORY = 'postulation-file';
+
     /**
      * {@inheritdoc}
      */
