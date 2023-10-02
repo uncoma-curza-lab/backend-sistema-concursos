@@ -193,7 +193,7 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     }
 
-    public function validationStatus() : string
+    public function getValidationStatusName() : string
     {
         if(!$this->is_valid){
             return self::VALIDATION_STATUSES[self::UNVALIDATED];
@@ -204,7 +204,7 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     public function isExpired() : bool
     {
-        if($this->validationStatus() === self::VALIDATION_STATUSES[self::VALID_WITH_UNTIL_DATE]){
+        if($this->getValidationStatusName() === self::VALIDATION_STATUSES[self::VALID_WITH_UNTIL_DATE]){
             $valid_until = date_create($this->valid_until);
             return $valid_until < date_create();
         }
