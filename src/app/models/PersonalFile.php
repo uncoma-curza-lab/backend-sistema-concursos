@@ -204,11 +204,16 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     public function isExpired() : bool
     {
-        if($this->getValidationStatusName() === self::VALIDATION_STATUSES[self::VALID_WITH_UNTIL_DATE]){
+        if($this->isStatus(self::VALID_WITH_UNTIL_DATE)){
             $valid_until = date_create($this->valid_until);
             return $valid_until < date_create();
         }
         return false;
+    }
+
+    public function isStatus(int $status) : bool 
+    {
+        return $this->is_valid === $status;
     }
 
     public function getDocumentsTypes()
