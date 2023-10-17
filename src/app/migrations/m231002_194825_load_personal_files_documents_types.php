@@ -55,18 +55,4 @@ class m231002_194825_load_personal_files_documents_types extends Migration
         return true;
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m231002_194825_load_personal_files_documents_types cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
