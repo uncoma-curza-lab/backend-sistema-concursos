@@ -3,6 +3,7 @@
 namespace app\modules\backoffice\controllers;
 
 use app\models\Contests;
+use app\models\Persons;
 use app\models\Postulations;
 use app\models\PostulationStatus;
 use app\modules\backoffice\searchs\PostulationsByContestSearch;
@@ -45,7 +46,7 @@ class PostulationController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['teach_departament', 'admin'],
-                            'actions' => ['approve', 'contest', 'reject'],
+                            'actions' => ['approve', 'contest', 'reject', 'show'],
                         ],
                     ]
                 ],
@@ -84,6 +85,16 @@ class PostulationController extends Controller
         $postulation->status = PostulationStatus::REJECTED;
         $postulation->save();
         return $this->redirect(['contest', 'slug' => $postulation->contest->code]);
+    }
+
+    public function actionShow($uid, $postulationId)
+    {
+        $person = Persons::find()->findByUid($uid);
+        $postulation = Postulations::findOne($postulationId);
+        return $this->render('read_only_profile', [
+            'profile' => $person,
+            'postulation' => $postulation,
+        ]);
     }
 
     public function actionTest()
