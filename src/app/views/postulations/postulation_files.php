@@ -1,5 +1,6 @@
 <?php
 
+use app\widgets\files\FilesGrid;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -17,7 +18,16 @@ $this->title = 'Archivos de la Postulación';
         ) ?>
     </p>
 
-    <?= $this->render('/personal-file/_files_list', ['files' => $files]) ?>
+    <?= 
+        FilesGrid::widget([
+            'dataProvider' => $files,
+            'actionButtons' => [
+                'download' => true,
+                'delete' => true,
+            ]
+        ]) 
+    ?>
+
     <a href="<?= Url::to('my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
 
 

@@ -1,5 +1,6 @@
 <?php
 
+use app\widgets\files\FilesGrid;
 use yii\helpers\Html;
 
 $this->title = Yii::t('models/personal-files', 'files');
@@ -18,7 +19,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'btn btn-primary']
             ) ?>
         </p>
-        <?= $this->render('_files_list', ['files' => $files]) ?>
+        <?= 
+            FilesGrid::widget([
+                'dataProvider' => $files,
+                'actionButtons' => [
+                    'download' => true,
+                    'delete' => true,
+                ]
+            ]) 
+        ?>
+
     </div>
 </div>
 

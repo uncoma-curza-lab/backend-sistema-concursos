@@ -7,6 +7,7 @@ use app\models\DocumentType;
 use app\models\PersonalFile;
 use app\models\PostulationFile;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use \yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -23,7 +24,8 @@ class PersonalFileController extends Controller
     public function actionMyFiles()
     {
 
-        $files = PersonalFile::find()->loggedUser()->all();
+        $filesQuery = PersonalFile::find()->loggedUser();
+        $files = new ActiveDataProvider(['query' => $filesQuery]);
 
         return $this->render('user_files', [
             'files' => $files,
@@ -55,7 +57,8 @@ class PersonalFileController extends Controller
 
     public function actionPostulationFiles(int $postulationId)
     {
-        $files = PostulationFile::find()->postulation_files($postulationId)->all();
+        $filesQuery = PostulationFile::find()->postulation_files($postulationId);
+        $files = new ActiveDataProvider(['query' => $filesQuery]);
 
         return $this->render('/postulations/postulation_files', [
             'files' => $files,
