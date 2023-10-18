@@ -10,6 +10,19 @@ class FilesGrid extends Widget
 
     public function init() {
         parent::init();
+        if( !$this->actionButtons ) {
+            $this->actionButtons = [];
+        }
+        if( !isset($this->actionButtons['view']) ) {
+            $this->actionButtons['view'] = false;
+        }
+        if( !isset($this->actionButtons['download']) ) {
+            $this->actionButtons['download'] = false;
+        }
+        if( !isset($this->actionButtons['delete']) ) {
+            $this->actionButtons['delete'] = false;
+        }
+
     }
     
     public function run(){

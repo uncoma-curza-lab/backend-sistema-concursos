@@ -5,7 +5,6 @@ namespace app\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\PersonalFile;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 /**
  * PersonalFileSearch represents the model behind the search form of `app\models\PersonalFile`.
