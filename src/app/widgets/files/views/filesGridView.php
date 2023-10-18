@@ -40,7 +40,9 @@ $files = $dataProvider->getModels();
                             <span class="badge badge-<?= $badge ?>">
                                 <?= $status ?>
                             </span>
-                            <small><?= $file->valid_until ? 'Fecha de Expiración: ' . $file->valid_until : '' ?></small>
+                            <div>
+                                <small><?= $file->valid_until ? 'Fecha de Expiración: ' . $file->valid_until : '' ?></small>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer text-center">
