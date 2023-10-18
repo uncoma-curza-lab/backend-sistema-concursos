@@ -10,6 +10,7 @@ use yii\web\UploadedFile;
  * This is the model class for table "personal_files".
  *
  * @property int $id
+ * @property string|null $description
  * @property int|null $person_id
  * @property int|null $postulation_id
  * @property string $document_type_code
@@ -69,6 +70,7 @@ class PersonalFile extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'description' => 'Description',
             'person_id' => 'Person ID',
             'postulation_id' => 'Postulation ID',
             'document_type_code' => 'Document Type Code',

@@ -14,6 +14,7 @@ class m230905_180218_create_personal_files_table extends Migration
     {
         $this->createTable('{{%personal_files}}', [
             'id' => $this->primaryKey(),
+            'description' => $this->string(),
             'person_id' => $this->integer(),
             'postulation_id' => $this->integer(),
             'document_type_code' => $this->string()->notNull(),
