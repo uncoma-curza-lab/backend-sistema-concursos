@@ -4,9 +4,9 @@ namespace app\modules\backoffice\controllers;
 
 use app\models\Contests;
 use app\models\PersonalFile;
-use app\models\Persons;
 use app\models\Postulations;
 use app\models\PostulationStatus;
+use app\models\search\PersonalFileSearch;
 use app\modules\backoffice\searchs\PostulationsByContestSearch;
 use Yii;
 use yii\web\Controller;
@@ -92,7 +92,8 @@ class PostulationController extends Controller
     {
         $postulation = Postulations::findOne($postulationId);
         $person = $postulation->person;
-        $files = PersonalFile::find()->postulation_files($postulationId)->all();
+        $filesSearch = new PersonalFileSearch();
+        $files = $filesSearch->searchPersonalAndPostulation($postulation->id, $person->id);
         return $this->render('show', [
             'profile' => $person,
             'postulation' => $postulation,

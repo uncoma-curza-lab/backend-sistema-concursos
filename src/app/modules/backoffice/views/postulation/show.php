@@ -1,4 +1,6 @@
 <?php
+
+use app\widgets\files\FilesGrid;
 use yii\helpers\Html;
 ?>
 
@@ -7,7 +9,9 @@ use yii\helpers\Html;
 </div>
 
 <div class="container">
-    <?= $this->render('//personal-file/_files_list', ['files' => $files]) ?>
+    <?= FilesGrid::widget([
+        'dataProvider' => $files,
+        ]) ?>
 </div>
 
     <div class="row justify-content-end">

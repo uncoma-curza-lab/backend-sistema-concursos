@@ -5,6 +5,7 @@ namespace app\models\search;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\PersonalFile;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 /**
  * PersonalFileSearch represents the model behind the search form of `app\models\PersonalFile`.
@@ -69,6 +70,34 @@ class PersonalFileSearch extends PersonalFile
 
         $query->andFilterWhere(['ilike', 'document_type_code', $this->document_type_code])
             ->andFilterWhere(['ilike', 'path', $this->path]);
+
+        return $dataProvider;
+    }
+
+    public function searchPersonalAndPostulation(int $postulationId, int $personId, array $params = [])
+    {
+        $query = PersonalFile::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            return $dataProvider;
+        }
+
+        $query->andWhere([
+            'person_id' => $personId,
+        ]);
+
+        $query->andWhere(['or',
+            ['postulation_id' => null],
+            ['postulation_id' => $postulationId],
+        ]);
 
         return $dataProvider;
     }
