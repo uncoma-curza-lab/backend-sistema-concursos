@@ -3,6 +3,7 @@
 namespace app\modules\backoffice\controllers;
 
 use app\models\Contests;
+use app\models\PersonalFile;
 use app\models\Persons;
 use app\models\Postulations;
 use app\models\PostulationStatus;
@@ -87,13 +88,15 @@ class PostulationController extends Controller
         return $this->redirect(['contest', 'slug' => $postulation->contest->code]);
     }
 
-    public function actionShow($uid, $postulationId)
+    public function actionShow($postulationId)
     {
-        $person = Persons::find()->findByUid($uid);
         $postulation = Postulations::findOne($postulationId);
-        return $this->render('read_only_profile', [
+        $person = $postulation->person;
+        $files = PersonalFile::find()->postulation_files($postulationId)->all();
+        return $this->render('show', [
             'profile' => $person,
             'postulation' => $postulation,
+            'files' => $files,
         ]);
     }
 
