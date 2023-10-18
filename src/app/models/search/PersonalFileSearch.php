@@ -18,7 +18,7 @@ class PersonalFileSearch extends PersonalFile
     {
         return [
             [['id', 'person_id', 'postulation_id', 'is_valid'], 'integer'],
-            [['document_type_code', 'path', 'valid_until', 'created_at', 'validated_at'], 'safe'],
+            [['document_type_code', 'path', 'valid_until', 'created_at', 'validated_at', 'description'], 'safe'],
         ];
     }
 
@@ -68,7 +68,8 @@ class PersonalFileSearch extends PersonalFile
         ]);
 
         $query->andFilterWhere(['ilike', 'document_type_code', $this->document_type_code])
-            ->andFilterWhere(['ilike', 'path', $this->path]);
+            ->andFilterWhere(['ilike', 'path', $this->path])
+            ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;
     }
@@ -97,6 +98,10 @@ class PersonalFileSearch extends PersonalFile
             ['postulation_id' => null],
             ['postulation_id' => $postulationId],
         ]);
+
+        $query->andFilterWhere(['ilike', 'document_type_code', $this->document_type_code])
+            ->andFilterWhere(['ilike', 'path', $this->path])
+            ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;
     }

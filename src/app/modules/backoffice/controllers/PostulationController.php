@@ -93,7 +93,7 @@ class PostulationController extends Controller
         $postulation = Postulations::findOne($postulationId);
         $person = $postulation->person;
         $filesSearch = new PersonalFileSearch();
-        $files = $filesSearch->searchPersonalAndPostulation($postulation->id, $person->id);
+        $files = $filesSearch->searchPersonalAndPostulation($postulation->id, $person->id, $this->request->queryParams);
         return $this->render('show', [
             'profile' => $person,
             'postulation' => $postulation,

@@ -6,6 +6,12 @@ use yii\helpers\Url;
 
 $files = $dataProvider->getModels();
 ?>
+
+<?php if ($options['search']){
+    echo $this->render('_search', []);
+}
+?>
+
 <div class="row row-cols-1 row-cols-md-4">
     <?php
       if($files):

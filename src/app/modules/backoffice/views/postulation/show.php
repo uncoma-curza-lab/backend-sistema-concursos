@@ -11,6 +11,9 @@ use yii\helpers\Html;
 <div class="container">
     <?= FilesGrid::widget([
         'dataProvider' => $files,
+        'options' => [
+            'search' => true
+        ],
         'actionButtons' => [
             'download' => true,
         ]
