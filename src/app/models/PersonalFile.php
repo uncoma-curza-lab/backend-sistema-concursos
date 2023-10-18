@@ -55,7 +55,7 @@ class PersonalFile extends \yii\db\ActiveRecord
             [['person_id', 'postulation_id', 'is_valid'], 'default', 'value' => null],
             [['person_id', 'postulation_id', 'is_valid'], 'integer'],
             [['document_type_code'], 'required'],
-            [['valid_until', 'created_at', 'validated_at'], 'safe'],
+            [['valid_until', 'created_at', 'validated_at', 'description'], 'safe'],
             [['document_type_code', 'path'], 'string', 'max' => 255],
             [['document_type_code'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentType::class, 'targetAttribute' => ['document_type_code' => 'code']],
             [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Persons::class, 'targetAttribute' => ['person_id' => 'id']],

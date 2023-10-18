@@ -33,6 +33,7 @@ $files = $dataProvider->getModels();
                       <?= $file->documentType->name ?> 
                     </h5>
                     <div class="card-body">
+                        <h5 class="card-title"><?= $file->description ?></h5>
                         <p class="card-text">
                             <small>Subido el: <?= $file->created_at ?></small>
                         </p>

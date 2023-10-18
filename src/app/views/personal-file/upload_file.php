@@ -12,6 +12,7 @@ $this->title = 'Cargar Archivos';
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 <div class="mb-3">
     
+    <?= $form->field($modelForm, 'description')->input('text', ['class' => 'form-control']) ?>
     <?= $form->field($modelForm, 'document_type_code')->dropDownList($documentsTypeList,['class'=>"form-control", 'prompt' => 'Seleccione...']) ?>
 
     <?= Html::label('File:','file', ['class'=>'form-label'])?>

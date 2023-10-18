@@ -36,8 +36,8 @@ class PersonalFileQuery extends \yii\db\ActiveQuery
 
     public function loggedUser()
     {
-        return $this->where(['=', 'person_id', Yii::$app->user->identity->person->id])
-            ->where(['IS', 'postulation_id', null]);
+        return $this->andWhere(['=', 'person_id', Yii::$app->user->identity->person->id])
+            ->andWhere(['IS', 'postulation_id', null]);
     }
 
     public function postulation_files(int $postulationId)
