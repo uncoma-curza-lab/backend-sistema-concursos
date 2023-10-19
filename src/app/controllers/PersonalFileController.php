@@ -35,8 +35,6 @@ class PersonalFileController extends Controller
 
     public function actionUploadFile(int | null $postulationId = null)
     {
-        //TODO: Diferenciar personal file o postulation file
-        //¿Armar un Factory?
         $model = PersonalFilesFactory::instantiate($postulationId);
         if ($this->request->isPost && $model->load($this->request->post())) {
             $model->person_id = Yii::$app->user->identity->person->id;
