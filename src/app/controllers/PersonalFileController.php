@@ -42,9 +42,13 @@ class PersonalFileController extends Controller
             $model->person_id = Yii::$app->user->identity->person->id;
             $model->postulation_id = $postulationId;
             $model->created_at = date('Y-m-d H:i:s');
-
-            if ($model->upload(UploadedFile::getInstanceByName('file'))) {
-                return $this->redirect($model->getFilesUrl());
+            $file = UploadedFile::getInstanceByName('file');
+            if($file){
+                if ($model->upload($file)) {
+                    return $this->redirect($model->getFilesUrl());
+                }
+            }else{
+                \Yii::$app->session->setFlash('error', 'Seleccione un Archivo');
             }
         }
 
