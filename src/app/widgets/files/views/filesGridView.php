@@ -91,9 +91,8 @@ $files = $dataProvider->getModels();
                     endif;
                     if($actionButtons['validation']): 
                 ?>
-                  <button class="btn btn-secondary" id="validationBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#validationModal"><i class="bi bi-eye"></i></button>
+                  <button class="btn btn-secondary" id="validationBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#validationModal"><i class="bi bi-check2-circle"></i></button>
                 <?php 
-                  $filePath = Url::to(['@web/' . $file->path]);
                   $validationScript = <<< EOD
                   $('#validationBtn$file->id').click(() => {
                     $('#validationModal-label').text('Validacion de $typeName');
@@ -147,8 +146,8 @@ $files = $dataProvider->getModels();
       'size' => 'modal-xl',
       'title' => "Vista Previa",
     ]);
-    $form = $actionButtons['validation']['form'];
-    echo $this->render('_validation_form', ['form' => $form]);
+    $modelForm = $actionButtons['validation']['form'];
+    echo $this->render('_validation_form', ['modelForm' => $modelForm]);
     Modal::end();
     endif;
 
