@@ -44,6 +44,17 @@ class DocumentType extends \yii\db\ActiveRecord
     const PERSONAL_FILE_CATEGORY = 'personal-file';
     const POSTULATION_FILE_CATEGORY = 'postulation-file';
 
+    const UNIQUE_TYPES = [
+        self::DNI,
+        self::CVAR,
+        self::ACADEMIC_PERFORMANCE,
+        self::UNIVERSITY_DEGREE,
+        self::COLLEGE_DEGREE,
+        self::PRACTICAL_WORK_PROPOSAL,
+        self::PROGRAM_PROPOSAL,
+        self::REGULAR_INSCRIPTION
+    ];
+
     /**
      * {@inheritdoc}
      */

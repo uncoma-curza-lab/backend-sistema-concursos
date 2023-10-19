@@ -55,12 +55,24 @@ class PersonalFile extends \yii\db\ActiveRecord
             [['person_id', 'postulation_id', 'is_valid'], 'default', 'value' => null],
             [['person_id', 'postulation_id', 'is_valid'], 'integer'],
             [['document_type_code'], 'required'],
+            [['document_type_code'], 'uniqueDocumentTypeRoule'],
             [['valid_until', 'created_at', 'validated_at', 'description'], 'safe'],
             [['document_type_code', 'path'], 'string', 'max' => 255],
             [['document_type_code'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentType::class, 'targetAttribute' => ['document_type_code' => 'code']],
             [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Persons::class, 'targetAttribute' => ['person_id' => 'id']],
             [['postulation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Postulations::class, 'targetAttribute' => ['postulation_id' => 'id']],
         ];
+    }
+
+    public function uniqueDocumentTypeRoule()
+    {
+        if(in_array($this->document_type_code, DocumentType::UNIQUE_TYPES)){
+            foreach(self::find()->loggedUser()->all() as $file){
+                if($this->document_type_code == $file->document_type_code){
+                    $this->addError('document_type_code', "There are a file whith this type. You can have only one.");
+                }
+            }
+        }
     }
 
     /**
