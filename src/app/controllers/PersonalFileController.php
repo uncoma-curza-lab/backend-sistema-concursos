@@ -70,10 +70,11 @@ class PersonalFileController extends Controller
 
     public function actionDelete(int $fileId)
     {
-        if(!$this->findModel($fileId)->delete()){
+        $model = $this->findModel($fileId);
+        if(!$model->delete()){
             \Yii::$app->session->setFlash('error', 'No se pudo borrar del Archivo');
         }
-        $this->redirect('my-files');
+        $this->redirect($model->getFilesUrl());
     }
 
     protected function getProps(PersonalFile $file)
@@ -87,7 +88,7 @@ class PersonalFileController extends Controller
 
     protected function findModel(int $id)
     {
-        if (($model = PersonalFile::findOne($id)) !== null) {
+        if (($model = PersonalFilesFactory::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException(\Yii::t('backoffice', 'The requested page does not exist.'));
