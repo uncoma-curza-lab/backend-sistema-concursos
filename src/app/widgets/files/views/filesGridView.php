@@ -56,42 +56,23 @@ $files = $dataProvider->getModels();
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                <button class="btn btn-success" id="previewBtn<?= $file->id ?>" title="Ver"><i class="bi bi-eye"></i></button>
-                <?php
-                  Modal::begin([
-                    'id'=>"previewModal$file->id",
-                    'class' =>'modal',
-                    'size' => 'modal-xl',
-                    'title' => "Vista Previa $typeName",
-                  ]);
-                ?>
-                  <div class="d-flex justify-content-center">
-                  <div id="loading<?= $file->id ?>" class="spinner-border" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </div>
-                  <embed id="embed<?= $file->id ?>" src="" width="100%" height="600">
-                
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  </div>
-                <?php
-                  Modal::end();
-                ?>
+                <?php if($actionButtons['view']): ?>
+                <button class="btn btn-success" id="previewBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#previewModal"><i class="bi bi-eye"></i></button>
                 <?php 
                   $filePath = Url::to(['@web/' . $file->path]);
                   $preview = <<< EOD
                   $('#previewBtn$file->id').click(() => {
-                    $('#previewModal$file->id').modal('show');
-                    let embed = document.getElementById('embed$file->id');
-                    embed.src = '$filePath';
-                    $("#loading$file->id").hide(); 
-                    $('#previewModal$file->id').modal('show');
+                    $('#previewModal-label').text('Vista Previa $typeName');
+                    $('#embed').attr('src', '$filePath');
+                    $("#loading").hide(); 
                   })
                   EOD;
                   $this->registerJs($preview, View::POS_READY);
                 ?>
-                <?php if($actionButtons['download']): ?>
+                <?php 
+                    endif;
+                    if($actionButtons['download']): 
+                ?>
                    <a class="btn btn-warning" href="<?= Url::to(['@web/' . $file->path]) ?>" target="_blank" title="Descargar"><i class="bi bi-file-earmark-arrow-down"></i></a>
                 <?php 
                     endif;
@@ -112,6 +93,7 @@ $files = $dataProvider->getModels();
           </div>
   <?php 
       endforeach;
+
     else:
   ?>
       <div class="alert alert-warning" role="alert">
@@ -121,4 +103,27 @@ $files = $dataProvider->getModels();
     endif;
   ?>
   </div>
+  <?php 
+  if($actionButtons['view']):
+    Modal::begin([
+      'id'=>"previewModal",
+      'class' =>'modal',
+      'size' => 'modal-xl',
+      'title' => "Vista Previa",
+    ]);
+  ?>
+    <div class="d-flex justify-content-center">
+    <div id="loading" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <embed id="embed" src="" width="100%" height="600">
+  
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    </div>
+  <?php
+    Modal::end();
+    endif;
+  ?>
 

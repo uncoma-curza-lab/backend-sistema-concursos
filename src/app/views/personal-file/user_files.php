@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             FilesGrid::widget([
                 'dataProvider' => $files,
                 'actionButtons' => [
+                    'view' => true,
                     'download' => true,
                     'delete' => true,
                 ]
