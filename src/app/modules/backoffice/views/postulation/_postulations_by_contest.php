@@ -103,7 +103,7 @@ $columns = [
                     ) {
                       return Html::a(
                         '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
-                        ['person/show', 'slug' => $model->person->uid],
+                        ['postulation/show', 'postulationId' => $model->id],
                       );
                     }
                   },
