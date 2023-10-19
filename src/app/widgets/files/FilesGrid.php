@@ -29,6 +29,9 @@ class FilesGrid extends Widget
         if( !isset($this->actionButtons['delete']) ) {
             $this->actionButtons['delete'] = false;
         }
+        if( !isset($this->actionButtons['validation']) ) {
+            $this->actionButtons['validation'] = false;
+        }
 
     }
     

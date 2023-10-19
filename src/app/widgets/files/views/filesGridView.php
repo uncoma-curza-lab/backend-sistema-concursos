@@ -57,17 +57,17 @@ $files = $dataProvider->getModels();
                 </div>
                 <div class="card-footer text-center">
                 <?php if($actionButtons['view']): ?>
-                <button class="btn btn-success" id="previewBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#previewModal"><i class="bi bi-eye"></i></button>
+                  <button class="btn btn-success" id="previewBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#previewModal"><i class="bi bi-eye"></i></button>
                 <?php 
                   $filePath = Url::to(['@web/' . $file->path]);
-                  $preview = <<< EOD
+                  $previewScript = <<< EOD
                   $('#previewBtn$file->id').click(() => {
                     $('#previewModal-label').text('Vista Previa $typeName');
                     $('#embed').attr('src', '$filePath');
                     $("#loading").hide(); 
                   })
                   EOD;
-                  $this->registerJs($preview, View::POS_READY);
+                  $this->registerJs($previewScript, View::POS_READY);
                 ?>
                 <?php 
                     endif;
@@ -87,6 +87,21 @@ $files = $dataProvider->getModels();
                        ],
                    ]);
                  ?>
+                <?php 
+                    endif;
+                    if($actionButtons['validation']): 
+                ?>
+                  <button class="btn btn-secondary" id="validationBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#validationModal"><i class="bi bi-eye"></i></button>
+                <?php 
+                  $filePath = Url::to(['@web/' . $file->path]);
+                  $validationScript = <<< EOD
+                  $('#validationBtn$file->id').click(() => {
+                    $('#validationModal-label').text('Validacion de $typeName');
+                  })
+                  EOD;
+                  $this->registerJs($validationScript, View::POS_READY);
+                ?>
+
                 <?php endif; ?>
                 </div>
               </div>
@@ -125,5 +140,17 @@ $files = $dataProvider->getModels();
   <?php
     Modal::end();
     endif;
+  if($actionButtons['validation']):
+    Modal::begin([
+      'id'=>"validationModal",
+      'class' =>'modal',
+      'size' => 'modal-xl',
+      'title' => "Vista Previa",
+    ]);
+    $form = $actionButtons['validation']['form'];
+    echo $this->render('_validation_form', ['form' => $form]);
+    Modal::end();
+    endif;
+
   ?>
 

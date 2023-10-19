@@ -12,10 +12,12 @@ use yii\helpers\Html;
     <?= FilesGrid::widget([
         'dataProvider' => $files,
         'options' => [
-            'search' => true
+            'search' => false
         ],
         'actionButtons' => [
+            'view' => true,
             'download' => true,
+            'validation' => ['form' => $validationForm],
         ]
         ]) ?>
 </div>

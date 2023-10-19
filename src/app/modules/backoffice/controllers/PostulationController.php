@@ -7,6 +7,7 @@ use app\models\PersonalFile;
 use app\models\Postulations;
 use app\models\PostulationStatus;
 use app\models\search\PersonalFileSearch;
+use app\modules\backoffice\models\PersonalFileValidationForm;
 use app\modules\backoffice\searchs\PostulationsByContestSearch;
 use Yii;
 use yii\web\Controller;
@@ -93,11 +94,13 @@ class PostulationController extends Controller
         $postulation = Postulations::findOne($postulationId);
         $person = $postulation->person;
         $filesSearch = new PersonalFileSearch();
-        $files = $filesSearch->searchPersonalAndPostulation($postulation->id, $person->id, $this->request->queryParams);
+        $validationForm = new PersonalFileValidationForm();
+        $files = $filesSearch->searchPersonalAndPostulation($postulation->id, $person->id);
         return $this->render('show', [
             'profile' => $person,
             'postulation' => $postulation,
             'files' => $files,
+            'validationForm' => $validationForm,
         ]);
     }
 
