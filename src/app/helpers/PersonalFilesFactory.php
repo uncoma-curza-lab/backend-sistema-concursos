@@ -17,15 +17,4 @@ class PersonalFilesFactory
         return new PostulationFile();
     }
 
-    public static function findOne(int $id) : PersonalFile | null
-    {        
-        $model = PersonalFile::findOne($id);
-
-        if(!$model->postulation_id){
-            return $model;
-        }
-        
-        return PostulationFile::findOne($id);
-    }
-
 }

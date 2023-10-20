@@ -88,7 +88,7 @@ class PersonalFileController extends Controller
 
     protected function findModel(int $id)
     {
-        if (($model = PersonalFilesFactory::findOne($id)) !== null) {
+        if (($model = PersonalFile::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException(\Yii::t('backoffice', 'The requested page does not exist.'));

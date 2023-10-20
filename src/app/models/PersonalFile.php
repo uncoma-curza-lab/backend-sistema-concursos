@@ -133,6 +133,11 @@ class PersonalFile extends \yii\db\ActiveRecord
         return new PersonalFileQuery(get_called_class());
     }
 
+    public static function instantiate($attr)
+    {
+        return $attr['postulation_id'] ? new PostulationFile() : new static();
+    }
+
     protected function createMasterPath() : string
     {
         $person = $this->person;
