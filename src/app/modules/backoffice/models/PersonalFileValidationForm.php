@@ -2,6 +2,8 @@
 
 namespace app\modules\backoffice\models;
 
+use app\models\PersonalFile;
+use Yii;
 use yii\base\Model;
 
 /**
@@ -39,4 +41,12 @@ class PersonalFileValidationForm extends Model
         return true;
     }
 
+    public static function getValidationStatusList()
+    {
+        return [
+            PersonalFile::VALID_INDEFINITELY => Yii::t('models/personal-files', 'valid_indefinitely'),
+            PersonalFile::VALID_WITH_UNTIL_DATE => Yii::t('models/personal-files', 'valid_whith_until_date'),
+            PersonalFile::INVALID => Yii::t('models/personal-files', 'invalid'),
+        ];
+    }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use app\models\PersonalFile;
 use kartik\form\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
@@ -8,7 +7,7 @@ use yii\web\View;
   $form = ActiveForm::begin();
 ?>
 
-  <?= $form->field($modelForm, 'idValid')->dropDownList(PersonalFile::VALIDATION_STATUSES) ?>
+  <?= $form->field($modelForm, 'idValid')->dropDownList($modelForm->getValidationStatusList(),[]) ?>
   <?= $form->field($modelForm, 'expireDate', ['options' => ['id' => 'expiredate_field', 'style' => 'display: none;']])->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control',
         'type' => \kartik\datetime\DateTimePicker::TYPE_INPUT,
