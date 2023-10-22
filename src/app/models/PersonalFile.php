@@ -46,6 +46,17 @@ class PersonalFile extends \yii\db\ActiveRecord
         return 'personal_files';
     }
 
+    public function behaviors() {
+        return [
+            'FormatDate' => [
+                'class' => 'app\behaviors\FormatDate',
+                  'attributes' => [
+                      'valid_until'
+                  ],
+              ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -66,7 +77,7 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     public function uniqueDocumentTypeRoule()
     {
-        if(in_array($this->document_type_code, DocumentType::UNIQUE_TYPES)){
+        if($this->isNewRecord && in_array($this->document_type_code, DocumentType::UNIQUE_TYPES)){
             foreach(self::find()->loggedUser()->all() as $file){
                 if($this->document_type_code == $file->document_type_code){
                     $this->addError('document_type_code', "There are a file whith this type. You can have only one.");

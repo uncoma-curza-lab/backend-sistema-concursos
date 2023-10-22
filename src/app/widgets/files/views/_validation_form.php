@@ -7,6 +7,7 @@ use yii\web\View;
   $form = ActiveForm::begin();
 ?>
 
+  <?= $form->field($modelForm, 'fileId', ['options' => ['style' => 'display: none;']])->textInput() ?>
   <?= $form->field($modelForm, 'idValid')->dropDownList($modelForm->getValidationStatusList(),[]) ?>
   <?= $form->field($modelForm, 'expireDate', ['options' => ['id' => 'expiredate_field', 'style' => 'display: none;']])->widget(\kartik\datetime\DateTimePicker::class, [
         'class' => 'form-control',

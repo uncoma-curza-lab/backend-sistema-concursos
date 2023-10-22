@@ -11,6 +11,7 @@ use yii\base\Model;
  */
 class PersonalFileValidationForm extends Model
 {
+    public $fileId;
     public $idValid;
     public $expireDate;
 
@@ -21,7 +22,8 @@ class PersonalFileValidationForm extends Model
     public function rules()
     {
         return [
-            [['isValid'], 'required'],
+            [['idValid', 'fileId'], 'required'],
+            [['expireDate'], 'string'],
         ];
     }
 
@@ -38,7 +40,14 @@ class PersonalFileValidationForm extends Model
 
     public function save()
     {
-        return true;
+        $file = PersonalFile::findOne($this->fileId);
+        if (!$file) {
+            return false;
+        }
+
+        $file->is_valid = $this->idValid;
+        $file->valid_until = $this->expireDate;
+        return $file->update();
     }
 
     public static function getValidationStatusList()

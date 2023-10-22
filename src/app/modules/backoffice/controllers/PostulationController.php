@@ -94,8 +94,14 @@ class PostulationController extends Controller
         $postulation = Postulations::findOne($postulationId);
         $person = $postulation->person;
         $filesSearch = new PersonalFileSearch();
-        $validationForm = new PersonalFileValidationForm();
         $files = $filesSearch->searchPersonalAndPostulation($postulation->id, $person->id);
+        
+        $validationForm = new PersonalFileValidationForm();
+        if ($this->request->isPost && $validationForm->load($this->request->post())) {
+            $validationForm->save();
+            $validationForm = new PersonalFileValidationForm();
+        }
+
         return $this->render('show', [
             'profile' => $person,
             'postulation' => $postulation,

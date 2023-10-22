@@ -19,6 +19,7 @@ $files = $dataProvider->getModels();
       if($files):
         foreach ($files as $file): 
           $typeName = $file->documentType->name;
+          $fileId = $file->id;
           $badge = 'info';
           $status = 'Sin Validar';
           $validEndDate = '';
@@ -95,6 +96,7 @@ $files = $dataProvider->getModels();
                 <?php 
                   $validationScript = <<< EOD
                   $('#validationBtn$file->id').click(() => {
+                    $('#personalfilevalidationform-fileid').val($fileId);
                     $('#validationModal-label').text('Validacion de $typeName');
                   })
                   EOD;
