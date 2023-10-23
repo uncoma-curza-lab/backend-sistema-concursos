@@ -65,6 +65,7 @@ class PersonalFile extends \yii\db\ActiveRecord
         return [
             [['person_id', 'postulation_id', 'is_valid'], 'default', 'value' => null],
             [['person_id', 'postulation_id', 'is_valid'], 'integer'],
+            [['is_valid'], 'default', 'value' => self::UNVALIDATED],
             [['document_type_code'], 'required'],
             [['document_type_code'], 'uniqueDocumentTypeRoule'],
             [['valid_until', 'created_at', 'validated_at', 'description'], 'safe'],
