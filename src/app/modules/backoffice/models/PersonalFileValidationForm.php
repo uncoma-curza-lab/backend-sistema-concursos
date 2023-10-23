@@ -24,7 +24,16 @@ class PersonalFileValidationForm extends Model
         return [
             [['idValid', 'fileId'], 'required'],
             [['expireDate'], 'string'],
+            [['expireDate'], 'dateRule'],
         ];
+    }
+
+    public function dateRule()
+    {
+        $date = date_create($this->expireDate);
+        if($date < date_create()){
+            $this->addError('expireDate', 'Date must be greater than today');
+        }
     }
 
     /**
@@ -36,18 +45,6 @@ class PersonalFileValidationForm extends Model
             'isValid' => 'Is Valid',
             'expireDate' => 'Expire Date',
         ];
-    }
-
-    public function save()
-    {
-        $file = PersonalFile::findOne($this->fileId);
-        if (!$file) {
-            return false;
-        }
-
-        $file->is_valid = $this->idValid;
-        $file->valid_until = $this->expireDate;
-        return $file->update();
     }
 
     public static function getValidationStatusList()
