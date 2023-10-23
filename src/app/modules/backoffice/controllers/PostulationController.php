@@ -9,10 +9,15 @@ use app\models\PostulationStatus;
 use app\models\search\PersonalFileSearch;
 use app\modules\backoffice\models\PersonalFileValidationForm;
 use app\modules\backoffice\searchs\PostulationsByContestSearch;
+use app\useCases\ValidateFileProcess;
+use Exception;
+use InvalidArgumentException;
+use Mpdf\Container\NotFoundException;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 class PostulationController extends Controller
 {
@@ -98,8 +103,21 @@ class PostulationController extends Controller
         
         $validationForm = new PersonalFileValidationForm();
         if ($this->request->isPost && $validationForm->load($this->request->post())) {
-            $validationForm->save();
-            $validationForm = new PersonalFileValidationForm();
+            $process = new ValidateFileProcess($validationForm);
+            try {
+                $process->handle();
+                Yii::$app->session->setFlash('success', 'Archivo validado con exito');
+                return $this->redirect(['show', 'postulationId' => $postulation->id]);
+            } catch (ForbiddenHttpException $ex) {
+                Yii::$app->session->setFlash('error', $ex->getMessage());
+            } catch (InvalidArgumentException $ex) {
+                Yii::$app->session->setFlash('error', 'Corrija los errores');
+            } catch (NotFoundException $ex) {
+                Yii::$app->session->setFlash('error', $ex->getMessage());
+            } catch (Exception $ex) {
+                Yii::$app->session->setFlash('error', $ex->getMessage());
+            }
+
         }
 
         return $this->render('show', [

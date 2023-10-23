@@ -18,7 +18,7 @@ $files = $dataProvider->getModels();
     <?php
       if($files):
         foreach ($files as $file): 
-          $hasToValidate = $actionButtons['validation'] && $file->isStatus(PersonalFile::UNVALIDATED);
+          $hasToValidate = !!$actionButtons['validation'];
           $typeName = $file->documentType->name;
           $fileId = $file->id;
           $badge = 'info';
@@ -62,9 +62,11 @@ $files = $dataProvider->getModels();
                   <button class="btn btn-success" id="previewBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#previewModal"><i class="bi bi-eye"></i></button>
                 <?php 
                   $filePath = Url::to(['@web/' . $file->path]);
+                  $showValidationForm = $file->isStatus(PersonalFile::UNVALIDATED) ? 'block' : 'none';
 
                   $previewScript = <<< EOD
                   $('#previewBtn$file->id').click(() => {
+                    $('#formDiv').css('display', '$showValidationForm');
                     $('#previewModal-label').text('Vista Previa $typeName');
                     $('#personalfilevalidationform-fileid').val($fileId);
                     $('#embed').attr('src', '$filePath');
@@ -121,12 +123,14 @@ $files = $dataProvider->getModels();
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-<?php 
-      if($hasToValidate){
-        $modelForm = $actionButtons['validation']['form'];
-        echo $this->render('_validation_form', ['modelForm' => $modelForm]);
-      }
-?>
+    <div id="formDiv">
+    <?php 
+          if($hasToValidate){
+            $modelForm = $actionButtons['validation']['form'];
+            echo $this->render('_validation_form', ['modelForm' => $modelForm]);
+          }
+    ?>
+    </div>
     <embed id="embed" src="" width="100%" height="600">
   
     <div class="modal-footer">
