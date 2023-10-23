@@ -62,32 +62,13 @@ $files = $dataProvider->getModels();
                   <button class="btn btn-success" id="previewBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#previewModal"><i class="bi bi-eye"></i></button>
                 <?php 
                   $filePath = Url::to(['@web/' . $file->path]);
-                  $validationHtml = '';
-                  
-                  if($hasToValidate){
-                    $modelForm = $actionButtons['validation']['form'];
-                    $validationHtml = $this->render('_validation_form', ['modelForm' => $modelForm]);
-                  }
 
                   $previewScript = <<< EOD
                   $('#previewBtn$file->id').click(() => {
                     $('#previewModal-label').text('Vista Previa $typeName');
-                    $('#validationFormDiv').html(`$validationHtml`);
                     $('#personalfilevalidationform-fileid').val($fileId);
                     $('#embed').attr('src', '$filePath');
                     $("#loading").hide(); 
-                    $('#personalfilevalidationform-idvalid').change(() => {
-                      if($('#personalfilevalidationform-idvalid').val() == 2){
-                        $('#expiredate_field').show();
-                      }else{
-                        $('#expiredate_field').hide();
-                      }
-                    });
-                    
-                    $('#showFormBtn').click(() => {
-                      console.log($('#form'))
-                      $('#form').toggle(500)
-                    });
                   })
                   EOD;
                   $this->registerJs($previewScript, View::POS_READY);
@@ -140,8 +121,12 @@ $files = $dataProvider->getModels();
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div id="validationFormDiv">
-    </div>
+<?php 
+      if($hasToValidate){
+        $modelForm = $actionButtons['validation']['form'];
+        echo $this->render('_validation_form', ['modelForm' => $modelForm]);
+      }
+?>
     <embed id="embed" src="" width="100%" height="600">
   
     <div class="modal-footer">
@@ -151,23 +136,4 @@ $files = $dataProvider->getModels();
     Modal::end();
     endif;
   ?>
-<?php
 
-$showDateJs = <<< JS
-$('#personalfilevalidationform-idvalid').change(() => {
-  if($('#personalfilevalidationform-idvalid').val() == 2){
-    $('#expiredate_field').show();
-  }else{
-    $('#expiredate_field').hide();
-  }
-});
-
-$('#showFormBtn').click(() => {
-  console.log($('#form'))
-  $('#form').toggle(500)
-});
-JS;
-$this->registerJs($showDateJs, View::POS_END);
-
-
-?>
