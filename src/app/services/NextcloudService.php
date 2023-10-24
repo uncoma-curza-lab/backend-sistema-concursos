@@ -14,7 +14,7 @@ class NextcloudService
     protected $auth;
     protected $dir;
 
-    const TIMEOUT = 25;
+    const TIMEOUT = 40;
     const PUBLIC_PERMISSION = 31;
     const READ_ONLY_PERMISSION = 1;
 
