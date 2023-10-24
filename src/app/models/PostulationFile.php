@@ -33,6 +33,15 @@ class PostulationFile extends PersonalFile
         return 'personal_files/' . $person->uid . '-' . $personLastName . '-' . $personFirstName . '/' . $contestCode;
     }
 
+    protected function hasContestActive(): bool
+    {
+        if($this->postulation->contest->contest_status_id != ContestStatus::FINISHED){
+            return true;
+        }
+
+        return false;
+    }
+
     public function uniqueDocumentTypeRoule()
     {
         if($this->isNewRecord && in_array($this->document_type_code, DocumentType::UNIQUE_TYPES)){
