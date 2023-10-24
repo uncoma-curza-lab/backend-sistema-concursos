@@ -201,12 +201,34 @@ class PersonalFile extends \yii\db\ActiveRecord
         }
     }
 
-    public function canDelete() : bool
+    protected function canDelete() : bool
     {
         //TODO - Cuando puedo eliminar??
         //El archivo debe pertenecerle al usuario?
         //Cuando esté verificado con un concurso activo??
+        if($this->person_id != \Yii::$app->user->identity->person->id){
+            return false;
+        }
+        if ($this->isValid() && $this->hasContestActive()) {
+            return false;
+        }
         return true;
+    }
+
+    protected function hasContestActive() : bool
+    {
+        $postulations = $this->person->postulations;
+        $postulationsIds = [];
+        foreach ($postulations as $postulation) {
+            array_push($postulationsIds, $postulation->id);
+        }
+        $contests = Contests::find()->inPostulations($postulationsIds)->all();
+        foreach ($contests as $contest) {
+            if($contest->contest_status_id != ContestStatus::FINISHED){
+                return true;
+            }
+        }
+         return false;
     }
 
     public function isValid() : bool
