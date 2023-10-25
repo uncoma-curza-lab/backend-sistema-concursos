@@ -217,18 +217,7 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     protected function hasContestActive() : bool
     {
-        $postulations = $this->person->postulations;
-        $postulationsIds = [];
-        foreach ($postulations as $postulation) {
-            array_push($postulationsIds, $postulation->id);
-        }
-        $contests = Contests::find()->inPostulations($postulationsIds)->all();
-        foreach ($contests as $contest) {
-            if($contest->contest_status_id != ContestStatus::FINISHED){
-                return true;
-            }
-        }
-         return false;
+        return $this->person->hasActiveContest();
     }
 
     public function isValid() : bool

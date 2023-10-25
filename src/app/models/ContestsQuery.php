@@ -103,10 +103,4 @@ class ContestsQuery extends \yii\db\ActiveQuery
         return $this->onlyPublic()->filterBySlug($slug)->one();
     }
 
-    public function inPostulations(array $postulationsIds)
-    {
-        return $this->from(['c' => Contests::tableName()])
-                    ->innerJoin(['p' => Postulations::tableName()], 'p.contest_id=c.id')
-                    ->andWhere(['IN', 'p.id', $postulationsIds]);
-    }
 }

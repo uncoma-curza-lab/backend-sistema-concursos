@@ -104,6 +104,17 @@ class Persons extends \yii\db\ActiveRecord
                     ->exists();
     }
 
+    public function hasActiveContest() : bool
+    {
+        return Contests::find()->innerJoinWith([
+                        'postulations' => function ($query) {
+                            $query->onCondition(['postulations.person_id' => $this->id]);
+                        },
+                   ])
+                   ->andWhere(['!=', 'contest_status_id', ContestStatus::FINISHED])
+                    ->exists();
+    }
+
     /**
      * Gets query for [[PlaceOfBirth]].
      *

@@ -35,11 +35,7 @@ class PostulationFile extends PersonalFile
 
     protected function hasContestActive(): bool
     {
-        if($this->postulation->contest->contest_status_id != ContestStatus::FINISHED){
-            return true;
-        }
-
-        return false;
+        return !$this->postulation->contest->isFinished();
     }
 
     public function uniqueDocumentTypeRoule()
