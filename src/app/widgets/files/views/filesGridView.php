@@ -109,6 +109,14 @@ $files = $dataProvider->getModels();
     endif;
   ?>
   </div>
+  <div class="p-2">
+      <?php 
+          echo \yii\widgets\LinkPager::widget([
+              'pagination' => $dataProvider->pagination,
+          ]);
+      ?>
+  </div>
+
   <?php 
   if($actionButtons['view']):
     Modal::begin([
