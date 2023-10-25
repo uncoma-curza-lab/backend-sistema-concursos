@@ -3,11 +3,12 @@
 namespace app\controllers;
 
 use app\helpers\PersonalFilesFactory;
-use app\models\DocumentType;
 use app\models\PersonalFile;
 use app\models\PostulationFile;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use \yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -15,6 +16,35 @@ use yii\web\UploadedFile;
 
 class PersonalFileController extends Controller
 {
+
+    public function behaviors()
+    {
+        return array_merge(
+            parent::behaviors(),
+            [
+                'verbs' => [
+                    'class' => VerbFilter::class,
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'actions' => ['my-files', 'postulation-files', 'upload-file', 'delete'],
+                        ],
+                     ],
+                ],
+            ],
+        );
+    }
 
     public function actionIndex()
     {
