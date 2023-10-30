@@ -56,9 +56,11 @@ class PersonalFileController extends Controller
 
         $filesQuery = PersonalFile::find()->loggedUser();
         $files = new ActiveDataProvider(['query' => $filesQuery]);
+        $hasActiveContest = Yii::$app->user->identity->person->hasActiveContest();
 
         return $this->render('user_files', [
             'files' => $files,
+            'hasActiveContest' => $hasActiveContest
         ]);
 
     }

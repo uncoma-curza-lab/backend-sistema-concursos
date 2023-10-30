@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use yii\web\View;
 
 $files = $dataProvider->getModels();
+$hasDelete = $actionButtons['delete'];
 ?>
 
 <?php if ($options['search']){
@@ -82,7 +83,7 @@ $files = $dataProvider->getModels();
                    <a class="btn btn-warning" href="<?= Url::to(['@web/' . $file->path]) ?>" target="_blank" title="Descargar"><i class="bi bi-file-earmark-arrow-down"></i></a>
                 <?php 
                     endif;
-                    if($actionButtons['delete']): 
+                    if((is_bool($hasDelete) && $hasDelete) || ($hasDelete instanceof Closure && $hasDelete($file))): 
                 ?>
                    <?= Html::a('<i class="bi bi-trash"></i>', ['personal-file/delete', 'fileId' => $file->id], [
                      'class' => "btn btn-danger",

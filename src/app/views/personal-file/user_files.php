@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'actionButtons' => [
                     'view' => true,
                     'download' => true,
-                    'delete' => true,
+                    'delete' => fn($file) => !$hasActiveContest || !$file->isValid(),
                 ]
             ]) 
         ?>

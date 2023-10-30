@@ -23,7 +23,7 @@ $this->title = 'Archivos de la Postulación';
             'dataProvider' => $files,
             'actionButtons' => [
                 'download' => true,
-                'delete' => true,
+                'delete' => fn($file) => !$file->isValid(),
             ]
         ]) 
     ?>
