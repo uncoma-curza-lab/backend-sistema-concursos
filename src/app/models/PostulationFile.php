@@ -49,6 +49,16 @@ class PostulationFile extends PersonalFile
         }
     }
 
+    /**
+     * Chequea si la validación expiró
+     * Si el concurso finalizó no expira.
+     */
+    public function isExpired() : bool
+    {
+        return !$this->postulation->contest->isFinished() && parent::isExpired(); 
+    }
+
+
     public function getDocumentsTypes()
     {
         return DocumentType::find()->forPostulationFiles()->all();

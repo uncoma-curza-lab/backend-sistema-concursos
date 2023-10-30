@@ -222,16 +222,16 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     public function isValid() : bool
     {
-        if(!$this->is_valid || $this->is_valid === self::INVALID){
+        if(!$this->is_valid || $this->isStatus(self::INVALID)){
             return false;
         }
 
-        if($this->is_valid === self::VALID_WITH_UNTIL_DATE){
+        if($this->isStatus(self::VALID_WITH_UNTIL_DATE)){
             $valid_until = date_create($this->valid_until);
             return $valid_until > date_create();
         }
 
-        return $this->is_valid === self::VALID_INDEFINITELY;
+        return $this->isStatus(self::VALID_INDEFINITELY);
 
     }
 
@@ -244,6 +244,9 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     }
 
+    /**
+     * Chequea si la validación expiró
+     */
     public function isExpired() : bool
     {
         if($this->isStatus(self::VALID_WITH_UNTIL_DATE)){
