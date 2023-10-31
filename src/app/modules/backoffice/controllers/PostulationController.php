@@ -100,29 +100,31 @@ class PostulationController extends Controller
         $person = $postulation->person;
         $filesSearch = new PersonalFileSearch();
         $files = $filesSearch->searchPersonalAndPostulation($postulation->id, $person->id);
-        
-        $validationForm = new PersonalFileValidationForm();
-        if ($this->request->isPost && $validationForm->load($this->request->post())) {
-            $process = new ValidateFileProcess($validationForm);
-            try {
-                $process->handle();
-                Yii::$app->session->setFlash('success', 'Archivo validado con exito');
-                return $this->redirect(['show', 'postulationId' => $postulation->id]);
-            } catch (ForbiddenHttpException $ex) {
-                Yii::$app->session->setFlash('error', $ex->getMessage());
-            } catch (InvalidArgumentException $ex) {
-                Yii::$app->session->setFlash('error', 'Corrija los errores');
-            } catch (NotFoundException $ex) {
-                Yii::$app->session->setFlash('error', $ex->getMessage());
-            } catch (Exception $ex) {
-                Yii::$app->session->setFlash('error', $ex->getMessage());
-            }
-
-        }
-
+        $validationForm = false;
         $canValidate = Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'admin')
-            ||
-            Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'teach_departament');
+           ||
+           Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'teach_departament');
+
+        if($canValidate){
+            $validationForm = new PersonalFileValidationForm();
+            if ($this->request->isPost && $validationForm->load($this->request->post())) {
+                $process = new ValidateFileProcess($validationForm);
+                try {
+                    $process->handle();
+                    Yii::$app->session->setFlash('success', 'Archivo validado con exito');
+                    return $this->redirect(['show', 'postulationId' => $postulation->id]);
+                } catch (ForbiddenHttpException $ex) {
+                    Yii::$app->session->setFlash('error', $ex->getMessage());
+                } catch (InvalidArgumentException $ex) {
+                    Yii::$app->session->setFlash('error', 'Corrija los errores');
+                } catch (NotFoundException $ex) {
+                    Yii::$app->session->setFlash('error', $ex->getMessage());
+                } catch (Exception $ex) {
+                    Yii::$app->session->setFlash('error', $ex->getMessage());
+                }
+    
+            }
+        }
 
         return $this->render('show', [
             'profile' => $person,
