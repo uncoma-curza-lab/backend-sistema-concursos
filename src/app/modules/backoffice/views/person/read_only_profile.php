@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -10,36 +9,23 @@ use yii\widgets\ActiveForm;
 
 <div class="profile-form">
 
-    <div class="row justify-content-end">
-      <?= Html::a('Volver', \Yii::$app->request->referrer, ['class'=>'btn btn-info float-right']) ?>
-    </div>
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="form-row justify-content-center mb-3">
-      <?= $form->field($profile, 'first_name', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
-      <?= $form->field($profile, 'last_name', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
+        <?= $form->field($profile, 'dni', ['options' => ['class' => 'col-md-2']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
+        <?= $form->field($profile, 'first_name', ['options' => ['class' => 'col-md-5']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
+        <?= $form->field($profile, 'last_name', ['options' => ['class' => 'col-md-5']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
     </div>
 
     <div class="form-row justify-content-center mb-3">
-    <?= $form->field($profile, 'contact_email', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'type' => 'email', 'disabled' => true]) ?>
-    </div>
-
-
-    <div class="form-row justify-content-center mb-3">
-    <?= $form->field($profile, 'cellphone', ['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
-    <?= $form->field($profile, 'phone', ['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
+        <?= $form->field($profile, 'contact_email', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'type' => 'email', 'disabled' => true]) ?>
+        <?= $form->field($profile, 'cellphone', ['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
+        <?= $form->field($profile, 'phone', ['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
     </div>
 
     <div class="form-row justify-content-center mb-3">
-    <?= $form->field($profile, 'dni', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true, 'disabled' => true]) ?>
-    </div>
-
-    <div class="form-row justify-content-center mb-3">
-    <?= $form->field($profile, 'date_of_birth')->textInput(['maxlength' => true,  'type' => 'date', 'disabled' => true]) ?>
-    </div>
-
-    <div class="form-row justify-content-center mb-3">
-    <?= $form->field($profile, 'place_of_birth')->textInput(['value' => $profile->placeOfBirth->getCompleteString(), 'disabled' => true]) ?>
+        <?= $form->field($profile, 'date_of_birth', ['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true,  'type' => 'date', 'disabled' => true]) ?>
+        <?= $form->field($profile, 'place_of_birth', ['options' => ['class' => 'col-md-9']])->textInput(['value' => $profile->placeOfBirth->getCompleteString(), 'disabled' => true]) ?>
     </div>
 
     <div class="form-group accordion" id="addresses-ac">
@@ -92,8 +78,4 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
-    <div class="row justify-content-end">
-      <?= Html::a('Volver', \Yii::$app->request->referrer, ['class'=>'btn btn-info float-right']) ?>
-    </div>
-
 </div>
