@@ -8,6 +8,7 @@ use yii\web\View;
 
 $files = $dataProvider->getModels();
 $hasDelete = $actionButtons['delete'];
+$hasToValidate = !!$actionButtons['validation'];
 ?>
 
 <?php if ($options['search']){
@@ -19,7 +20,6 @@ $hasDelete = $actionButtons['delete'];
     <?php
       if($files):
         foreach ($files as $file): 
-          $hasToValidate = !!$actionButtons['validation'];
           $typeName = $file->documentType->name;
           $fileId = $file->id;
           $badge = 'info';

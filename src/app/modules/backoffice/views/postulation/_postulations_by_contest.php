@@ -99,11 +99,14 @@ $columns = [
                     if (
                       Yii::$app->authManager->checkAccess($loggedUser->id, 'viewImplicatedPostulations', ['contestSlug' => $model->contest->code])
                       ||
-                      $model->canApprove()
+                      Yii::$app->authManager->checkAccess($loggedUser->id, 'admin')
+                      ||
+                      Yii::$app->authManager->checkAccess($loggedUser->id, 'teach_departament')
                     ) {
                       return Html::a(
                         '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
-                        ['postulation/show', 'postulationId' => $model->id],
+                        //TODO - create permision for delete slug
+                        ['postulation/show', 'postulationId' => $model->id, 'slug' => $model->contest->code],
                       );
                     }
                   },

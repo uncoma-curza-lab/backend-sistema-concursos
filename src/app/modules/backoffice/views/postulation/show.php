@@ -17,7 +17,7 @@ use yii\helpers\Html;
         'actionButtons' => [
             'view' => true,
             'download' => true,
-            'validation' => ['form' => $validationForm],
+            'validation' => $canValidate ? ['form' => $validationForm] : $canValidate,
         ]
         ]) ?>
 </div>

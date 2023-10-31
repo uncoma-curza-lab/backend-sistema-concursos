@@ -43,7 +43,7 @@ class PostulationController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['viewImplicatedPostulations'],
-                            'actions' => ['contest'],
+                            'actions' => ['contest', 'show'],
                             'roleParams' => function() {
                                 return [
                                     'contestSlug' => Yii::$app->request->get('slug'),
@@ -120,11 +120,16 @@ class PostulationController extends Controller
 
         }
 
+        $canValidate = Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'admin')
+            ||
+            Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'teach_departament');
+
         return $this->render('show', [
             'profile' => $person,
             'postulation' => $postulation,
             'files' => $files,
             'validationForm' => $validationForm,
+            'canValidate' => $canValidate,
         ]);
     }
 
