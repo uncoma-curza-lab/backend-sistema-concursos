@@ -74,7 +74,7 @@ class PersonalFileSearch extends PersonalFile
         return $dataProvider;
     }
 
-    public function searchPersonalAndPostulation(int $postulationId, int $personId, array $params = [])
+    public function searchPersonalAndPostulation(int $postulationId, int $personId, array $params = []) : ActiveDataProvider
     {
         $query = PersonalFile::find();
 

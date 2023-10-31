@@ -44,5 +44,10 @@ class PersonalFileQuery extends \yii\db\ActiveQuery
     {
         return $this->where(['=', 'postulation_id', $postulationId]);
     }
+    
+    public function onlyValid()
+    {
+        return $this->andWhere(['NOT IN', 'is_valid', [PostulationFile::UNVALIDATED, PostulationFile::INVALID]]);
+    }
 
 }

@@ -100,6 +100,9 @@ class PostulationController extends Controller
         $person = $postulation->person;
         $filesSearch = new PersonalFileSearch();
         $files = $filesSearch->searchPersonalAndPostulation($postulation->id, $person->id);
+        if(Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'jury')){
+            $files->query->onlyValid();
+        }
         $validationForm = false;
         $canValidate = Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'admin')
            ||
