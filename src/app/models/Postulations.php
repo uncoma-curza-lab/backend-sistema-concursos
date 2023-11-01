@@ -116,8 +116,8 @@ class Postulations extends \yii\db\ActiveRecord
         $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
         return ($this->status === PostulationStatus::DRAFT ||
             $this->status === PostulationStatus::PENDING) &&
-            in_array('admin', $roles) ||
-            in_array('teach_departament', $roles);
+            (in_array('admin', $roles) ||
+            in_array('teach_departament', $roles));
     }
 
     public function canReject()
@@ -126,7 +126,7 @@ class Postulations extends \yii\db\ActiveRecord
         $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
         return ($this->status === PostulationStatus::DRAFT ||
             $this->status === PostulationStatus::PENDING) &&
-            in_array('admin', $roles) || in_array('teach_departament', $roles);
+            (in_array('admin', $roles) || in_array('teach_departament', $roles));
     }
 
     public function getStatusDescription()
