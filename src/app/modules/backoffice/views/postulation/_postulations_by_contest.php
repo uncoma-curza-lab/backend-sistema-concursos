@@ -97,7 +97,7 @@ $columns = [
                   'viewProfile' =>  function($url, $model, $key) {
                     $loggedUser = Yii::$app->user;
                     if (
-                      Yii::$app->authManager->checkAccess($loggedUser->id, 'viewImplicatedPostulations', ['contestSlug' => $model->contest->code])
+                      Yii::$app->authManager->checkAccess($loggedUser->id, 'viewPostulationProfile', ['postulationId' => $model->id])
                       ||
                       Yii::$app->authManager->checkAccess($loggedUser->id, 'admin')
                       ||
@@ -105,7 +105,6 @@ $columns = [
                     ) {
                       return Html::a(
                         '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
-                        //TODO - create permision for delete slug
                         ['postulation/show', 'postulationId' => $model->id],
                       );
                     }
