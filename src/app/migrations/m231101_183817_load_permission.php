@@ -10,11 +10,14 @@ class m231101_183817_load_permission extends Migration
 {
     const PERMISSIONS = [
         'viewImplicatedPostulationProfile' => [
-            'childs' => [
-                'viewImplicatedPostulations',
-            ],
             'description' => 'View the profile and documentation of a Postulation',
             'rule' => IsJuryOfApprovedPostulation::class,
+            'childs' => [
+                'viewPostulations',
+            ],
+            'parent' => [
+                'jury',
+            ],
         ],
     ];
 
@@ -48,6 +51,13 @@ class m231101_183817_load_permission extends Migration
                     $this->auth->addChild($permission, $permissionChild);
                 }
             }
+            if (array_key_exists('parent', $options)) {
+                foreach($options['parent'] as $parentName) {
+                    $permissionParent = $this->auth->createPermission($parentName);
+                    $this->auth->addChild($permissionParent, $permission);
+                }
+            }
+
         }} catch(\Throwable $e) {
         var_dump($permission);
         throw $e;
@@ -66,6 +76,12 @@ class m231101_183817_load_permission extends Migration
                 foreach($options['childs'] as $childName) {
                     $permissionChild = $this->auth->getPermission($childName);
                     $this->auth->removeChild($permission, $permissionChild);
+                }
+            }
+            if (array_key_exists('parent', $options)) {
+                foreach($options['parent'] as $parentName) {
+                    $permissionParent = $this->auth->createPermission($parentName);
+                    $this->auth->removeChild($permissionParent, $permission);
                 }
             }
             $hasError = !$this->auth->remove($permission);

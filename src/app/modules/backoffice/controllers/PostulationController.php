@@ -43,10 +43,20 @@ class PostulationController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['viewImplicatedPostulations'],
-                            'actions' => ['contest', 'show'],
+                            'actions' => ['contest'],
                             'roleParams' => function() {
                                 return [
                                     'contestSlug' => Yii::$app->request->get('slug'),
+                                ];
+                            },
+                        ],
+                        [
+                            'allow' => true,
+                            'roles' => ['viewImplicatedPostulationProfile'],
+                            'actions' => ['show'],
+                            'roleParams' => function() {
+                                return [
+                                    'postulationId' => Yii::$app->request->get('postulationId'),
                                 ];
                             },
                         ],

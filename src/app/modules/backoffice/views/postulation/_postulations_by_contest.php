@@ -106,7 +106,7 @@ $columns = [
                       return Html::a(
                         '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
                         //TODO - create permision for delete slug
-                        ['postulation/show', 'postulationId' => $model->id, 'slug' => $model->contest->code],
+                        ['postulation/show', 'postulationId' => $model->id],
                       );
                     }
                   },
