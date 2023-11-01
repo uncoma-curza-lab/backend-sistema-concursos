@@ -9,13 +9,19 @@ use yii\db\Migration;
 class m231101_183817_load_permission extends Migration
 {
     const PERMISSIONS = [
-        'viewImplicatedPostulationProfile' => [
+        'viewPostulationProfile' => [
             'description' => 'View the profile and documentation of a Postulation',
+            'role' => [
+                'teach_departament',
+            ],
+        ],
+        'viewImplicatedPostulationProfile' => [
+            'description' => 'View the profile and documentation of a Postulation that user is jury',
             'rule' => IsJuryOfApprovedPostulation::class,
             'childs' => [
-                'viewPostulations',
+                'viewPostulationProfile',
             ],
-            'parent' => [
+            'role' => [
                 'jury',
             ],
         ],
@@ -51,10 +57,10 @@ class m231101_183817_load_permission extends Migration
                     $this->auth->addChild($permission, $permissionChild);
                 }
             }
-            if (array_key_exists('parent', $options)) {
-                foreach($options['parent'] as $parentName) {
-                    $permissionParent = $this->auth->createPermission($parentName);
-                    $this->auth->addChild($permissionParent, $permission);
+            if (array_key_exists('role', $options)) {
+                foreach($options['role'] as $roleName) {
+                    $role = $this->auth->getRole($roleName);
+                    $this->auth->addChild($role, $permission);
                 }
             }
 
@@ -70,18 +76,18 @@ class m231101_183817_load_permission extends Migration
     public function safeDown()
     {
         $hasError = true;
-        foreach(self::PERMISSIONS as $permissionName => $options) {
-            $permission = $this->auth->createPermission($permissionName);
+        foreach(array_reverse(self::PERMISSIONS) as $permissionName => $options) {
+            $permission = $this->auth->getPermission($permissionName);
+            if (array_key_exists('role', $options)) {
+                foreach($options['role'] as $roleName) {
+                    $role = $this->auth->getRole($roleName);
+                    $this->auth->removeChild($role, $permission);
+                }
+            }
             if (array_key_exists('childs', $options)) {
                 foreach($options['childs'] as $childName) {
                     $permissionChild = $this->auth->getPermission($childName);
                     $this->auth->removeChild($permission, $permissionChild);
-                }
-            }
-            if (array_key_exists('parent', $options)) {
-                foreach($options['parent'] as $parentName) {
-                    $permissionParent = $this->auth->createPermission($parentName);
-                    $this->auth->removeChild($permissionParent, $permission);
                 }
             }
             $hasError = !$this->auth->remove($permission);

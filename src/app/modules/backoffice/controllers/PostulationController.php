@@ -52,7 +52,7 @@ class PostulationController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'roles' => ['viewImplicatedPostulationProfile'],
+                            'roles' => ['viewPostulationProfile'],
                             'actions' => ['show'],
                             'roleParams' => function() {
                                 return [
@@ -63,7 +63,7 @@ class PostulationController extends Controller
                         [
                             'allow' => true,
                             'roles' => ['teach_departament', 'admin'],
-                            'actions' => ['approve', 'contest', 'reject', 'show'],
+                            'actions' => ['approve', 'contest', 'reject'],
                         ],
                     ]
                 ],
