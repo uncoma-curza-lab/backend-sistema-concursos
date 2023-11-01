@@ -194,4 +194,10 @@ class Postulations extends \yii\db\ActiveRecord
     {
         return PostulationStatus::isEqualStatus($this->status, PostulationStatus::PENDING);
     }
+
+    public function isStatusAccepted() : bool
+    {
+        return PostulationStatus::isEqualStatus($this->status, PostulationStatus::ACCEPTED);
+    }
+
 }
