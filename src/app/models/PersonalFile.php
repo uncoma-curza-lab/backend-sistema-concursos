@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
@@ -48,10 +50,17 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     public function behaviors() {
         return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+                'value' => fn() => gmdate('Y-m-d H:i:s')            
+            ],
             'FormatDate' => [
                 'class' => 'app\behaviors\FormatDate',
                   'attributes' => [
-                      'valid_until'
+                      'valid_until', ActiveRecord::EVENT_AFTER_FIND => ['created_at']
                   ],
               ],
         ];

@@ -71,7 +71,6 @@ class PersonalFileController extends Controller
         if ($this->request->isPost && $model->load($this->request->post())) {
             $model->person_id = Yii::$app->user->identity->person->id;
             $model->postulation_id = $postulationId;
-            $model->created_at = date('Y-m-d H:i:s');
             $file = UploadedFile::getInstanceByName('file');
             if($file){
                 if ($model->upload($file)) {
