@@ -4,7 +4,7 @@ namespace app\rbac;
 
 use app\models\Postulations;
 
-class IsJuryOfApprovedPostulation extends isJuryUser
+class IsJuryOfApprovedPostulation extends IsJuryUser
 {
     public $name = 'isJuryOfApprovedPostulation';
 
