@@ -40,6 +40,10 @@ class PersonalFile extends \yii\db\ActiveRecord
         self::INVALID => 'invalid'
     ];
 
+    const aceptedExtensions = ['pdf', 'jpg', 'png'];
+
+    const uploadMaxSize = 2048;
+
     /**
      * {@inheritdoc}
      */

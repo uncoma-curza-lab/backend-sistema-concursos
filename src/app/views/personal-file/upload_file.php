@@ -1,6 +1,8 @@
 <?php
 
+use app\models\PersonalFile;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Cargar Archivos';
@@ -16,10 +18,26 @@ $this->title = 'Cargar Archivos';
     <?= $form->field($modelForm, 'document_type_code')->dropDownList($documentsTypeList,['class'=>"form-control", 'prompt' => 'Seleccione...']) ?>
 
     <?= Html::label(\Yii::t('models/personal-files', 'file'),'file', ['class'=>'form-label'])?>
-    <?= Html::fileInput('file', null, ['class'=>"form-control"]) ?>
+    <?= Html::fileInput('file', null, ['id' => 'file', 'class'=>"form-control", 'maxSize' => PersonalFile::uploadMaxSize]) ?>
 </div>
     <button class="btn btn-success">Cargar</button>
 
 <?php ActiveForm::end() ?>
 
 </div>
+<?php 
+$maxSizeJs = <<< JS
+    $('#file').change((e) => {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const maxSize = input.attributes.maxSize.value;
+            const maxAllowedSize = maxSize * 1024;
+            if (input.files[0].size > maxAllowedSize) {
+                alert('El Archivo es demaciado grande. Debe ser de máximo ' + (maxSize / 1024) + 'MB');
+                input.value = ''
+            }
+        }
+    })
+JS;
+$this->registerJs($maxSizeJs, View::POS_LOAD);
+?>
