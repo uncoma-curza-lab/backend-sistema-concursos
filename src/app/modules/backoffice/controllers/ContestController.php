@@ -342,6 +342,9 @@ class ContestController extends Controller
         ];
     }
 
+    /**
+     * @deprecated
+     */
     public function actionContestFiles($contestId)
     {
         $contest = Contests::findOne($contestId);
