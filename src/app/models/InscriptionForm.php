@@ -55,17 +55,8 @@ class InscriptionForm extends Model
             $postulations->accepted_term_article22 = $this->accepted_term_article22;
             $postulations->confirm_data = $this->confirm_data;
             $postulations->status = PostulationStatus::PENDING;
-            if($postulations->save() && $postulations->createPostulationFolder()){
+            if($postulations->save()){
                 $transaction->commit();
-                try{
-                    $share = $postulations->createPostulationFolderShare();
-                    if($share['status']){
-                        $postulations->share_id = $share['shareId'];
-                        $postulations->update();
-                    }
-                } catch (\Throwable $e){
-                    Yii::warning($e->getMessage(), 'CreateShareFolder');
-                }
                 return true;
             } 
             $transaction->rollBack();
