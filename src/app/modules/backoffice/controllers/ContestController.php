@@ -140,21 +140,14 @@ class ContestController extends Controller
             $transaction = Yii::$app->db->beginTransaction();
             try{
                 $model->generateCode();
-                if($model->createConstestFolder()) {
-                    $share = $model->createContestFolderShare();
-                    if($share['status']){
-                        $model->share_id = $share['shareId'];
+                if($model->save()){
+                    if($model->hasCourseName()){
+                        Course::saveValue($model->course_id);
                     }
-
-                    if($model->save()){
-                        if($model->hasCourseName()){
-                            Course::saveValue($model->course_id);
-                        }
-                        $transaction->commit();
-                        return $this->redirect(['view', 'slug' => $model->code]);
-                    }
-                    throw new HttpException(500, 'Hubo un problema al intentar crear el concurso');
+                    $transaction->commit();
+                    return $this->redirect(['view', 'slug' => $model->code]);
                 }
+                throw new HttpException(500, 'Hubo un problema al intentar crear el concurso');
                 Yii::$app->session->setFlash('error', 'Hubo un error al crear el repositorio del concurso');
                 $transaction->rollBack();
             } catch (\Throwable $e){
