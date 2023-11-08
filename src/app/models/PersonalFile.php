@@ -171,9 +171,16 @@ class PersonalFile extends \yii\db\ActiveRecord
         return 'personal_files/' . $person->uid . '-' . $personLastName . '-' . $personFirstName;
     }
 
+    protected function fileValidation(UploadedFile $file) : bool
+    {
+        return in_array($file->extension, self::ACCEPTED_EXTENSIONS)
+            && 
+            $file->size <= self::UPLOAD_MAX_SIZE * 1024;
+    }
+
     public function upload(UploadedFile $file) : bool
     {
-        if($this->validate()){
+        if($this->validate() && $this->fileValidation($file)){
             try {
                 $masterPath = $this->createMasterPath();
 

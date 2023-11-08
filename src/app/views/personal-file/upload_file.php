@@ -23,7 +23,7 @@ $aceptedFiles = substr($aceptedFiles, 0, -2);
     <?= $form->field($modelForm, 'document_type_code')->dropDownList($documentsTypeList,['class'=>"form-control", 'prompt' => 'Seleccione...']) ?>
 
     <?= Html::label(\Yii::t('models/personal-files', 'file'),'file', ['class'=>'form-label'])?>
-    <?= Html::fileInput('file', null, ['id' => 'file', 'class'=>"form-control", 'maxSize' => PersonalFile::UPLOAD_MAX_SIZE, 'required' => 'required', 'accept' => $aceptedFiles]) ?>
+    <?= Html::fileInput('file', null, ['id' => 'ile', 'class'=>"form-control", 'maxSize' => PersonalFile::UPLOAD_MAX_SIZE, 'required' => 'required', 'accept' => $aceptedFiles]) ?>
 </div>
     <button class="btn btn-success">Cargar</button>
 
