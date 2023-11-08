@@ -143,6 +143,10 @@ class Postulations extends \yii\db\ActiveRecord
             $this->person->first_name);
     }
 
+    /**
+    * @deprecated
+    * use PersonalFile
+    */
     public function createPostulationFolder() 
     {
         $pathToFolder = $this->contest->code . '/' . $this->generateFolderName();
@@ -155,7 +159,11 @@ class Postulations extends \yii\db\ActiveRecord
         }
     }
 
-    public function createPostulationFolderShare()
+    /**
+    * @deprecated
+    * use PersonalFile
+    */
+   public function createPostulationFolderShare()
     {
         $expireDate = '';
         $pathToFolder = $this->contest->code . '/' . $this->generateFolderName();
@@ -178,6 +186,10 @@ class Postulations extends \yii\db\ActiveRecord
         return $response;
     }
 
+    /**
+     * @deprecated
+     * use PersonalFile
+     */
     public function getPostulationFolderShareUrl(): ?string
     {
         if($this->share_id){
