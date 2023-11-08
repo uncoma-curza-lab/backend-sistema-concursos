@@ -28,7 +28,7 @@ $this->title = 'Archivos de la Postulación';
         ]) 
     ?>
 
-    <a href="<?= Url::to('my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
+    <a href="<?= Url::to('/postulations/my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
 
 
 </div>

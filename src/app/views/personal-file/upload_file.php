@@ -15,7 +15,7 @@ $this->title = 'Cargar Archivos';
     <?= $form->field($modelForm, 'description')->input('text', ['class' => 'form-control']) ?>
     <?= $form->field($modelForm, 'document_type_code')->dropDownList($documentsTypeList,['class'=>"form-control", 'prompt' => 'Seleccione...']) ?>
 
-    <?= Html::label('File:','file', ['class'=>'form-label'])?>
+    <?= Html::label(\Yii::t('models/personal-files', 'file'),'file', ['class'=>'form-label'])?>
     <?= Html::fileInput('file', null, ['class'=>"form-control"]) ?>
 </div>
     <button class="btn btn-success">Cargar</button>

@@ -103,10 +103,10 @@ class PersonalFile extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'description' => 'Description',
+            'description' => Yii::t('models/personal-files', 'description'),
             'person_id' => 'Person ID',
             'postulation_id' => 'Postulation ID',
-            'document_type_code' => 'Document Type Code',
+            'document_type_code' => Yii::t('models/personal-files', 'document_type_code'),
             'path' => 'Path',
             'is_valid' => 'Is Valid',
             'valid_until' => 'Valid Until',

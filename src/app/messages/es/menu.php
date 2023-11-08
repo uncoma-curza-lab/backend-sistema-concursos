@@ -7,6 +7,7 @@ return [
     'logout' => 'Salir',
     'signup' => 'Registrarse',
     'my_postulations' => 'Postulaciones',
+    'my_files' => 'Archivos',
     'Profile' => 'Editar perfil',
     'change_password' => 'Cambiar contraseña',
 ];
