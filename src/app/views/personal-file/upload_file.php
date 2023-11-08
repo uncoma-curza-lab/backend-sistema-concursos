@@ -6,6 +6,11 @@ use yii\web\View;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Cargar Archivos';
+$aceptedFiles = '';
+foreach(PersonalFile::ACCEPTED_EXTENSIONS as $val){
+    $aceptedFiles .= ".$val, ";
+}
+$aceptedFiles = substr($aceptedFiles, 0, -2);
 ?>
 
 <div class="file-form">
@@ -18,7 +23,7 @@ $this->title = 'Cargar Archivos';
     <?= $form->field($modelForm, 'document_type_code')->dropDownList($documentsTypeList,['class'=>"form-control", 'prompt' => 'Seleccione...']) ?>
 
     <?= Html::label(\Yii::t('models/personal-files', 'file'),'file', ['class'=>'form-label'])?>
-    <?= Html::fileInput('file', null, ['id' => 'file', 'class'=>"form-control", 'maxSize' => PersonalFile::uploadMaxSize]) ?>
+    <?= Html::fileInput('file', null, ['id' => 'file', 'class'=>"form-control", 'maxSize' => PersonalFile::UPLOAD_MAX_SIZE, 'required' => 'required', 'accept' => $aceptedFiles]) ?>
 </div>
     <button class="btn btn-success">Cargar</button>
 
