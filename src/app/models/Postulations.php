@@ -112,21 +112,16 @@ class Postulations extends \yii\db\ActiveRecord
 
     public function canApprove()
     {
-        $loggedUser = Yii::$app->user;
-        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
         return ($this->status === PostulationStatus::DRAFT ||
             $this->status === PostulationStatus::PENDING) &&
-            (in_array('admin', $roles) ||
-            in_array('teach_departament', $roles));
+            Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'approveOrRejectPostulation');
     }
 
     public function canReject()
     {
-        $loggedUser = Yii::$app->user;
-        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
         return ($this->status === PostulationStatus::DRAFT ||
             $this->status === PostulationStatus::PENDING) &&
-            (in_array('admin', $roles) || in_array('teach_departament', $roles));
+            Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'approveOrRejectPostulation');
     }
 
     public function getStatusDescription()

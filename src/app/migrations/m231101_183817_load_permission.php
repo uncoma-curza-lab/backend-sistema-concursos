@@ -25,6 +25,14 @@ class m231101_183817_load_permission extends Migration
                 'jury',
             ],
         ],
+        'approveOrRejectPostulation' => [
+            'description' => 'Approve or Reject a Postulation',
+            'role' => [
+                'admin',
+                'teach_departament'
+            ],
+        ],
+
     ];
 
     protected $auth;
