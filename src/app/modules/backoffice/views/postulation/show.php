@@ -13,8 +13,8 @@ use yii\helpers\Url;
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
-    <button class="nav-link" id="nav-documents-tab" data-toggle="tab" data-target="#nav-documents" type="button" role="tab" aria-controls="nav-documents" aria-selected="false">Documents</button>
+  <button class="nav-link active" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><?= \Yii::t('backoffice', 'profile') ?></button>
+    <button class="nav-link" id="nav-documents-tab" data-toggle="tab" data-target="#nav-documents" type="button" role="tab" aria-controls="nav-documents" aria-selected="false"><?= \Yii::t('backoffice', 'documents') ?></button>
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">

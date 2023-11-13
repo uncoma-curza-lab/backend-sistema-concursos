@@ -30,7 +30,7 @@ use yii\web\View;
                 'format' => 'dd-mm-yyyy HH:ii P',
             ]
         ]) ?>
-        <?= Html::submitButton(Yii::t('backoffice', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('backoffice', 'save'), ['class' => 'btn btn-success']) ?>
 </div> 
   <?php 
     ActiveForm::end();

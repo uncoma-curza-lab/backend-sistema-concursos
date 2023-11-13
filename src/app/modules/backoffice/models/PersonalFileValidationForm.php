@@ -42,8 +42,8 @@ class PersonalFileValidationForm extends Model
     public function attributeLabels()
     {
         return [
-            'isValid' => 'Is Valid',
-            'expireDate' => 'Expire Date',
+            'idValid' => Yii::t('models/personal-files', 'validation'),
+            'expireDate' => Yii::t('models/personal-files', 'expire_date'),
         ];
     }
 
@@ -51,7 +51,7 @@ class PersonalFileValidationForm extends Model
     {
         return [
             PersonalFile::VALID_INDEFINITELY => Yii::t('models/personal-files', 'valid_indefinitely'),
-            PersonalFile::VALID_WITH_UNTIL_DATE => Yii::t('models/personal-files', 'valid_whith_until_date'),
+            PersonalFile::VALID_WITH_UNTIL_DATE => Yii::t('models/personal-files', 'valid_with_until_date'),
             PersonalFile::INVALID => Yii::t('models/personal-files', 'invalid'),
         ];
     }

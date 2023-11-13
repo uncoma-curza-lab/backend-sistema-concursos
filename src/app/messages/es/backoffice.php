@@ -11,6 +11,8 @@ return [
     'update' => 'actualizar',
     'delete' => 'eliminar',
     'show' => 'ver',
+    'profile' => 'Perfil',
+    'documents' => 'Documentos',
     'create_contest_button' => 'Crear concurso',
     'postulations_by_contest_title' => 'Postulaciones',
     'juries_by_contest_title' => 'Jurados',
