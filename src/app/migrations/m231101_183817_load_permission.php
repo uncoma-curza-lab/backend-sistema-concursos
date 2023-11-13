@@ -50,32 +50,31 @@ class m231101_183817_load_permission extends Migration
     {
 
         try {
-        foreach(self::PERMISSIONS as $permissionName => $options) {
-            $permission = $this->auth->createPermission($permissionName);
-            if (array_key_exists('description', $options)) {
-                $permission->description = $options['description'];
-            }
-            if (array_key_exists('rule', $options)) {
-                $permission->ruleName = (new $options['rule'])->name;
-            }
-            $this->auth->add($permission);
-            if (array_key_exists('childs', $options)) {
-                foreach($options['childs'] as $childName) {
-                    $permissionChild = $this->auth->getPermission($childName);
-                    $this->auth->addChild($permission, $permissionChild);
+            foreach(self::PERMISSIONS as $permissionName => $options) {
+                $permission = $this->auth->createPermission($permissionName);
+                if (array_key_exists('description', $options)) {
+                    $permission->description = $options['description'];
+                }
+                if (array_key_exists('rule', $options)) {
+                    $permission->ruleName = (new $options['rule'])->name;
+                }
+                $this->auth->add($permission);
+                if (array_key_exists('childs', $options)) {
+                    foreach($options['childs'] as $childName) {
+                        $permissionChild = $this->auth->getPermission($childName);
+                        $this->auth->addChild($permission, $permissionChild);
+                    }
+                }
+                if (array_key_exists('role', $options)) {
+                    foreach($options['role'] as $roleName) {
+                        $role = $this->auth->getRole($roleName);
+                        $this->auth->addChild($role, $permission);
+                    }
                 }
             }
-            if (array_key_exists('role', $options)) {
-                foreach($options['role'] as $roleName) {
-                    $role = $this->auth->getRole($roleName);
-                    $this->auth->addChild($role, $permission);
-                }
-            }
-
-        }} catch(\Throwable $e) {
-        var_dump($permission);
-        throw $e;
-            }
+        } catch(\Throwable $e) {
+            throw $e;
+        }
     }
 
     /**
