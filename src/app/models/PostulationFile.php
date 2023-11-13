@@ -42,7 +42,7 @@ class PostulationFile extends PersonalFile
     {
         if($this->isNewRecord && in_array($this->document_type_code, DocumentType::UNIQUE_TYPES)){
             if(self::find()->postulation_files($this->postulation_id)->isDocumentType($this->document_type_code)->one()){
-                $this->addError('document_type_code', "There are a file whith this type. You can have only one.");
+                $this->addError('document_type_code', Yii::t('models/personal-files', 'unique_document_type_message'));
             }
         }
     }

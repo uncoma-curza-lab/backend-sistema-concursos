@@ -11,5 +11,6 @@ return [
     'invalid' => 'Invalido',
     'validation' => 'Validez',
     'expire_date' => 'Fecha de Vencimiento',
+    'unique_document_type_message' => 'Ya hay un archivo con este tipo. Solo puede haber uno.',
 ];
 

@@ -93,7 +93,7 @@ class PersonalFile extends \yii\db\ActiveRecord
     {
         if($this->isNewRecord && in_array($this->document_type_code, DocumentType::UNIQUE_TYPES)){
             if(self::find()->loggedUser()->isDocumentType($this->document_type_code)->one()){
-                $this->addError('document_type_code', "There are a file whith this type. You can have only one.");
+                $this->addError('document_type_code', Yii::t('models/personal-files', 'unique_document_type_message'));
             }
         }
     }
