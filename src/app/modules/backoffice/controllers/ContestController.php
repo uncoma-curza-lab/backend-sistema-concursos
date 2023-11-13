@@ -147,10 +147,10 @@ class ContestController extends Controller
                     $transaction->commit();
                     return $this->redirect(['view', 'slug' => $model->code]);
                 }
-                Yii::$app->session->setFlash('error', 'Hubo un error al crear el repositorio del concurso');
                 throw new HttpException(500, 'Hubo un problema al intentar crear el concurso');
             } catch (\Throwable $e){
                 $transaction->rollBack();
+                Yii::warning($e->getMessage(), 'Contest-crete');
                 throw $e;
             }
 
