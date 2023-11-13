@@ -51,7 +51,7 @@ class FormatDate extends Behavior {
       foreach ($this->attributes as $key => $attribute) {
           if(is_string($attribute)){
               $this->formatDateToUtc($attribute);
-          }elseif((in_array($key, $this->events()) && $key == $event->name)){
+          }elseif((in_array($key, array_keys($this->events())) && $key == $event->name)){
               foreach ($attribute as $value) {
                   $this->formatDateToUtc($value);
               }
@@ -63,7 +63,7 @@ class FormatDate extends Behavior {
     	foreach ($this->attributes as $key => $attribute) {
           if(is_string($attribute)){
               $this->formatDateToView($attribute);
-          }elseif((in_array($key, $this->events()) && $key == $event->name)){
+          }elseif((in_array($key, array_keys($this->events())) && $key == $event->name)){
               foreach ($attribute as $value) {
                   $this->formatDateToView($value);
               }

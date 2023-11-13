@@ -64,7 +64,7 @@ class PersonalFile extends \yii\db\ActiveRecord
             'FormatDate' => [
                 'class' => 'app\behaviors\FormatDate',
                   'attributes' => [
-                      'valid_until', ActiveRecord::EVENT_AFTER_FIND => ['created_at']
+                      'valid_until', ActiveRecord::EVENT_AFTER_FIND => ['created_at'], ActiveRecord::EVENT_BEFORE_UPDATE => ['created_at']
                   ],
               ],
         ];
