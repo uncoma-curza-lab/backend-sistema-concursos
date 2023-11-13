@@ -23,10 +23,7 @@ class ValidateFileProcess
             throw new InvalidArgumentException();
         }
         if (
-            !
-            (\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'teach_departament')
-            ||
-            \Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'admin'))
+            !\Yii::$app->authManager->checkAccess(\Yii::$app->user->id, 'validateFiles')
         ){
             throw new ForbiddenHttpException('Usted no tiene permisos para realizar esta acción');
         }

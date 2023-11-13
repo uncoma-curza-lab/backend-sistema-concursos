@@ -33,6 +33,13 @@ class m231101_183817_load_permission extends Migration
                 'teach_departament'
             ],
         ],
+        'validateFiles' => [
+            'description' => 'Make a file valid, invalid or valid with expire date',
+            'role' => [
+                'admin',
+                'teach_departament'
+            ],
+        ],
 
     ];
 
