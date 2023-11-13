@@ -12,7 +12,8 @@ class m231101_183817_load_permission extends Migration
         'viewPostulationProfile' => [
             'description' => 'View the profile and documentation of a Postulation',
             'role' => [
-                'teach_departament',
+                'admin',
+                'teach_departament'
             ],
         ],
         'viewImplicatedPostulationProfile' => [
