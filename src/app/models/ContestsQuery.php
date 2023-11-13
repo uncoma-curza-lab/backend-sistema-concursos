@@ -102,5 +102,4 @@ class ContestsQuery extends \yii\db\ActiveQuery
     {
         return $this->onlyPublic()->filterBySlug($slug)->one();
     }
-
 }

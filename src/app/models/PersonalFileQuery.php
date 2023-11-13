@@ -50,4 +50,9 @@ class PersonalFileQuery extends \yii\db\ActiveQuery
         return $this->andWhere(['NOT IN', 'is_valid', [PostulationFile::UNVALIDATED, PostulationFile::INVALID]]);
     }
 
+    public function isDocumentType($documentTypeCode)
+    {
+        return $this->andWhere(['=', 'document_type_code', $documentTypeCode]);
+    }
+
 }
