@@ -98,10 +98,6 @@ $columns = [
                     $loggedUser = Yii::$app->user;
                     if (
                       Yii::$app->authManager->checkAccess($loggedUser->id, 'viewPostulationProfile', ['postulationId' => $model->id])
-                      ||
-                      Yii::$app->authManager->checkAccess($loggedUser->id, 'admin')
-                      ||
-                      Yii::$app->authManager->checkAccess($loggedUser->id, 'teach_departament')
                     ) {
                       return Html::a(
                         '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
