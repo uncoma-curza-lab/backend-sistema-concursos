@@ -38,7 +38,7 @@ $maxSizeJs = <<< JS
             const maxSize = input.attributes.maxSize.value;
             const maxAllowedSize = maxSize * 1024;
             if (input.files[0].size > maxAllowedSize) {
-                alert('El Archivo es demaciado grande. Debe ser de máximo ' + (maxSize / 1024) + 'MB');
+                alert('El Archivo es demasiado grande. Debe ser de máximo ' + (maxSize / 1024) + 'MB');
                 input.value = ''
             }
         }
