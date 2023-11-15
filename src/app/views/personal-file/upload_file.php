@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Cargar Archivos';
 $aceptedFiles = '';
 foreach(PersonalFile::ACCEPTED_EXTENSIONS as $val){
-    $aceptedFiles .= ".$val, ";
+    $aceptedFiles .= "$val, ";
 }
 $aceptedFiles = substr($aceptedFiles, 0, -2);
 ?>

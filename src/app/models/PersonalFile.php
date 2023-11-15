@@ -40,7 +40,7 @@ class PersonalFile extends \yii\db\ActiveRecord
         self::INVALID => 'invalid'
     ];
 
-    const ACCEPTED_EXTENSIONS = ['pdf', 'jpg', 'png', 'jpeg'];
+    const ACCEPTED_EXTENSIONS = ['application/pdf'];
 
     const UPLOAD_MAX_SIZE = 2048;
 
@@ -171,8 +171,7 @@ class PersonalFile extends \yii\db\ActiveRecord
 
     protected function fileValidation(UploadedFile $file) : bool
     {
-        $type = explode('/', $file->type)[1];
-        return in_array($type, self::ACCEPTED_EXTENSIONS)
+        return in_array($file->type, self::ACCEPTED_EXTENSIONS)
             && 
             $file->size <= self::UPLOAD_MAX_SIZE * 1024;
     }
