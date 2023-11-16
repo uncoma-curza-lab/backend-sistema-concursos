@@ -176,19 +176,27 @@ class PersonalFile extends \yii\db\ActiveRecord
             $file->size <= self::UPLOAD_MAX_SIZE * 1024;
     }
 
+    protected function saveFile(UploadedFile $file) : string
+    {
+        $masterPath = $this->createMasterPath();
+        FileHelper::createDirectory($masterPath);
+        $name = $masterPath . '/'
+            . uniqid($this->document_type_code . '_')
+            . '.'
+            . $file->extension;
+        $file->saveAs($name);
+        if(!in_array(FileHelper::getMimeType($name), self::ACCEPTED_EXTENSIONS)){
+            FileHelper::unlink($name);
+            throw new \Exception("Error On File Mime Type");
+        }
+        return $name;
+    }
+
     public function upload(UploadedFile $file) : bool
     {
         if($this->validate() && $this->fileValidation($file)){
             try {
-                $masterPath = $this->createMasterPath();
-
-                FileHelper::createDirectory($masterPath);
-                $name = $masterPath . '/'
-                    . uniqid($this->document_type_code . '_')
-                    . '.'
-                    . $file->extension;
-                $file->saveAs($name);
-                $this->path = $name;
+                $this->path = $this->saveFile($file);
         
                 return $this->save();
 
