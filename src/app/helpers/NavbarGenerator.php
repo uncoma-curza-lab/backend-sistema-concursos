@@ -61,16 +61,16 @@ class NavbarGenerator
             'label' => Yii::$app->user->identity->getUsername(),
             'items' => [
                 [
-                    'label' => Yii::t('menu', 'Profile') ,
+                    'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-person-circle']) . ' ' . Yii::t('menu', 'Profile') ,
                     'url' =>['user/profile']
                 ],
                 [
-                    'label' => Yii::t('menu', 'change_password') ,
-                    'url' =>['user/change-password']
+                    'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-folder']) . ' ' . Yii::t('menu', 'my_files') ,
+                    'url' =>['personal-file/my-files']
                 ],
                 [
-                    'label' => Yii::t('menu', 'my_files') ,
-                    'url' =>['personal-file/my-files']
+                    'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-key']) . ' ' . Yii::t('menu', 'change_password') ,
+                    'url' =>['user/change-password']
                 ],
                 self::getLogout(),
             ],
@@ -104,7 +104,7 @@ class NavbarGenerator
     private static function getLogout()
     {
         return [
-                'label' => Yii::t('menu', 'logout'),
+                'label' => Html::tag('i','' ,['class' => 'nav-icon bi bi-box-arrow-left']) . ' ' . Yii::t('menu', 'logout'),
                 'url' => '/site/logout',
                 'linkOptions' =>  [ 'data-method' => 'post']
         ];
