@@ -12,10 +12,14 @@ use yii\helpers\Url;
 </div>
 
 <nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-  <button class="nav-link active" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><?= \Yii::t('backoffice', 'profile') ?></button>
-    <button class="nav-link" id="nav-documents-tab" data-toggle="tab" data-target="#nav-documents" type="button" role="tab" aria-controls="nav-documents" aria-selected="false"><?= \Yii::t('backoffice', 'documents') ?></button>
-  </div>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+            <i class="bi bi-person-bounding-box"></i> <?= \Yii::t('backoffice', 'profile') ?>
+        </button>
+        <button class="nav-link" id="nav-documents-tab" data-toggle="tab" data-target="#nav-documents" type="button" role="tab" aria-controls="nav-documents" aria-selected="false">
+            <i class="bi bi-folder-fill"></i> <?= \Yii::t('backoffice', 'documentation') ?>
+        </button>
+    </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">

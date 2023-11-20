@@ -5,6 +5,7 @@ return [
     'Create' => 'Create',
     'Areas' => 'Areas',
     'Create Areas' => 'Crear area',
+    'documentation' => 'Documentation',
     'menu' => 'Menu',
     'contests' => 'Concursos',
     'update_contest_title' => 'Editando - {name}',
