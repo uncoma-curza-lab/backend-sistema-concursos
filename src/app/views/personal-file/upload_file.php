@@ -11,6 +11,7 @@ foreach(PersonalFile::ACCEPTED_EXTENSIONS as $val){
     $aceptedFiles .= "$val, ";
 }
 $aceptedFiles = substr($aceptedFiles, 0, -2);
+$maxSizeMb = (int) PersonalFile::UPLOAD_MAX_SIZE / 1024;
 ?>
 
 <div class="file-form">
@@ -24,6 +25,9 @@ $aceptedFiles = substr($aceptedFiles, 0, -2);
 
     <?= Html::label(\Yii::t('models/personal-files', 'file'),'file', ['class'=>'form-label'])?>
     <?= Html::fileInput('file', null, ['id' => 'file', 'class'=>"form-control", 'maxSize' => PersonalFile::UPLOAD_MAX_SIZE, 'required' => 'required', 'accept' => $aceptedFiles]) ?>
+    <div class="text-info">
+        Archivo de formato PDF de un maximo de <?= $maxSizeMb ?>Mb.
+    </div>
 </div>
     <button class="btn btn-success">Cargar</button>
 
