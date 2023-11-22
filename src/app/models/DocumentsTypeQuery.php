@@ -39,7 +39,8 @@ class DocumentsTypeQuery extends \yii\db\ActiveQuery
 
     public function forRegularContest()
     {
-        return $this->where(['<>', 'code', DocumentType::APPROVAL_RESOLUTION_CONTEST_EVALUATION_COMMISSION]);
+        return $this->where(['<>', 'code', DocumentType::APPROVAL_RESOLUTION_CONTEST_EVALUATION_COMMISSION])
+            ->where(['=', 'category', DocumentType::CONTEST_FILE_CATEGORY]);
     }
 
     public function forNotRegularContest()
@@ -50,7 +51,23 @@ class DocumentsTypeQuery extends \yii\db\ActiveQuery
             DocumentType::APPROVAL_RESOLUTION_TEACHING_JURY,
             DocumentType::DRAW_RECORD
         ];
-        return $this->where(['NOT IN', 'code', $resolutions]);
+        return $this->where(['NOT IN', 'code', $resolutions])
+            ->where(['=', 'category', DocumentType::CONTEST_FILE_CATEGORY]);
+    }
+
+    public function forPersonalFiles()
+    {
+        return $this->where(['=', 'category', DocumentType::PERSONAL_FILE_CATEGORY]);
+    }
+
+    public function forPostulationFiles()
+    {
+        return $this->where(['=', 'category', DocumentType::POSTULATION_FILE_CATEGORY]);
+    }
+
+    public function forPersonalAndPostulationFiles()
+    {
+        return $this->where(['IN', 'category', [DocumentType::PERSONAL_FILE_CATEGORY, DocumentType::POSTULATION_FILE_CATEGORY]]);
     }
 
     public function getVeredictId()

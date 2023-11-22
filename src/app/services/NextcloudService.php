@@ -5,6 +5,9 @@ namespace app\services;
 use Exception;
 use Yii;
 
+/**
+ * @deprecated
+ */
 class NextcloudService
 {
     use GuzzleTrait;

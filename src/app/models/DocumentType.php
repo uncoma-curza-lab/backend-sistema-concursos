@@ -10,11 +10,13 @@ use Yii;
  * @property int $id
  * @property string|null $name
  * @property string|null $code
+ * @property string|null $category
  *
  * @property ContestAttachedFile[] $contestAttachedFiles
  */
 class DocumentType extends \yii\db\ActiveRecord
 {
+    // Documents Types Codes:
     const NOTE = 'note';
     const INSCRIBED_POSTULATIONS = 'inscribed-postulations';
     const VEREDICT = 'veredict';
@@ -24,6 +26,35 @@ class DocumentType extends \yii\db\ActiveRecord
     const APPROVAL_RESOLUTION_STUDENT_JURY = 'approval-resolution-student-jury';
     const AD_REFERENDUM_RESOLUTION = 'ad-referendum-resolution';
     const DRAW_RECORD = 'draw-record';
+    const DNI = 'dni';
+    const CVAR = 'cvar';
+    const OTHER_PERSONAL = 'other-personal';
+    const CERTIFICATES = 'certificates';
+    const ACADEMIC_PERFORMANCE = 'academic-performance';
+    const UNIVERSITY_DEGREE = 'university-degree';
+    const COLLEGE_DEGREE = 'college-degree';
+    const NOTE_POSTULATION = 'note-postulation';
+    const PRACTICAL_WORK_PROPOSAL = 'practical-work-proposal';
+    const PROGRAM_PROPOSAL = 'program-proposal';
+    const REGULAR_INSCRIPTION = 'regular-inscription';
+    const OTHER_POSTULATION = 'other-postulation';
+
+    // Documents Types Categories:
+    const CONTEST_FILE_CATEGORY = 'contest-file';
+    const PERSONAL_FILE_CATEGORY = 'personal-file';
+    const POSTULATION_FILE_CATEGORY = 'postulation-file';
+
+    const UNIQUE_TYPES = [
+        self::DNI,
+        self::CVAR,
+        self::ACADEMIC_PERFORMANCE,
+        self::UNIVERSITY_DEGREE,
+        self::COLLEGE_DEGREE,
+        self::PRACTICAL_WORK_PROPOSAL,
+        self::PROGRAM_PROPOSAL,
+        self::REGULAR_INSCRIPTION
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -38,7 +69,7 @@ class DocumentType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'code'], 'string', 'max' => 255],
+            [['name', 'code', 'category'], 'string', 'max' => 255],
         ];
     }
 
@@ -51,6 +82,7 @@ class DocumentType extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'code' => 'Code',
+            'category' => 'Category',
         ];
     }
 
@@ -62,6 +94,11 @@ class DocumentType extends \yii\db\ActiveRecord
     public function getContestAttachedFiles()
     {
         return $this->hasMany(ContestAttachedFile::class, ['document_type_id' => 'id']);
+    }
+
+    public function getPersonalFiles()
+    {
+        return $this->hasMany(PersonalFile::class, ['document_type_code' => 'code']);
     }
 
     /**
