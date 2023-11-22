@@ -18,23 +18,24 @@ $maxSizeMb = (int) PersonalFile::UPLOAD_MAX_SIZE / 1024;
 
 <h3><?= $this->title ?></h3>
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
-<div class="mb-3">
-    
-    <?= $form->field($modelForm, 'description')->input('text', ['class' => 'form-control']) ?>
-    <?= $form->field($modelForm, 'document_type_code')->dropDownList($documentsTypeList,['class'=>"form-control", 'prompt' => 'Seleccione...']) ?>
+    <div class="mb-3">
+        <?= $form->field($modelForm, 'description')->input('text', ['class' => 'form-control']) ?>
+        <?= $form->field($modelForm, 'document_type_code')->dropDownList($documentsTypeList,['class'=>"form-control", 'prompt' => 'Seleccione...']) ?>
 
-    <?= Html::label(\Yii::t('models/personal-files', 'file'),'file', ['class'=>'form-label'])?>
-    <?= Html::fileInput('file', null, ['id' => 'file', 'class'=>"form-control", 'maxSize' => PersonalFile::UPLOAD_MAX_SIZE, 'required' => 'required', 'accept' => $aceptedFiles]) ?>
-    <div class="text-info">
-        Archivo de formato PDF de un maximo de <?= $maxSizeMb ?>Mb.
+        <?= Html::label(\Yii::t('models/personal-files', 'file'),'file', ['class'=>'form-label'])?>
+        <?= Html::fileInput('file', null, ['id' => 'file', 'class'=>"form-control", 'maxSize' => PersonalFile::UPLOAD_MAX_SIZE, 'required' => 'required', 'accept' => $aceptedFiles]) ?>
+        <div class="text-info">
+            Archivo de formato PDF de un maximo de <?= $maxSizeMb ?>Mb.
+        </div>
     </div>
-</div>
-    <button class="btn btn-success">Cargar</button>
-
+    <div class="row d-flex justify-content-between">
+        <button class="btn btn-success">Cargar</button>
+        <a href="<?= Yii::$app->request->referrer ?>" class="btn btn-secondary">Cancelar</a>
+    </div>
 <?php ActiveForm::end() ?>
 
 </div>
-<?php 
+<?php
 $maxSizeJs = <<< JS
     $('#file').change((e) => {
         const input = event.target;
