@@ -19,7 +19,7 @@ $hasToValidate = !!$actionButtons['validation'];
 <div class="row row-cols-1 row-cols-md-4">
     <?php
       if($files):
-        foreach ($files as $file): 
+        foreach ($files as $file):
           $typeName = $file->documentType->name;
           $fileId = $file->id;
           $badge = 'info';
@@ -41,8 +41,8 @@ $hasToValidate = !!$actionButtons['validation'];
         <div class="col mb-4">
             <div class="card h-100">
                 <h5 class="card-header">
-                  <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i> 
-                  <?= $typeName ?> 
+                  <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i>
+                  <?= $typeName ?>
                 </h5>
                 <div class="card-body">
                     <h5 class="card-title"><?= $file->description ?></h5>
@@ -61,7 +61,7 @@ $hasToValidate = !!$actionButtons['validation'];
                 <div class="card-footer text-center">
                 <?php if($actionButtons['view']): ?>
                   <button class="btn btn-success" id="previewBtn<?= $file->id ?>" title="Ver" data-toggle="modal" data-target="#previewModal"><i class="bi bi-eye"></i></button>
-                <?php 
+                <?php
                   $filePath = Url::to(['@web/' . $file->path]);
                   $showValidationForm = $file->isStatus(PersonalFile::UNVALIDATED) ? 'block' : 'none';
 
@@ -71,23 +71,23 @@ $hasToValidate = !!$actionButtons['validation'];
                     $('#previewModal-label').text('Vista Previa $typeName');
                     $('#personalfilevalidationform-fileid').val($fileId);
                     $('#embed').attr('src', '$filePath');
-                    $("#loading").hide(); 
+                    $("#loading").hide();
                   })
                   EOD;
                   $this->registerJs($previewScript, View::POS_READY);
                 ?>
-                <?php 
+                <?php
                     endif;
-                    if($actionButtons['download']): 
+                    if($actionButtons['download']):
                 ?>
                    <a class="btn btn-warning" href="<?= Url::to(['@web/' . $file->path]) ?>" target="_blank" title="Descargar"><i class="bi bi-file-earmark-arrow-down"></i></a>
-                <?php 
+                <?php
                     endif;
-                    if((is_bool($hasDelete) && $hasDelete) || ($hasDelete instanceof Closure && $hasDelete($file))): 
+                    if((is_bool($hasDelete) && $hasDelete) || ($hasDelete instanceof Closure && $hasDelete($file))):
                 ?>
                    <?= Html::a('<i class="bi bi-trash"></i>', ['personal-file/delete', 'fileId' => $file->id], [
                      'class' => "btn btn-danger",
-                     'title' => Yii::t('backoffice', 'Eliminar'),
+                     'title' => ucfirst(Yii::t('backoffice', 'delete')),
                        'data' => [
                            'confirm' => Yii::t('models/personal-files', 'question_delete'),
                            'method' => 'post',
@@ -98,7 +98,7 @@ $hasToValidate = !!$actionButtons['validation'];
                 </div>
               </div>
           </div>
-  <?php 
+  <?php
       endforeach;
 
     else:
@@ -106,19 +106,19 @@ $hasToValidate = !!$actionButtons['validation'];
       <div class="alert alert-warning" role="alert">
           No se encontraron archivos.
       </div>
-  <?php 
+  <?php
     endif;
   ?>
   </div>
   <div class="p-2">
-      <?php 
+      <?php
           echo \yii\widgets\LinkPager::widget([
               'pagination' => $dataProvider->pagination,
           ]);
       ?>
   </div>
 
-  <?php 
+  <?php
   if($actionButtons['view']):
     Modal::begin([
       'id'=>"previewModal",
@@ -133,7 +133,7 @@ $hasToValidate = !!$actionButtons['validation'];
       </div>
     </div>
     <div id="formDiv">
-    <?php 
+    <?php
           if($hasToValidate){
             $modelForm = $actionButtons['validation']['form'];
             echo $this->render('_validation_form', ['modelForm' => $modelForm]);
@@ -141,12 +141,11 @@ $hasToValidate = !!$actionButtons['validation'];
     ?>
     </div>
     <embed id="embed" src="" width="100%" height="600">
-  
+
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= Yii::t('backoffice', 'close_button') ?></button>
     </div>
   <?php
     Modal::end();
     endif;
   ?>
-
