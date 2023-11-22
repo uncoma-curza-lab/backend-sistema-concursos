@@ -128,7 +128,7 @@ $hasToValidate = !!$actionButtons['validation'];
     ]);
   ?>
     <div class="d-flex justify-content-center">
-    <div id="loading" class="spinner-border" role="status">
+      <div id="loading" class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
@@ -143,7 +143,7 @@ $hasToValidate = !!$actionButtons['validation'];
     <embed id="embed" src="" width="100%" height="600">
 
     <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= Yii::t('backoffice', 'close_button') ?></button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= Yii::t('backoffice', 'close_button') ?></button>
     </div>
   <?php
     Modal::end();
