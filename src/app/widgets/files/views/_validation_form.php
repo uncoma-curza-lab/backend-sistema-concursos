@@ -16,7 +16,7 @@ use yii\web\View;
     </div>
 <div class="card-body">
 
-  <?php 
+  <?php
     $form = ActiveForm::begin();
   ?>
       <?= $form->field($modelForm, 'fileId', ['options' => ['style' => 'display: none;']])->textInput() ?>
@@ -30,14 +30,14 @@ use yii\web\View;
                 'format' => 'dd-mm-yyyy HH:ii P',
             ]
         ]) ?>
-        <?= Html::submitButton(Yii::t('backoffice', 'save'), ['class' => 'btn btn-success']) ?>
-</div> 
-  <?php 
+        <?= Html::submitButton(Yii::t('backoffice', 'confirm_button'), ['class' => 'btn btn-success']) ?>
+</div>
+  <?php
     ActiveForm::end();
   ?>
   </div>
 </div>
-<?php 
+<?php
 $js = <<<JS
     $('#personalfilevalidationform-idvalid').change(() => {
       if($('#personalfilevalidationform-idvalid').val() == 2){
@@ -46,7 +46,7 @@ $js = <<<JS
         $('#expiredate_field').hide();
       }
     });
-    
+
     $('#showFormBtn').click(() => {
       console.log($('#form'))
       $('#form').toggle(500)
@@ -54,5 +54,4 @@ $js = <<<JS
   JS;
 $this->registerJs($js, View::POS_LOAD);
 ?>
-
 
