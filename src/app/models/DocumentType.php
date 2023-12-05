@@ -28,6 +28,7 @@ class DocumentType extends \yii\db\ActiveRecord
     const DRAW_RECORD = 'draw-record';
     const DNI = 'dni';
     const CVAR = 'cvar';
+    const CV = 'cv';
     const OTHER_PERSONAL = 'other-personal';
     const CERTIFICATES = 'certificates';
     const ACADEMIC_PERFORMANCE = 'academic-performance';
@@ -47,6 +48,7 @@ class DocumentType extends \yii\db\ActiveRecord
     const UNIQUE_TYPES = [
         self::DNI,
         self::CVAR,
+        self::CV,
         self::ACADEMIC_PERFORMANCE,
         self::UNIVERSITY_DEGREE,
         self::COLLEGE_DEGREE,
