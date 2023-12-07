@@ -23,7 +23,6 @@ $this->title = 'Archivos de la Postulación';
             ['/personal-file/my-files'],
             ['class' => 'btn btn-success']
         ) ?>
-
     </p>
 
     <?= 
