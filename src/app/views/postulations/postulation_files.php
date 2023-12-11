@@ -12,9 +12,16 @@ $this->title = 'Archivos de la Postulación';
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
         <?= Html::a(
-            Yii::t('models/personal-files', 'upload_new_file'),
+            '<i class="bi bi-file-earmark-arrow-up"></i> ' .
+            Yii::t('models/personal-files', 'upload_new_postulation_file'),
             ['/personal-file/upload-file', 'postulationId' => $postulationId],
             ['class' => 'btn btn-primary']
+        ) ?>
+        <?= Html::a(
+            '<i class="bi bi-folder"></i> ' . 
+            Yii::t('models/personal-files', 'view_my_files'),
+            ['/personal-file/my-files'],
+            ['class' => 'btn btn-success']
         ) ?>
     </p>
 

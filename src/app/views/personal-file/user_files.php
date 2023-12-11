@@ -14,7 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
     
         <p>
             <?= Html::a(
-                Yii::t('models/personal-files', 'upload_new_file'),
+                '<i class="bi bi-file-earmark-arrow-up"></i> ' .
+                Yii::t('models/personal-files', 'upload_new_personal_file'),
                 ['upload-file'],
                 ['class' => 'btn btn-primary']
             ) ?>
