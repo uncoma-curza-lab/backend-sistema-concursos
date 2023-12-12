@@ -49,9 +49,6 @@ class DocumentType extends \yii\db\ActiveRecord
         self::DNI,
         self::CVAR,
         self::CV,
-        self::ACADEMIC_PERFORMANCE,
-        self::UNIVERSITY_DEGREE,
-        self::COLLEGE_DEGREE,
         self::PRACTICAL_WORK_PROPOSAL,
         self::PROGRAM_PROPOSAL,
         self::REGULAR_INSCRIPTION
