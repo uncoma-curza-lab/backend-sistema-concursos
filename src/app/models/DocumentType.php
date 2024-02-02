@@ -51,7 +51,9 @@ class DocumentType extends \yii\db\ActiveRecord
         self::CV,
         self::PRACTICAL_WORK_PROPOSAL,
         self::PROGRAM_PROPOSAL,
-        self::REGULAR_INSCRIPTION
+        self::REGULAR_INSCRIPTION,
+        self::OTHER_PERSONAL,
+        self::OTHER_POSTULATION
     ];
 
     /**
