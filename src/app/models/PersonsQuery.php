@@ -30,4 +30,9 @@ class PersonsQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function findByUid(int $uid)
+    {
+        return $this->where(['=', 'uid', $uid])->one();
+    }
 }

@@ -173,6 +173,9 @@ class PostulationsController extends Controller
         
     }
 
+    /**
+     * @deprecated
+     */
     public function actionPostulationFiles($postulationId)
     {
         $postulation = Postulations::findOne($postulationId);

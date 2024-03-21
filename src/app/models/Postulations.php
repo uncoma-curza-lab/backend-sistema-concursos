@@ -112,21 +112,16 @@ class Postulations extends \yii\db\ActiveRecord
 
     public function canApprove()
     {
-        $loggedUser = Yii::$app->user;
-        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
         return ($this->status === PostulationStatus::DRAFT ||
             $this->status === PostulationStatus::PENDING) &&
-            in_array('admin', $roles) ||
-            in_array('teach_departament', $roles);
+            Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'approveOrRejectPostulation');
     }
 
     public function canReject()
     {
-        $loggedUser = Yii::$app->user;
-        $roles = array_keys(Yii::$app->authManager->getRolesByUser($loggedUser->id));
         return ($this->status === PostulationStatus::DRAFT ||
             $this->status === PostulationStatus::PENDING) &&
-            in_array('admin', $roles) || in_array('teach_departament', $roles);
+            Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'approveOrRejectPostulation');
     }
 
     public function getStatusDescription()
@@ -143,6 +138,10 @@ class Postulations extends \yii\db\ActiveRecord
             $this->person->first_name);
     }
 
+    /**
+    * @deprecated
+    * use PersonalFile
+    */
     public function createPostulationFolder() 
     {
         $pathToFolder = $this->contest->code . '/' . $this->generateFolderName();
@@ -155,7 +154,11 @@ class Postulations extends \yii\db\ActiveRecord
         }
     }
 
-    public function createPostulationFolderShare()
+    /**
+    * @deprecated
+    * use PersonalFile
+    */
+   public function createPostulationFolderShare()
     {
         $expireDate = '';
         $pathToFolder = $this->contest->code . '/' . $this->generateFolderName();
@@ -178,6 +181,10 @@ class Postulations extends \yii\db\ActiveRecord
         return $response;
     }
 
+    /**
+     * @deprecated
+     * use PersonalFile
+     */
     public function getPostulationFolderShareUrl(): ?string
     {
         if($this->share_id){
@@ -194,4 +201,10 @@ class Postulations extends \yii\db\ActiveRecord
     {
         return PostulationStatus::isEqualStatus($this->status, PostulationStatus::PENDING);
     }
+
+    public function isStatusAccepted() : bool
+    {
+        return PostulationStatus::isEqualStatus($this->status, PostulationStatus::ACCEPTED);
+    }
+
 }

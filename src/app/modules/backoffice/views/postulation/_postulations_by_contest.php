@@ -97,13 +97,11 @@ $columns = [
                   'viewProfile' =>  function($url, $model, $key) {
                     $loggedUser = Yii::$app->user;
                     if (
-                      Yii::$app->authManager->checkAccess($loggedUser->id, 'viewImplicatedPostulations', ['contestSlug' => $model->contest->code])
-                      ||
-                      $model->canApprove()
+                      Yii::$app->authManager->checkAccess($loggedUser->id, 'viewPostulationProfile', ['postulationId' => $model->id])
                     ) {
                       return Html::a(
                         '<span class="bi bi-person-badge-fill" aria-hidden="true"></span>',
-                        ['person/show', 'slug' => $model->person->uid],
+                        ['postulation/show', 'postulationId' => $model->id],
                       );
                     }
                   },

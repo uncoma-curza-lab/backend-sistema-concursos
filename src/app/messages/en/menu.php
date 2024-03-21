@@ -22,6 +22,7 @@ return [
     'logout' => 'Logout',
     'signup' => 'Signup',
     'my_postulations' => 'My postulations',
+    'my_files' => 'My files',
     'Profile' => 'Profile',
     'change_password' => 'Change password',
 ];

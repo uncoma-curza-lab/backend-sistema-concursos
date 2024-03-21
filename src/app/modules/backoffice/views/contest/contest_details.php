@@ -30,12 +30,6 @@ if ($loggedUser) {
          ['title' => Yii::t('models/postulation', 'plural'), 'class' => 'nav-link vnav-link px-0 vnav-close']
      ));
 
-      array_push($contestLinks, Html::a(
-         '<i class="bi bi-folder-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> '.Yii::t('models/contest', 'contest_files') .'</span>',
-         ['contest/contest-files', 'contestId' => $params['model']->id],
-         ['title' => Yii::t('models/contest', 'contest_files'), 'class' => 'nav-link vnav-link px-0 vnav-close']
-     ));
-
      array_push($contestLinks, Html::a(
          '<i class="bi bi-people-fill" aria-hidden="true"></i><span class="vnav-title" style="display: none"> '.Yii::t('models/jury', 'plural').'</span>',
          Url::to(['juries/contest', 'slug' => $params['model']->code]),

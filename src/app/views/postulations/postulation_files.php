@@ -1,5 +1,6 @@
 <?php
 
+use app\widgets\files\FilesGrid;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -9,28 +10,32 @@ $this->title = 'Archivos de la Postulación';
 <div class="postulations-files-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-<?php
-    if($shareUrl):
-?>
+    <p>
+        <?= Html::a(
+            '<i class="bi bi-file-earmark-arrow-up"></i> ' .
+            Yii::t('models/personal-files', 'upload_new_postulation_file'),
+            ['/personal-file/upload-file', 'postulationId' => $postulationId],
+            ['class' => 'btn btn-primary']
+        ) ?>
+        <?= Html::a(
+            '<i class="bi bi-folder"></i> ' . 
+            Yii::t('models/personal-files', 'view_my_files'),
+            ['/personal-file/my-files'],
+            ['class' => 'btn btn-success']
+        ) ?>
+    </p>
 
-    <div class="alert alert-warning" role="alert">
-        Si no puede ver sus archivos abra en una nueva pestaña con el boton correspondiente.
-    </div>
+    <?= 
+        FilesGrid::widget([
+            'dataProvider' => $files,
+            'actionButtons' => [
+                'download' => true,
+                'delete' => fn($file) => !$file->isValid(),
+            ]
+        ]) 
+    ?>
 
-    <iframe src="<?= $shareUrl ?>" width="100%" height="350px" title="Postualtion Files Iframe">
-</iframe>
- 
-<?php
-    else:
-?>
-    <div class="alert alert-warning" role="alert">
-        Ya no tiene acceso a su carpeta compartida.
-    </div>
-<?php
-    endif
-?>
-    <a href="<?= Url::to('my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
-    <a href="<?= $shareUrl ?>" class="btn btn-warning" role="button" target="_blank">Abrir en nueva pestaña</a>
+    <a href="<?= Url::to('/postulations/my-postulations') ?>" class="btn btn-primary" role="button">Regresar</a>
 
 
 </div>

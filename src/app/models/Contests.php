@@ -396,6 +396,10 @@ class Contests extends ActiveRecord
         return parent::beforeSave($insert);
     }
 
+    /**
+     * @deprecated
+     * use PersonalFile
+     */
     public function createConstestFolder() 
     {
         $service = new NextcloudService();
@@ -407,6 +411,10 @@ class Contests extends ActiveRecord
         }
     }
 
+    /**
+     * @deprecated
+     * use PersonalFile
+     */
     public function createContestFolderShare()
     {
         $expireDate = '';
@@ -428,7 +436,11 @@ class Contests extends ActiveRecord
 
         return $response;
     }
-
+    
+    /**
+     * @deprecated
+     * use PersonalFile
+     */
     public function getContestFolderShareUrl(): ?string
     {
         if($this->share_id){
